@@ -1,0 +1,3 @@
+##grflangid 0x01
+STR_GRF_NAME                                                    :Example NewGRF {VERSION}
+STR_GRF_DESCRIPTION                                             :{ORANGE}Example NewGRF{}Designed to help you get started.{}Programming: {SILVER}planetmaker{}{BLACK}Graphics: {SILVER}No-one{}{BLACK}License: {SILVER}GPL v2{}{BLACK}Website: {SILVER}http://dev.openttdcoop.org/projects{}{BLACK}Special thanks to {SILVER}Yexo, Hirundo, frosch, Terkhen, Rubidium{BLACK} and {SILVER}Ammler{BLACK} for their support and contributions

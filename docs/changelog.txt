@@ -1,0 +1,4 @@
+Changelog My Fancy NewGRF
+
+0.1.0:
+- Feature: Something fancy

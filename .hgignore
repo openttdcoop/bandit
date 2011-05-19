@@ -1,0 +1,39 @@
+# Use glob syntax:
+syntax: glob
+
+# The local makefile should be ignored:
+Makefile.local
+
+# And the description file and the grfs which are generated automatically
+bandit*.grf
+
+# Ignore intermediate files created by the Makefile:
+*.nfo
+*.cnfo
+*.cpnfo
+docs/license.txt
+docs/changelog.txt
+docs/readme.txt
+# Dependency files:
+Makefile.dep
+*.dep
+*.REV
+
+
+# Ignore directories from bundle creation / install:
+fish-*
+
+#The .renum dir
+.renum
+
+# Ignore frequent development left-overs like
+# editor backups, patches, rejects etc. pp
+*.orig
+*.bak
+*.log
+*.rej
+*.diff
+
+# Files created by Mac image preview and file browser:
+.DS_Store
+Thumbs.db

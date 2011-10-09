@@ -20,6 +20,8 @@ Makefile.dep
 *.REV
 .version
 custom_tags.txt
+parsetab.py
+
 
 # Ignore directories from bundle creation / install:
 bandit-*

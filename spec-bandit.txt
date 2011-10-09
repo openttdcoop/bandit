@@ -21,6 +21,13 @@ At least one other company will simply deliver heavy, powerful, durable trucks. 
 
 Models will evolve stats similar to NARS 2 and HEQS, however there will be definite distinction between types to make upgrading older models possible with auto-replace.  This is one reason for having multiple manufacturers releasing models.
 
+Possible names:
+- Gmund
+- Trollhattan / troll
+- Dalahast
+- Tuve
+- 
+
 
 * Basic premise: truck types *
 
@@ -43,4 +50,5 @@ The challenge is how to make this elegant when building + running vehicles.  The
 - giving rigid vehicles n hidden trailers prevents using them with drive-into road stops, this is limiting. 
 	/ duplicate all rigid models to 'trailer' 'no trailer' versions (buy menu spam)?
  	/ just say "BANDIT doesn't work with drive-into road stops"?
+
 

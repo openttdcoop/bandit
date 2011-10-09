@@ -22,7 +22,7 @@ Makefile.dep
 custom_tags.txt
 
 # Ignore directories from bundle creation / install:
-fish-*
+bandit-*
 
 #The .renum dir
 .renum

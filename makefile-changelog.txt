@@ -1,0 +1,266 @@
+Changelog newgrf-makefile
+
+0.6.1 (released 08 October 2011)
+- Fix: Build check on bundles failed
+
+
+0.6.0 (released 08 October 2011)
+- Feature: Script to aid creation of a changelog
+- Feature: [NML] Script to check status of language translations (Terkhen)
+- Feature: [NML] Allow to specify the language file extension (useful for generated language files)
+- Change: Move dep check to the language-specific files
+- Change: NML projects currently don't use the Makefile's grfID. Thus remove it from Makefile.config
+- Change: Adopt NML-specific part to make proper use of NML's new graphics file dependency check
+- Change: Update the NML example to use a gimp source file
+- Change: Rename the target 'mrproper' to 'maintainer-clean' - and clean also a few files releated to building source bundles
+- Change: Simplify source bundling and only exclude those mentioned in RE_FILES_NO_SRC_BUNDLE
+- Change: Use always the same filename for version check
+- Change: Rename the configure (repository) script to setup
+- Change: Adopt .hgignore better for project type
+- Change: [NML] type projects only know one dep check type. No need to check for the other
+- Change: Don't use dependencies when cleaning (issue #1277)
+- Change: Disable make's default dependencies
+- Cleanup: Remove expensive variables which store the repo state
+- Doc: Briefly comment on option to use gimp
+- Doc: A few more numbers on speed
+
+
+0.5.8 (released 16 July 2011)
+- Feature: Add compression xz and allow source bundles in different compression formats, depreciated target bundel_src is aliased to bundle_gsrc (still the same)
+- Feature: Allow to use gimp's scripting ability to generate png files automatically from layered psd or xcf source files
+- Feature: Allow to add an additonal step prior to dep check (e.g. for scripted file generation)
+- Add: Simple configure script for creation of a new NewGRF project to source
+- Change: move script check out from spec
+- Change: [NFO] Rename the graphics folder
+- Change: check a bit more verbose
+- Change: bundle building more verbose
+- Change: Do not copy Makefile.local as this is still available, instead add a note of purpose to Makefile.dist
+- Change: additional ignores for nml projects
+- Fix: [NFO] Add sprite counter sprite and action14 with version info
+- Fix: [NML] Don't try to scan non-existing files for dependencies
+- Fix: [NML] Generated custom_tags.txt didn't cleanup
+- Fix: Don't fail cleaning when no graphics source list file exists
+
+
+0.5.7 (released 24 April 2011)
+- Change: Use an empty default branch name instead of 'nightly'
+- Fix: Clean a few more generated files
+
+
+0.5.6 (released 24 April 2011)
+- Fix: Compile farm check did not test the correct thing
+
+
+0.5.5 (released 24 April 2011)
+- Change: publish produced test nfo/nml files
+- Change: [NFO] Don't use the nfoheader.nfo anymore. It leads to more problems than it's worth
+- Fix: Don't bundle potentially the created files from a sub-repo
+- Fix: [NFO] Clean the nfo and cnfo files related to the grfs we build
+- Fix: [NFO] Having the nfo and not the cnfo file depend on source changes resulted in not everything being re-built when it needed to be re-built
+
+
+0.5.4 (released 27 February 2011)
+- Feature: add test to the build script
+- Fix: target 'bundle_src' was wrongly defined
+- Fix: Source bundles need a Makefile.local.sample
+- Fix: On updates don't overwrite a newgrf's readme, but still supply our own
+- Fix: update.sh copied the wrong Makefile
+- Fix: [NML] Repo revision wasn't actually written to the NewGRF
+- Fix: Clean cleaned a bit too much under some conditions
+
+
+0.5.3 (released 22 December 2010)
+- Fix: [NFO] Some intermediate files (*.cnfo) were not always looked for in the proper path
+- Fix: [NFO] The dependencies of older revisions were sometimes retained, leading to erronous dependencies
+- Fix: The dependency check sometimes triggered a warning updating the revision file
+
+
+0.5.2 (released 16 December 2010)
+- Change: customize release spec
+- Change: [NML] Language handling changed in NML
+- Revert: [NFO] cnfo files were not generated anymore
+- Fix: [NML] Faulty dependency caused bogus error on building a clean checkout
+- Feature: Files which enable the NewGRF compile farm
+
+
+0.5.1 (released 19 November 2010)
+- Add: Update bundles for both nfo and nml projects for easy update of existing projects
+- Fix: Allow to build source bundles which are just an hg archive of this repo
+- Change: custom build script
+- Fix: Don't fail building on missing md5sums. We have no newgrf, so skip it
+- Fix: [NFO] Faulty dependency caused some rebuilds to be incomplete
+- Fix: [NML] Faulty dependency caused bogus error on building a clean checkout
+
+
+0.5.0 (released 7 November 2010)
+- Change: Ignore some more NML - style files
+- Change: [NML] Allow to use the repository version as newgrf version
+- Change: More sophisticated update script which also cares for new installs (Ammler)
+- Change: Do not build this 'grf' but rather build bundles for an nfo and nml example newgrf respectively
+
+
+
+0.4.6 (released 19 September 2010)
+- Feature: Allow to opt-out of installing changelog and / or license
+- Change: Make it impossible to overwrite the md5 file to check against, unless one builds source bundle
+- Change: Also build the documentation when a simple make is called
+- Codechange: Decide upon the DEP_CHECK_TYPE by checking for the availability of python
+- Codechange: Remove unnecessary ifdef
+- Fix: add all file extensions to a proper regex
+
+
+0.4.5 (released 18 September 2010)
+- Fix (r191): Don't use BSD-only extensions of sed
+
+
+0.4.4 (released 18 September 2010)
+- Change: Modularize the dep check a bit more, simplifying 'normal' dep check.
+- Change: Include makefile parts explicitly, avoiding inclusion of unnecessary files in the deps
+- Change: Add better regex testing capability of the nfo file
+- Change: mdep check allows now also png files
+- Change: Don't preprocess those doc files which don't need it
+- Fix: Define gcc for buggy MinGW
+- Fix: mdep check threw away all its effort, overwriting it later
+- Fix: Clean cleaned too much
+- Fix: Re-introduce another intermediate step so that a gcc failure is fatal again
+- Doc: Runtime on different sytems
+- Doc: Officially allow 'none' as dep check in the example Makefile.local
+
+
+0.4.3 (released 13 September 2010)
+- Feature: Introduce DOCDIR which allows to install the documentation to a separate directory, if specified
+- Feature: Auto-detect the installation path for windows, depending upon windows version
+- Change: Install grfs in their separate directory
+- Change: Introduce 'Makefile.dist' for tar distributions
+- Fix: Remove superfluous spaces from custom_tags.txt
+- Fix: Use proper variable values also when building from a tar bundle
+- Doc: Describe necessary changes to Makefile.config when updating to the current Makefile from an older version
+
+
+0.4.2 (released 10 September 2010)
+- Feature: Make the subdir installed to configurable
+- Change: Use a working dir separator also under cygwin and msys
+- Change: Some unix2dos don't know how to be quiet. Let them babble but not complain
+- Codechange: Let the grf depend upon the Makefiles
+- Codechange: Always depend upon the Makefile, irrespective of dep creation method
+- Fix: [obg] Don't try to include the md5sum of the description file itself in itself
+- Fix: Build and bundle the documentation files again
+- Fix: custom_tags got an empty filename variable
+- Fix: The grf depends on the nfo, not on the source files directly
+- Fix: Handle missing unix2dos binary gracefully
+- Add: Script copying all needed files to a new project
+
+
+0.4.1 (released 28 August 2010)
+- Change: Make use of option -s for nforenum and grfcodec and tidy up output generally a bit more
+- Change: Move some nfo-only stuff to a separate Makefile
+- Change: Add a 1pixel graphics file in order to allow better testing of the dependency checks
+- Change: Replace the PROJECT_TYPE variable by individual switches
+- Change: Remove a few not needed variables
+- Change: Unify the handling of build targets, introduce unified list of targets TARGET_FILES
+- Change: Hardcode version stuff in Makefile.def
+- Change: Simplify the test target
+- Change: Remove a bit unnecessary output
+- Fix: Ignore commented out files when using mdep dependency check
+- Fix: Simplify dependencies a bit
+- Fix: Add the NML - specific Makefile
+- Fix: Don't hard-code the binary names, if they're defined two lines below. Also the local Makefile shall overwrite unconditionally
+- Fix: Don't ship extra file information in bundle_src for Makefile.local
+- Fix: Don't ship .hgeol in bundles
+- Fix: [NML] custom_tags.txt wasn't generated
+- Fix: Distclean could produce unwanted output
+- Add: Makefile part dedicated to graphics base sets
+- Add: Makefile part dedicated for sound base sets
+
+
+0.4.0 (released 21 August 2010)
+- Feature #1178: Alternative dependency check implemented in python (script by Alberth)
+- Change: Enhance the make_changelog script
+- Change: The name of the NML compiler changed
+- Change: Fail on nforenum errors, but keep going for warnings (based on patch by Alberth)
+- Change: Reduce verbose-ness of grfcodec by piping its output through cat
+- Change: Output more to the point of what is going on
+- Change: renum is now officially called nforenum everywhere (closes #1086)
+- Change: Speed-up parts of the dep check a bit more (Alberth)
+- Change: Keep preprocessing output in the nfo. It allows to easier find the files where something went wrong
+- Fix (r120): Version detection failed for modified repos
+- Fix: A few phony targets were not declared as such
+- Doc: A few phoy targets were not documented
+
+
+
+0.3.2 (released  4 June 2010)
+- Change: Reorder the test target a bit
+- Fix: Supply default replacement strings for the documentation files
+- Fix: [NML] Language files are also a dependency for the grf
+
+
+0.3.1 (released  3 June 2010)
+- Fix (r109): bundle_src was broken
+
+
+0.3.0 (released  3 June 2010)
+- Feature: Support dep checks for CATCODEC projects
+- Feature: [NML] Support pre-processing also for nml-style projects.
+- Feature: [NML] Dependency check for NML projects
+- Feature [#1052]: Native support for .hgeol (mercurial 1.5.4 or later)
+- Feature: Support repositories with branches
+
+- Change: Add information for new compile farm
+- Change: Allow selection of project type via PROJECT_TYPE variable (default=NFO) and use it to chose a proper dep check
+- Change: [NML] Don't strip pre-processor lines anymore. They're used by NML now for error messages
+- Change: ignore some common extensions also in subdirs
+- Change [#1017]: Let bundle_zip behave the same as bundle_tar, don't pack the tar additionally
+
+- Fix: Fail on the missing file, not on the dependency check
+- Fix: [NML] Create custom_tags.txt as needed for NML style projects
+- Fix: {{REPO_REVISON}} didn't work as tag for strings in the readme
+- Fix: {{GRF_MD5}} didn't work as tag for string in the readme
+- Fix: Regex for bundle_zip was looking for ?grf instead of .grf
+- Fix (r89): Also don't put extended attributes in the release tars
+
+
+
+0.2.0 (released 22 May 2010)
+- Feature: Support NML-style projects
+- Feature [#879]: Introduce target 'distclean' which should delete everything not found in the tarball (based on patch by blathijs)
+- Feature: Add an md5 file and test target in order to allow checking correctness for building from source
+- Feature: Add 'addcheck' which checks for dependencies not added to the mercurial repo
+- Feature: Add target 'docs'
+- Feature: Make the version string a dependency for the nfo and txt files. This is important when a change is commited or the repo is updated to the previously commited tag, thus the version incorporated in files has to change, too.
+
+- Change: Don't pack the grf files directly in the zip, but do pack the tar
+- Change [#882]: Use 'grfcodec -c'. It's nicer for the purchase view when using templates
+- Change: Add tnfo as usual template source file
+- Change: Indicate 'INSTALLDIR' as deprecated
+- Change: Rename source txt files to ptxt
+- Change: Report also the repo title and (if any) grf files
+- Change: simplify retrieval of repo information by using hg id
+- Change: Move SPRITEDIR to the main makefile. Grfcodec relies on the exact name.
+- Change: As bananas supports a changelog.txt, target 'bananas' now is a synonym for 'tar_filename'
+- Change: Disable warnings directly in the nfo files and don't chop away comments in the nfo code on pre-processing
+- Change: Deprecate target 'bananas' as changelog.txt is supported now. Use 'tar' instead.
+
+- Fix (r77): Don't rebuild when calling clean or mrproper. Only have Makefile.dep depend on the main source files (Rubidium)
+- Fix: [#881] Don't pack files which make no sense in a source release
+- Fix: Remove a few bashisms (Rubidium)
+- Fix: Source releases should be gzip'ed
+- Fix [Makefile]: Don't compress the tar
+- Fix: Compile this sample newgrf without errors
+
+- Doc: Explain use of the single Makefiles in the main Makefile
+- Doc: Document which files need changing when starting a new project with the help of this template newgrf
+- Doc: Add a quickstart guide to readme
+
+
+
+0.1.0:
+- Feature: Create bundle in zip, bz2 and tar format
+- Feature: Install will try to install the grf in OpenTTD's data dir
+- Feature: Add the version information automatically to readme.txt and the grf itself
+- Feature: Allow automatic generation of the displayed name using tag or repository version
+- Feature: Make the verbosity a configurable thing
+- Feature: Depend on the pcx files automatically
+- Feature: Crop extra blue from sprites by default (Option -c of grfcodec)
+- Feature: Target 'bananas' which contains readme, license and grf in a single tar without paths
+- Feature: Target 'release_source' allows to distribute source for a release without using a vcs

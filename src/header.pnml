@@ -1,0 +1,40 @@
+// define the newgrf
+grf {
+	grfid: "AB\02\03";
+	name: string(STR_GRF_NAME);
+	desc: string(STR_GRF_DESCRIPTION);
+	version: REPO_REVISION;
+	min_compatible_version: 1;
+}
+
+// Template to replace a full set of groundsprites, all in one row,
+//     first sprite starting at x/y. See gfx/test.xcf for an example
+//     arrangement of the sprites which are described by this template
+template tmpl_groundsprites(x, y) {
+    [   0+x,   y, 64, 31, -31,  0 ]
+    [  80+x,   y, 64, 31, -31,  0 ]
+    [ 160+x,   y, 64, 23, -31,  0 ]
+    [ 240+x,   y, 64, 23, -31,  0 ]
+
+    [ 320+x,   y, 64, 31, -31,  0 ]
+    [ 398+x,   y, 64, 31, -31,  0 ]
+    [ 478+x,   y, 64, 23, -31,  0 ]
+    [ 558+x,   y, 64, 23, -31,  0 ]
+
+    [ 638+x,   y, 64, 39, -31, -8 ]
+    [ 718+x,   y, 64, 39, -31, -8 ]
+    [ 798+x,   y, 64, 31, -31, -8 ]
+    [ 878+x,   y, 64, 31, -31, -8 ]
+
+    [ 958+x,   y, 64, 39, -31, -8 ]
+    [1038+x,   y, 64, 39, -31, -8 ]
+    [1118+x,   y, 64, 31, -31, -8 ]
+    [1196+x,   y, 64, 47, -31,-16 ]
+
+    [1276+x,   y, 64, 15, -31,  0 ]
+    [1356+x,   y, 64, 31, -31, -8 ]
+    [1436+x,   y, 64, 31, -31, -8 ]
+}
+
+// Normal land:
+replace (3981, "gfx/terrain.png") { tmpl_groundsprites(1,  830) }

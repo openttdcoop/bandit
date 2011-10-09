@@ -18,7 +18,8 @@ docs/readme.txt
 Makefile.dep
 *.dep
 *.REV
-
+.version
+custom_tags.txt
 
 # Ignore directories from bundle creation / install:
 fish-*

@@ -1,6 +1,6 @@
 // define the newgrf
 grf {
-	grfid: "AB\02\03";
+	grfid: "\28\B5\FA\35";
 	name: string(STR_GRF_NAME);
 	desc: string(STR_GRF_DESCRIPTION);
 	version: REPO_REVISION;

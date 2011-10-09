@@ -24,7 +24,7 @@ parsetab.py
 
 
 # Ignore directories from bundle creation / install:
-bandit-*
+bandit*
 
 #The .renum dir
 .renum

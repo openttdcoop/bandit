@@ -1,0 +1,46 @@
+* Basic premise: truck styles  *
+
+At TTD scale, there is not much to distinguish in details of cabs etc.  Also, truck appearance has not changed greatly since about 1950.  
+
+So with some detail variation, basically the following:
+- US conventional (bonneted truck)
+- US cabover truck
+- European conventional (bonneted truck)
+- European cabover truck 
+
+'Rest of world' trucks are basically older European and US models for this set.
+
+
+* Basic premise: manufacturers & models *
+
+No real world models.
+
+Two main truck companies competing with each other.  For each model (and model generation), the benefits of one manufacturer will be offset elsewhere by the other.  So faster truck might be lower capacity, or less reliable.  Cheaper truck might be shorter life etc.
+
+At least one other company will simply deliver heavy, powerful, durable trucks.  These will be *expensive*, and probably not the fastest.
+
+Models will evolve stats similar to NARS 2 and HEQS, however there will be definite distinction between types to make upgrading older models possible with auto-replace.  This is one reason for having multiple manufacturers releasing models.
+
+
+* Basic premise: truck types *
+
+Trucks are offered in a range of classes, this dictates number of axles, capacity, power etc.
+
+Trucks are either:
+- tractor (fifth-wheel articulated), typically no cargo capacity, although IRL some are dromedary/camel with cargo bodies + fifth wheel.
+- rigid, cargo body, plus optional trailers via drawbar 
+
+IRL trucks may have combinations of fifth wheel and drawbar trailers, forming B-trains, doubles, LHVs etc.
+
+IRL fifth-wheel tractors can switch to any trailer at no cost.
+IRL rigid trucks can be fitted with new body types at some cost.
+
+The challenge is how to make this elegant when building + running vehicles.  There are a number of challenges:
+- rv-wagons doesn't exist, and there is currently no interest in it.
+	/ start rv-wagons?	
+- using cargo subtype refits to determine number of trailers (by hiding some trailers) is clunky and can lead to hundreds of options in the refit menu.
+	/ improve refit by splitting cargo subtype from cargo (would improve other areas)?
+- giving rigid vehicles n hidden trailers prevents using them with drive-into road stops, this is limiting. 
+	/ duplicate all rigid models to 'trailer' 'no trailer' versions (buy menu spam)?
+ 	/ just say "BANDIT doesn't work with drive-into road stops"?
+

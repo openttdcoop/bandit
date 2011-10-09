@@ -26,7 +26,7 @@ Models will evolve stats similar to NARS 2 and HEQS, however there will be defin
 
 Trucks are offered in a range of classes, this dictates number of axles, capacity, power etc.
 
-Trucks are either:
+Trucks are also either:
 - tractor (fifth-wheel articulated), typically no cargo capacity, although IRL some are dromedary/camel with cargo bodies + fifth wheel.
 - rigid, cargo body, plus optional trailers via drawbar 
 

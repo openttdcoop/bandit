@@ -52,3 +52,9 @@ The challenge is how to make this elegant when building + running vehicles.  The
  	/ just say "BANDIT doesn't work with drive-into road stops"?
 
 
+* Classes *
+- light truck: 8-12 tons capacity
+- medium truck: 12-20 tons capacity
+- heavy truck: 20 tons capacity upwards
+
+"2 axle tractor unit 7000 kg and a tri axle curtain sider 5000 kg,tri axle reefer 7000 kg,tri axle skeletal about 5000kg 3 axle tractor about 8000 kg.Articulated means it bends at the 5th wheel.Fully laden max is 44000 kg but if its on a 5 axle rig you got to pay more road tax than a 6 axle outfit"

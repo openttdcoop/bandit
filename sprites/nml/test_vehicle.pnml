@@ -1,0 +1,29 @@
+spriteset(realsprites_veh_truck_test, "sprites/graphics/cabover_truck_test.png") {
+    //left_x, upper_y, width, height, offset_x, offset_y
+    [ 0,      0,        8,    18,      -3,      -10]
+    [ 16,     0,       20,    16,     -14,       -7]
+    [ 48,     0,       28,    12,     -14,       -6]
+    [ 96,     0,       20,    16,      -6,       -7]
+    [ 128,    0,        8,    18,      -3,      -10]
+    [ 144,    0,       20,    16,     -14,       -7]
+    [ 176,    0,       28,    12,     -14,       -6]
+    [ 224,    0,       20,    16,      -6,       -7]
+}
+
+spritegroup sg_veh_truck_test {
+    loaded:  [realsprites_veh_truck_test];
+    loading: [realsprites_veh_truck_test];
+}
+
+
+item(FEAT_ROADVEHS, veh_truck_test) {
+    property {
+        climates_available:             bitmask(CLIMATE_TEMPERATE, CLIMATE_ARCTIC, CLIMATE_TROPICAL);
+        introduction_date:              date(1926,01,01);
+        cargo_capacity:                 20;
+        sprite_id:                      SPRITE_ID_NEW_ROADVEH; //enable new graphics
+    }
+    graphics {
+        default: sg_veh_truck_test;
+    }
+}

@@ -1,2 +1,4 @@
 // List of source files included from main file
 #include "sprites/nml/header.pnml"
+
+#include "sprites/nml/test_vehicle.pnml"

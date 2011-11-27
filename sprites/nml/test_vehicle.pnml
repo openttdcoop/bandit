@@ -1,13 +1,31 @@
+template template_truck_16(x, y) {
+    //[left_x,  upper_y,    width,     height,     offset_x,     offset_y]
+    [x,         y,          10,        28,           -4,          -9]
+    [x+ 20,     y,          26,        28,          -17,         -14]
+    [x+ 50,     y,          36,        28,          -26,         -20]
+    [x+ 90,     y,          26,        28,           -9,         -15]
+    [x+120,     y,          10,        28,           -4,         -17]
+    [x+140,     y,          26,        28,          -16,         -16]
+    [x+170,     y,          36,        28,          -10,         -20]
+    [x+210,     y,          26,        28,           -8,         -16]
+}
+
+template template_truck_28(x, y) {
+    //[left_x,  upper_y,    width,     height,     offset_x,     offset_y]
+    [x,         y,          10,        28,           -4,         -11]
+    [x+ 20,     y,          26,        28,          -17,         -14]
+    [x+ 50,     y,          36,        28,          -20,         -20]
+    [x+ 90,     y,          26,        28,           -9,         -15]
+    [x+120,     y,          10,        28,           -4,         -13]
+    [x+140,     y,          26,        28,          -16,         -16]
+    [x+170,     y,          36,        28,          -16,         -20]
+    [x+210,     y,          26,        28,           -8,         -16]
+}
+
+
+
 spriteset(realsprites_veh_truck_test, "sprites/graphics/cabover_truck_test.png") {
-    //left_x, upper_y, width, height, offset_x, offset_y
-    [ 0,      0,        8,    18,      -3,      -10]
-    [ 16,     0,       20,    16,     -14,       -7]
-    [ 48,     0,       28,    12,     -14,       -6]
-    [ 96,     0,       20,    16,      -6,       -7]
-    [ 128,    0,        8,    18,      -3,      -10]
-    [ 144,    0,       20,    16,     -14,       -7]
-    [ 176,    0,       28,    12,     -14,       -6]
-    [ 224,    0,       20,    16,      -6,       -7]
+  template_truck_16(0, 20)
 }
 
 spritegroup sg_veh_truck_test {
@@ -16,14 +34,46 @@ spritegroup sg_veh_truck_test {
 }
 
 
+switch (FEAT_ROADVEHS, SELF, switch_articulated_truck_test, extra_callback_info1) {
+    1: return veh_trailer_test;
+    return 0xFF; //stop adding vehicle parts
+}
+
 item(FEAT_ROADVEHS, veh_truck_test) {
     property {
         climates_available:             bitmask(CLIMATE_TEMPERATE, CLIMATE_ARCTIC, CLIMATE_TROPICAL);
         introduction_date:              date(1926,01,01);
         cargo_capacity:                 20;
         sprite_id:                      SPRITE_ID_NEW_ROADVEH; //enable new graphics
+        speed:                          48 km/h;
+        power:                          120 hp;
+        weight:                         9.5 ton;
     }
     graphics {
-        default: sg_veh_truck_test;
+        shorten_vehicle:                5;
+        articulated_part:               switch_articulated_truck_test;
+        default:                        sg_veh_truck_test;
+    }
+}
+
+
+spriteset(realsprites_veh_trailer_test, "sprites/graphics/trailer_test.png") {
+  template_truck_28(0, 20)
+}
+
+spritegroup sg_veh_trailer_test {
+    loaded:  [realsprites_veh_trailer_test];
+    loading: [realsprites_veh_trailer_test];
+}
+
+item(FEAT_ROADVEHS, veh_trailer_test) {
+    property {
+        climates_available:             bitmask();
+        introduction_date:              date(1926,01,01);
+        cargo_capacity:                 20;
+        sprite_id:                      SPRITE_ID_NEW_ROADVEH; //enable new graphics
+    }
+    graphics {
+        default:                        sg_veh_trailer_test;
     }
 }

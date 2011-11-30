@@ -53,8 +53,30 @@ The challenge is how to make this elegant when building + running vehicles.  The
 
 
 * Classes *
-- light truck: 8-12 tons capacity
-- medium truck: 12-20 tons capacity
-- heavy truck: 20 tons capacity upwards
+- light truck: 8-12 tons capacity  (US class 6, 2 axles, truck)
+- medium truck: 12-20 tons capacity  (US class 7, 2 or 3 axles, truck or tractor)
+- heavy truck: 20 tons capacity upwards (US class 8, 3 or 4 axles, truck or tractor)
+
+- standard (refit anything, middle for HP, TE, costs, run costs; day cabs etc)
+- express (sacrifice payload for speed, limited refits, high HP, low TE; expensive, higher run cost, aero sleepers etc)
+- vocational (limited refits, expensive, long lasting, high HP, high TE; dump trucks, log trucks etc - day cabs, high clearance chassis)
+
+There are no class 6 vocational trucks.  Only class 7 or 8.
+Express and standard trucks are available in all classes.
+An express truck will carry less payload than an equivalent-class standard truck for the same all up weight.  It will be faster and more powerful, and cost more to buy and run.
+
+- guarantee some trucks with no trailers, e.g. at least one in each class with no drag / pup
 
 "2 axle tractor unit 7000 kg and a tri axle curtain sider 5000 kg,tri axle reefer 7000 kg,tri axle skeletal about 5000kg 3 axle tractor about 8000 kg.Articulated means it bends at the 5th wheel.Fully laden max is 44000 kg but if its on a 5 axle rig you got to pay more road tax than a 6 axle outfit"
+
+- a 5 axle truck might cost less to buy but cost more to run for same capacity (tax, component wear) <- might be too detailed
+- reefers should have a run cost
+
+Company 1.  
+Standard, express + vocational trucks
+
+Company 2.
+Standard and express trucks
+
+Company 3.
+Vocational trucks only

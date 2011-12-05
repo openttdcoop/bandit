@@ -53,9 +53,9 @@ The challenge is how to make this elegant when building + running vehicles.  The
 
 
 * Classes *
-- light truck: 8-12 tons capacity  (US class 6, 2 axles, truck)
-- medium truck: 12-20 tons capacity  (US class 7, 2 or 3 axles, truck or tractor)
-- heavy truck: 20 tons capacity upwards (US class 8, 3 or 4 axles, truck or tractor)
+- light truck: 8-14 tons capacity  (US class 6, 2 axles, truck)
+- medium truck: 14-22 tons capacity  (US class 7, 2 or 3 axles, truck or tractor)
+- heavy truck: 22 tons capacity upwards (US class 8, 3 or 4 axles, truck or tractor)
 
 - standard (refit anything, middle for HP, TE, costs, run costs; day cabs etc)
 - express (sacrifice payload for speed, limited refits, high HP, low TE; expensive, higher run cost, aero sleepers etc)
@@ -79,4 +79,4 @@ Company 2.
 Standard and express trucks
 
 Company 3.
-Vocational trucks only
+Vocational trucks, and class 8 standard heavy tractor only

@@ -58,8 +58,8 @@ The challenge is how to make this elegant when building + running vehicles.  The
 - heavy truck: 22 tons capacity upwards (US class 8, 3 or 4 axles, truck or tractor)
 
 - standard (refit anything, middle for HP, TE, costs, run costs; day cabs etc)
-- express (sacrifice payload for speed, limited refits, high HP, low TE; expensive, higher run cost, aero sleepers etc)
-- vocational (limited refits, expensive, long lasting, high HP, high TE; dump trucks, log trucks etc - day cabs, high clearance chassis)
+- express (sacrifice payload for speed, limited refits (limit bulk & liquid cargos), high HP, low TE; expensive, higher run cost, aero sleepers etc).  
+- vocational (limited refits (limit express cargos), expensive, long lasting, high HP, high TE; dump trucks, log trucks etc - day cabs, high clearance chassis).
 
 There are no class 6 vocational trucks.  Only class 7 or 8.
 Express and standard trucks are available in all classes.
@@ -80,3 +80,11 @@ Standard and express trucks
 
 Company 3.
 Vocational trucks, and class 8 standard heavy tractor only
+
+
+*Early trucks 1898-1920*
+3-7t
+20-30hp
+5-15mph
+
+

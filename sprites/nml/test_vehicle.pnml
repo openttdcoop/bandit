@@ -1,5 +1,5 @@
 #define THIS_VEH_ID               veh_truck_test
-#define THIS_NAME                 STR_VEH_NAME_TEST_VEHICLE // should be con
+#define THIS_NAME                 STR_VEH_NAME_TEST_VEHICLE // could be concatenated using CPP - in the item template? 
 #define THIS_SPEED                48 km/h
 #define THIS_POWER                120 hp
 #define THIS_TE_COEFFICIENT       GLOBAL_DEFAULT_TE_COEFFICIENT

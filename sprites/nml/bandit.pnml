@@ -7,6 +7,6 @@
 
 #include "sprites/nml/test_vehicle.pnml"
 
-// trailers included at end to be available for all vehicles 
+// trailers included after tractors to be available for all vehicles 
 #include "sprites/nml/trailers/test_trailer.pnml"
 

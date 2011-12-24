@@ -7,6 +7,13 @@ item(FEAT_ROADVEHS, THIS_VEH_ID) {
         speed:                          THIS_SPEED;
         power:                          THIS_POWER;
         weight:                         THIS_WEIGHT;
+        tractive_effort_coefficient:    THIS_TE_COEFFICIENT;
+        cost_factor:                    THIS_BUY_COST;
+        running_cost_factor:            THIS_RUN_COST;
+        refittable_cargo_classes:       bitmask(THIS_ALLOWED_CARGO_CLASSES);
+        non_refittable_cargo_classes:   bitmask(THIS_DISALLOWED_CARGO_CLASSES);
+        cargo_allow_refit:              [THIS_ALLOWED_CARGOS];
+        cargo_disallow_refit:           [THIS_DISALLOWED_CARGOS];
     }
     graphics {
         shorten_vehicle:                THIS_LENGTH;

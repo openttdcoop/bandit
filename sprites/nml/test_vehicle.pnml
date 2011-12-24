@@ -1,11 +1,21 @@
-#define THIS_VEH_ID      veh_truck_test
-#define THIS_CAPACITY    20
-#define THIS_SPEED       48 km/h
-#define THIS_POWER       120 hp
-#define THIS_WEIGHT      9.5 ton
-#define THIS_LENGTH      5
-#define THIS_INTRO_DATE  date(1926,01,01)
+#define THIS_VEH_ID               veh_truck_test
+#define THIS_CAPACITY             20
+#define THIS_SPEED                48 km/h
+#define THIS_POWER                120 hp
+#define THIS_WEIGHT               9.5 ton
+#define THIS_TE_COEFFICIENT       GLOBAL_DEFAULT_TE_COEFFICIENT
+#define THIS_BUY_COST             10
+#define THIS_RUN_COST             10
+#define THIS_INTRO_DATE           date(1926,01,01)
+#define THIS_MODEL_LIFE           100
 
+// use comma separated lists for allowed/disallowed cargos and cargo classes
+#define THIS_ALLOWED_CARGOS               COAL
+#define THIS_DISALLOWED_CARGOS            IORE, PASS
+#define THIS_ALLOWED_CARGO_CLASSES        CC_MAIL
+#define THIS_DISALLOWED_CARGO_CLASSES     CC_LIQUID
+
+#define THIS_LENGTH  5 // length as fraction of 8; articulated trucks may be shorter than sprites sp trailer overlaps  
 spriteset(realsprites_veh_truck_test, "sprites/graphics/cabover_truck_test.png") {
   spriteset_template_truck_16(0, 20) // (search 'sprites/nml' to find where spriteset templates are defined)  
 }
@@ -16,7 +26,7 @@ spritegroup THIS_SG_ID {
     loading: [realsprites_veh_truck_test];
 }
 
-// articulated cb is handled on a custom basis per truck, this is not wholly efficient, but is easier to work with
+// articulated cb is handled on a custom basis per truck; this is not wholly efficient, but I find it easier to work with
 #define THIS_ARTICULATED_SWITCH_ID   switch_articulated_truck_test // ID will also be used for templated item block
 switch (FEAT_ROADVEHS, SELF, THIS_ARTICULATED_SWITCH_ID, extra_callback_info1) {
     1: return veh_trailer_test;

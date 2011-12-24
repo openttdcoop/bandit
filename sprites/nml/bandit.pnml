@@ -1,6 +1,7 @@
 // List of source files included from main file
 #include "sprites/nml/ids.pnml"
 #include "sprites/nml/header.pnml"
+#include "sprites/nml/cargo_table.pnml"
 
 #include "sprites/nml/templates/vehicle_offsets.tnml"
 

@@ -87,4 +87,10 @@ Vocational trucks, and class 8 standard heavy tractor only
 20-30hp
 5-15mph
 
-
+*Implementation*
+Lots of trailers needed.
+Fooling with cb36 to set props based on ID of lead vehicle is a headache.
+Easier to hard code on new ID + use a lot of templates. 
+Trailers need to be matched to specific capacities (including fraction of actual capacity for 1st trailer in a consist, with some capacity on lead vehicle to ensure TE).
+Drawbar / dolly trailers behave differently to fifth wheel trailers.
+Trailers need to be matched to cargo refits of the tractor.

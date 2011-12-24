@@ -11,8 +11,6 @@ bandit*.grf
 *.nfo
 *.cnfo
 *.cpnfo
-docs/license.txt
-docs/changelog.txt
 docs/readme.txt
 # Dependency files:
 Makefile.dep

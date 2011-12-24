@@ -7,7 +7,7 @@
 #define THIS_INTRO_DATE  date(1926,01,01)
 
 spriteset(realsprites_veh_truck_test, "sprites/graphics/cabover_truck_test.png") {
-  spriteset_template_truck_16(0, 20) // use a spriteset template (search 'sprites/nml' to find where they're defined)  
+  spriteset_template_truck_16(0, 20) // (search 'sprites/nml' to find where spriteset templates are defined)  
 }
 
 #define THIS_SG_ID   sg_veh_truck_test // ID will also be used for templated item block
@@ -24,3 +24,5 @@ switch (FEAT_ROADVEHS, SELF, THIS_ARTICULATED_SWITCH_ID, extra_callback_info1) {
 }
 
 #include "templates/template_articulated_truck_item.tnml"
+
+#include "templates/template_clear_defines.tnml"

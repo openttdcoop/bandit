@@ -1,13 +1,15 @@
 #define THIS_VEH_ID               veh_truck_test
-#define THIS_CAPACITY             20
 #define THIS_SPEED                48 km/h
 #define THIS_POWER                120 hp
-#define THIS_WEIGHT               9.5 ton
 #define THIS_TE_COEFFICIENT       GLOBAL_DEFAULT_TE_COEFFICIENT
 #define THIS_BUY_COST             10
 #define THIS_RUN_COST             10
 #define THIS_INTRO_DATE           date(1926,01,01)
 #define THIS_MODEL_LIFE           100
+// total capacity to be split over tractor / 1st trailer. Some fraction of capacity required for purposes of TE.
+#define THIS_CAPACITY             20
+// include trailer weight(s) as ottd trailing parts have weight=0. If number of trailers varies by subtype, define weight for each subtype.
+#define THIS_WEIGHT               9.5 ton
 
 #include "templates/refits/refits_default.tnml"
 

@@ -1,4 +1,5 @@
 #define THIS_VEH_ID               veh_trailer_test
+// total capacity to be split over tractor / 1st trailer. Some fraction of capacity required for purposes of TE.
 #define THIS_CAPACITY             20
 
 #include "../templates/refits/refits_default.tnml"

@@ -1,79 +1,26 @@
-template template_truck_16(x, y) {
-    //[left_x,  upper_y,    width,     height,     offset_x,     offset_y]
-    [x,         y,          10,        28,           -4,          -9]
-    [x+ 20,     y,          26,        28,          -17,         -14]
-    [x+ 50,     y,          36,        28,          -26,         -20]
-    [x+ 90,     y,          26,        28,           -9,         -15]
-    [x+120,     y,          10,        28,           -4,         -17]
-    [x+140,     y,          26,        28,          -16,         -16]
-    [x+170,     y,          36,        28,          -10,         -20]
-    [x+210,     y,          26,        28,           -8,         -16]
-}
-
-template template_truck_28(x, y) {
-    //[left_x,  upper_y,    width,     height,     offset_x,     offset_y]
-    [x,         y,          10,        28,           -4,         -11]
-    [x+ 20,     y,          26,        28,          -17,         -14]
-    [x+ 50,     y,          36,        28,          -20,         -20]
-    [x+ 90,     y,          26,        28,           -9,         -15]
-    [x+120,     y,          10,        28,           -4,         -13]
-    [x+140,     y,          26,        28,          -16,         -16]
-    [x+170,     y,          36,        28,          -16,         -20]
-    [x+210,     y,          26,        28,           -8,         -16]
-}
-
-
+#define THIS_VEH_ID      veh_truck_test
+#define THIS_CAPACITY    20
+#define THIS_SPEED       48 km/h
+#define THIS_POWER       120 hp
+#define THIS_WEIGHT      9.5 ton
+#define THIS_LENGTH      5
+#define THIS_INTRO_DATE  date(1926,01,01)
 
 spriteset(realsprites_veh_truck_test, "sprites/graphics/cabover_truck_test.png") {
-  template_truck_16(0, 20)
+  spriteset_template_truck_16(0, 20) // use a spriteset template (search 'sprites/nml' to find where they're defined)  
 }
 
-spritegroup sg_veh_truck_test {
+#define THIS_SG_ID   sg_veh_truck_test // ID will also be used for templated item block
+spritegroup THIS_SG_ID {
     loaded:  [realsprites_veh_truck_test];
     loading: [realsprites_veh_truck_test];
 }
 
-
-switch (FEAT_ROADVEHS, SELF, switch_articulated_truck_test, extra_callback_info1) {
+// articulated cb is handled on a custom basis per truck, this is not wholly efficient, but is easier to work with
+#define THIS_ARTICULATED_SWITCH_ID   switch_articulated_truck_test // ID will also be used for templated item block
+switch (FEAT_ROADVEHS, SELF, THIS_ARTICULATED_SWITCH_ID, extra_callback_info1) {
     1: return veh_trailer_test;
     return 0xFF; //stop adding vehicle parts
 }
 
-item(FEAT_ROADVEHS, veh_truck_test) {
-    property {
-        climates_available:             bitmask(CLIMATE_TEMPERATE, CLIMATE_ARCTIC, CLIMATE_TROPICAL);
-        introduction_date:              date(1926,01,01);
-        cargo_capacity:                 20;
-        sprite_id:                      SPRITE_ID_NEW_ROADVEH; //enable new graphics
-        speed:                          48 km/h;
-        power:                          120 hp;
-        weight:                         9.5 ton;
-    }
-    graphics {
-        shorten_vehicle:                5;
-        articulated_part:               switch_articulated_truck_test;
-        default:                        sg_veh_truck_test;
-    }
-}
-
-
-spriteset(realsprites_veh_trailer_test, "sprites/graphics/trailer_test.png") {
-  template_truck_28(0, 20)
-}
-
-spritegroup sg_veh_trailer_test {
-    loaded:  [realsprites_veh_trailer_test];
-    loading: [realsprites_veh_trailer_test];
-}
-
-item(FEAT_ROADVEHS, veh_trailer_test) {
-    property {
-        climates_available:             bitmask();
-        introduction_date:              date(1926,01,01);
-        cargo_capacity:                 20;
-        sprite_id:                      SPRITE_ID_NEW_ROADVEH; //enable new graphics
-    }
-    graphics {
-        default:                        sg_veh_trailer_test;
-    }
-}
+#include "templates/template_articulated_truck_item.tnml"

@@ -1,4 +1,11 @@
 // List of source files included from main file
+#include "sprites/nml/ids.pnml"
 #include "sprites/nml/header.pnml"
 
+#include "sprites/nml/templates/vehicle_offsets.tnml"
+
 #include "sprites/nml/test_vehicle.pnml"
+
+// trailers included at end to be available for all vehicles 
+#include "sprites/nml/trailers/test_trailer.pnml"
+

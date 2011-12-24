@@ -1,0 +1,16 @@
+item(FEAT_ROADVEHS, THIS_VEH_ID) {
+    property {
+        climates_available:             GLOBAL_CLIMATE_AVAILABILITY_TRUCKS
+        introduction_date:              THIS_INTRO_DATE;
+        cargo_capacity:                 THIS_CAPACITY;
+        sprite_id:                      SPRITE_ID_NEW_ROADVEH; //enable new graphics
+        speed:                          THIS_SPEED;
+        power:                          THIS_POWER;
+        weight:                         THIS_WEIGHT;
+    }
+    graphics {
+        shorten_vehicle:                THIS_LENGTH;
+        articulated_part:               THIS_ARTICULATED_SWITCH_ID;
+        default:                        THIS_SG_ID;
+    }
+}

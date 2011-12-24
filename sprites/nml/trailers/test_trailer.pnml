@@ -1,0 +1,20 @@
+spriteset(realsprites_veh_trailer_test, "sprites/graphics/trailer_test.png") {
+  spriteset_template_truck_28(0, 20)
+}
+
+spritegroup sg_veh_trailer_test {
+    loaded:  [realsprites_veh_trailer_test];
+    loading: [realsprites_veh_trailer_test];
+}
+
+item(FEAT_ROADVEHS, veh_trailer_test) {
+    property {
+        climates_available:             GLOBAL_CLIMATE_AVAILABILITY_TRAILERS
+        introduction_date:              date(1926,01,01);
+        cargo_capacity:                 20;
+        sprite_id:                      SPRITE_ID_NEW_ROADVEH; //enable new graphics
+    }
+    graphics {
+        default:                        sg_veh_trailer_test;
+    }
+}

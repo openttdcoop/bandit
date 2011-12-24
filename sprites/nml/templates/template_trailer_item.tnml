@@ -1,15 +1,13 @@
 item(FEAT_ROADVEHS, THIS_VEH_ID) {
     property {
-        climates_available:             ALL_CLIMATES;
-        introduction_date:              THIS_INTRO_DATE;
+        climates_available:             NO_CLIMATE;
         cargo_capacity:                 THIS_CAPACITY;
         sprite_id:                      SPRITE_ID_NEW_ROADVEH; //enable new graphics
-        speed:                          THIS_SPEED;
-        power:                          THIS_POWER;
-        weight:                         THIS_WEIGHT;
-        tractive_effort_coefficient:    THIS_TE_COEFFICIENT;
-        cost_factor:                    THIS_BUY_COST;
-        running_cost_factor:            THIS_RUN_COST;
+        power:                          0;
+        weight:                         0;
+        tractive_effort_coefficient:    0;
+        cost_factor:                    0;
+        running_cost_factor:            0;
         refittable_cargo_classes:       bitmask(THIS_ALLOWED_CARGO_CLASSES);
         non_refittable_cargo_classes:   bitmask(THIS_DISALLOWED_CARGO_CLASSES);
         cargo_allow_refit:              [THIS_ALLOWED_CARGOS];
@@ -17,7 +15,6 @@ item(FEAT_ROADVEHS, THIS_VEH_ID) {
     }
     graphics {
         shorten_vehicle:                THIS_LENGTH;
-        articulated_part:               THIS_ARTICULATED_SWITCH_ID;
         default:                        THIS_SG_ID;
     }
 }

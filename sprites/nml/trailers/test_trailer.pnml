@@ -1,20 +1,19 @@
+#define THIS_VEH_ID               veh_trailer_test
+#define THIS_CAPACITY             20
+
+#include "../templates/refits/refits_default.tnml"
+
+#define THIS_LENGTH  7 // length as fraction of 8; articulated trucks may be shorter than sprites so trailer overlaps  
 spriteset(realsprites_veh_trailer_test, "sprites/graphics/trailer_test.png") {
-  spriteset_template_truck_28(0, 20)
+  spriteset_template_truck_28(0, 20) // (search 'sprites/nml' to find where spriteset templates are defined)  
 }
 
+#define THIS_SG_ID   sg_veh_trailer_test // ID will also be used for templated item block
 spritegroup sg_veh_trailer_test {
     loaded:  [realsprites_veh_trailer_test];
     loading: [realsprites_veh_trailer_test];
 }
 
-item(FEAT_ROADVEHS, veh_trailer_test) {
-    property {
-        climates_available:             GLOBAL_CLIMATE_AVAILABILITY_TRAILERS
-        introduction_date:              date(1926,01,01);
-        cargo_capacity:                 20;
-        sprite_id:                      SPRITE_ID_NEW_ROADVEH; //enable new graphics
-    }
-    graphics {
-        default:                        sg_veh_trailer_test;
-    }
-}
+#include "../templates/template_trailer_item.tnml"
+
+#include "../templates/template_clear_defines.tnml"

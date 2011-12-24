@@ -21,3 +21,4 @@ item(FEAT_ROADVEHS, THIS_VEH_ID) {
         default:                        THIS_SG_ID;
     }
 }
+

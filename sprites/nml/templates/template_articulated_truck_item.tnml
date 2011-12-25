@@ -18,7 +18,7 @@ item(FEAT_ROADVEHS, THIS_VEH_ID) {
     }
     graphics {
         shorten_vehicle:                THIS_LENGTH;
-        articulated_part:               THIS_ARTICULATED_SWITCH_ID;
+        articulated_part:               THIS_ARTICULATED_CB_ID;
         default:                        THIS_SG_ID;
     }
 }

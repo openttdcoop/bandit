@@ -2,4 +2,4 @@
 STR_GRF_NAME                                                    :BANDIT {VERSION}
 STR_GRF_DESCRIPTION                                             :License: {SILVER}GPL v2{}{BLACK}
 
-STR_VEH_NAME_TEST_VEHICLE                                       :Test Vehicle             
+str_name_veh_truck_test                                         :Test Vehicle             

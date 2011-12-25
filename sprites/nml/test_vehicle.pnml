@@ -1,5 +1,5 @@
-#define THIS_VEH_ID               veh_truck_test
-#define THIS_NAME                 STR_VEH_NAME_TEST_VEHICLE // could be concatenated using CPP - in the item template? 
+#define THIS_VEH_ID(...)          __VA_ARGS__ ## veh_truck_test // __VA_ARGS__ and ## allow for concatenating the veh ID with strings to construct further IDs
+#define THIS_NAME                 THIS_VEH_ID(str_name_) // could be concatenated using CPP - in the item template? 
 #define THIS_SPEED                48 km/h
 #define THIS_POWER                120 hp
 #define THIS_TE_COEFFICIENT       GLOBAL_DEFAULT_TE_COEFFICIENT
@@ -26,8 +26,8 @@ spritegroup THIS_SG_ID {
 }
 
 // articulated cb is handled on a custom basis per truck; this is not wholly efficient, but I find it easier to work with
-#define THIS_ARTICULATED_SWITCH_ID   switch_articulated_truck_test // ID will also be used for templated item block
-switch (FEAT_ROADVEHS, SELF, THIS_ARTICULATED_SWITCH_ID, extra_callback_info1) {
+#define THIS_ARTICULATED_CB_ID   THIS_VEH_ID(switch_articulated_) // use CPP to concatenate an identifier from the vehicle ID and a string - putting this on a define isnt necessary, it could be concatenated inline, but it helps my brain
+switch (FEAT_ROADVEHS, SELF, THIS_ARTICULATED_CB_ID, extra_callback_info1) {
     1: return veh_trailer_test;
     return 0xFF; //stop adding vehicle parts
 }

@@ -7,26 +7,29 @@
 #define THIS_RUN_COST             10
 #define THIS_INTRO_DATE           date(1926,01,01)
 #define THIS_MODEL_LIFE           100
-// total capacity to be split over tractor / 1st trailer. Some fraction of capacity required for purposes of TE.
-#define THIS_CAPACITY             20
+// for fifth-wheel trucks, total capacity should be split over tractor / 1st trailer. Some fraction of capacity required for purposes of TE.
+#define THIS_CAPACITY             20 // capacity for tractor
 // include trailer weight(s) as ottd trailing parts have weight=0. If number of trailers varies by subtype, define weight for each subtype.
 #define THIS_WEIGHT               9.5 ton
 
-#include "templates/refits/refits_default.tnml"
+ // use CPP to concatenate some identifiers from the vehicle ID and some strings
+ // putting these on defines isnt strictly necessary; they could be concatenated inline, but this way helps my brain read other parts of the code
+#define THIS_SG_ID   THIS_VEH_ID(sg_)
+#define THIS_ARTICULATED_CB_ID   THIS_VEH_ID(switch_articulated_)
+
+#include "templates/refits/refits_default.tnml"  // predefined cargo refits. Multiple templates available for different vehicle types.
 
 #define THIS_LENGTH  5 // length as fraction of 8; articulated trucks may be shorter than sprites so trailer overlaps  
 spriteset(realsprites_veh_truck_test, "sprites/graphics/cabover_truck_test.png") {
   spriteset_template_truck_16(0, 20) // (search 'sprites/nml' to find where spriteset templates are defined)  
 }
 
-#define THIS_SG_ID   THIS_VEH_ID(sg_) // use CPP to concatenate an identifier from the vehicle ID and a string - putting this on a define isnt necessary, it could be concatenated inline, but it helps my brain
 spritegroup THIS_SG_ID {
     loaded:  [realsprites_veh_truck_test];
     loading: [realsprites_veh_truck_test];
 }
 
 // articulated cb is handled on a custom basis per truck; this is not wholly efficient, but I find it easier to work with
-#define THIS_ARTICULATED_CB_ID   THIS_VEH_ID(switch_articulated_) // use CPP to concatenate an identifier from the vehicle ID and a string - putting this on a define isnt necessary, it could be concatenated inline, but it helps my brain
 switch (FEAT_ROADVEHS, SELF, THIS_ARTICULATED_CB_ID, extra_callback_info1) {
     1: return veh_trailer_test;
     return 0xFF; //stop adding vehicle parts

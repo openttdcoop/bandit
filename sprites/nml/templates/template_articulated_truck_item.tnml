@@ -15,6 +15,7 @@ item(FEAT_ROADVEHS, THIS_VEH_ID) {
         non_refittable_cargo_classes:   bitmask(THIS_DISALLOWED_CARGO_CLASSES);
         cargo_allow_refit:              [THIS_ALLOWED_CARGOS];
         cargo_disallow_refit:           [THIS_DISALLOWED_CARGOS];
+        misc_flags:                     bitmask(ROADVEH_FLAG_2CC, ROADVEH_FLAG_AUTOREFIT);
     }
     graphics {
         shorten_vehicle:                THIS_LENGTH;

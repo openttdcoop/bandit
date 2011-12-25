@@ -20,7 +20,7 @@
 #define THIS_SG_ID   THIS_VEH_ID(sg_)
 #define THIS_ARTICULATED_CB_ID   THIS_VEH_ID(switch_articulated_)
 
-#include "templates/refits/refits_default.tnml"  // predefined cargo refits. Multiple templates available for different vehicle types.
+#include "../templates/refits/refits_default.tnml"  // predefined cargo refits. Multiple templates available for different vehicle types.
 
 #define THIS_LENGTH  5 // length as fraction of 8; articulated trucks may be shorter than sprites so trailer overlaps  
 spriteset(realsprites_veh_truck_test, "sprites/graphics/cabover_truck_test.png") {
@@ -35,10 +35,9 @@ spritegroup THIS_SG_ID {
 // articulated cb is handled on a custom basis per truck; this is not wholly efficient, but I find it easier to work with
 switch (FEAT_ROADVEHS, SELF, THIS_ARTICULATED_CB_ID, extra_callback_info1) {
     1: return veh_trailer_test;
-    2: return veh_trailer_test;
     return 0xFF; //stop adding vehicle parts
 }
 
-#include "templates/template_articulated_truck_item.tnml"
+#include "../templates/template_articulated_truck_item.tnml"
 
-#include "templates/template_clear_defines.tnml"
+#include "../templates/template_clear_defines.tnml"

@@ -58,7 +58,7 @@ The challenge is how to make this elegant when building + running vehicles.  The
 - heavy truck: 22 tons capacity upwards (US class 8, 3 or 4 axles, truck or tractor)
 
 - standard (refit anything, middle for HP, TE, costs, run costs; day cabs etc)
-- express (sacrifice payload for speed, limited refits (limit bulk & liquid cargos), high HP, low TE; expensive, higher run cost, aero sleepers etc).  
+- express (sacrifice payload for speed, limited refits (limit bulk & liquid cargos), high HP, low TE; expensive, higher run cost, aero sleepers etc).   Express trailers could use bigger vans.
 - vocational (limited refits (limit express cargos), expensive, long lasting, high HP, high TE; dump trucks, log trucks etc - day cabs, high clearance chassis).
 
 There are no class 6 vocational trucks.  Only class 7 or 8.
@@ -94,3 +94,10 @@ Easier to hard code on new ID + use a lot of templates.
 Trailers need to be matched to specific capacities (including fraction of actual capacity for 1st trailer in a consist, with some capacity on lead vehicle to ensure TE).
 Drawbar / dolly trailers behave differently to fifth wheel trailers.
 Trailers need to be matched to cargo refits of the tractor.
+
+The position of rear axles appears to be arbitrary - could be randomised graphics?
+Use of tridem versus tandem on non-train trailers appears to be arbitrary - could be randomised (or vary by cargo)?
+Auto-refit should be allowed only to same trailer type. 
+US trucks limited around 36t gross
+Rest of world - trucks gross 40t-50t
+Ignore that - set limits for gameplay

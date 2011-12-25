@@ -1,3 +1,5 @@
+// some of the identifiers used are NML built-ins, some are defined by BANDIT.  No easy way to tell except by searching...
+
 item(FEAT_ROADVEHS, THIS_VEH_ID) {
     property {
         climates_available:             NO_CLIMATE;
@@ -8,6 +10,7 @@ item(FEAT_ROADVEHS, THIS_VEH_ID) {
         tractive_effort_coefficient:    0;
         cost_factor:                    0;
         running_cost_factor:            0;
+        running_cost_base:              RUNNING_COST_NONE;
         refittable_cargo_classes:       bitmask(THIS_ALLOWED_CARGO_CLASSES);
         non_refittable_cargo_classes:   bitmask(THIS_DISALLOWED_CARGO_CLASSES);
         cargo_allow_refit:              [THIS_ALLOWED_CARGOS];

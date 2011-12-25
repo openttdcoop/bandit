@@ -19,7 +19,7 @@ spriteset(realsprites_veh_truck_test, "sprites/graphics/cabover_truck_test.png")
   spriteset_template_truck_16(0, 20) // (search 'sprites/nml' to find where spriteset templates are defined)  
 }
 
-#define THIS_SG_ID   sg_veh_truck_test // ID will also be used for templated item block
+#define THIS_SG_ID   THIS_VEH_ID(sg_) // use CPP to concatenate an identifier from the vehicle ID and a string - putting this on a define isnt necessary, it could be concatenated inline, but it helps my brain
 spritegroup THIS_SG_ID {
     loaded:  [realsprites_veh_truck_test];
     loading: [realsprites_veh_truck_test];

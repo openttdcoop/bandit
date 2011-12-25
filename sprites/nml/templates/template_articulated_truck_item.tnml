@@ -5,6 +5,7 @@ item(FEAT_ROADVEHS, THIS_VEH_ID) {
         name:                           string(THIS_NAME);
         climates_available:             ALL_CLIMATES;
         sound_effect:                   THIS_SOUND_EFFECT;
+        visual_effect:                  visual_effect(THIS_SMOKE, THIS_SMOKE_OFFSET);
         introduction_date:              THIS_INTRO_DATE;
         cargo_capacity:                 THIS_CAPACITY;
         sprite_id:                      SPRITE_ID_NEW_ROADVEH; //enable new graphics

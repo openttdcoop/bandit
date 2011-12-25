@@ -4,6 +4,8 @@
 #define THIS_POWER                120 hp
 #define THIS_TE_COEFFICIENT       GLOBAL_DEFAULT_TE_COEFFICIENT
 #define THIS_SOUND_EFFECT         SOUND_TRUCK_START_2
+#define THIS_SMOKE                VISUAL_EFFECT_DIESEL
+#define THIS_SMOKE_OFFSET         -2
 #define THIS_BUY_COST             10
 #define THIS_RUN_COST             10
 #define THIS_INTRO_DATE           date(1926,01,01)
@@ -33,6 +35,7 @@ spritegroup THIS_SG_ID {
 // articulated cb is handled on a custom basis per truck; this is not wholly efficient, but I find it easier to work with
 switch (FEAT_ROADVEHS, SELF, THIS_ARTICULATED_CB_ID, extra_callback_info1) {
     1: return veh_trailer_test;
+    2: return veh_trailer_test;
     return 0xFF; //stop adding vehicle parts
 }
 

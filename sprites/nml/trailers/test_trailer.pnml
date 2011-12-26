@@ -4,7 +4,7 @@
 
 #include "../templates/refits/refits_default.tnml"
 
-#define THIS_LENGTH  7 // length as fraction of 8; articulated trucks may be shorter than sprites so trailer overlaps  
+#define THIS_LENGTH SHORTEN_TO_8_8  // length as fraction of 8; articulated trucks may be shorter than sprites so trailer overlaps  
 spriteset(realsprites_veh_trailer_test, "sprites/graphics/trailer_test.png") {
   spriteset_template_truck_28(0, 20) // (search 'sprites/nml' to find where spriteset templates are defined)  
 }

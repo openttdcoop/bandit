@@ -22,7 +22,7 @@
 
 #include "../templates/refits/refits_default.tnml"  // predefined cargo refits. Multiple templates available for different vehicle types.
 
-#define THIS_LENGTH  5 // length as fraction of 8; articulated trucks may be shorter than sprites so trailer overlaps  
+#define THIS_LENGTH  SHORTEN_TO_3_8 // length as fraction of 8; articulated trucks may be shorter than sprites so trailer overlaps  
 spriteset(realsprites_veh_truck_test, "sprites/graphics/cabover_truck_test.png") {
   spriteset_template_truck_16(0, 20) // (search 'sprites/nml' to find where spriteset templates are defined)  
 }

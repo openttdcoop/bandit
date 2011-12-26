@@ -1,6 +1,6 @@
 // some of the identifiers used are NML built-ins, some are defined by BANDIT.  No easy way to tell except by searching...
 
-item(FEAT_ROADVEHS, THIS_VEH_ID) {
+item(FEAT_ROADVEHS, THIS_VEH_ID()) {
     property {
         name:                           string(THIS_NAME);
         climates_available:             ALL_CLIMATES;

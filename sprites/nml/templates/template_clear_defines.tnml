@@ -1,6 +1,7 @@
 // this file is used to clear defines set by vehicles
 
 #undef THIS_VEH_ID
+#undef THIS_NAME
 #undef THIS_CAPACITY
 #undef THIS_SPEED
 #undef THIS_POWER
@@ -21,4 +22,5 @@
 #undef THIS_LENGTH
 
 #undef THIS_SG_ID
+#undef THIS_SS_ID
 #undef THIS_ARTICULATED_SWITCH_ID

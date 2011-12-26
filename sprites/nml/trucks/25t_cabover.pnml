@@ -1,5 +1,5 @@
-#define THIS_VEH_ID(...)          __VA_ARGS__ ## veh_truck_test // __VA_ARGS__ and ## allow for concatenating the veh ID with strings to construct further IDs
-#define THIS_NAME                 THIS_VEH_ID(str_name_) // could be concatenated using CPP - in the item template? 
+#define THIS_VEH_ID(...)          __VA_ARGS__ ## veh_25t_cabover // __VA_ARGS__ and ## allow for concatenating the veh ID with strings to construct further IDs
+#define THIS_NAME                 THIS_VEH_ID(str_name_) // concatenated identifier using CPP 
 #define THIS_SPEED                48 km/h
 #define THIS_POWER                120 hp
 #define THIS_TE_COEFFICIENT       GLOBAL_DEFAULT_TE_COEFFICIENT
@@ -18,18 +18,19 @@
  // use CPP to concatenate some identifiers from the vehicle ID and some strings
  // putting these on defines isnt strictly necessary; they could be concatenated inline, but this way helps my brain read other parts of the code
 #define THIS_SG_ID   THIS_VEH_ID(sg_)
+#define THIS_SS_ID   THIS_VEH_ID(ss_)
 #define THIS_ARTICULATED_CB_ID   THIS_VEH_ID(switch_articulated_)
 
 #include "../templates/refits/refits_default.tnml"  // predefined cargo refits. Multiple templates available for different vehicle types.
 
 #define THIS_LENGTH  SHORTEN_TO_2_8 // 1 unit = 4px; fifth-wheel articulated trucks may be shorter than their sprites so trailer overlaps  
-spriteset(realsprites_veh_truck_test, "sprites/graphics/cabover_truck_test.png") {
+spriteset(THIS_SS_ID, "sprites/graphics/cabover_truck_test.png") {
   spriteset_template_truck_16(0, 20) // (search 'sprites/nml' to find where spriteset templates are defined)  
 }
 
 spritegroup THIS_SG_ID {
-    loaded:  [realsprites_veh_truck_test];
-    loading: [realsprites_veh_truck_test];
+    loaded:  [THIS_SS_ID];
+    loading: [THIS_SS_ID];
 }
 
 // articulated cb is handled on a custom basis per truck; this is not wholly efficient, but I find it easier to work with

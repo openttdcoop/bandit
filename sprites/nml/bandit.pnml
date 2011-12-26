@@ -5,7 +5,11 @@
 
 #include "sprites/nml/templates/vehicle_offsets.tnml"
 
-#include "sprites/nml/trucks/test_vehicle.pnml"
+#include "sprites/nml/trucks/25t_cabover.pnml"
+#include "sprites/nml/trucks/25t_longnose.pnml"
+
+#include "sprites/nml/trucks/35t_cabover.pnml"
+#include "sprites/nml/trucks/35t_longnose.pnml"
 
 // trailers included after tractors to be available for all vehicles 
 #include "sprites/nml/trailers/test_trailer.pnml"

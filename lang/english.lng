@@ -7,3 +7,11 @@ str_name_veh_25t_cabover                                        :Test Vehicle
 str_name_veh_25t_longnose                                       :Test Vehicle             
 str_name_veh_35t_cabover                                        :Test Vehicle
 str_name_veh_35t_longnose                                       :Test Vehicle             
+
+str_name_veh_hackler_A                                          :Hackler A
+str_name_veh_hackler_AB                                         :Hackler AB
+
+str_name_veh_rothrock                                           :Rothrock
+str_name_veh_rothrock_super                                     :Rothrock Super
+str_name_veh_rothrock_r102                                      :Rothrock R102
+str_name_veh_rothrock_r123                                      :Rothrock R123            

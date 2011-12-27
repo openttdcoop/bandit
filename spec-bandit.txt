@@ -87,6 +87,26 @@ Vocational trucks, and class 8 standard heavy tractor only
 20-30hp
 5-15mph
 
+*1920s-1940s*
+Rapid growth in capacity and speed
+Few cabovers before 1950
+
+*1950s-1970s*
+Length and capacity limits reached temporarily
+Relatively high speeds, but limited power
+US trucks mostly cabovers
+
+*1980s-2000s*
+US cabovers mostly replaced by conventionals
+Bigger, higher capacity trucks
+Horsepower increases
+Maximum speeds reached in this generation
+Aerodynamics 
+
+*2010s-2050s*
+Alternative fuels
+Longer, heavier vehicles
+
 *Implementation*
 Lots of trailers needed.
 Fooling with cb36 to set props based on ID of lead vehicle is a headache.
@@ -101,3 +121,14 @@ Auto-refit should be allowed only to same trailer type.
 US trucks limited around 36t gross
 Rest of world - trucks gross 40t-50t
 Ignore that - set limits for gameplay
+
+
+
+
+
+
+
+
+-----------------------
+A K123 is a K100 series with a vendor supplied, and sometimes KW air ride, tandem drive rear axle setep. 21 was a single axle, 22 single with a dead axle, 23 as stated, 24 had 44K or larger axles, normally on hendrickson or KW air, and 25 was reserved for torsion bar, and at least a few were KW air. My 108" cab has KW air suspension, and was called a K123, as is the 1973 86" cab my dad bought new with Reyco 102 spring. Same goes for the W900 series, and backs up to the 500 and 800 series basically, a few changes were made over the time. John, I may be on the track of determining what letters in the model number of a 523 designated cab type. So far I have found KCC's with Bullnose cabs, and all but one conventional I have found is listed as a CC. I have an original chassis record from 1960 and is for a K-825, with the full model number listed later as a KCC-825, and as a COE. For now I will assume the K in front designated a cab over style, but we all know what assuming can do. Still have yet to figure out what is differnet from a 525 to an 825.
+

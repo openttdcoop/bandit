@@ -1,0 +1,28 @@
+// some of the identifiers used are NML built-ins, some are defined by BANDIT.  No easy way to tell except by searching...
+
+item(FEAT_ROADVEHS, THIS_VEH_ID()) {
+    property {
+        name:                           string(THIS_NAME);
+        climates_available:             ALL_CLIMATES;
+        sound_effect:                   THIS_SOUND_EFFECT;
+        visual_effect:                  visual_effect(THIS_SMOKE, THIS_SMOKE_OFFSET);
+        introduction_date:              THIS_INTRO_DATE;
+        cargo_capacity:                 THIS_CAPACITY;
+        sprite_id:                      SPRITE_ID_NEW_ROADVEH; //enable new graphics
+        speed:                          THIS_SPEED;
+        power:                          THIS_POWER;
+        weight:                         THIS_WEIGHT;
+        tractive_effort_coefficient:    THIS_TE_COEFFICIENT;
+        cost_factor:                    THIS_BUY_COST;
+        running_cost_factor:            THIS_RUN_COST;
+        refittable_cargo_classes:       bitmask(THIS_ALLOWED_CARGO_CLASSES);
+        non_refittable_cargo_classes:   bitmask(THIS_DISALLOWED_CARGO_CLASSES);
+        cargo_allow_refit:              [THIS_ALLOWED_CARGOS];
+        cargo_disallow_refit:           [THIS_DISALLOWED_CARGOS];
+        misc_flags:                     bitmask(ROADVEH_FLAG_2CC, ROADVEH_FLAG_AUTOREFIT);
+    }
+    graphics {
+        shorten_vehicle:                THIS_LENGTH;
+        default:                        THIS_SG_ID;
+    }
+}

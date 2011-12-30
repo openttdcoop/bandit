@@ -5,6 +5,10 @@
 
 #include "sprites/nml/templates/vehicle_offsets.tnml"
 
+// changing the order of vehicle includes will cause IDs to be changed, breaking savegames horribly...
+
+#include "sprites/nml/trailers/test_trailer.pnml"
+
 #include "sprites/nml/trucks/25t_longnose.pnml"
 #include "sprites/nml/trucks/35t_longnose.pnml"
 
@@ -15,7 +19,3 @@
 #include "sprites/nml/trucks/rothrock_super.pnml"
 #include "sprites/nml/trucks/rothrock_r102.pnml"
 #include "sprites/nml/trucks/rothrock_r123.pnml"
-
-// trailers included after tractors to be available for all vehicles 
-#include "sprites/nml/trailers/test_trailer.pnml"
-

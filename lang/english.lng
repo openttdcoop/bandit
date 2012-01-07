@@ -2,16 +2,57 @@
 STR_GRF_NAME                                                    :BANDIT {VERSION}
 STR_GRF_DESCRIPTION                                             :License: {SILVER}GPL v2{}{BLACK}
 
-str_name_veh_truck_test                                         :Test Vehicle
-str_name_veh_25t_cabover                                        :Test Vehicle
-str_name_veh_25t_longnose                                       :Test Vehicle             
-str_name_veh_35t_cabover                                        :Test Vehicle
-str_name_veh_35t_longnose                                       :Test Vehicle             
+str_name_veh_fayette_t                                          :Fayette "T"
+str_name_veh_fayette_speedwagon                                 :Fayette Speedwagon
+str_name_veh_speedwagon_2                                       :Fayette Speedwagon 2
+str_name_veh_fayette_giant                                      :Fayette Giant
+
+str_name_veh_dragon_run_road_commander                          :Dragon Run Road Commander
+str_name_veh_dragon_run_pony                                    :Dragon Run Pony
 
 str_name_veh_hackler_A                                          :Hackler A
 str_name_veh_hackler_AB                                         :Hackler AB
+str_name_veh_hackler_turnpike_double                            :Hackler Turnpike Double
+str_name_veh_hackler_BB                                         :Hackler BB
+str_name_veh_hackler_AK                                         :Hackler AK
+str_name_veh_hackler_AC6                                        :Hackler AC6
+str_name_veh_hackler_AC                                         :Hackler AC
+str_name_veh_hackler_epoch_E_semi                               :Hackler EPOCH E SEMI
+str_name_veh_hackler_epoch_E_pup                                :Hackler EPOCH E PUP
+
+str_name_veh_latour_epoch_D_rigid                               :Latour             
+str_name_veh_latour_epoch_C_semi_pup                            :Latour
+
+str_name_veh_pocomoke_wallman                                   :Pocomoke Wallman
+str_name_veh_pocomoke_epoch_C_1semi_1pup                        :Pocomoke Wallman
+
+str_name_veh_red_lake_epoch_E_semi                              :Red Lake
+str_name_veh_red_lake_epoch_E_rigid                             :Red Lake             
+str_name_veh_red_lake_epoch_D_semi                              :Red Lake             
+str_name_veh_red_lake_epoch_D_rigid                             :Red Lake             
+str_name_veh_red_lake_epoch_C_rigid                             :Red Lake             
+str_name_veh_red_lake_epoch_B_rigid                             :Red Lake             
+
+str_name_veh_reifsnider_epoch_E_rigid                           :Reifsnider             
+str_name_veh_reifsnider_epoch_D_rigid                           :Reifsnider
+str_name_veh_reifsnider_epoch_D_1pup                            :Reifsnider             
+str_name_veh_reifsnider_352                                     :Reifsnider             
 
 str_name_veh_rothrock                                           :Rothrock
 str_name_veh_rothrock_super                                     :Rothrock Super
 str_name_veh_rothrock_r102                                      :Rothrock R102
 str_name_veh_rothrock_r123                                      :Rothrock R123            
+str_name_veh_rothrock_rock_six                                  :Rothrock Rock Six
+str_name_veh_rothrock_epoch_E_rigid_21t                         :Rothrock EPOCH E RIGID 21t
+str_name_veh_rothrock_epoch_E_12t_rigid                         :Rothrock EPOCH E RIGID 12t
+str_name_veh_rothrock_epoch_D_rigid                             :Rothrock EPOCH D RIGID
+str_name_veh_rothrock_epoch_C_1semi_1pup                        :Rothrock EPOCH C SEMI + PUP
+str_name_veh_rothrock_epoch_C_1pup                              :Rothrock EPOCH C PUP
+str_name_veh_rothrock_epoch_B_rigid                             :Rothrock EPOCH B RIGID
+
+str_name_veh_wicomico_epoch_E_1semi_2pup                        :Wicomico
+str_name_veh_wicomico_epoch_D_1pup                              :Wicomico      
+str_name_veh_wicomico_epoch_C_rigid                             :Wicomico      
+str_name_veh_wicomico_epoch_C_1pup                              :Wicomico      
+str_name_veh_wicomico_epoch_B_rigid                             :Wicomico     
+

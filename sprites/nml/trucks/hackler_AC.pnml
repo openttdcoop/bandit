@@ -1,4 +1,6 @@
-#define THIS_VEH_ID(...)          __VA_ARGS__ ## veh_rothrock_r102 // __VA_ARGS__ and ## allow for concatenating the veh ID with strings to construct further IDs
+//AC	Hackler Epoch	A 	1916	Standard	2 axle	Long nose (day)	1 pup	9	19
+//AC (upgraded)	Hackler	Epoch B	1923	Standard	2 axle	Long nose (day)	1 semi, 2 pup	0	27
+#define THIS_VEH_ID(...)          __VA_ARGS__ ## veh_hackler_AC // __VA_ARGS__ and ## allow for concatenating the veh ID with strings to construct further IDs
 #define THIS_NAME                 THIS_VEH_ID(str_name_) // concatenated identifier using CPP 
 #define THIS_SPEED                48 km/h
 #define THIS_POWER                120 hp

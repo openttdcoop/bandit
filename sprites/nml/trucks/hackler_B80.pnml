@@ -9,7 +9,7 @@
 #define THIS_SMOKE_OFFSET         -2
 #define THIS_BUY_COST             10
 #define THIS_RUN_COST             10
-#define THIS_INTRO_DATE           date(1926,01,01)
+#define THIS_INTRO_DATE           date(1967,01,01)
 #define THIS_MODEL_LIFE           100
 // for fifth-wheel trucks, total capacity should be split over tractor / 1st trailer. Some fraction of capacity required for purposes of TE.
 #define THIS_CAPACITY             20 // capacity for tractor

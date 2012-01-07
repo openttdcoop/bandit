@@ -2,7 +2,7 @@
 STR_GRF_NAME                                                    :BANDIT {VERSION}
 STR_GRF_DESCRIPTION                                             :License: {SILVER}GPL v2{}{BLACK}
 
-str_name_veh_fayette_t                                          :Fayette "T"
+str_name_veh_fayette_t                                          :Fayette T
 str_name_veh_fayette_speedwagon                                 :Fayette Speedwagon
 str_name_veh_speedwagon_2                                       :Fayette Speedwagon 2
 str_name_veh_fayette_giant                                      :Fayette Giant

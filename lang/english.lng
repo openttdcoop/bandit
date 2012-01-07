@@ -52,9 +52,9 @@ str_name_veh_rothrock_314C                                      :Rothrock 314C
 str_name_veh_rothrock_214A                                      :Rothrock 214A
 str_name_veh_rothrock_548                                       :Rothrock 548
 
-str_name_veh_wicomico_epoch_E_1semi_2pup                        :Wicomico
-str_name_veh_wicomico_epoch_D_1pup                              :Wicomico      
-str_name_veh_wicomico_epoch_C_rigid                             :Wicomico      
-str_name_veh_wicomico_epoch_C_1pup                              :Wicomico      
-str_name_veh_wicomico_epoch_B_rigid                             :Wicomico     
+str_name_veh_wicomico_northlander                               :Wicomico Northlander
+str_name_veh_wicomico_linkwood                                  :Wicomico Linkwood
+str_name_veh_wicomico_seneca                                    :Wicomico Seneca
+str_name_veh_wicomico_cedarville                                :Wicomico Cedarville
+str_name_veh_wicomico_liberty                                   :Wicomico Liberty
 

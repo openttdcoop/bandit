@@ -4,7 +4,6 @@ STR_GRF_DESCRIPTION                                             :License: {SILVE
 
 str_name_veh_fayette_t                                          :Fayette T
 str_name_veh_fayette_speedwagon                                 :Fayette Speedwagon
-str_name_veh_speedwagon_2                                       :Fayette Speedwagon 2
 str_name_veh_fayette_giant                                      :Fayette Giant
 
 str_name_veh_dragon_run_road_commander                          :Dragon Run Road Commander
@@ -15,7 +14,6 @@ str_name_veh_dragon_run_turnpike_special                        :Dragon Run Turn
 str_name_veh_hackler_A                                          :Hackler A
 str_name_veh_hackler_AB                                         :Hackler AB
 str_name_veh_hackler_BB                                         :Hackler BB
-str_name_veh_hackler_AK                                         :Hackler AK
 str_name_veh_hackler_AC6                                        :Hackler AC6
 str_name_veh_hackler_AC                                         :Hackler AC
 str_name_veh_hackler_CJ                                         :Hackler CJ
@@ -32,8 +30,6 @@ str_name_veh_pocomoke_blackwater                                :Pocomoke Blackw
 str_name_veh_red_lake_general                                   :Red Lake General
 str_name_veh_red_lake_grizzly                                   :Red Lake Grizzly
 str_name_veh_red_lake_cannonball                                :Red Lake Cannonball
-str_name_veh_red_lake_kermode                                   :Red Lake Kermode
-str_name_veh_red_lake_nanuk                                     :Red Lake Nanuk
 str_name_veh_red_lake_rapid                                     :Red Lake Rapid
 
 str_name_veh_reifsnider_281                                     :Reifsnider 281

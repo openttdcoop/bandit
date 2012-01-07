@@ -1,3 +1,4 @@
+//BB	Hackler	Epoch B	1923	Heavy Duty	3 axle	Long nose (day)	1 pup	12	24								
 //BB	Hackler	Epoch C	1931	Standard	3 axle	Long nose (day)	1 pup	12	24
 #define THIS_VEH_ID(...)          __VA_ARGS__ ## veh_hackler_BB // __VA_ARGS__ and ## allow for concatenating the veh ID with strings to construct further IDs
 #define THIS_NAME                 THIS_VEH_ID(str_name_) // concatenated identifier using CPP 
@@ -9,7 +10,7 @@
 #define THIS_SMOKE_OFFSET         -2
 #define THIS_BUY_COST             10
 #define THIS_RUN_COST             10
-#define THIS_INTRO_DATE           date(1931,01,01)
+#define THIS_INTRO_DATE           date(1923,01,01)
 #define THIS_MODEL_LIFE           100
 // for fifth-wheel trucks, total capacity should be split over tractor / 1st trailer. Some fraction of capacity required for purposes of TE.
 #define THIS_CAPACITY             12 // capacity for truck

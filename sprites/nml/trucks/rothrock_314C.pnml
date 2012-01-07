@@ -1,4 +1,4 @@
-//	Rothrock  Epoch D		Vocational	3 axle	Long nose (day)	0	18	18
+//	Rothrock  Epoch D		Heavy Duty	3 axle	Long nose (day)	0	18	18
 #define THIS_VEH_ID(...)          __VA_ARGS__ ## veh_rothrock_314C // __VA_ARGS__ and ## allow for concatenating the veh ID with strings to construct further IDs
 #define THIS_NAME                 THIS_VEH_ID(str_name_) // concatenated identifier using CPP 
 #define THIS_SPEED                48 km/h

@@ -1,4 +1,4 @@
-//	Pocomoke	Epoch C		Vocational	2 axle	Long nose (day)	1 semi, 1 pup	0	30
+//	Pocomoke	Epoch C		Heavy Duty	2 axle	Long nose (day)	1 semi, 1 pup	0	30
 #define THIS_VEH_ID(...)          __VA_ARGS__ ## veh_pocomoke_blackwater // __VA_ARGS__ and ## allow for concatenating the veh ID with strings to construct further IDs
 #define THIS_NAME                 THIS_VEH_ID(str_name_) // concatenated identifier using CPP 
 #define THIS_SPEED                48 km/h

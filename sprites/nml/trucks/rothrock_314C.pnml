@@ -19,7 +19,7 @@
 #define THIS_SG_ID   THIS_VEH_ID(sg_)
 #define THIS_SS_ID   THIS_VEH_ID(ss_)
 
-#include "../templates/refits/refits_default.tnml"  // predefined cargo refits. Multiple templates available for different vehicle types.
+#include "../templates/refits/refits_heavy_duty.tnml"  // predefined cargo refits. Multiple templates available for different vehicle types.
 
 #define THIS_LENGTH  SHORTEN_TO_2_8 // 1 unit = 4px; fifth-wheel articulated trucks may be shorter than their sprites so trailer overlaps  
 spriteset(THIS_SS_ID, "sprites/graphics/cabover_truck_test.png") {

@@ -5,7 +5,8 @@
 
 #include "sprites/nml/templates/vehicle_offsets.tnml"
 
-// changing the order of vehicle includes will cause IDs to be changed, breaking savegames horribly...
+// do not change the order of vehicle includes
+// IDs are auto-generated, changing the vehicle order breaks savegames horribly...
 
 #include "sprites/nml/trailers/test_trailer.pnml"
 
@@ -54,3 +55,7 @@
 #include "sprites/nml/trucks/wicomico_epoch_C_rigid.pnml"
 #include "sprites/nml/trucks/wicomico_epoch_D_1pup.pnml"
 #include "sprites/nml/trucks/wicomico_epoch_E_1semi_2pup.pnml"
+#include "sprites/nml/trucks/dragon_run_turnpike_special.pnml"
+#include "sprites/nml/trucks/latour_epoch_E_rigid.pnml"
+
+

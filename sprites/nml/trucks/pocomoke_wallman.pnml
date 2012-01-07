@@ -1,3 +1,4 @@
+//Wallman	Pocomoke	Epoch E	1963	Vocational	5 axle	Long nose (day)	0	30	30
 #define THIS_VEH_ID(...)          __VA_ARGS__ ## veh_pocomoke_wallman // __VA_ARGS__ and ## allow for concatenating the veh ID with strings to construct further IDs
 #define THIS_NAME                 THIS_VEH_ID(str_name_) // concatenated identifier using CPP 
 #define THIS_SPEED                48 km/h

@@ -9,6 +9,8 @@ str_name_veh_fayette_giant                                      :Fayette Giant
 
 str_name_veh_dragon_run_road_commander                          :Dragon Run Road Commander
 str_name_veh_dragon_run_pony                                    :Dragon Run Pony
+str_name_veh_dragon_run_turnpike_special                        :Dragon Run Turnpike Special
+
 
 str_name_veh_hackler_A                                          :Hackler A
 str_name_veh_hackler_AB                                         :Hackler AB
@@ -21,10 +23,11 @@ str_name_veh_hackler_epoch_E_semi                               :Hackler EPOCH E
 str_name_veh_hackler_epoch_E_pup                                :Hackler EPOCH E PUP
 
 str_name_veh_latour_epoch_D_rigid                               :Latour             
+str_name_veh_latour_epoch_E_rigid                               :Latour             
 str_name_veh_latour_epoch_C_semi_pup                            :Latour
 
 str_name_veh_pocomoke_wallman                                   :Pocomoke Wallman
-str_name_veh_pocomoke_epoch_C_1semi_1pup                        :Pocomoke Wallman
+str_name_veh_pocomoke_epoch_C_1semi_1pup                        :Pocomoke EPOCH E SEMI + PUP
 
 str_name_veh_red_lake_epoch_E_semi                              :Red Lake
 str_name_veh_red_lake_epoch_E_rigid                             :Red Lake             

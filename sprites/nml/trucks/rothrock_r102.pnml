@@ -1,3 +1,4 @@
+//R102	Rothrock	Epoch E	1961	Express	2 axle	Cabover (day)	1 semi, 2 pup	0	39
 #define THIS_VEH_ID(...)          __VA_ARGS__ ## veh_rothrock_r102 // __VA_ARGS__ and ## allow for concatenating the veh ID with strings to construct further IDs
 #define THIS_NAME                 THIS_VEH_ID(str_name_) // concatenated identifier using CPP 
 #define THIS_SPEED                48 km/h

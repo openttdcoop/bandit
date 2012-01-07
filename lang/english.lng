@@ -27,7 +27,7 @@ str_name_veh_latour_epoch_E_rigid                               :Latour
 str_name_veh_latour_epoch_C_semi_pup                            :Latour
 
 str_name_veh_pocomoke_wallman                                   :Pocomoke Wallman
-str_name_veh_pocomoke_epoch_C_1semi_1pup                        :Pocomoke EPOCH E SEMI + PUP
+str_name_veh_pocomoke_blackwater                                :Pocomoke Blackwater
 
 str_name_veh_red_lake_general                                   :Red Lake General
 str_name_veh_red_lake_grizzly                                   :Red Lake Grizzly

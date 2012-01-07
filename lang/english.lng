@@ -36,10 +36,10 @@ str_name_veh_red_lake_kermode                                   :Red Lake Kermod
 str_name_veh_red_lake_nanuk                                     :Red Lake Nanuk
 str_name_veh_red_lake_rapid                                     :Red Lake Rapid
 
-str_name_veh_reifsnider_epoch_E_rigid                           :Reifsnider             
-str_name_veh_reifsnider_epoch_D_rigid                           :Reifsnider
-str_name_veh_reifsnider_epoch_D_1pup                            :Reifsnider             
-str_name_veh_reifsnider_352                                     :Reifsnider             
+str_name_veh_reifsnider_281                                     :Reifsnider 281
+str_name_veh_reifsnider_360                                     :Reifsnider 360
+str_name_veh_reifsnider_361                                     :Reifsnider 361
+str_name_veh_reifsnider_352                                     :Reifsnider 352
 
 str_name_veh_rothrock                                           :Rothrock
 str_name_veh_rothrock_super                                     :Rothrock Super

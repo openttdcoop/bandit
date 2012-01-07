@@ -1,4 +1,4 @@
-//	LaTour	E		Vocational	3 axle	Cabover (day)	0	18	18
+//	LaTour	Epoch E		Vocational	3 axle	Cabover (day)	0	18	18
 #define THIS_VEH_ID(...)          __VA_ARGS__ ## veh_latour_LT64 // __VA_ARGS__ and ## allow for concatenating the veh ID with strings to construct further IDs
 #define THIS_NAME                 THIS_VEH_ID(str_name_) // concatenated identifier using CPP 
 #define THIS_SPEED                48 km/h
@@ -11,7 +11,7 @@
 #define THIS_RUN_COST             10
 #define THIS_INTRO_DATE           date(1926,01,01)
 #define THIS_MODEL_LIFE           100
-#define THIS_CAPACITY             20 // capacity for tractor
+#define THIS_CAPACITY             18 // capacity
 #define THIS_WEIGHT               9.5 ton
 
  // use CPP to concatenate some identifiers from the vehicle ID and some strings

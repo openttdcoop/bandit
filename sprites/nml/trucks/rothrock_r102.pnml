@@ -37,6 +37,7 @@ spritegroup THIS_SG_ID {
 // articulated cb is handled on a custom basis per truck; this is not wholly efficient, but I find it easier to work with
 switch (FEAT_ROADVEHS, SELF, THIS_ARTICULATED_CB_ID, extra_callback_info1) {
     1: return veh_trailer_test;
+    2..3: return veh_trailer_test;
     return 0xFF; //stop adding vehicle parts
 }
 

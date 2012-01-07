@@ -2,6 +2,7 @@
 #include "sprites/nml/ids.pnml"
 #include "sprites/nml/header.pnml"
 #include "sprites/nml/cargo_table.pnml"
+#include "sprites/nml/disable_default_trucks.pnml"
 
 #include "sprites/nml/templates/vehicle_offsets.tnml"
 

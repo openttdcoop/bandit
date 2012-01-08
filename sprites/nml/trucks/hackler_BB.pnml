@@ -16,7 +16,7 @@
 #define THIS_NUM_TRAILERS         1
 #define THIS_CAPACITY_BUY_MENU    19 // fake capacity for buy menu - set to total consist capacity
 #define THIS_CAPACITY             9 // capacity for truck
-#define THIS_TRAILER_CAPACITY     10 // common case is all trailers same cap.  Where needed use defines for TRAILER_1_CAPACITY, TRAILER_2_CAPACITY etc.
+#define THIS_TRAILER_CAPACITY_1   10 // common case is all trailers same cap.  Where needed use defines for TRAILER_1_CAPACITY, TRAILER_2_CAPACITY etc.
 // include trailer weight(s) as ottd trailing parts have weight=0. If number of trailers varies by subtype, define weight for each subtype.
 #define THIS_WEIGHT               9.5 ton
 

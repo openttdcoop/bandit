@@ -4,13 +4,7 @@
 // to use a custom capacity cb (e.g. provide date upgrades etc), define THIS_TRAILER_CAPACITY_CB_ID in truck file + provide switches
 #ifndef THIS_TRAILER_CAPACITY_CB_ID
   #define THIS_TRAILER_CAPACITY_CB_ID   THIS_VEH_ID(switch_capacity_cb_trailer_)
-  #if THIS_NUM_TRAILERS == 1
-    #include "../templates/trailer_callbacks/capacity_cb_1_trailer.tnml"
-  #elif THIS_NUM_TRAILERS == 2
-    #include "../templates/trailer_callbacks/capacity_cb_2_trailers.tnml"
-  #elif THIS_NUM_TRAILERS == 3
-    #include "../templates/trailer_callbacks/capacity_cb_3_trailers.tnml"
-  #endif
+  #include "../templates/trailer_callbacks/capacity_cb_trailers.tnml"
 #endif
 
 item(FEAT_ROADVEHS, THIS_TRAILER_ID) {

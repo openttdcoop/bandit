@@ -1,3 +1,10 @@
+#ifndef THIS_TRAILER_CAPACITY_2
+  #define THIS_TRAILER_CAPACITY_2  0
+#endif
+#ifndef THIS_TRAILER_CAPACITY_3
+  #define THIS_TRAILER_CAPACITY_3  0
+#endif
+
 switch (FEAT_ROADVEHS, SELF, THIS_TRAILER_CAPACITY_CB_ID, position_in_consist) {
     1: return THIS_TRAILER_CAPACITY_1;
     2: return THIS_TRAILER_CAPACITY_2;

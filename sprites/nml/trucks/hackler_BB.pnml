@@ -1,7 +1,6 @@
 //BB	Hackler	Epoch A	1919	Standard	2 axle	Long nose (day)	1 pup	9	19				
 //BB	Hackler	Epoch C	1931	Standard	3 axle	Long nose (day)	1 pup	12	24
 #define THIS_VEH_ID(...)          __VA_ARGS__ ## veh_hackler_BB // __VA_ARGS__ and ## allow for concatenating the veh ID with strings to construct further IDs
-#define THIS_TRAILER_ID           THIS_VEH_ID(trailer_) // common case is all trailers for each truck use same ID; rare case is trailer_1_, trailer_2_ etc
 #define THIS_NAME                 THIS_VEH_ID(str_name_) // concatenated identifier using CPP 
 #define THIS_SPEED                48 km/h
 #define THIS_POWER                120 hp
@@ -58,3 +57,4 @@ spritegroup THIS_TRAILER_SG_ID {
 
 
 #include "../templates/template_clear_defines.tnml"
+

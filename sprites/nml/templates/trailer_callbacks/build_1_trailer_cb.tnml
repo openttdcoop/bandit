@@ -1,4 +1,3 @@
-#define THIS_ARTICULATED_CB_ID   THIS_VEH_ID(switch_articulated_)
 switch (FEAT_ROADVEHS, SELF, THIS_ARTICULATED_CB_ID, extra_callback_info1) {
     1: return THIS_TRAILER_ID;
     return 0xFF; //stop adding vehicle parts

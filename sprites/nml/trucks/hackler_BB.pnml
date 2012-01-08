@@ -14,9 +14,8 @@
 #define THIS_INTRO_DATE           date(1919,01,01)
 #define THIS_MODEL_LIFE           GLOBAL_MODEL_LIFE_MEDIUM
 #define THIS_VEHICLE_LIFE         GLOBAL_VEHICLE_LIFE_MEDIUM
-// for fifth-wheel trucks, total capacity should be split over tractor / 1st trailer. Some fraction of capacity required for purposes of TE.
-#define THIS_CAPACITY             12 // capacity for truck
-#define THIS_TRAILER_CAPACITY     12 // capacity for truck
+#define THIS_CAPACITY             9 // capacity for truck
+#define THIS_TRAILER_CAPACITY     10 // common case is all trailers same cap.  If needed use defines for TRAILER_1_CAPACITY, TRAILER_2_CAPACITY etc.
 // include trailer weight(s) as ottd trailing parts have weight=0. If number of trailers varies by subtype, define weight for each subtype.
 #define THIS_WEIGHT               9.5 ton
 
@@ -24,7 +23,6 @@
  // putting these on defines isnt strictly necessary; they could be concatenated inline, but this way helps my brain read other parts of the code
 #define THIS_SG_ID   THIS_VEH_ID(sg_)
 #define THIS_SS_ID   THIS_VEH_ID(ss_)
-#define THIS_ARTICULATED_CB_ID   THIS_VEH_ID(switch_articulated_)
 
 #include "../templates/refits/refits_default.tnml"  // predefined cargo refits. Multiple templates available for different vehicle types.
 
@@ -39,6 +37,7 @@ spritegroup THIS_SG_ID {
 }
 
 // articulated cb is handled on a custom basis per truck; this is not wholly efficient, but I find it easier to work with
+#define THIS_ARTICULATED_CB_ID    THIS_VEH_ID(switch_articulated_)
 switch (FEAT_ROADVEHS, SELF, THIS_ARTICULATED_CB_ID, extra_callback_info1) {
     1: return THIS_TRAILER_ID;
     return 0xFF; //stop adding vehicle parts
@@ -57,6 +56,8 @@ spritegroup sg_veh_trailer_test {
     loaded:  [realsprites_veh_trailer_test];
     loading: [realsprites_veh_trailer_test];
 }
+#define THIS_TRAILER_CAPACITY_CB_ID   return THIS_TRAILER_CAPACITY
+
 #include "../templates/template_trailer_item.tnml"
 // trailers done
 

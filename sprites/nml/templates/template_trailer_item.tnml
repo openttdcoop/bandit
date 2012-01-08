@@ -2,7 +2,7 @@
 item(FEAT_ROADVEHS, THIS_TRAILER_ID) {
     property {
         climates_available:             NO_CLIMATE; //hide trailers from buy menu by setting climate availability to 'none'
-        cargo_capacity:                 0; //set with cb36
+        cargo_capacity:                 1; //set to 1 - or vehicle not refittable.  Automatically set to correct value with cb36
         sprite_id:                      SPRITE_ID_NEW_ROADVEH; //enable new graphics
         power:                          0; //should be 0 for trailers
         weight:                         0; //should be 0 for trailers
@@ -17,6 +17,7 @@ item(FEAT_ROADVEHS, THIS_TRAILER_ID) {
     }
     graphics {
         //shorten_vehicle:                THIS_TRAILER_LENGTH;
+        cargo_capacity:                 THIS_TRAILER_CAPACITY_CB_ID;
         default:                        THIS_TRAILER_SG_ID;
     }
 }

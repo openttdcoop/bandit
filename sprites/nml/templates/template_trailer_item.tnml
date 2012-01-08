@@ -1,24 +1,26 @@
 // some of the identifiers used are NML built-ins, some are defined by BANDIT.  No easy way to tell except by searching...
-
-item(FEAT_ROADVEHS, THIS_VEH_ID) {
+item(FEAT_ROADVEHS, THIS_TRAILER_ID) {
     property {
-        climates_available:             NO_CLIMATE;
-        cargo_capacity:                 THIS_CAPACITY;
+        climates_available:             NO_CLIMATE; //hide trailers from buy menu by setting climate availability to 'none'
+        cargo_capacity:                 0; //set with cb36
         sprite_id:                      SPRITE_ID_NEW_ROADVEH; //enable new graphics
-        power:                          0;
-        weight:                         0;
-        tractive_effort_coefficient:    0;
-        cost_factor:                    0;
-        running_cost_factor:            0;
-        running_cost_base:              RUNNING_COST_NONE;
+        power:                          0; //should be 0 for trailers
+        weight:                         0; //should be 0 for trailers
+        tractive_effort_coefficient:    0; //should be 0 for trailers
+        cost_factor:                    0; //should be 0 for trailers
+        running_cost_factor:            0; //should be 0 for trailers
+        running_cost_base:              RUNNING_COST_NONE; //should be 0 for trailers
         refittable_cargo_classes:       bitmask(THIS_ALLOWED_CARGO_CLASSES);
         non_refittable_cargo_classes:   bitmask(THIS_DISALLOWED_CARGO_CLASSES);
         cargo_allow_refit:              [THIS_ALLOWED_CARGOS];
         cargo_disallow_refit:           [THIS_DISALLOWED_CARGOS];
     }
     graphics {
-        shorten_vehicle:                THIS_LENGTH;
-        default:                        THIS_SG_ID;
+        //shorten_vehicle:                THIS_TRAILER_LENGTH;
+        default:                        THIS_TRAILER_SG_ID;
     }
 }
 
+#undef THIS_TRAILER_ID
+#undef THIS_TRAILER_LENGTH
+#undef THIS_TRAILER_SG_ID

@@ -1,6 +1,7 @@
 //BB	Hackler	Epoch A	1919	Standard	2 axle	Long nose (day)	1 pup	9	19				
 //BB	Hackler	Epoch C	1931	Standard	3 axle	Long nose (day)	1 pup	12	24
 #define THIS_VEH_ID(...)          __VA_ARGS__ ## veh_hackler_BB // __VA_ARGS__ and ## allow for concatenating the veh ID with strings to construct further IDs
+#define THIS_TRAILER_ID           THIS_VEH_ID(trailer_) // common case is all trailers for each truck use same ID; rare case is trailer_1_, trailer_2_ etc
 #define THIS_NAME                 THIS_VEH_ID(str_name_) // concatenated identifier using CPP 
 #define THIS_SPEED                48 km/h
 #define THIS_POWER                120 hp
@@ -15,6 +16,7 @@
 #define THIS_VEHICLE_LIFE         GLOBAL_VEHICLE_LIFE_MEDIUM
 // for fifth-wheel trucks, total capacity should be split over tractor / 1st trailer. Some fraction of capacity required for purposes of TE.
 #define THIS_CAPACITY             12 // capacity for truck
+#define THIS_TRAILER_CAPACITY     12 // capacity for truck
 // include trailer weight(s) as ottd trailing parts have weight=0. If number of trailers varies by subtype, define weight for each subtype.
 #define THIS_WEIGHT               9.5 ton
 
@@ -38,10 +40,25 @@ spritegroup THIS_SG_ID {
 
 // articulated cb is handled on a custom basis per truck; this is not wholly efficient, but I find it easier to work with
 switch (FEAT_ROADVEHS, SELF, THIS_ARTICULATED_CB_ID, extra_callback_info1) {
-    1: return veh_trailer_test;
+    1: return THIS_TRAILER_ID;
     return 0xFF; //stop adding vehicle parts
 }
 
 #include "../templates/template_fifth_wheel_truck_item.tnml"
+
+
+// provide trailers 
+spriteset(realsprites_veh_trailer_test, "sprites/graphics/trailer_test.png") {
+  spriteset_template_truck_28(0, 20) // (search 'sprites/nml' to find where spriteset templates are defined)  
+}
+
+#define THIS_TRAILER_SG_ID   sg_veh_trailer_test // ID will also be used for templated item block
+spritegroup sg_veh_trailer_test {
+    loaded:  [realsprites_veh_trailer_test];
+    loading: [realsprites_veh_trailer_test];
+}
+#include "../templates/template_trailer_item.tnml"
+// trailers done
+
 
 #include "../templates/template_clear_defines.tnml"

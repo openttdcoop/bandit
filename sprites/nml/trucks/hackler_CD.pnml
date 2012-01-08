@@ -45,7 +45,9 @@ spritegroup THIS_SG_ID {
 
 
 // provide trailers specific for this truck
-#define THIS_TRAILER_GRAPHICS_FILE "sprites/graphics/trailer_test.png"
+#define THIS_TRAILER_1_GRAPHICS_FILE "sprites/graphics/trailer_test.png"
+#define THIS_TRAILER_2_GRAPHICS_FILE "sprites/graphics/trailer_test.png"
+#define THIS_TRAILER_3_GRAPHICS_FILE "sprites/graphics/trailer_test.png"
 #include "../templates/template_trailer_commonblocks.tnml"
 // trailers done
 

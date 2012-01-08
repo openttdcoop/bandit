@@ -20,6 +20,8 @@ item(FEAT_ROADVEHS, THIS_VEH_ID()) {
         cargo_allow_refit:              [THIS_ALLOWED_CARGOS];
         cargo_disallow_refit:           [THIS_DISALLOWED_CARGOS];
         misc_flags:                     bitmask(ROADVEH_FLAG_2CC, ROADVEH_FLAG_AUTOREFIT);
+        model_life:                     THIS_MODEL_LIFE;
+        vehicle_life:                   THIS_VEHICLE_LIFE;
     }
     graphics {
         shorten_vehicle:                THIS_LENGTH;

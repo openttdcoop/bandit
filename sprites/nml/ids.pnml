@@ -1,1 +1,9 @@
 #define GLOBAL_DEFAULT_TE_COEFFICIENT            0.3
+
+#define GLOBAL_MODEL_LIFE_SHORT                  10
+#define GLOBAL_MODEL_LIFE_MEDIUM                 20
+#define GLOBAL_MODEL_LIFE_LONG                   30
+
+#define GLOBAL_VEHICLE_LIFE_SHORT                15
+#define GLOBAL_VEHICLE_LIFE_MEDIUM               25
+#define GLOBAL_VEHICLE_LIFE_LONG                 35

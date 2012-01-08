@@ -10,7 +10,8 @@
 #define THIS_BUY_COST             10
 #define THIS_RUN_COST             10
 #define THIS_INTRO_DATE           date(1943,01,01)
-#define THIS_MODEL_LIFE           100
+#define THIS_MODEL_LIFE           GLOBAL_MODEL_LIFE_MEDIUM
+#define THIS_VEHICLE_LIFE         GLOBAL_VEHICLE_LIFE_MEDIUM
 #define THIS_CAPACITY             18 // capacity
 #define THIS_WEIGHT               9.5 ton
 

@@ -10,7 +10,8 @@
 #define THIS_BUY_COST             10
 #define THIS_RUN_COST             10
 #define THIS_INTRO_DATE           date(1967,01,01)
-#define THIS_MODEL_LIFE           100
+#define THIS_MODEL_LIFE           GLOBAL_MODEL_LIFE_MEDIUM
+#define THIS_VEHICLE_LIFE         GLOBAL_VEHICLE_LIFE_MEDIUM
 // for fifth-wheel trucks, total capacity should be split over tractor / 1st trailer. Some fraction of capacity required for purposes of TE.
 #define THIS_CAPACITY             20 // capacity for tractor
 // include trailer weight(s) as ottd trailing parts have weight=0. If number of trailers varies by subtype, define weight for each subtype.

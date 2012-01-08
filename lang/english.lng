@@ -2,6 +2,12 @@
 STR_GRF_NAME                                                    :BANDIT {VERSION}
 STR_GRF_DESCRIPTION                                             :License: {SILVER}GPL v2{}{BLACK}
 
+str_cargo_refit_0_trailer                                       :(No trailer)
+str_cargo_refit_0_trailers                                      :(No trailers)
+str_cargo_refit_1_trailer                                       :(1 trailer)
+str_cargo_refit_2_trailers                                      :(2 trailers)
+str_cargo_refit_3_trailers                                      :(3 trailers)
+
 str_name_veh_fayette_t                                          :Fayette T
 str_name_veh_fayette_speedwagon                                 :Fayette Speedwagon
 str_name_veh_fayette_giant                                      :Fayette Giant

@@ -4,7 +4,8 @@
 #include "sprites/nml/cargo_table.pnml"
 #include "sprites/nml/disable_default_trucks.pnml"
 
-#include "sprites/nml/templates/vehicle_offsets.tnml"
+#include "sprites/nml/templates/template_vehicle_offsets.tnml"
+#include "sprites/nml/templates/template_cargo_subtype_texts.tnml"
 
 // do not change the order of vehicle includes
 // IDs are auto-generated, changing the vehicle order breaks savegames horribly...

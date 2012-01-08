@@ -4,10 +4,13 @@
 
 #if THIS_NUM_TRAILERS == 1
   #include "../templates/trailer_callbacks/build_1_trailer_cb.tnml"
+  #define THIS_SUBTYPE_TEXT_CB_ID   switch_cb_cargo_subtype_text_1_trailer
 #elif THIS_NUM_TRAILERS == 2
   #include "../templates/trailer_callbacks/build_2_trailers_cb.tnml"
+  #define THIS_SUBTYPE_TEXT_CB_ID   switch_cb_cargo_subtype_text_2_trailers
 #elif THIS_NUM_TRAILERS == 3
   #include "../templates/trailer_callbacks/build_3_trailers_cb.tnml"
+  #define THIS_SUBTYPE_TEXT_CB_ID   switch_cb_cargo_subtype_text_3_trailers
 #endif
 
 item(FEAT_ROADVEHS, THIS_VEH_ID()) {
@@ -37,6 +40,7 @@ item(FEAT_ROADVEHS, THIS_VEH_ID()) {
         shorten_vehicle:                THIS_LENGTH;
         articulated_part:               THIS_ARTICULATED_CB_ID;
         purchase_cargo_capacity:        THIS_CAPACITY_BUY_MENU;
+        cargo_subtype_text:             THIS_SUBTYPE_TEXT_CB_ID;
         default:                        THIS_SG_ID;
     }
 }

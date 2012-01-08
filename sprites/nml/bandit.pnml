@@ -23,7 +23,7 @@
 //#include "sprites/nml/trucks/hackler_H63.pnml"
 //#include "sprites/nml/trucks/hackler_B80.pnml"
 //#include "sprites/nml/trucks/hackler_CJ.pnml"
-//#include "sprites/nml/trucks/latour_clipper.pnml"
+#include "sprites/nml/trucks/latour_clipper.pnml"
 //#include "sprites/nml/trucks/latour_LT64.pnml"
 //#include "sprites/nml/trucks/latour_LT86.pnml"
 //#include "sprites/nml/trucks/pocomoke_blackwater.pnml"

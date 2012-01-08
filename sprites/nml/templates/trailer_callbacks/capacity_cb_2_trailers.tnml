@@ -1,0 +1,6 @@
+#define THIS_TRAILER_CAPACITY_CB_ID   THIS_VEH_ID(switch_capacity_cb_trailer_)
+switch (FEAT_ROADVEHS, SELF, THIS_TRAILER_CAPACITY_CB_ID, position_in_consist) {
+    1: return THIS_TRAILER_CAPACITY_1;
+    2: return THIS_TRAILER_CAPACITY_2;
+    return 0xFF; //end cb
+}

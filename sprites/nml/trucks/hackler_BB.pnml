@@ -15,7 +15,7 @@
 #define THIS_MODEL_LIFE           GLOBAL_MODEL_LIFE_MEDIUM
 #define THIS_VEHICLE_LIFE         GLOBAL_VEHICLE_LIFE_MEDIUM
 #define THIS_CAPACITY             9 // capacity for truck
-#define THIS_TRAILER_CAPACITY     10 // common case is all trailers same cap.  If needed use defines for TRAILER_1_CAPACITY, TRAILER_2_CAPACITY etc.
+#define THIS_TRAILER_CAPACITY     10 // common case is all trailers same cap.  Where needed use defines for TRAILER_1_CAPACITY, TRAILER_2_CAPACITY etc.
 // include trailer weight(s) as ottd trailing parts have weight=0. If number of trailers varies by subtype, define weight for each subtype.
 #define THIS_WEIGHT               9.5 ton
 
@@ -36,27 +36,24 @@ spritegroup THIS_SG_ID {
     loading: [THIS_SS_ID];
 }
 
-// articulated cb is handled on a custom basis per truck; this is not wholly efficient, but I find it easier to work with
-#define THIS_ARTICULATED_CB_ID    THIS_VEH_ID(switch_articulated_)
-switch (FEAT_ROADVEHS, SELF, THIS_ARTICULATED_CB_ID, extra_callback_info1) {
-    1: return THIS_TRAILER_ID;
-    return 0xFF; //stop adding vehicle parts
-}
+#include "../templates/trailer_callbacks/build_1_trailer_cb.tnml"
 
 #include "../templates/template_fifth_wheel_truck_item.tnml"
 
 
 // provide trailers 
-spriteset(realsprites_veh_trailer_test, "sprites/graphics/trailer_test.png") {
+#define THIS_TRAILER_SS_ID   THIS_VEH_ID(ss_trailer_)
+#define THIS_TRAILER_SG_ID   THIS_VEH_ID(sg_trailer_)
+spriteset(THIS_TRAILER_SS_ID, "sprites/graphics/trailer_test.png") {
   spriteset_template_truck_28(0, 20) // (search 'sprites/nml' to find where spriteset templates are defined)  
 }
 
-#define THIS_TRAILER_SG_ID   sg_veh_trailer_test // ID will also be used for templated item block
-spritegroup sg_veh_trailer_test {
-    loaded:  [realsprites_veh_trailer_test];
-    loading: [realsprites_veh_trailer_test];
+spritegroup THIS_TRAILER_SG_ID {
+    loaded:  [THIS_TRAILER_SS_ID];
+    loading: [THIS_TRAILER_SS_ID];
 }
-#define THIS_TRAILER_CAPACITY_CB_ID   return THIS_TRAILER_CAPACITY
+
+#include "../templates/trailer_callbacks/capacity_cb_1_trailer.tnml"
 
 #include "../templates/template_trailer_item.tnml"
 // trailers done

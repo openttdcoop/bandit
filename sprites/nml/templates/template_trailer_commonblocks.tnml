@@ -3,7 +3,7 @@
 // handle graphics
 #define THIS_TRAILER_SS_ID   THIS_VEH_ID(ss_trailer_)
 #define THIS_TRAILER_SG_ID   THIS_VEH_ID(sg_trailer_)
-spriteset(THIS_TRAILER_SS_ID, "sprites/graphics/trailer_test.png") {
+spriteset(THIS_TRAILER_SS_ID, THIS_TRAILER_GRAPHICS_FILE) {
   spriteset_template_truck_28(0, 20) // (search 'sprites/nml' to find where spriteset templates are defined)  
 }
 

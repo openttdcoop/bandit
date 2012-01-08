@@ -43,19 +43,9 @@ spritegroup THIS_SG_ID {
 #include "../templates/template_truck_with_trailers_item.tnml"
 
 
-// provide trailers specific to this truck
-#define THIS_TRAILER_SS_ID   THIS_VEH_ID(ss_trailer_)
-#define THIS_TRAILER_SG_ID   THIS_VEH_ID(sg_trailer_)
-spriteset(THIS_TRAILER_SS_ID, "sprites/graphics/trailer_test.png") {
-  spriteset_template_truck_28(0, 20) // (search 'sprites/nml' to find where spriteset templates are defined)  
-}
-
-spritegroup THIS_TRAILER_SG_ID {
-    loaded:  [THIS_TRAILER_SS_ID];
-    loading: [THIS_TRAILER_SS_ID];
-}
-
-#include "../templates/template_trailer_item.tnml"
+// provide trailers for this truck
+//#define THIS_TRAILER_GRAPHICS_FILE
+#include "../templates/template_trailer_commonblocks.tnml"
 // trailers done
 
 

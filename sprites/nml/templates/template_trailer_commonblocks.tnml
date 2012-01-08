@@ -1,5 +1,18 @@
 // some of the identifiers used are NML built-ins, some are defined by BANDIT.  No easy way to tell except by searching...
 
+// handle graphics
+#define THIS_TRAILER_SS_ID   THIS_VEH_ID(ss_trailer_)
+#define THIS_TRAILER_SG_ID   THIS_VEH_ID(sg_trailer_)
+spriteset(THIS_TRAILER_SS_ID, "sprites/graphics/trailer_test.png") {
+  spriteset_template_truck_28(0, 20) // (search 'sprites/nml' to find where spriteset templates are defined)  
+}
+
+spritegroup THIS_TRAILER_SG_ID {
+    loaded:  [THIS_TRAILER_SS_ID];
+    loading: [THIS_TRAILER_SS_ID];
+}
+// end graphics
+
 // assume THIS_TRAILER_CAPACITY_1 is always defined
 #ifndef THIS_TRAILER_CAPACITY_2
   #define THIS_TRAILER_CAPACITY_2  0

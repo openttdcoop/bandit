@@ -1,22 +1,42 @@
-// one common swtich used for all cargo subtypes
+// one set of common switches used for all cargo subtypes
 
-switch (FEAT_ROADVEHS, SELF, switch_cb_cargo_subtype_text_1_trailer, cargo_subtype) {
+// drawbar trucks have 0-n trailers
+switch (FEAT_ROADVEHS, SELF, switch_cb_cargo_subtype_text_drawbar_truck_1_trailer, cargo_subtype) {
     0: return string(str_cargo_refit_0_trailer);
     1: return string(str_cargo_refit_1_trailer);
     return CB_RESULT_NO_TEXT;
 }
 
-switch (FEAT_ROADVEHS, SELF, switch_cb_cargo_subtype_text_2_trailers, cargo_subtype) {
+switch (FEAT_ROADVEHS, SELF, switch_cb_cargo_subtype_text_drawbar_truck_2_trailers, cargo_subtype) {
     0: return string(str_cargo_refit_0_trailers);
     1: return string(str_cargo_refit_1_trailer);
     2: return string(str_cargo_refit_2_trailers);
     return CB_RESULT_NO_TEXT;
 }
 
-switch (FEAT_ROADVEHS, SELF, switch_cb_cargo_subtype_text_3_trailers, cargo_subtype) {
+switch (FEAT_ROADVEHS, SELF, switch_cb_cargo_subtype_text_drawbar_truck_3_trailers, cargo_subtype) {
     0: return string(str_cargo_refit_0_trailers);
     1: return string(str_cargo_refit_1_trailer);
     2: return string(str_cargo_refit_2_trailers);
     3: return string(str_cargo_refit_3_trailers);
+    return CB_RESULT_NO_TEXT;
+}
+
+// fifth-wheel trucks have 1-n trailers
+switch (FEAT_ROADVEHS, SELF, switch_cb_cargo_subtype_text_fifth_wheel_truck_1_trailer, cargo_subtype) {
+    0: return string(str_cargo_refit_1_trailer);
+    return CB_RESULT_NO_TEXT;
+}
+
+switch (FEAT_ROADVEHS, SELF, switch_cb_cargo_subtype_text_fifth_wheel_truck_2_trailers, cargo_subtype) {
+    0: return string(str_cargo_refit_1_trailer);
+    1: return string(str_cargo_refit_2_trailers);
+    return CB_RESULT_NO_TEXT;
+}
+
+switch (FEAT_ROADVEHS, SELF, switch_cb_cargo_subtype_text_fifth_wheel_truck_3_trailers, cargo_subtype) {
+    0: return string(str_cargo_refit_1_trailer);
+    1: return string(str_cargo_refit_2_trailers);
+    2: return string(str_cargo_refit_3_trailers);
     return CB_RESULT_NO_TEXT;
 }

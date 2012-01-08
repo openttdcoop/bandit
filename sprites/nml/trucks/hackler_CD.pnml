@@ -12,6 +12,7 @@
 #define THIS_INTRO_DATE           date(1925,01,01)
 #define THIS_MODEL_LIFE           GLOBAL_MODEL_LIFE_MEDIUM
 #define THIS_VEHICLE_LIFE         GLOBAL_VEHICLE_LIFE_MEDIUM
+#define THIS_TRUCK_TYPE           GLOBAL_TRUCK_TYPE_FIFTH_WHEEL
 #define THIS_NUM_TRAILERS         3
 #define THIS_CAPACITY_BUY_MENU    27 // fake capacity for buy menu - set to total consist capacity
 // for fifth-wheel trucks, total capacity should be split over tractor / 1st trailer. Some fraction of capacity required for purposes of TE.

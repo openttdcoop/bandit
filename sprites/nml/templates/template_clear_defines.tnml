@@ -27,6 +27,7 @@
 
 #undef THIS_LENGTH
 
+#undef THIS_TRUCK_TYPE
 #undef THIS_SG_ID
 #undef THIS_SS_ID
 #undef THIS_ARTICULATED_CB_ID

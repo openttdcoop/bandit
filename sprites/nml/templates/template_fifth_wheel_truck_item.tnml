@@ -4,13 +4,25 @@
 
 #if THIS_NUM_TRAILERS == 1
   #include "../templates/trailer_callbacks/build_1_trailer_cb.tnml"
-  #define THIS_SUBTYPE_TEXT_CB_ID   switch_cb_cargo_subtype_text_1_trailer
+  #if THIS_TRUCK_TYPE == GLOBAL_TRUCK_TYPE_DRAWBAR
+    #define THIS_SUBTYPE_TEXT_CB_ID   switch_cb_cargo_subtype_text_drawbar_truck_1_trailer
+  #elif  THIS_TRUCK_TYPE == GLOBAL_TRUCK_TYPE_FIFTH_WHEEL
+    #define THIS_SUBTYPE_TEXT_CB_ID   switch_cb_cargo_subtype_text_fifth_wheel_truck_1_trailer
+  #endif  
 #elif THIS_NUM_TRAILERS == 2
   #include "../templates/trailer_callbacks/build_2_trailers_cb.tnml"
-  #define THIS_SUBTYPE_TEXT_CB_ID   switch_cb_cargo_subtype_text_2_trailers
+  #if THIS_TRUCK_TYPE == GLOBAL_TRUCK_TYPE_DRAWBAR
+    #define THIS_SUBTYPE_TEXT_CB_ID   switch_cb_cargo_subtype_text_drawbar_truck_2_trailers
+  #elif THIS_TRUCK_TYPE == GLOBAL_TRUCK_TYPE_FIFTH_WHEEL
+    #define THIS_SUBTYPE_TEXT_CB_ID   switch_cb_cargo_subtype_text_fifth_wheel_truck_2_trailers
+  #endif  
 #elif THIS_NUM_TRAILERS == 3
   #include "../templates/trailer_callbacks/build_3_trailers_cb.tnml"
-  #define THIS_SUBTYPE_TEXT_CB_ID   switch_cb_cargo_subtype_text_3_trailers
+  #if THIS_TRUCK_TYPE == GLOBAL_TRUCK_TYPE_DRAWBAR 
+    #define THIS_SUBTYPE_TEXT_CB_ID   switch_cb_cargo_subtype_text_drawbar_truck_3_trailers
+  #elif THIS_TRUCK_TYPE == GLOBAL_TRUCK_TYPE_FIFTH_WHEEL
+    #define THIS_SUBTYPE_TEXT_CB_ID   switch_cb_cargo_subtype_text_fifth_wheel_truck_3_trailers
+  #endif  
 #endif
 
 item(FEAT_ROADVEHS, THIS_VEH_ID()) {

@@ -7,3 +7,7 @@
 #define GLOBAL_VEHICLE_LIFE_SHORT                15
 #define GLOBAL_VEHICLE_LIFE_MEDIUM               25
 #define GLOBAL_VEHICLE_LIFE_LONG                 35
+
+// used for templating trailer stuff, could be used for other stuff
+#define GLOBAL_TRUCK_TYPE_DRAWBAR                1 
+#define GLOBAL_TRUCK_TYPE_FIFTH_WHEEL            2

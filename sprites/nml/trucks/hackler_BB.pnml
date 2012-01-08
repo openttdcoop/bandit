@@ -13,6 +13,7 @@
 #define THIS_INTRO_DATE           date(1919,01,01)
 #define THIS_MODEL_LIFE           GLOBAL_MODEL_LIFE_MEDIUM
 #define THIS_VEHICLE_LIFE         GLOBAL_VEHICLE_LIFE_MEDIUM
+#define THIS_TRUCK_TYPE           GLOBAL_TRUCK_TYPE_DRAWBAR
 #define THIS_NUM_TRAILERS         1
 #define THIS_CAPACITY_BUY_MENU    19 // fake capacity for buy menu - set to total consist capacity
 #define THIS_CAPACITY             9 // capacity for truck

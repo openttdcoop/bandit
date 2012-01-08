@@ -2,6 +2,7 @@
 
 #undef THIS_VEH_ID
 #undef THIS_NAME
+#undef THIS_CAPACITY_BUY_MENU
 #undef THIS_CAPACITY
 #undef THIS_SPEED
 #undef THIS_POWER

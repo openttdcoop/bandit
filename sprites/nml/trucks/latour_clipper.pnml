@@ -13,6 +13,7 @@
 #define THIS_INTRO_DATE           date(1938,01,01)
 #define THIS_MODEL_LIFE           GLOBAL_MODEL_LIFE_MEDIUM
 #define THIS_VEHICLE_LIFE         GLOBAL_VEHICLE_LIFE_MEDIUM
+#define THIS_CAPACITY_BUY_MENU    26 // fake capacity for buy menu - set to total consist capacity
 // for fifth-wheel trucks, total capacity should be split over tractor / 1st trailer. Some fraction of capacity required for purposes of TE.
 // 14t split 1:2 = 5:9
 #define THIS_CAPACITY             5  // capacity for tractor
@@ -43,7 +44,7 @@ spritegroup THIS_SG_ID {
 #include "../templates/template_fifth_wheel_truck_item.tnml"
 
 
-// provide trailers 
+// provide trailers specific to this truck
 #define THIS_TRAILER_SS_ID   THIS_VEH_ID(ss_trailer_)
 #define THIS_TRAILER_SG_ID   THIS_VEH_ID(sg_trailer_)
 spriteset(THIS_TRAILER_SS_ID, "sprites/graphics/trailer_test.png") {

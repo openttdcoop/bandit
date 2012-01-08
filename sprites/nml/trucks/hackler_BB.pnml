@@ -14,6 +14,7 @@
 #define THIS_INTRO_DATE           date(1919,01,01)
 #define THIS_MODEL_LIFE           GLOBAL_MODEL_LIFE_MEDIUM
 #define THIS_VEHICLE_LIFE         GLOBAL_VEHICLE_LIFE_MEDIUM
+#define THIS_CAPACITY_BUY_MENU    19 // fake capacity for buy menu - set to total consist capacity
 #define THIS_CAPACITY             9 // capacity for truck
 #define THIS_TRAILER_CAPACITY     10 // common case is all trailers same cap.  Where needed use defines for TRAILER_1_CAPACITY, TRAILER_2_CAPACITY etc.
 // include trailer weight(s) as ottd trailing parts have weight=0. If number of trailers varies by subtype, define weight for each subtype.
@@ -41,7 +42,7 @@ spritegroup THIS_SG_ID {
 #include "../templates/template_fifth_wheel_truck_item.tnml"
 
 
-// provide trailers 
+// provide trailers specific to this truck
 #define THIS_TRAILER_SS_ID   THIS_VEH_ID(ss_trailer_)
 #define THIS_TRAILER_SG_ID   THIS_VEH_ID(sg_trailer_)
 spriteset(THIS_TRAILER_SS_ID, "sprites/graphics/trailer_test.png") {

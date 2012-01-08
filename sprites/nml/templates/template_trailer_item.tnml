@@ -18,6 +18,7 @@ item(FEAT_ROADVEHS, THIS_TRAILER_ID) {
     graphics {
         //shorten_vehicle:                THIS_TRAILER_LENGTH;
         cargo_capacity:                 THIS_TRAILER_CAPACITY_CB_ID;
+        purchase_cargo_capacity:        0;
         default:                        THIS_TRAILER_SG_ID;
     }
 }

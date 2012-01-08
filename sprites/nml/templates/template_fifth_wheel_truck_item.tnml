@@ -26,6 +26,7 @@ item(FEAT_ROADVEHS, THIS_VEH_ID()) {
     graphics {
         shorten_vehicle:                THIS_LENGTH;
         articulated_part:               THIS_ARTICULATED_CB_ID;
+        purchase_cargo_capacity:        THIS_CAPACITY_BUY_MENU;
         default:                        THIS_SG_ID;
     }
 }

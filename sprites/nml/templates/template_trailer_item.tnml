@@ -1,4 +1,11 @@
 // some of the identifiers used are NML built-ins, some are defined by BANDIT.  No easy way to tell except by searching...
+
+#if THIS_NUM_TRAILERS == 1
+  #include "../templates/trailer_callbacks/capacity_cb_1_trailer.tnml"
+#elif THIS_NUM_TRAILERS == 2
+  #include "../templates/trailer_callbacks/capacity_cb_2_trailers.tnml"
+#endif
+
 item(FEAT_ROADVEHS, THIS_TRAILER_ID) {
     property {
         climates_available:             NO_CLIMATE; //hide trailers from buy menu by setting climate availability to 'none'

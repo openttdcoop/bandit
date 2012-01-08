@@ -14,6 +14,7 @@
 #define THIS_INTRO_DATE           date(1919,01,01)
 #define THIS_MODEL_LIFE           GLOBAL_MODEL_LIFE_MEDIUM
 #define THIS_VEHICLE_LIFE         GLOBAL_VEHICLE_LIFE_MEDIUM
+#define THIS_NUM_TRAILERS         1
 #define THIS_CAPACITY_BUY_MENU    19 // fake capacity for buy menu - set to total consist capacity
 #define THIS_CAPACITY             9 // capacity for truck
 #define THIS_TRAILER_CAPACITY     10 // common case is all trailers same cap.  Where needed use defines for TRAILER_1_CAPACITY, TRAILER_2_CAPACITY etc.
@@ -37,8 +38,6 @@ spritegroup THIS_SG_ID {
     loading: [THIS_SS_ID];
 }
 
-#include "../templates/trailer_callbacks/build_1_trailer_cb.tnml"
-
 #include "../templates/template_fifth_wheel_truck_item.tnml"
 
 
@@ -53,8 +52,6 @@ spritegroup THIS_TRAILER_SG_ID {
     loaded:  [THIS_TRAILER_SS_ID];
     loading: [THIS_TRAILER_SS_ID];
 }
-
-#include "../templates/trailer_callbacks/capacity_cb_1_trailer.tnml"
 
 #include "../templates/template_trailer_item.tnml"
 // trailers done

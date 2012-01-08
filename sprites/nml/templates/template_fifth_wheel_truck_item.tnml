@@ -1,5 +1,11 @@
 // some of the identifiers used are NML built-ins, some are defined by BANDIT.  No easy way to tell except by searching...
 
+#if THIS_NUM_TRAILERS == 1
+  #include "../templates/trailer_callbacks/build_1_trailer_cb.tnml"
+#elif THIS_NUM_TRAILERS == 2
+  #include "../templates/trailer_callbacks/build_2_trailers_cb.tnml"
+#endif
+
 item(FEAT_ROADVEHS, THIS_VEH_ID()) {
     property {
         name:                           string(THIS_NAME);

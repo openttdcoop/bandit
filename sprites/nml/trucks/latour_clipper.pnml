@@ -40,7 +40,7 @@ spritegroup THIS_SG_ID {
     loading: [THIS_SS_ID];
 }
 
-#include "../templates/template_fifth_wheel_truck_item.tnml"
+#include "../templates/template_truck_with_trailers_item.tnml"
 
 
 // provide trailers specific to this truck

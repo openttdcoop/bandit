@@ -42,6 +42,6 @@ switch (FEAT_ROADVEHS, SELF, THIS_ARTICULATED_CB_ID, extra_callback_info1) {
     return 0xFF; //stop adding vehicle parts
 }
 
-#include "../templates/template_fifth_wheel_truck_item.tnml"
+#include "../templates/template_truck_with_trailers_item.tnml"
 
 #include "../templates/template_clear_defines.tnml"

@@ -1,4 +1,0 @@
-switch (FEAT_ROADVEHS, SELF, THIS_ARTICULATED_CB_ID, extra_callback_info1) {
-    1..2: return THIS_TRAILER_ID;
-    return 0xFF; //stop adding vehicle parts
-}

@@ -8,27 +8,13 @@ switch (FEAT_ROADVEHS, SELF, THIS_ARTICULATED_CB_ID, extra_callback_info1) {
     return 0xFF; //stop adding vehicle parts
 }
 
-// these CPP 'if' blocks could likely be done differently, maybe by concatenating IDs for switches, or inserting a constant to advanced varact 2
-#if THIS_NUM_TRAILERS == 1
-  #if THIS_TRUCK_TYPE == GLOBAL_TRUCK_TYPE_DRAWBAR
-    #define THIS_SUBTYPE_TEXT_CB_ID   switch_cb_cargo_subtype_text_drawbar_truck_1_trailer
-  #elif  THIS_TRUCK_TYPE == GLOBAL_TRUCK_TYPE_FIFTH_WHEEL
-    #define THIS_SUBTYPE_TEXT_CB_ID   switch_cb_cargo_subtype_text_fifth_wheel_truck_1_trailer
-  #endif  
-#elif THIS_NUM_TRAILERS == 2
-  #if THIS_TRUCK_TYPE == GLOBAL_TRUCK_TYPE_DRAWBAR
-    #define THIS_SUBTYPE_TEXT_CB_ID   switch_cb_cargo_subtype_text_drawbar_truck_2_trailers
-  #elif THIS_TRUCK_TYPE == GLOBAL_TRUCK_TYPE_FIFTH_WHEEL
-    #define THIS_SUBTYPE_TEXT_CB_ID   switch_cb_cargo_subtype_text_fifth_wheel_truck_2_trailers
-  #endif  
-#elif THIS_NUM_TRAILERS == 3
-  #if THIS_TRUCK_TYPE == GLOBAL_TRUCK_TYPE_DRAWBAR 
-    #define THIS_SUBTYPE_TEXT_CB_ID   switch_cb_cargo_subtype_text_drawbar_truck_3_trailers
-  #elif THIS_TRUCK_TYPE == GLOBAL_TRUCK_TYPE_FIFTH_WHEEL
-    #define THIS_SUBTYPE_TEXT_CB_ID   switch_cb_cargo_subtype_text_fifth_wheel_truck_3_trailers
-  #endif  
-#endif
+// use CPP to create the identifier for a switch by concatenating strings (requires all 3 defines to do this) 
+// CPP has some opinions about _ character in function names (if _ is used, needs also a trailing _)
+#define CONCATENATE_SUBTYPE_IDENTIFIER_(a, b, c, d) a ## b ## c ## d // concat whatever is passed as a,b,c,d etc
+#define THIS_SUBTYPE_TEXT_CB_ID CALL_SUBTYPE_CONCATENATER_(THIS_NUM_TRAILERS,THIS_TRUCK_TYPE)
+#define CALL_SUBTYPE_CONCATENATER_(num,truck_type) CONCATENATE_SUBTYPE_IDENTIFIER_(switch_cb_cargo_subtype_text_, num, _trailer_, truck_type)
 
+// set the vehicle props + switches (handle callbacks etc) 
 item(FEAT_ROADVEHS, THIS_VEH_ID()) {
     property {
         name:                           string(THIS_NAME);
@@ -60,4 +46,3 @@ item(FEAT_ROADVEHS, THIS_VEH_ID()) {
         default:                        THIS_SG_ID;
     }
 }
-

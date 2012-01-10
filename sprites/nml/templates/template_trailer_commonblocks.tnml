@@ -25,12 +25,17 @@ spritegroup THIS_TRAILER_SG_ID {
 // to use a custom capacity cb (e.g. provide date upgrades etc), define THIS_TRAILER_CAPACITY_CB_ID in truck file + provide switches
 #ifndef THIS_TRAILER_CAPACITY_CB_ID
   #define THIS_TRAILER_CAPACITY_CB_ID   THIS_VEH_ID(switch_capacity_cb_trailer_)
-  #if THIS_TRUCK_TYPE == GLOBAL_TRUCK_TYPE_DRAWBAR
-    #include "../templates/trailer_callbacks/capacity_cb_trailers_drawbar_trucks.tnml"
-  #elif  THIS_TRUCK_TYPE == GLOBAL_TRUCK_TYPE_FIFTH_WHEEL
-    #include "../templates/trailer_callbacks/capacity_cb_trailers_fifth_wheel_trucks.tnml"
-  #endif  
+  // use CPP to create the identifier for a switch by concatenating strings (requires many defines to actually do this) 
+  // CPP has some opinions about _ character in function names (if _ is used, needs also a trailing _)
+  #define CONCATENATE_CAPACITY_IDENTIFIER_(a, b)  a ## b
+  #define THIS_CAPACITY_TEMPLATE_NAME CALL_TEMPLATE_NAME_CONCATENATER_(THIS_TRUCK_TYPE)
+  #define CALL_TEMPLATE_NAME_CONCATENATER_(truck_type) CONCATENATE_CAPACITY_IDENTIFIER_(../templates/trailer_callbacks/capacity_cb_trailers_ , truck_type)
+  #define QUOTE(a) #a
+  #define QUOTE2(a) QUOTE(a)
+  #include QUOTE2(THIS_CAPACITY_TEMPLATE_NAME.tnml)
 #endif
+
+
 
 item(FEAT_ROADVEHS, THIS_TRAILER_ID) {
     property {
@@ -60,3 +65,9 @@ item(FEAT_ROADVEHS, THIS_TRAILER_ID) {
 #undef THIS_TRAILER_ID
 #undef THIS_TRAILER_LENGTH
 #undef THIS_TRAILER_SG_ID
+
+#undef CONCATENATE_CAPACITY_IDENTIFIER_
+#undef THIS_CAPACITY_TEMPLATE_NAME
+#undef CALL_TEMPLATE_NAME_CONCATENATER_
+#undef QUOTE
+#undef QUOTE2

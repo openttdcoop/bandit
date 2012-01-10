@@ -27,6 +27,8 @@ spritegroup THIS_TRAILER_SG_ID {
   #define THIS_TRAILER_CAPACITY_CB_ID   THIS_VEH_ID(switch_capacity_cb_trailer_)
   // use CPP to create the identifier for a switch by concatenating strings (requires many defines to actually do this) 
   // CPP has some opinions about _ character in function names (if _ is used, needs also a trailing _)
+  // I thought of a better way to do this, with "#define SEMITRUCK True" etc, with THIS_TRUCK_TYPE then set by #ifdefs, then use more #ifdef here...
+  // ...but so many people helped me write this that I've left it in place :)
   #define CONCATENATE_CAPACITY_IDENTIFIER_(a, b)  a ## b
   #define THIS_CAPACITY_TEMPLATE_NAME CALL_TEMPLATE_NAME_CONCATENATER_(THIS_TRUCK_TYPE)
   #define CALL_TEMPLATE_NAME_CONCATENATER_(truck_type) CONCATENATE_CAPACITY_IDENTIFIER_(../templates/trailer_callbacks/capacity_cb_trailers_ , truck_type)

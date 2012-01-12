@@ -1,7 +1,11 @@
 // some of the identifiers used are NML built-ins, some are defined by BANDIT.  No easy way to tell except by searching...
 
 // setup graphics
-#include "../templates/trailer_callbacks/trailer_graphics_includer.tnml"
+// trailer_graphics_includer includes a bunch of repeated spritesets and spritegroups, as well as creating a bunch of defines
+// it can be over-ridden when custom spritegroups etc are needed (not common) - simply define THIS_TRAILER_GRAPHICS_CHAIN_ID as a custom switch identifier in the file for the vehicle
+#ifndef THIS_TRAILER_GRAPHICS_CHAIN_ID
+  #include "../templates/trailer_callbacks/trailer_graphics_includer.tnml"
+#endif
 
 switch (FEAT_ROADVEHS, SELF, THIS_TRAILER_GRAPHICS_CHAIN_ID, position_in_consist) {
     1: THIS_TRAILER_SG_ID_1;

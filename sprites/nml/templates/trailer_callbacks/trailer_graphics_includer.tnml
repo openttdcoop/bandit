@@ -31,3 +31,36 @@
   #define THIS_TRAILER_SG_ID THIS_TRAILER_SG_ID_3
   #include "../../templates/trailer_callbacks/trailer_graphics_blocks.tnml"
 #endif
+
+// logic for switching graphics according class, or hiding them according to cargo subtype, position in consist 
+
+#define THIS_TRAILER_POS_GRAPHICS_CB_ID_1   THIS_VEH_ID(switch_graphics_cb_trailer_pos_1)
+#define THIS_TRAILER_POS_GRAPHICS_CB_ID_2   THIS_VEH_ID(switch_graphics_cb_trailer_pos_2)
+#define THIS_TRAILER_POS_GRAPHICS_CB_ID_3   THIS_VEH_ID(switch_graphics_cb_trailer_pos_3)
+
+switch (FEAT_ROADVEHS, SELF, THIS_TRAILER_POS_GRAPHICS_CB_ID_1, cargo_subtype) {
+    0: return THIS_TRAILER_SG_ID_1;
+    1..255: return THIS_TRAILER_SG_ID_1;
+    return 0xFF; //end cb
+}
+
+switch (FEAT_ROADVEHS, SELF, THIS_TRAILER_POS_GRAPHICS_CB_ID_2, cargo_subtype) {
+    0..1: return THIS_TRAILER_SG_ID_1;
+    2..255: return THIS_TRAILER_SG_ID_1;
+    return 0xFF; //end cb
+}
+
+switch (FEAT_ROADVEHS, SELF, THIS_TRAILER_POS_GRAPHICS_CB_ID_3, cargo_subtype) {
+    0..2: return THIS_TRAILER_SG_ID_1;
+    3..255: return THIS_TRAILER_SG_ID_1;
+    return 0xFF; //end cb
+}
+
+
+switch (FEAT_ROADVEHS, SELF, THIS_TRAILER_GRAPHICS_CHAIN_ID, position_in_consist) {
+    1: THIS_TRAILER_POS_GRAPHICS_CB_ID_1;
+    2: THIS_TRAILER_POS_GRAPHICS_CB_ID_2;
+    3: THIS_TRAILER_POS_GRAPHICS_CB_ID_3;
+    return 0xFF; //end cb
+}
+

@@ -7,13 +7,6 @@
   #include "../templates/trailer_callbacks/trailer_graphics_includer.tnml"
 #endif
 
-switch (FEAT_ROADVEHS, SELF, THIS_TRAILER_GRAPHICS_CHAIN_ID, position_in_consist) {
-    1: THIS_TRAILER_SG_ID_1;
-    2: THIS_TRAILER_SG_ID_2;
-    3: THIS_TRAILER_SG_ID_3;
-    return 0xFF; //end cb
-}
-
 // assume THIS_TRAILER_CAPACITY_1 is always defined
 // if trailers > 1 are not defined, set capacity to 0 (used by cb switches). 
 #ifndef THIS_TRAILER_CAPACITY_2

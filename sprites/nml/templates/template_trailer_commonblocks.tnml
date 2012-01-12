@@ -1,17 +1,14 @@
 // some of the identifiers used are NML built-ins, some are defined by BANDIT.  No easy way to tell except by searching...
 
-// handle graphics
-#define THIS_TRAILER_SS_ID   THIS_VEH_ID(ss_trailer_)
-#define THIS_TRAILER_SG_ID   THIS_VEH_ID(sg_trailer_)
-spriteset(THIS_TRAILER_SS_ID, THIS_TRAILER_1_GRAPHICS_FILE) {
-  spriteset_template_truck_28(0, 20) // (search 'sprites/nml' to find where spriteset templates are defined)  
-}
+// setup graphics
+#include "../templates/trailer_callbacks/trailer_graphics_includer.tnml"
 
-spritegroup THIS_TRAILER_SG_ID {
-    loaded:  [THIS_TRAILER_SS_ID];
-    loading: [THIS_TRAILER_SS_ID];
+switch (FEAT_ROADVEHS, SELF, THIS_TRAILER_GRAPHICS_CHAIN_ID, position_in_consist) {
+    1: THIS_TRAILER_SG_ID_1;
+    2: THIS_TRAILER_SG_ID_2;
+    3: THIS_TRAILER_SG_ID_3;
+    return 0xFF; //end cb
 }
-// end graphics
 
 // assume THIS_TRAILER_CAPACITY_1 is always defined
 #ifndef THIS_TRAILER_CAPACITY_2
@@ -60,7 +57,7 @@ item(FEAT_ROADVEHS, THIS_TRAILER_ID) {
         cargo_capacity:                 THIS_TRAILER_CAPACITY_CB_ID;
         purchase_cargo_capacity:        0;
         cargo_subtype_text:             THIS_SUBTYPE_TEXT_CB_ID;
-        default:                        THIS_TRAILER_SG_ID;
+        default:                        THIS_TRAILER_GRAPHICS_CHAIN_ID;
     }
 }
 

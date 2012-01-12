@@ -1,0 +1,14 @@
+// handle graphics
+spriteset(THIS_TRAILER_SS_ID, THIS_TRAILER_GRAPHICS_FILE) {
+  spriteset_template_truck_28(0, 20) // (search 'sprites/nml' to find where spriteset templates are defined)  
+}
+
+spritegroup THIS_TRAILER_SG_ID {
+    loaded:  [THIS_TRAILER_SS_ID];
+    loading: [THIS_TRAILER_SS_ID];
+}
+// end graphics
+
+#undef THIS_TRAILER_GRAPHICS_FILE
+#undef THIS_TRAILER_SS_ID
+#undef THIS_TRAILER_SG_ID

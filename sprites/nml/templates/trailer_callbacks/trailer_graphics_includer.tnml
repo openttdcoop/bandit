@@ -1,3 +1,7 @@
+// this file provides templated trailer spritesets and spritegroups in a standard way
+// this should be adequate for most trucks
+// to use custom trailer graphics for a truck, provide custom spritesets and spritegroups, and define THIS_TRAILER_GRAPHICS_CHAIN_ID as the name of the first switch in a custom
+
 #define THIS_TRAILER_GRAPHICS_CHAIN_ID   THIS_VEH_ID(trailer_graphics_chain_id)
 #define THIS_TRAILER_SS_ID_1             THIS_VEH_ID(ss_trailer_1_)
 #define THIS_TRAILER_SG_ID_1             THIS_VEH_ID(sg_trailer_1_)

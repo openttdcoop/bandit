@@ -15,6 +15,7 @@ switch (FEAT_ROADVEHS, SELF, THIS_TRAILER_GRAPHICS_CHAIN_ID, position_in_consist
 }
 
 // assume THIS_TRAILER_CAPACITY_1 is always defined
+// if trailers > 1 are not defined, set capacity to 0 (used by cb switches). 
 #ifndef THIS_TRAILER_CAPACITY_2
   #define THIS_TRAILER_CAPACITY_2  0
 #endif

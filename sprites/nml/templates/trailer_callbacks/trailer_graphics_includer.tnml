@@ -20,8 +20,8 @@
 
 #ifdef THIS_TRAILER_2_GRAPHICS_FILE // only include if required 
   #define THIS_TRAILER_GRAPHICS_FILE THIS_TRAILER_2_GRAPHICS_FILE
-#define THIS_TRAILER_SS_ID THIS_TRAILER_SS_ID_2
-#define THIS_TRAILER_SG_ID THIS_TRAILER_SG_ID_2
+  #define THIS_TRAILER_SS_ID THIS_TRAILER_SS_ID_2
+  #define THIS_TRAILER_SG_ID THIS_TRAILER_SG_ID_2
   #include "../../templates/trailer_callbacks/trailer_graphics_blocks.tnml"
 #endif
 
@@ -40,6 +40,7 @@
 
 
 // NEEDS TO VARY FOR FIFTH WHEEL TRUCKS / DRAWBAR TRUCKS
+// could do that with #ifdef #include, or by writing a constant with advanced varaction 2 and CPP
 switch (FEAT_ROADVEHS, SELF, THIS_TRAILER_POS_GRAPHICS_CB_ID_1, cargo_subtype) {
     0: return THIS_TRAILER_SG_ID_1;
     1..255: return THIS_TRAILER_SG_ID_1;

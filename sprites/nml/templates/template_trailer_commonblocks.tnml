@@ -13,10 +13,46 @@
 #include "../tmp/trailer_2_graphics.pnml"
 #include "../tmp/trailer_3_graphics.pnml"
 
+switch (FEAT_ROADVEHS, SELF, veh_hackler_BB_trailer_1_cargo_switch, cargo_classes) {
+    0: return veh_hackler_BB_trailer_1_sg_cargo_1;
+    1..255: return veh_hackler_BB_trailer_1_sg_cargo_2;
+    return 0xFF; //end cb
+}
+
+switch (FEAT_ROADVEHS, SELF, veh_hackler_BB_trailer_2_cargo_switch, cargo_classes) {
+    0: return veh_hackler_BB_trailer_2_sg_cargo_1;
+    1..255: return veh_hackler_BB_trailer_2_sg_cargo_2;
+    return 0xFF; //end cb
+}
+
+switch (FEAT_ROADVEHS, SELF, veh_hackler_BB_trailer_3_cargo_switch, cargo_classes) {
+    0: return veh_hackler_BB_trailer_3_sg_cargo_1;
+    1..255: return veh_hackler_BB_trailer_3_sg_cargo_2;
+    return 0xFF; //end cb
+}
+
+switch (FEAT_ROADVEHS, SELF, veh_hackler_BB_trailer_1_visibility_switch, cargo_subtype) {
+    0: return veh_hackler_BB_trailer_1_sg_invisible;
+    1..255: return veh_hackler_BB_trailer_1_cargo_switch;
+    return 0xFF; //end cb
+}
+
+switch (FEAT_ROADVEHS, SELF, veh_hackler_BB_trailer_2_visibility_switch, cargo_subtype) {
+    0..1: return veh_hackler_BB_trailer_2_sg_invisible;
+    2..255: return veh_hackler_BB_trailer_2_cargo_switch;
+    return 0xFF; //end cb
+}
+
+switch (FEAT_ROADVEHS, SELF, veh_hackler_BB_trailer_3_visibility_switch, cargo_subtype) {
+    0..2: return veh_hackler_BB_trailer_3_sg_invisible;
+    3..255: return veh_hackler_BB_trailer_3_cargo_switch;
+    return 0xFF; //end cb
+}
+
 switch (FEAT_ROADVEHS, SELF, this_trailer_graphics, position_in_consist) {
-    1: trailer_1_sg;
-    2: trailer_2_sg;
-    3: trailer_3_sg;
+    1: veh_hackler_BB_trailer_1_visibility_switch;
+    2: veh_hackler_BB_trailer_2_visibility_switch;
+    3: veh_hackler_BB_trailer_3_visibility_switch;
     return 0xFF; //end cb
 }
 

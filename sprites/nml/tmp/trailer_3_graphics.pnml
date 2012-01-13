@@ -1,9 +1,30 @@
 // handle graphics
-spriteset(trailer_3_ss, "sprites/graphics/trailer_test.png") {
+spriteset(veh_hackler_BB_trailer_3_ss_invisible, "sprites/graphics/trailer_test.png") {
   spriteset_template_truck_28(0, 20) // (search 'sprites/nml' to find where spriteset templates are defined)  
 }
 
-spritegroup trailer_3_sg {
-    loaded:  [trailer_3_ss];
-    loading: [trailer_3_ss];
+spritegroup veh_hackler_BB_trailer_3_sg_invisible {
+    loaded:  [veh_hackler_BB_trailer_3_ss_invisible];
+    loading: [veh_hackler_BB_trailer_3_ss_invisible];
 }
+
+// handle graphics
+spriteset(veh_hackler_BB_trailer_3_ss_cargo_1, "sprites/graphics/trailer_test.png") {
+  spriteset_template_truck_28(0, 20) // (search 'sprites/nml' to find where spriteset templates are defined)  
+}
+
+spritegroup veh_hackler_BB_trailer_3_sg_cargo_1 {
+    loaded:  [veh_hackler_BB_trailer_3_ss_cargo_1];
+    loading: [veh_hackler_BB_trailer_3_ss_cargo_1];
+}
+
+// handle graphics
+spriteset(veh_hackler_BB_trailer_3_ss_cargo_2, "sprites/graphics/trailer_test.png") {
+  spriteset_template_truck_28(0, 20) // (search 'sprites/nml' to find where spriteset templates are defined)  
+}
+
+spritegroup veh_hackler_BB_trailer_3_sg_cargo_2 {
+    loaded:  [veh_hackler_BB_trailer_3_ss_cargo_2];
+    loading: [veh_hackler_BB_trailer_3_ss_cargo_2];
+}
+

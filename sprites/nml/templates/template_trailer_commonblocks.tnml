@@ -3,9 +3,22 @@
 // setup graphics
 // trailer_graphics_includer includes a bunch of repeated spritesets and spritegroups, as well as creating a bunch of defines
 // it can be over-ridden when custom spritegroups etc are needed (not common) - simply define THIS_TRAILER_GRAPHICS_CHAIN_ID as a custom switch identifier in the file for the vehicle
+/*
 #ifndef THIS_TRAILER_GRAPHICS_CHAIN_ID
   #include "../templates/trailer_callbacks/trailer_graphics_includer.tnml"
 #endif
+*/
+
+#include "../tmp/trailer_1_graphics.pnml"
+#include "../tmp/trailer_2_graphics.pnml"
+#include "../tmp/trailer_3_graphics.pnml"
+
+switch (FEAT_ROADVEHS, SELF, this_trailer_graphics, position_in_consist) {
+    1: trailer_1_sg;
+    2: trailer_2_sg;
+    3: trailer_3_sg;
+    return 0xFF; //end cb
+}
 
 // assume THIS_TRAILER_CAPACITY_1 is always defined
 // if trailers > 1 are not defined, set capacity to 0 (used by cb switches). 
@@ -32,8 +45,6 @@
   #include QUOTE2(THIS_CAPACITY_TEMPLATE_NAME.tnml)
 #endif
 
-
-
 item(FEAT_ROADVEHS, THIS_TRAILER_ID) {
     property {
         climates_available:             NO_CLIMATE; //hide trailers from buy menu by setting climate availability to 'none'
@@ -55,7 +66,7 @@ item(FEAT_ROADVEHS, THIS_TRAILER_ID) {
         cargo_capacity:                 THIS_TRAILER_CAPACITY_CB_ID;
         purchase_cargo_capacity:        0;
         cargo_subtype_text:             THIS_SUBTYPE_TEXT_CB_ID;
-        default:                        THIS_TRAILER_GRAPHICS_CHAIN_ID;
+        default:                        this_trailer_graphics; //THIS_TRAILER_GRAPHICS_CHAIN_ID;
     }
 }
 

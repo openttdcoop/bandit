@@ -38,6 +38,8 @@
 #define THIS_TRAILER_POS_GRAPHICS_CB_ID_2   THIS_VEH_ID(switch_graphics_cb_trailer_pos_2)
 #define THIS_TRAILER_POS_GRAPHICS_CB_ID_3   THIS_VEH_ID(switch_graphics_cb_trailer_pos_3)
 
+
+// NEEDS TO VARY FOR FIFTH WHEEL TRUCKS / DRAWBAR TRUCKS
 switch (FEAT_ROADVEHS, SELF, THIS_TRAILER_POS_GRAPHICS_CB_ID_1, cargo_subtype) {
     0: return THIS_TRAILER_SG_ID_1;
     1..255: return THIS_TRAILER_SG_ID_1;

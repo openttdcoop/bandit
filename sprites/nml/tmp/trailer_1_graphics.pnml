@@ -1,0 +1,9 @@
+// handle graphics
+spriteset(trailer_1_ss, "sprites/graphics/trailer_test.png") {
+  spriteset_template_truck_28(0, 20) // (search 'sprites/nml' to find where spriteset templates are defined)  
+}
+
+spritegroup trailer_1_sg {
+    loaded:  [trailer_1_ss];
+    loading: [trailer_1_ss];
+}

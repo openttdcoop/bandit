@@ -22,6 +22,14 @@ switch (FEAT_ROADVEHS, SELF, switch_cb_cargo_subtype_text_3_trailer_drawbar_truc
     return CB_RESULT_NO_TEXT;
 }
 
+switch (FEAT_ROADVEHS, SELF, switch_cb_cargo_subtypes_drawbar_truck, num_vehs_in_consist) {
+    2: return switch_cb_cargo_subtype_text_1_trailer_drawbar_truck;
+    3: return switch_cb_cargo_subtype_text_2_trailer_drawbar_truck;
+    4: return switch_cb_cargo_subtype_text_3_trailer_drawbar_truck;
+    return CB_RESULT_NO_TEXT;
+}
+
+
 // fifth-wheel trucks have 1-n trailers
 switch (FEAT_ROADVEHS, SELF, switch_cb_cargo_subtype_text_1_trailer_fifth_wheel_truck, cargo_subtype) {
     0: return string(str_cargo_refit_1_trailer);
@@ -40,3 +48,11 @@ switch (FEAT_ROADVEHS, SELF, switch_cb_cargo_subtype_text_3_trailer_fifth_wheel_
     2: return string(str_cargo_refit_3_trailers);
     return CB_RESULT_NO_TEXT;
 }
+
+switch (FEAT_ROADVEHS, SELF, switch_cb_cargo_subtypes_fifth_wheel_truck, num_vehs_in_consist) {
+    2: return switch_cb_cargo_subtype_text_1_trailer_fifth_wheel_truck;
+    3: return switch_cb_cargo_subtype_text_2_trailer_fifth_wheel_truck;
+    4: return switch_cb_cargo_subtype_text_3_trailer_fifth_wheel_truck;
+    return CB_RESULT_NO_TEXT;
+}
+

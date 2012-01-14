@@ -32,6 +32,6 @@ spritegroup THIS_SG_ID {
     loading: [THIS_SS_ID];
 }
 
-#include "../templates/template_truck_solo_item.tnml"
+#include "../templates/template_truck_solo.tnml"
 
 #include "../templates/template_clear_defines.tnml"

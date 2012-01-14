@@ -1,5 +1,19 @@
 // AC	Hackler	Epoch B	1925	Standard	2 axle	Long nose (day)	1 semi, 2 pup	0	27	120							
 #define THIS_VEH_ID(...)          __VA_ARGS__ ## veh_hackler_CD // __VA_ARGS__ and ## allow for concatenating the veh ID with strings to construct further IDs
+#define THIS_TRUCK_TYPE           GLOBAL_TRUCK_TYPE_FIFTH_WHEEL
+#define THIS_NUM_TRAILERS         3
+#define THIS_TRAILER_1_ID         veh_hackler_CD_trailer_1
+#define THIS_TRAILER_2_ID         veh_hackler_CD_trailer_2
+#define THIS_TRAILER_3_ID         veh_hackler_CD_trailer_3
+#define THIS_CAPACITY_BUY_MENU    27 // fake capacity for buy menu - set to total consist capacity
+// for fifth-wheel trucks, total capacity should be split over tractor / 1st trailer. Some fraction of capacity required for purposes of TE.
+// 9t split 1:1 = 5:4
+#define THIS_CAPACITY             5 // capacity for truck
+#define THIS_TRAILER_CAPACITY_1   4  // common case is all trailers same cap.  Where needed use defines for TRAILER_1_CAPACITY, TRAILER_2_CAPACITY etc.
+#define THIS_TRAILER_CAPACITY_2   9 // common case is all trailers same cap.  Where needed use defines for TRAILER_1_CAPACITY, TRAILER_2_CAPACITY etc.
+#define THIS_TRAILER_CAPACITY_3   9 // common case is all trailers same cap.  Where needed use defines for TRAILER_1_CAPACITY, TRAILER_2_CAPACITY etc.
+// include trailer weight(s) as ottd trailing parts have weight=0. If number of trailers varies by subtype, define weight for each subtype.
+#define THIS_WEIGHT               9.5 ton
 #define THIS_NAME                 THIS_VEH_ID(str_name_) // concatenated identifier using CPP 
 #define THIS_SPEED                48 km/h
 #define THIS_POWER                120 hp
@@ -12,41 +26,28 @@
 #define THIS_INTRO_DATE           date(1925,01,01)
 #define THIS_MODEL_LIFE           GLOBAL_MODEL_LIFE_MEDIUM
 #define THIS_VEHICLE_LIFE         GLOBAL_VEHICLE_LIFE_MEDIUM
-#define THIS_TRUCK_TYPE           GLOBAL_TRUCK_TYPE_FIFTH_WHEEL
-#define THIS_NUM_TRAILERS         3
-#define THIS_CAPACITY_BUY_MENU    27 // fake capacity for buy menu - set to total consist capacity
-// for fifth-wheel trucks, total capacity should be split over tractor / 1st trailer. Some fraction of capacity required for purposes of TE.
-// 9t split 1:1 = 5:4
-#define THIS_CAPACITY             5 // capacity for truck
-#define THIS_TRAILER_CAPACITY_1   4  // common case is all trailers same cap.  Where needed use defines for TRAILER_1_CAPACITY, TRAILER_2_CAPACITY etc.
-#define THIS_TRAILER_CAPACITY_2   9 // common case is all trailers same cap.  Where needed use defines for TRAILER_1_CAPACITY, TRAILER_2_CAPACITY etc.
-#define THIS_TRAILER_CAPACITY_3   9 // common case is all trailers same cap.  Where needed use defines for TRAILER_1_CAPACITY, TRAILER_2_CAPACITY etc.
-// include trailer weight(s) as ottd trailing parts have weight=0. If number of trailers varies by subtype, define weight for each subtype.
-#define THIS_WEIGHT               9.5 ton
-
- // use CPP to concatenate some identifiers from the vehicle ID and some strings
- // putting these on defines isnt strictly necessary; they could be concatenated inline, but this way helps my brain read other parts of the code
-#define THIS_SG_ID   THIS_VEH_ID(sg_)
-#define THIS_SS_ID   THIS_VEH_ID(ss_)
-
-#include "../templates/refits/refits_default.tnml"  // predefined cargo refits. Multiple templates available for different vehicle types.
-
 #define THIS_LENGTH  SHORTEN_TO_2_8 // 1 unit = 4px; fifth-wheel articulated trucks may be shorter than their sprites so trailer overlaps  
-spriteset(THIS_SS_ID, "sprites/graphics/cabover_truck_test.png") {
-  spriteset_template_truck_16(0, 20) // (search 'sprites/nml' to find where spriteset templates are defined)  
-}
 
-spritegroup THIS_SG_ID {
-    loaded:  [THIS_SS_ID];
-    loading: [THIS_SS_ID];
-}
+// predefined cargo refits. Multiple templates available for different vehicle types.
+#include "../templates/refits/refits_default.tnml"
 
+// template for properties, graphics and callback handling
 #include "../templates/template_truck_with_trailers.tnml"
 
 
 // provide trailers specific for this truck
+#define THIS_TRAILER_ID(...)   __VA_ARGS__ ## THIS_TRAILER_1_ID
+#define THIS_TRAILER_CAPACITY THIS_TRAILER_1_CAPACITY
 #define THIS_TRAILER_1_GRAPHICS_FILE "sprites/graphics/trailer_test.png"
+#include "../templates/template_trailer.tnml"
+
+#define THIS_TRAILER_ID(...)   __VA_ARGS__ ## THIS_TRAILER_2_ID
+#define THIS_TRAILER_CAPACITY THIS_TRAILER_2_CAPACITY
 #define THIS_TRAILER_2_GRAPHICS_FILE "sprites/graphics/trailer_test.png"
+#include "../templates/template_trailer.tnml"
+
+#define THIS_TRAILER_ID(...)   __VA_ARGS__ ## THIS_TRAILER_3_ID
+#define THIS_TRAILER_CAPACITY THIS_TRAILER_3_CAPACITY
 #define THIS_TRAILER_3_GRAPHICS_FILE "sprites/graphics/trailer_test.png"
 #include "../templates/template_trailer.tnml"
 // trailers done

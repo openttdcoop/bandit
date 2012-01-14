@@ -15,21 +15,21 @@
 #define THIS_TRAILER_GRAPHICS_FILE THIS_TRAILER_1_GRAPHICS_FILE
 #define THIS_TRAILER_SS_ID THIS_TRAILER_SS_ID_1
 #define THIS_TRAILER_SG_ID THIS_TRAILER_SG_ID_1
-#include "../../templates/trailer_callbacks/trailer_graphics_blocks.tnml"
+#include "../../templates/trailer_templates/trailer_graphics_blocks.tnml"
 
 
 #ifdef THIS_TRAILER_2_GRAPHICS_FILE // only include if required 
   #define THIS_TRAILER_GRAPHICS_FILE THIS_TRAILER_2_GRAPHICS_FILE
   #define THIS_TRAILER_SS_ID THIS_TRAILER_SS_ID_2
   #define THIS_TRAILER_SG_ID THIS_TRAILER_SG_ID_2
-  #include "../../templates/trailer_callbacks/trailer_graphics_blocks.tnml"
+  #include "../../templates/trailer_templates/trailer_graphics_blocks.tnml"
 #endif
 
 #ifdef THIS_TRAILER_3_GRAPHICS_FILE // only include if required
   #define THIS_TRAILER_GRAPHICS_FILE THIS_TRAILER_3_GRAPHICS_FILE
   #define THIS_TRAILER_SS_ID THIS_TRAILER_SS_ID_3
   #define THIS_TRAILER_SG_ID THIS_TRAILER_SG_ID_3
-  #include "../../templates/trailer_callbacks/trailer_graphics_blocks.tnml"
+  #include "../../templates/trailer_templates/trailer_graphics_blocks.tnml"
 #endif
 
 // logic for switching graphics according class, or hiding them according to cargo subtype, position in consist 

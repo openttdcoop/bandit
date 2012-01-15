@@ -21,7 +21,8 @@
 #define THIS_INTRO_DATE           date(1919,01,01)
 #define THIS_MODEL_LIFE           GLOBAL_MODEL_LIFE_MEDIUM
 #define THIS_VEHICLE_LIFE         GLOBAL_VEHICLE_LIFE_MEDIUM
-#define THIS_LENGTH  SHORTEN_TO_2_8 // 1 unit = 4px; fifth-wheel articulated trucks may be shorter than their sprites so trailer overlaps  
+#define THIS_LENGTH               SHORTEN_TO_2_8 // 1 unit = 4px; fifth-wheel articulated trucks may be shorter than their sprites so trailer overlaps  
+#define THIS_GRAPHICS_FILE        "sprites/graphics/cabover_truck_test.png"
 
 // predefined cargo refits. Multiple templates available for different vehicle types.
 #include "../templates/refits/refits_default.tnml"

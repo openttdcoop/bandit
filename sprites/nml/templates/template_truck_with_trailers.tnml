@@ -37,7 +37,7 @@ switch (FEAT_ROADVEHS, SELF, THIS_CARGO_SUBTYPE_TEXT_CB_ID, THIS_TRUCK_TYPE) {
  // putting these on defines isnt strictly necessary; they could be concatenated inline, but this way helps my brain read other parts of the code
 #define THIS_SG_ID   THIS_VEH_ID(sg_)
 #define THIS_SS_ID   THIS_VEH_ID(ss_)
-spriteset(THIS_SS_ID, "sprites/graphics/cabover_truck_test.png") {
+spriteset(THIS_SS_ID, THIS_GRAPHICS_FILE) {
   spriteset_template_truck_16(0, 20) // (search 'sprites/nml' to find where spriteset templates are defined)  
 }
 

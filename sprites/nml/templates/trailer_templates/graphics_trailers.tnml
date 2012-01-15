@@ -1,69 +1,47 @@
-// this file provides templated trailer spritesets and spritegroups in a standard way
-// this should be adequate for most trucks
-// to use custom trailer graphics for a truck, provide custom spritesets and spritegroups, and define THIS_TRAILER_GRAPHICS_CHAIN_ID as the name of the first switch in a custom
+// handle graphics
+spriteset(THIS_TRAILER_ID(ss_invisible_), THIS_TRAILER_GRAPHICS_FILE) {
+  spriteset_template_truck_28(0, 20) // (search 'sprites/nml' to find where spriteset templates are defined)  
+}
 
-#define THIS_TRAILER_GRAPHICS_CHAIN_ID   THIS_VEH_ID(trailer_graphics_chain_id)
-#define THIS_TRAILER_SS_ID_1             THIS_VEH_ID(ss_trailer_1_)
-#define THIS_TRAILER_SG_ID_1             THIS_VEH_ID(sg_trailer_1_)
-#define THIS_TRAILER_SS_ID_2             THIS_VEH_ID(ss_trailer_2_)
-#define THIS_TRAILER_SG_ID_2             THIS_VEH_ID(sg_trailer_2_)
-#define THIS_TRAILER_SS_ID_3             THIS_VEH_ID(ss_trailer_3_)
-#define THIS_TRAILER_SG_ID_3             THIS_VEH_ID(sg_trailer_3_)
+spritegroup THIS_TRAILER_ID(sg_invisible_) {
+    loaded:  [THIS_TRAILER_ID(ss_invisible_)];
+    loading: [THIS_TRAILER_ID(ss_invisible_)];
+}
 
+spriteset(THIS_TRAILER_ID(ss_cargo_1_), THIS_TRAILER_GRAPHICS_FILE) {
+  spriteset_template_truck_28(0, 20) // (search 'sprites/nml' to find where spriteset templates are defined)  
+}
 
-// assume at least one trailer always
-#define THIS_TRAILER_GRAPHICS_FILE THIS_TRAILER_1_GRAPHICS_FILE
-#define THIS_TRAILER_SS_ID THIS_TRAILER_SS_ID_1
-#define THIS_TRAILER_SG_ID THIS_TRAILER_SG_ID_1
-#include "../../templates/trailer_templates/trailer_graphics_blocks.tnml"
+spritegroup THIS_TRAILER_ID(sg_cargo_1_) {
+    loaded:  [THIS_TRAILER_ID(ss_cargo_1_)];
+    loading: [THIS_TRAILER_ID(ss_cargo_1_)];
+}
 
+spriteset(THIS_TRAILER_ID(ss_cargo_2_), THIS_TRAILER_GRAPHICS_FILE) {
+  spriteset_template_truck_28(0, 20) // (search 'sprites/nml' to find where spriteset templates are defined)  
+}
 
-#ifdef THIS_TRAILER_2_GRAPHICS_FILE // only include if required 
-  #define THIS_TRAILER_GRAPHICS_FILE THIS_TRAILER_2_GRAPHICS_FILE
-  #define THIS_TRAILER_SS_ID THIS_TRAILER_SS_ID_2
-  #define THIS_TRAILER_SG_ID THIS_TRAILER_SG_ID_2
-  #include "../../templates/trailer_templates/trailer_graphics_blocks.tnml"
-#endif
-
-#ifdef THIS_TRAILER_3_GRAPHICS_FILE // only include if required
-  #define THIS_TRAILER_GRAPHICS_FILE THIS_TRAILER_3_GRAPHICS_FILE
-  #define THIS_TRAILER_SS_ID THIS_TRAILER_SS_ID_3
-  #define THIS_TRAILER_SG_ID THIS_TRAILER_SG_ID_3
-  #include "../../templates/trailer_templates/trailer_graphics_blocks.tnml"
-#endif
-
-// logic for switching graphics according class, or hiding them according to cargo subtype, position in consist 
-
-#define THIS_TRAILER_POS_GRAPHICS_CB_ID_1   THIS_VEH_ID(switch_graphics_cb_trailer_pos_1)
-#define THIS_TRAILER_POS_GRAPHICS_CB_ID_2   THIS_VEH_ID(switch_graphics_cb_trailer_pos_2)
-#define THIS_TRAILER_POS_GRAPHICS_CB_ID_3   THIS_VEH_ID(switch_graphics_cb_trailer_pos_3)
+spritegroup THIS_TRAILER_ID(sg_cargo_2_) {
+    loaded:  [THIS_TRAILER_ID(ss_cargo_2_)];
+    loading: [THIS_TRAILER_ID(ss_cargo_2_)];
+}
 
 
-// NEEDS TO VARY FOR FIFTH WHEEL TRUCKS / DRAWBAR TRUCKS
-// could do that with #ifdef #include, or by writing a constant with advanced varaction 2 and CPP
-switch (FEAT_ROADVEHS, SELF, THIS_TRAILER_POS_GRAPHICS_CB_ID_1, cargo_subtype) {
-    0: return THIS_TRAILER_SG_ID_1;
-    1..255: return THIS_TRAILER_SG_ID_1;
+switch (FEAT_ROADVEHS, SELF, THIS_TRAILER_ID(cargo_switch_), cargo_classes) {
+    0: return THIS_TRAILER_ID(sg_cargo_1_);
+    1..255: return THIS_TRAILER_ID(sg_cargo_2_);
     return 0xFF; //end cb
 }
 
-switch (FEAT_ROADVEHS, SELF, THIS_TRAILER_POS_GRAPHICS_CB_ID_2, cargo_subtype) {
-    0..1: return THIS_TRAILER_SG_ID_1;
-    2..255: return THIS_TRAILER_SG_ID_1;
+switch (FEAT_ROADVEHS, SELF, THIS_TRAILER_ID(visibility_switch_), cargo_subtype) {
+    0: return THIS_TRAILER_ID(sg_invisible_);
+    1..255: return THIS_TRAILER_ID(cargo_switch_);
     return 0xFF; //end cb
 }
-
-switch (FEAT_ROADVEHS, SELF, THIS_TRAILER_POS_GRAPHICS_CB_ID_3, cargo_subtype) {
-    0..2: return THIS_TRAILER_SG_ID_1;
-    3..255: return THIS_TRAILER_SG_ID_1;
-    return 0xFF; //end cb
-}
-
 
 switch (FEAT_ROADVEHS, SELF, THIS_TRAILER_GRAPHICS_CHAIN_ID, position_in_consist) {
-    1: THIS_TRAILER_POS_GRAPHICS_CB_ID_1;
-    2: THIS_TRAILER_POS_GRAPHICS_CB_ID_2;
-    3: THIS_TRAILER_POS_GRAPHICS_CB_ID_3;
+    1: THIS_TRAILER_ID(visibility_switch_);
+    2: THIS_TRAILER_ID(visibility_switch_);
+    3: THIS_TRAILER_ID(visibility_switch_);
     return 0xFF; //end cb
 }
-

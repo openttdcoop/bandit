@@ -32,9 +32,10 @@
 
 
 // provide trailers for this truck
-#define THIS_TRAILER_ID(...)   __VA_ARGS__ ## THIS_TRAILER_1_ID
-#define THIS_TRAILER_CAPACITY THIS_TRAILER_1_CAPACITY
-#define THIS_TRAILER_1_GRAPHICS_FILE "sprites/graphics/trailer_test.png"
+#define THIS_TRAILER_ID(...)            __VA_ARGS__ ## THIS_TRAILER_1_ID
+#define THIS_TRAILER_GRAPHICS_FILE      "sprites/graphics/trailer_test.png"
+#define THIS_TRAILER_CAPACITY           THIS_TRAILER_1_CAPACITY
+#define THIS_TRAILER_GRAPHICS_CHAIN_ID  THIS_TRAILER_ID(graphics_chain_switch_)
 #include "../templates/template_trailer.tnml"
 // trailers done
 

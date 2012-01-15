@@ -37,11 +37,12 @@ item(FEAT_ROADVEHS, THIS_TRAILER_ID()) {
         cargo_capacity:                 THIS_TRAILER_CAPACITY_CB_ID;
         purchase_cargo_capacity:        0;
         cargo_subtype_text:             THIS_CARGO_SUBTYPE_TEXT_CB_ID;
-        default:                        this_trailer_graphics; //THIS_TRAILER_GRAPHICS_CHAIN_ID;
+        default:                        THIS_TRAILER_GRAPHICS_CHAIN_ID;
     }
 }
 
 #undef THIS_TRAILER_ID
 #undef THIS_TRAILER_LENGTH
 #undef THIS_TRAILER_SG_ID
+#undef THIS_TRAILER_GRAPHICS_FILE
 #undef THIS_TRAILER_CAPACITY

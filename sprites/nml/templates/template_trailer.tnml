@@ -9,7 +9,6 @@
 #endif
 */
 
-
 #define THIS_TRAILER_CAPACITY_CB_ID  THIS_TRAILER_ID(switch_trailer_capacity_cb_)
 #include "../templates/trailer_templates/capacity_cb_trailers.tnml"
 

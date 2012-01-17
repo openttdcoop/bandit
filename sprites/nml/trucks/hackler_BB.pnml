@@ -1,15 +1,15 @@
-//BB	Hackler	Epoch A	1919	Standard	2 axle	Long nose (day)	1 pup	9	19				
-//BB	Hackler	Epoch C	1931	Standard	3 axle	Long nose (day)	1 pup	12	24
-#define THIS_VEH_ID(...)          __VA_ARGS__ ## veh_hackler_BB // __VA_ARGS__ and ## allow for concatenating the veh ID with strings to construct further IDs
+#define THIS_VEH_ID(...)          __VA_ARGS__ ## hackler_BB // __VA_ARGS__ and ## allow for concatenating the veh ID with strings to construct further IDs
 #define THIS_TRUCK_TYPE           GLOBAL_TRUCK_TYPE_DRAWBAR
-#define THIS_NUM_TRAILERS         1
-#define THIS_TRAILER_1_ID         veh_hackler_BB_trailer_1
-#define THIS_CAPACITY_BUY_MENU    19 // fake capacity for buy menu - set to total consist capacity
+#define THIS_NUM_TRAILERS         2
+#define THIS_TRAILER_1_ID         hackler_BB_trailer_1
+#define THIS_TRAILER_2_ID         hackler_BB_trailer_2
+#define THIS_CAPACITY_BUY_MENU    118 // fake capacity for buy menu - set to total consist capacity
 #define THIS_CAPACITY             9 // capacity for truck
 #define THIS_TRAILER_1_CAPACITY   10 // common case is all trailers same cap.  Where needed use defines for TRAILER_1_CAPACITY, TRAILER_2_CAPACITY etc.
+#define THIS_TRAILER_2_CAPACITY   99 // common case is all trailers same cap.  Where needed use defines for TRAILER_1_CAPACITY, TRAILER_2_CAPACITY etc.
 // include trailer weight(s) as ottd trailing parts have weight=0. If number of trailers varies by subtype, define weight for each subtype.
-#define THIS_WEIGHT               9.5 ton
-#define THIS_NAME                 THIS_VEH_ID(str_name_) // concatenated identifier using CPP 
+#define THIS_WEIGHT               9 ton
+#define THIS_NAME                 THIS_VEH_ID(str_name_veh_) // concatenated identifier using CPP 
 #define THIS_SPEED                48 km/h
 #define THIS_POWER                120 hp
 #define THIS_TE_COEFFICIENT       GLOBAL_DEFAULT_TE_COEFFICIENT
@@ -23,21 +23,24 @@
 #define THIS_VEHICLE_LIFE         GLOBAL_VEHICLE_LIFE_MEDIUM
 #define THIS_LENGTH               SHORTEN_TO_2_8 // 1 unit = 4px; fifth-wheel articulated trucks may be shorter than their sprites so trailer overlaps  
 #define THIS_GRAPHICS_FILE        "sprites/graphics/cabover_truck_test.png"
-
 // predefined cargo refits. Multiple templates available for different vehicle types.
 #include "../templates/refits/refits_default.tnml"
-
 // template for lead truck properties, graphics and callback handling
 #include "../templates/template_truck_with_trailers.tnml"
-
 // provide trailers for this truck
-#define THIS_TRAILER_ID(...)            __VA_ARGS__ ## veh_hackler_BB_trailer_1
+
+#define THIS_TRAILER_ID(...)            __VA_ARGS__ ## hackler_BB_trailer_1
 #define THIS_TRAILER_GRAPHICS_FILE      "sprites/graphics/trailer_test.png"
 #define THIS_TRAILER_CAPACITY           THIS_TRAILER_1_CAPACITY
 #define THIS_TRAILER_GRAPHICS_CHAIN_ID  THIS_TRAILER_ID(graphics_chain_switch_)
 #include "../templates/template_trailer.tnml"
+
+
+#define THIS_TRAILER_ID(...)            __VA_ARGS__ ## hackler_BB_trailer_2
+#define THIS_TRAILER_GRAPHICS_FILE      "sprites/graphics/trailer_test.png"
+#define THIS_TRAILER_CAPACITY           THIS_TRAILER_2_CAPACITY
+#define THIS_TRAILER_GRAPHICS_CHAIN_ID  THIS_TRAILER_ID(graphics_chain_switch_)
+#include "../templates/template_trailer.tnml"
+
 // trailers done
-
-
 #include "../templates/template_clear_defines.tnml"
-

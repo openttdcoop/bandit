@@ -8,9 +8,9 @@ Makefile.local
 bandit*.grf
 
 # Ignore intermediate files created by the Makefile:
-*.nfo
-*.cnfo
-*.cpnfo
+*.nml
+*.gnml
+*.lng
 docs/readme.txt
 # Dependency files:
 Makefile.dep

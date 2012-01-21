@@ -2,7 +2,7 @@
 
 source = open('paste_here.txt').read().split('/*-split here-*/')
 
-all_trucks = open('sprites/nml/all_trucks.pnml','w')
+all_trucks = open('sprites/nml/all_trucks.gnml','w')
 all_trucks.write(source[0])
 all_trucks.close()
 

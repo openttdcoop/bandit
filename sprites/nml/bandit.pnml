@@ -10,7 +10,7 @@
 // do not change the order of vehicle includes
 // IDs are auto-generated, changing the vehicle order breaks savegames horribly...
 
-#include "sprites/nml/all_trucks.pnml"
+#include "sprites/nml/all_trucks.gnml"
 
 //#include "sprites/nml/trucks/dragon_run_pony.pnml"
 //#include "sprites/nml/trucks/dragon_run_road_commander.pnml"

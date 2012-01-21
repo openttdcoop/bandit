@@ -1,1 +1,18 @@
 # Here also go all build targets specific to this very newgrf
+
+bandit.nml: sprites/nml/all_trucks.pnml
+bandit.src.dep: sprites/nml/all_trucks.pnml
+
+GENERATE=scripts/generate_from_pasted_input.py
+
+sprites/nml/all_trucks.pnml: paste_here.txt $(GENERATE)
+	$(_E) [GENERATE] from pasted text
+	$(_V) python scripts/generate_from_pasted_input.py
+
+%.lng: %.lng.in paste_here.txt $(GENERATE)
+	$(_E) [GENERATE] from pasted text
+	$(_V) python scripts/generate_from_pasted_input.py
+
+clean::
+	$(_V)-rm sprites/nml/all_trucks.pnml
+	$(_V)-rm lang/*.lng

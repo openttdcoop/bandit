@@ -10,7 +10,7 @@
 #include "../templates/trailer_templates/graphics_trailers.tnml"
 
 
-item(FEAT_ROADVEHS, THIS_TRAILER_ID()) {
+item(FEAT_ROADVEHS, THIS_TRAILER_ID(), THIS_TRAILER_NUMERIC_ID) {
     property {
         climates_available:             NO_CLIMATE; //hide trailers from buy menu by setting climate availability to 'none'
         cargo_capacity:                 1; //set to 1 - or vehicle not refittable.  Automatically set to correct value with cb36
@@ -36,6 +36,7 @@ item(FEAT_ROADVEHS, THIS_TRAILER_ID()) {
 }
 
 #undef THIS_TRAILER_ID
+#undef THIS_TRAILER_NUMERIC_ID
 #undef THIS_TRAILER_LENGTH
 #undef THIS_TRAILER_SG_ID
 #undef THIS_TRAILER_GRAPHICS_FILE

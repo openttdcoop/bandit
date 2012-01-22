@@ -48,7 +48,7 @@ spritegroup THIS_SG_ID {
 
 
 // set the vehicle props + switches (handle callbacks etc) 
-item(FEAT_ROADVEHS, THIS_VEH_ID()) {
+item(FEAT_ROADVEHS, THIS_VEH_ID(), THIS_NUMERIC_ID) {
     property {
         name:                           string(THIS_NAME);
         climates_available:             ALL_CLIMATES;

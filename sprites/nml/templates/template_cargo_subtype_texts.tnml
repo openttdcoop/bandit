@@ -31,11 +31,6 @@ switch (FEAT_ROADVEHS, SELF, switch_cb_cargo_subtypes_drawbar_truck, num_vehs_in
 
 
 // fifth-wheel trucks have 1-n trailers
-switch (FEAT_ROADVEHS, SELF, switch_cb_cargo_subtype_text_1_trailer_fifth_wheel_truck, cargo_subtype) {
-    0: return string(str_cargo_refit_1_trailer);
-    return CB_RESULT_NO_TEXT;
-}
-
 switch (FEAT_ROADVEHS, SELF, switch_cb_cargo_subtype_text_2_trailer_fifth_wheel_truck, cargo_subtype) {
     0: return string(str_cargo_refit_1_trailer);
     1: return string(str_cargo_refit_2_trailers);
@@ -50,7 +45,7 @@ switch (FEAT_ROADVEHS, SELF, switch_cb_cargo_subtype_text_3_trailer_fifth_wheel_
 }
 
 switch (FEAT_ROADVEHS, SELF, switch_cb_cargo_subtypes_fifth_wheel_truck, num_vehs_in_consist) {
-    2: return switch_cb_cargo_subtype_text_1_trailer_fifth_wheel_truck;
+    2: return CB_RESULT_NO_TEXT; // if just one trailer, fifth wheel trucks don't need subtype refit
     3: return switch_cb_cargo_subtype_text_2_trailer_fifth_wheel_truck;
     4: return switch_cb_cargo_subtype_text_3_trailer_fifth_wheel_truck;
     return CB_RESULT_NO_TEXT;

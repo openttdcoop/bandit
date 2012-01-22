@@ -3,7 +3,7 @@
 #define THIS_TRUCK_TYPE           GLOBAL_TRUCK_TYPE_SOLO
 #define THIS_NUM_TRAILERS         0
 #define THIS_CAPACITY_BUY_MENU    9 // fake capacity for buy menu - set to total consist capacity
-#define THIS_CAPACITY             9 // capacity for truck
+#define THIS_CAPACITY             9 // capacity for truck - add part of first trailer capacity if fifth wheel truck 
 // include trailer weight(s) as ottd trailing parts have weight=0. If number of trailers varies by subtype, define weight for each subtype.
 #define THIS_WEIGHT               0 ton
 #define THIS_NAME                 THIS_VEH_ID(str_name_veh_) // concatenated identifier using CPP 
@@ -35,8 +35,8 @@
 #define THIS_NUM_TRAILERS         1
 #define THIS_TRAILER_1_ID         dragon_run_road_commander_trailer_1
 #define THIS_CAPACITY_BUY_MENU    28 // fake capacity for buy menu - set to total consist capacity
-#define THIS_CAPACITY             0 // capacity for truck
-#define THIS_TRAILER_1_CAPACITY   28 // common case is all trailers same cap.  Where needed use defines for TRAILER_1_CAPACITY, TRAILER_2_CAPACITY etc.
+#define THIS_CAPACITY             14 // capacity for truck - add part of first trailer capacity if fifth wheel truck 
+#define THIS_TRAILER_1_CAPACITY   14 // capacity first trailer may be split with truck if fifth wheel truck 
 // include trailer weight(s) as ottd trailing parts have weight=0. If number of trailers varies by subtype, define weight for each subtype.
 #define THIS_WEIGHT               0 ton
 #define THIS_NAME                 THIS_VEH_ID(str_name_veh_) // concatenated identifier using CPP 
@@ -80,9 +80,9 @@
 #define THIS_TRAILER_1_ID         dragon_run_turnpike_special_trailer_1
 #define THIS_TRAILER_2_ID         dragon_run_turnpike_special_trailer_2
 #define THIS_CAPACITY_BUY_MENU    48 // fake capacity for buy menu - set to total consist capacity
-#define THIS_CAPACITY             0 // capacity for truck
-#define THIS_TRAILER_1_CAPACITY   24 // common case is all trailers same cap.  Where needed use defines for TRAILER_1_CAPACITY, TRAILER_2_CAPACITY etc.
-#define THIS_TRAILER_2_CAPACITY   24 // common case is all trailers same cap.  Where needed use defines for TRAILER_1_CAPACITY, TRAILER_2_CAPACITY etc.
+#define THIS_CAPACITY             12 // capacity for truck - add part of first trailer capacity if fifth wheel truck 
+#define THIS_TRAILER_1_CAPACITY   12 // capacity first trailer may be split with truck if fifth wheel truck 
+#define THIS_TRAILER_2_CAPACITY   24 // capacity first trailer may be split with truck if fifth wheel truck 
 // include trailer weight(s) as ottd trailing parts have weight=0. If number of trailers varies by subtype, define weight for each subtype.
 #define THIS_WEIGHT               0 ton
 #define THIS_NAME                 THIS_VEH_ID(str_name_veh_) // concatenated identifier using CPP 
@@ -132,7 +132,7 @@
 #define THIS_TRUCK_TYPE           GLOBAL_TRUCK_TYPE_SOLO
 #define THIS_NUM_TRAILERS         0
 #define THIS_CAPACITY_BUY_MENU    15 // fake capacity for buy menu - set to total consist capacity
-#define THIS_CAPACITY             15 // capacity for truck
+#define THIS_CAPACITY             15 // capacity for truck - add part of first trailer capacity if fifth wheel truck 
 // include trailer weight(s) as ottd trailing parts have weight=0. If number of trailers varies by subtype, define weight for each subtype.
 #define THIS_WEIGHT               0 ton
 #define THIS_NAME                 THIS_VEH_ID(str_name_veh_) // concatenated identifier using CPP 
@@ -163,7 +163,7 @@
 #define THIS_TRUCK_TYPE           GLOBAL_TRUCK_TYPE_SOLO
 #define THIS_NUM_TRAILERS         0
 #define THIS_CAPACITY_BUY_MENU    8 // fake capacity for buy menu - set to total consist capacity
-#define THIS_CAPACITY             8 // capacity for truck
+#define THIS_CAPACITY             8 // capacity for truck - add part of first trailer capacity if fifth wheel truck 
 // include trailer weight(s) as ottd trailing parts have weight=0. If number of trailers varies by subtype, define weight for each subtype.
 #define THIS_WEIGHT               0 ton
 #define THIS_NAME                 THIS_VEH_ID(str_name_veh_) // concatenated identifier using CPP 
@@ -195,8 +195,8 @@
 #define THIS_NUM_TRAILERS         1
 #define THIS_TRAILER_1_ID         fayette_t_trailer_1
 #define THIS_CAPACITY_BUY_MENU    30 // fake capacity for buy menu - set to total consist capacity
-#define THIS_CAPACITY             0 // capacity for truck
-#define THIS_TRAILER_1_CAPACITY   30 // common case is all trailers same cap.  Where needed use defines for TRAILER_1_CAPACITY, TRAILER_2_CAPACITY etc.
+#define THIS_CAPACITY             15 // capacity for truck - add part of first trailer capacity if fifth wheel truck 
+#define THIS_TRAILER_1_CAPACITY   15 // capacity first trailer may be split with truck if fifth wheel truck 
 // include trailer weight(s) as ottd trailing parts have weight=0. If number of trailers varies by subtype, define weight for each subtype.
 #define THIS_WEIGHT               0 ton
 #define THIS_NAME                 THIS_VEH_ID(str_name_veh_) // concatenated identifier using CPP 
@@ -238,7 +238,7 @@
 #define THIS_TRUCK_TYPE           GLOBAL_TRUCK_TYPE_SOLO
 #define THIS_NUM_TRAILERS         0
 #define THIS_CAPACITY_BUY_MENU    5 // fake capacity for buy menu - set to total consist capacity
-#define THIS_CAPACITY             5 // capacity for truck
+#define THIS_CAPACITY             5 // capacity for truck - add part of first trailer capacity if fifth wheel truck 
 // include trailer weight(s) as ottd trailing parts have weight=0. If number of trailers varies by subtype, define weight for each subtype.
 #define THIS_WEIGHT               0 ton
 #define THIS_NAME                 THIS_VEH_ID(str_name_veh_) // concatenated identifier using CPP 
@@ -269,7 +269,7 @@
 #define THIS_TRUCK_TYPE           GLOBAL_TRUCK_TYPE_SOLO
 #define THIS_NUM_TRAILERS         0
 #define THIS_CAPACITY_BUY_MENU    7 // fake capacity for buy menu - set to total consist capacity
-#define THIS_CAPACITY             7 // capacity for truck
+#define THIS_CAPACITY             7 // capacity for truck - add part of first trailer capacity if fifth wheel truck 
 // include trailer weight(s) as ottd trailing parts have weight=0. If number of trailers varies by subtype, define weight for each subtype.
 #define THIS_WEIGHT               0 ton
 #define THIS_NAME                 THIS_VEH_ID(str_name_veh_) // concatenated identifier using CPP 
@@ -300,7 +300,7 @@
 #define THIS_TRUCK_TYPE           GLOBAL_TRUCK_TYPE_SOLO
 #define THIS_NUM_TRAILERS         0
 #define THIS_CAPACITY_BUY_MENU    18 // fake capacity for buy menu - set to total consist capacity
-#define THIS_CAPACITY             18 // capacity for truck
+#define THIS_CAPACITY             18 // capacity for truck - add part of first trailer capacity if fifth wheel truck 
 // include trailer weight(s) as ottd trailing parts have weight=0. If number of trailers varies by subtype, define weight for each subtype.
 #define THIS_WEIGHT               0 ton
 #define THIS_NAME                 THIS_VEH_ID(str_name_veh_) // concatenated identifier using CPP 
@@ -332,8 +332,8 @@
 #define THIS_NUM_TRAILERS         1
 #define THIS_TRAILER_1_ID         hackler_B80_trailer_1
 #define THIS_CAPACITY_BUY_MENU    35 // fake capacity for buy menu - set to total consist capacity
-#define THIS_CAPACITY             0 // capacity for truck
-#define THIS_TRAILER_1_CAPACITY   35 // common case is all trailers same cap.  Where needed use defines for TRAILER_1_CAPACITY, TRAILER_2_CAPACITY etc.
+#define THIS_CAPACITY             14 // capacity for truck - add part of first trailer capacity if fifth wheel truck 
+#define THIS_TRAILER_1_CAPACITY   21 // capacity first trailer may be split with truck if fifth wheel truck 
 // include trailer weight(s) as ottd trailing parts have weight=0. If number of trailers varies by subtype, define weight for each subtype.
 #define THIS_WEIGHT               0 ton
 #define THIS_NAME                 THIS_VEH_ID(str_name_veh_) // concatenated identifier using CPP 
@@ -376,8 +376,8 @@
 #define THIS_NUM_TRAILERS         1
 #define THIS_TRAILER_1_ID         hackler_BB_trailer_1
 #define THIS_CAPACITY_BUY_MENU    19 // fake capacity for buy menu - set to total consist capacity
-#define THIS_CAPACITY             9 // capacity for truck
-#define THIS_TRAILER_1_CAPACITY   10 // common case is all trailers same cap.  Where needed use defines for TRAILER_1_CAPACITY, TRAILER_2_CAPACITY etc.
+#define THIS_CAPACITY             9 // capacity for truck - add part of first trailer capacity if fifth wheel truck 
+#define THIS_TRAILER_1_CAPACITY   10 // capacity first trailer may be split with truck if fifth wheel truck 
 // include trailer weight(s) as ottd trailing parts have weight=0. If number of trailers varies by subtype, define weight for each subtype.
 #define THIS_WEIGHT               9 ton
 #define THIS_NAME                 THIS_VEH_ID(str_name_veh_) // concatenated identifier using CPP 
@@ -422,10 +422,10 @@
 #define THIS_TRAILER_3_ID         hackler_CD_trailer_3
 #define THIS_TRAILER_2_ID         hackler_CD_trailer_2
 #define THIS_CAPACITY_BUY_MENU    27 // fake capacity for buy menu - set to total consist capacity
-#define THIS_CAPACITY             0 // capacity for truck
-#define THIS_TRAILER_3_CAPACITY   9 // common case is all trailers same cap.  Where needed use defines for TRAILER_1_CAPACITY, TRAILER_2_CAPACITY etc.
-#define THIS_TRAILER_1_CAPACITY   9 // common case is all trailers same cap.  Where needed use defines for TRAILER_1_CAPACITY, TRAILER_2_CAPACITY etc.
-#define THIS_TRAILER_2_CAPACITY   9 // common case is all trailers same cap.  Where needed use defines for TRAILER_1_CAPACITY, TRAILER_2_CAPACITY etc.
+#define THIS_CAPACITY             4 // capacity for truck - add part of first trailer capacity if fifth wheel truck 
+#define THIS_TRAILER_3_CAPACITY   9 // capacity first trailer may be split with truck if fifth wheel truck 
+#define THIS_TRAILER_1_CAPACITY   4 // capacity first trailer may be split with truck if fifth wheel truck 
+#define THIS_TRAILER_2_CAPACITY   9 // capacity first trailer may be split with truck if fifth wheel truck 
 // include trailer weight(s) as ottd trailing parts have weight=0. If number of trailers varies by subtype, define weight for each subtype.
 #define THIS_WEIGHT               0 ton
 #define THIS_NAME                 THIS_VEH_ID(str_name_veh_) // concatenated identifier using CPP 
@@ -485,9 +485,9 @@
 #define THIS_TRAILER_1_ID         hackler_CJ_trailer_1
 #define THIS_TRAILER_2_ID         hackler_CJ_trailer_2
 #define THIS_CAPACITY_BUY_MENU    46 // fake capacity for buy menu - set to total consist capacity
-#define THIS_CAPACITY             0 // capacity for truck
-#define THIS_TRAILER_1_CAPACITY   23 // common case is all trailers same cap.  Where needed use defines for TRAILER_1_CAPACITY, TRAILER_2_CAPACITY etc.
-#define THIS_TRAILER_2_CAPACITY   23 // common case is all trailers same cap.  Where needed use defines for TRAILER_1_CAPACITY, TRAILER_2_CAPACITY etc.
+#define THIS_CAPACITY             11 // capacity for truck - add part of first trailer capacity if fifth wheel truck 
+#define THIS_TRAILER_1_CAPACITY   11 // capacity first trailer may be split with truck if fifth wheel truck 
+#define THIS_TRAILER_2_CAPACITY   23 // capacity first trailer may be split with truck if fifth wheel truck 
 // include trailer weight(s) as ottd trailing parts have weight=0. If number of trailers varies by subtype, define weight for each subtype.
 #define THIS_WEIGHT               0 ton
 #define THIS_NAME                 THIS_VEH_ID(str_name_veh_) // concatenated identifier using CPP 
@@ -538,8 +538,8 @@
 #define THIS_NUM_TRAILERS         1
 #define THIS_TRAILER_1_ID         hackler_H63_trailer_1
 #define THIS_CAPACITY_BUY_MENU    24 // fake capacity for buy menu - set to total consist capacity
-#define THIS_CAPACITY             12 // capacity for truck
-#define THIS_TRAILER_1_CAPACITY   12 // common case is all trailers same cap.  Where needed use defines for TRAILER_1_CAPACITY, TRAILER_2_CAPACITY etc.
+#define THIS_CAPACITY             12 // capacity for truck - add part of first trailer capacity if fifth wheel truck 
+#define THIS_TRAILER_1_CAPACITY   12 // capacity first trailer may be split with truck if fifth wheel truck 
 // include trailer weight(s) as ottd trailing parts have weight=0. If number of trailers varies by subtype, define weight for each subtype.
 #define THIS_WEIGHT               0 ton
 #define THIS_NAME                 THIS_VEH_ID(str_name_veh_) // concatenated identifier using CPP 
@@ -581,7 +581,7 @@
 #define THIS_TRUCK_TYPE           GLOBAL_TRUCK_TYPE_SOLO
 #define THIS_NUM_TRAILERS         0
 #define THIS_CAPACITY_BUY_MENU    18 // fake capacity for buy menu - set to total consist capacity
-#define THIS_CAPACITY             18 // capacity for truck
+#define THIS_CAPACITY             18 // capacity for truck - add part of first trailer capacity if fifth wheel truck 
 // include trailer weight(s) as ottd trailing parts have weight=0. If number of trailers varies by subtype, define weight for each subtype.
 #define THIS_WEIGHT               0 ton
 #define THIS_NAME                 THIS_VEH_ID(str_name_veh_) // concatenated identifier using CPP 
@@ -612,7 +612,7 @@
 #define THIS_TRUCK_TYPE           GLOBAL_TRUCK_TYPE_SOLO
 #define THIS_NUM_TRAILERS         0
 #define THIS_CAPACITY_BUY_MENU    21 // fake capacity for buy menu - set to total consist capacity
-#define THIS_CAPACITY             21 // capacity for truck
+#define THIS_CAPACITY             21 // capacity for truck - add part of first trailer capacity if fifth wheel truck 
 // include trailer weight(s) as ottd trailing parts have weight=0. If number of trailers varies by subtype, define weight for each subtype.
 #define THIS_WEIGHT               0 ton
 #define THIS_NAME                 THIS_VEH_ID(str_name_veh_) // concatenated identifier using CPP 
@@ -645,9 +645,9 @@
 #define THIS_TRAILER_1_ID         latour_clipper_trailer_1
 #define THIS_TRAILER_2_ID         latour_clipper_trailer_2
 #define THIS_CAPACITY_BUY_MENU    26 // fake capacity for buy menu - set to total consist capacity
-#define THIS_CAPACITY             0 // capacity for truck
-#define THIS_TRAILER_1_CAPACITY   14 // common case is all trailers same cap.  Where needed use defines for TRAILER_1_CAPACITY, TRAILER_2_CAPACITY etc.
-#define THIS_TRAILER_2_CAPACITY   12 // common case is all trailers same cap.  Where needed use defines for TRAILER_1_CAPACITY, TRAILER_2_CAPACITY etc.
+#define THIS_CAPACITY             5 // capacity for truck - add part of first trailer capacity if fifth wheel truck 
+#define THIS_TRAILER_1_CAPACITY   8 // capacity first trailer may be split with truck if fifth wheel truck 
+#define THIS_TRAILER_2_CAPACITY   12 // capacity first trailer may be split with truck if fifth wheel truck 
 // include trailer weight(s) as ottd trailing parts have weight=0. If number of trailers varies by subtype, define weight for each subtype.
 #define THIS_WEIGHT               0 ton
 #define THIS_NAME                 THIS_VEH_ID(str_name_veh_) // concatenated identifier using CPP 
@@ -699,9 +699,9 @@
 #define THIS_TRAILER_1_ID         pocomoke_blackwater_trailer_1
 #define THIS_TRAILER_2_ID         pocomoke_blackwater_trailer_2
 #define THIS_CAPACITY_BUY_MENU    30 // fake capacity for buy menu - set to total consist capacity
-#define THIS_CAPACITY             0 // capacity for truck
-#define THIS_TRAILER_1_CAPACITY   15 // common case is all trailers same cap.  Where needed use defines for TRAILER_1_CAPACITY, TRAILER_2_CAPACITY etc.
-#define THIS_TRAILER_2_CAPACITY   15 // common case is all trailers same cap.  Where needed use defines for TRAILER_1_CAPACITY, TRAILER_2_CAPACITY etc.
+#define THIS_CAPACITY             6 // capacity for truck - add part of first trailer capacity if fifth wheel truck 
+#define THIS_TRAILER_1_CAPACITY   9 // capacity first trailer may be split with truck if fifth wheel truck 
+#define THIS_TRAILER_2_CAPACITY   15 // capacity first trailer may be split with truck if fifth wheel truck 
 // include trailer weight(s) as ottd trailing parts have weight=0. If number of trailers varies by subtype, define weight for each subtype.
 #define THIS_WEIGHT               0 ton
 #define THIS_NAME                 THIS_VEH_ID(str_name_veh_) // concatenated identifier using CPP 
@@ -751,7 +751,7 @@
 #define THIS_TRUCK_TYPE           GLOBAL_TRUCK_TYPE_SOLO
 #define THIS_NUM_TRAILERS         0
 #define THIS_CAPACITY_BUY_MENU    30 // fake capacity for buy menu - set to total consist capacity
-#define THIS_CAPACITY             30 // capacity for truck
+#define THIS_CAPACITY             30 // capacity for truck - add part of first trailer capacity if fifth wheel truck 
 // include trailer weight(s) as ottd trailing parts have weight=0. If number of trailers varies by subtype, define weight for each subtype.
 #define THIS_WEIGHT               0 ton
 #define THIS_NAME                 THIS_VEH_ID(str_name_veh_) // concatenated identifier using CPP 
@@ -783,8 +783,8 @@
 #define THIS_NUM_TRAILERS         1
 #define THIS_TRAILER_1_ID         red_lake_cannonball_trailer_1
 #define THIS_CAPACITY_BUY_MENU    23 // fake capacity for buy menu - set to total consist capacity
-#define THIS_CAPACITY             0 // capacity for truck
-#define THIS_TRAILER_1_CAPACITY   23 // common case is all trailers same cap.  Where needed use defines for TRAILER_1_CAPACITY, TRAILER_2_CAPACITY etc.
+#define THIS_CAPACITY             9 // capacity for truck - add part of first trailer capacity if fifth wheel truck 
+#define THIS_TRAILER_1_CAPACITY   13 // capacity first trailer may be split with truck if fifth wheel truck 
 // include trailer weight(s) as ottd trailing parts have weight=0. If number of trailers varies by subtype, define weight for each subtype.
 #define THIS_WEIGHT               0 ton
 #define THIS_NAME                 THIS_VEH_ID(str_name_veh_) // concatenated identifier using CPP 
@@ -827,8 +827,8 @@
 #define THIS_NUM_TRAILERS         1
 #define THIS_TRAILER_1_ID         red_lake_general_trailer_1
 #define THIS_CAPACITY_BUY_MENU    25 // fake capacity for buy menu - set to total consist capacity
-#define THIS_CAPACITY             0 // capacity for truck
-#define THIS_TRAILER_1_CAPACITY   25 // common case is all trailers same cap.  Where needed use defines for TRAILER_1_CAPACITY, TRAILER_2_CAPACITY etc.
+#define THIS_CAPACITY             10 // capacity for truck - add part of first trailer capacity if fifth wheel truck 
+#define THIS_TRAILER_1_CAPACITY   15 // capacity first trailer may be split with truck if fifth wheel truck 
 // include trailer weight(s) as ottd trailing parts have weight=0. If number of trailers varies by subtype, define weight for each subtype.
 #define THIS_WEIGHT               0 ton
 #define THIS_NAME                 THIS_VEH_ID(str_name_veh_) // concatenated identifier using CPP 
@@ -870,7 +870,7 @@
 #define THIS_TRUCK_TYPE           GLOBAL_TRUCK_TYPE_SOLO
 #define THIS_NUM_TRAILERS         0
 #define THIS_CAPACITY_BUY_MENU    5 // fake capacity for buy menu - set to total consist capacity
-#define THIS_CAPACITY             5 // capacity for truck
+#define THIS_CAPACITY             5 // capacity for truck - add part of first trailer capacity if fifth wheel truck 
 // include trailer weight(s) as ottd trailing parts have weight=0. If number of trailers varies by subtype, define weight for each subtype.
 #define THIS_WEIGHT               0 ton
 #define THIS_NAME                 THIS_VEH_ID(str_name_veh_) // concatenated identifier using CPP 
@@ -901,7 +901,7 @@
 #define THIS_TRUCK_TYPE           GLOBAL_TRUCK_TYPE_SOLO
 #define THIS_NUM_TRAILERS         0
 #define THIS_CAPACITY_BUY_MENU    4 // fake capacity for buy menu - set to total consist capacity
-#define THIS_CAPACITY             4 // capacity for truck
+#define THIS_CAPACITY             4 // capacity for truck - add part of first trailer capacity if fifth wheel truck 
 // include trailer weight(s) as ottd trailing parts have weight=0. If number of trailers varies by subtype, define weight for each subtype.
 #define THIS_WEIGHT               0 ton
 #define THIS_NAME                 THIS_VEH_ID(str_name_veh_) // concatenated identifier using CPP 
@@ -932,7 +932,7 @@
 #define THIS_TRUCK_TYPE           GLOBAL_TRUCK_TYPE_SOLO
 #define THIS_NUM_TRAILERS         0
 #define THIS_CAPACITY_BUY_MENU    9 // fake capacity for buy menu - set to total consist capacity
-#define THIS_CAPACITY             9 // capacity for truck
+#define THIS_CAPACITY             9 // capacity for truck - add part of first trailer capacity if fifth wheel truck 
 // include trailer weight(s) as ottd trailing parts have weight=0. If number of trailers varies by subtype, define weight for each subtype.
 #define THIS_WEIGHT               0 ton
 #define THIS_NAME                 THIS_VEH_ID(str_name_veh_) // concatenated identifier using CPP 
@@ -964,8 +964,8 @@
 #define THIS_NUM_TRAILERS         1
 #define THIS_TRAILER_1_ID         reifsnider_352_trailer_1
 #define THIS_CAPACITY_BUY_MENU    22 // fake capacity for buy menu - set to total consist capacity
-#define THIS_CAPACITY             10 // capacity for truck
-#define THIS_TRAILER_1_CAPACITY   12 // common case is all trailers same cap.  Where needed use defines for TRAILER_1_CAPACITY, TRAILER_2_CAPACITY etc.
+#define THIS_CAPACITY             10 // capacity for truck - add part of first trailer capacity if fifth wheel truck 
+#define THIS_TRAILER_1_CAPACITY   12 // capacity first trailer may be split with truck if fifth wheel truck 
 // include trailer weight(s) as ottd trailing parts have weight=0. If number of trailers varies by subtype, define weight for each subtype.
 #define THIS_WEIGHT               0 ton
 #define THIS_NAME                 THIS_VEH_ID(str_name_veh_) // concatenated identifier using CPP 
@@ -1007,7 +1007,7 @@
 #define THIS_TRUCK_TYPE           GLOBAL_TRUCK_TYPE_SOLO
 #define THIS_NUM_TRAILERS         0
 #define THIS_CAPACITY_BUY_MENU    15 // fake capacity for buy menu - set to total consist capacity
-#define THIS_CAPACITY             15 // capacity for truck
+#define THIS_CAPACITY             15 // capacity for truck - add part of first trailer capacity if fifth wheel truck 
 // include trailer weight(s) as ottd trailing parts have weight=0. If number of trailers varies by subtype, define weight for each subtype.
 #define THIS_WEIGHT               0 ton
 #define THIS_NAME                 THIS_VEH_ID(str_name_veh_) // concatenated identifier using CPP 
@@ -1039,8 +1039,8 @@
 #define THIS_NUM_TRAILERS         1
 #define THIS_TRAILER_1_ID         reifsnider_361_trailer_1
 #define THIS_CAPACITY_BUY_MENU    23 // fake capacity for buy menu - set to total consist capacity
-#define THIS_CAPACITY             11 // capacity for truck
-#define THIS_TRAILER_1_CAPACITY   12 // common case is all trailers same cap.  Where needed use defines for TRAILER_1_CAPACITY, TRAILER_2_CAPACITY etc.
+#define THIS_CAPACITY             11 // capacity for truck - add part of first trailer capacity if fifth wheel truck 
+#define THIS_TRAILER_1_CAPACITY   12 // capacity first trailer may be split with truck if fifth wheel truck 
 // include trailer weight(s) as ottd trailing parts have weight=0. If number of trailers varies by subtype, define weight for each subtype.
 #define THIS_WEIGHT               0 ton
 #define THIS_NAME                 THIS_VEH_ID(str_name_veh_) // concatenated identifier using CPP 
@@ -1084,9 +1084,9 @@
 #define THIS_TRAILER_1_ID         rothrock_214A_trailer_1
 #define THIS_TRAILER_2_ID         rothrock_214A_trailer_2
 #define THIS_CAPACITY_BUY_MENU    24 // fake capacity for buy menu - set to total consist capacity
-#define THIS_CAPACITY             0 // capacity for truck
-#define THIS_TRAILER_1_CAPACITY   12 // common case is all trailers same cap.  Where needed use defines for TRAILER_1_CAPACITY, TRAILER_2_CAPACITY etc.
-#define THIS_TRAILER_2_CAPACITY   12 // common case is all trailers same cap.  Where needed use defines for TRAILER_1_CAPACITY, TRAILER_2_CAPACITY etc.
+#define THIS_CAPACITY             4 // capacity for truck - add part of first trailer capacity if fifth wheel truck 
+#define THIS_TRAILER_1_CAPACITY   7 // capacity first trailer may be split with truck if fifth wheel truck 
+#define THIS_TRAILER_2_CAPACITY   12 // capacity first trailer may be split with truck if fifth wheel truck 
 // include trailer weight(s) as ottd trailing parts have weight=0. If number of trailers varies by subtype, define weight for each subtype.
 #define THIS_WEIGHT               0 ton
 #define THIS_NAME                 THIS_VEH_ID(str_name_veh_) // concatenated identifier using CPP 
@@ -1136,7 +1136,7 @@
 #define THIS_TRUCK_TYPE           GLOBAL_TRUCK_TYPE_SOLO
 #define THIS_NUM_TRAILERS         0
 #define THIS_CAPACITY_BUY_MENU    18 // fake capacity for buy menu - set to total consist capacity
-#define THIS_CAPACITY             18 // capacity for truck
+#define THIS_CAPACITY             18 // capacity for truck - add part of first trailer capacity if fifth wheel truck 
 // include trailer weight(s) as ottd trailing parts have weight=0. If number of trailers varies by subtype, define weight for each subtype.
 #define THIS_WEIGHT               0 ton
 #define THIS_NAME                 THIS_VEH_ID(str_name_veh_) // concatenated identifier using CPP 
@@ -1168,8 +1168,8 @@
 #define THIS_NUM_TRAILERS         1
 #define THIS_TRAILER_1_ID         rothrock_548_trailer_1
 #define THIS_CAPACITY_BUY_MENU    28 // fake capacity for buy menu - set to total consist capacity
-#define THIS_CAPACITY             14 // capacity for truck
-#define THIS_TRAILER_1_CAPACITY   14 // common case is all trailers same cap.  Where needed use defines for TRAILER_1_CAPACITY, TRAILER_2_CAPACITY etc.
+#define THIS_CAPACITY             14 // capacity for truck - add part of first trailer capacity if fifth wheel truck 
+#define THIS_TRAILER_1_CAPACITY   14 // capacity first trailer may be split with truck if fifth wheel truck 
 // include trailer weight(s) as ottd trailing parts have weight=0. If number of trailers varies by subtype, define weight for each subtype.
 #define THIS_WEIGHT               0 ton
 #define THIS_NAME                 THIS_VEH_ID(str_name_veh_) // concatenated identifier using CPP 
@@ -1211,7 +1211,7 @@
 #define THIS_TRUCK_TYPE           GLOBAL_TRUCK_TYPE_SOLO
 #define THIS_NUM_TRAILERS         0
 #define THIS_CAPACITY_BUY_MENU    12 // fake capacity for buy menu - set to total consist capacity
-#define THIS_CAPACITY             12 // capacity for truck
+#define THIS_CAPACITY             12 // capacity for truck - add part of first trailer capacity if fifth wheel truck 
 // include trailer weight(s) as ottd trailing parts have weight=0. If number of trailers varies by subtype, define weight for each subtype.
 #define THIS_WEIGHT               0 ton
 #define THIS_NAME                 THIS_VEH_ID(str_name_veh_) // concatenated identifier using CPP 
@@ -1242,7 +1242,7 @@
 #define THIS_TRUCK_TYPE           GLOBAL_TRUCK_TYPE_SOLO
 #define THIS_NUM_TRAILERS         0
 #define THIS_CAPACITY_BUY_MENU    21 // fake capacity for buy menu - set to total consist capacity
-#define THIS_CAPACITY             21 // capacity for truck
+#define THIS_CAPACITY             21 // capacity for truck - add part of first trailer capacity if fifth wheel truck 
 // include trailer weight(s) as ottd trailing parts have weight=0. If number of trailers varies by subtype, define weight for each subtype.
 #define THIS_WEIGHT               0 ton
 #define THIS_NAME                 THIS_VEH_ID(str_name_veh_) // concatenated identifier using CPP 
@@ -1276,10 +1276,10 @@
 #define THIS_TRAILER_3_ID         rothrock_r102_trailer_3
 #define THIS_TRAILER_2_ID         rothrock_r102_trailer_2
 #define THIS_CAPACITY_BUY_MENU    39 // fake capacity for buy menu - set to total consist capacity
-#define THIS_CAPACITY             0 // capacity for truck
-#define THIS_TRAILER_3_CAPACITY   13 // common case is all trailers same cap.  Where needed use defines for TRAILER_1_CAPACITY, TRAILER_2_CAPACITY etc.
-#define THIS_TRAILER_1_CAPACITY   13 // common case is all trailers same cap.  Where needed use defines for TRAILER_1_CAPACITY, TRAILER_2_CAPACITY etc.
-#define THIS_TRAILER_2_CAPACITY   13 // common case is all trailers same cap.  Where needed use defines for TRAILER_1_CAPACITY, TRAILER_2_CAPACITY etc.
+#define THIS_CAPACITY             5 // capacity for truck - add part of first trailer capacity if fifth wheel truck 
+#define THIS_TRAILER_3_CAPACITY   13 // capacity first trailer may be split with truck if fifth wheel truck 
+#define THIS_TRAILER_1_CAPACITY   7 // capacity first trailer may be split with truck if fifth wheel truck 
+#define THIS_TRAILER_2_CAPACITY   13 // capacity first trailer may be split with truck if fifth wheel truck 
 // include trailer weight(s) as ottd trailing parts have weight=0. If number of trailers varies by subtype, define weight for each subtype.
 #define THIS_WEIGHT               0 ton
 #define THIS_NAME                 THIS_VEH_ID(str_name_veh_) // concatenated identifier using CPP 
@@ -1339,9 +1339,9 @@
 #define THIS_TRAILER_1_ID         rothrock_r123_trailer_1
 #define THIS_TRAILER_2_ID         rothrock_r123_trailer_2
 #define THIS_CAPACITY_BUY_MENU    48 // fake capacity for buy menu - set to total consist capacity
-#define THIS_CAPACITY             0 // capacity for truck
-#define THIS_TRAILER_1_CAPACITY   24 // common case is all trailers same cap.  Where needed use defines for TRAILER_1_CAPACITY, TRAILER_2_CAPACITY etc.
-#define THIS_TRAILER_2_CAPACITY   24 // common case is all trailers same cap.  Where needed use defines for TRAILER_1_CAPACITY, TRAILER_2_CAPACITY etc.
+#define THIS_CAPACITY             12 // capacity for truck - add part of first trailer capacity if fifth wheel truck 
+#define THIS_TRAILER_1_CAPACITY   12 // capacity first trailer may be split with truck if fifth wheel truck 
+#define THIS_TRAILER_2_CAPACITY   24 // capacity first trailer may be split with truck if fifth wheel truck 
 // include trailer weight(s) as ottd trailing parts have weight=0. If number of trailers varies by subtype, define weight for each subtype.
 #define THIS_WEIGHT               0 ton
 #define THIS_NAME                 THIS_VEH_ID(str_name_veh_) // concatenated identifier using CPP 
@@ -1391,7 +1391,7 @@
 #define THIS_TRUCK_TYPE           GLOBAL_TRUCK_TYPE_SOLO
 #define THIS_NUM_TRAILERS         0
 #define THIS_CAPACITY_BUY_MENU    4 // fake capacity for buy menu - set to total consist capacity
-#define THIS_CAPACITY             4 // capacity for truck
+#define THIS_CAPACITY             4 // capacity for truck - add part of first trailer capacity if fifth wheel truck 
 // include trailer weight(s) as ottd trailing parts have weight=0. If number of trailers varies by subtype, define weight for each subtype.
 #define THIS_WEIGHT               0 ton
 #define THIS_NAME                 THIS_VEH_ID(str_name_veh_) // concatenated identifier using CPP 
@@ -1422,7 +1422,7 @@
 #define THIS_TRUCK_TYPE           GLOBAL_TRUCK_TYPE_SOLO
 #define THIS_NUM_TRAILERS         0
 #define THIS_CAPACITY_BUY_MENU    12 // fake capacity for buy menu - set to total consist capacity
-#define THIS_CAPACITY             12 // capacity for truck
+#define THIS_CAPACITY             12 // capacity for truck - add part of first trailer capacity if fifth wheel truck 
 // include trailer weight(s) as ottd trailing parts have weight=0. If number of trailers varies by subtype, define weight for each subtype.
 #define THIS_WEIGHT               0 ton
 #define THIS_NAME                 THIS_VEH_ID(str_name_veh_) // concatenated identifier using CPP 
@@ -1453,7 +1453,7 @@
 #define THIS_TRUCK_TYPE           GLOBAL_TRUCK_TYPE_SOLO
 #define THIS_NUM_TRAILERS         0
 #define THIS_CAPACITY_BUY_MENU    9 // fake capacity for buy menu - set to total consist capacity
-#define THIS_CAPACITY             9 // capacity for truck
+#define THIS_CAPACITY             9 // capacity for truck - add part of first trailer capacity if fifth wheel truck 
 // include trailer weight(s) as ottd trailing parts have weight=0. If number of trailers varies by subtype, define weight for each subtype.
 #define THIS_WEIGHT               0 ton
 #define THIS_NAME                 THIS_VEH_ID(str_name_veh_) // concatenated identifier using CPP 
@@ -1485,8 +1485,8 @@
 #define THIS_NUM_TRAILERS         1
 #define THIS_TRAILER_1_ID         wicomico_linkwood_trailer_1
 #define THIS_CAPACITY_BUY_MENU    22 // fake capacity for buy menu - set to total consist capacity
-#define THIS_CAPACITY             10 // capacity for truck
-#define THIS_TRAILER_1_CAPACITY   12 // common case is all trailers same cap.  Where needed use defines for TRAILER_1_CAPACITY, TRAILER_2_CAPACITY etc.
+#define THIS_CAPACITY             10 // capacity for truck - add part of first trailer capacity if fifth wheel truck 
+#define THIS_TRAILER_1_CAPACITY   12 // capacity first trailer may be split with truck if fifth wheel truck 
 // include trailer weight(s) as ottd trailing parts have weight=0. If number of trailers varies by subtype, define weight for each subtype.
 #define THIS_WEIGHT               0 ton
 #define THIS_NAME                 THIS_VEH_ID(str_name_veh_) // concatenated identifier using CPP 
@@ -1531,10 +1531,10 @@
 #define THIS_TRAILER_3_ID         wicomico_northlander_trailer_3
 #define THIS_TRAILER_2_ID         wicomico_northlander_trailer_2
 #define THIS_CAPACITY_BUY_MENU    36 // fake capacity for buy menu - set to total consist capacity
-#define THIS_CAPACITY             0 // capacity for truck
-#define THIS_TRAILER_3_CAPACITY   12 // common case is all trailers same cap.  Where needed use defines for TRAILER_1_CAPACITY, TRAILER_2_CAPACITY etc.
-#define THIS_TRAILER_1_CAPACITY   12 // common case is all trailers same cap.  Where needed use defines for TRAILER_1_CAPACITY, TRAILER_2_CAPACITY etc.
-#define THIS_TRAILER_2_CAPACITY   12 // common case is all trailers same cap.  Where needed use defines for TRAILER_1_CAPACITY, TRAILER_2_CAPACITY etc.
+#define THIS_CAPACITY             6 // capacity for truck - add part of first trailer capacity if fifth wheel truck 
+#define THIS_TRAILER_3_CAPACITY   12 // capacity first trailer may be split with truck if fifth wheel truck 
+#define THIS_TRAILER_1_CAPACITY   6 // capacity first trailer may be split with truck if fifth wheel truck 
+#define THIS_TRAILER_2_CAPACITY   12 // capacity first trailer may be split with truck if fifth wheel truck 
 // include trailer weight(s) as ottd trailing parts have weight=0. If number of trailers varies by subtype, define weight for each subtype.
 #define THIS_WEIGHT               0 ton
 #define THIS_NAME                 THIS_VEH_ID(str_name_veh_) // concatenated identifier using CPP 
@@ -1592,7 +1592,7 @@
 #define THIS_TRUCK_TYPE           GLOBAL_TRUCK_TYPE_SOLO
 #define THIS_NUM_TRAILERS         0
 #define THIS_CAPACITY_BUY_MENU    8 // fake capacity for buy menu - set to total consist capacity
-#define THIS_CAPACITY             8 // capacity for truck
+#define THIS_CAPACITY             8 // capacity for truck - add part of first trailer capacity if fifth wheel truck 
 // include trailer weight(s) as ottd trailing parts have weight=0. If number of trailers varies by subtype, define weight for each subtype.
 #define THIS_WEIGHT               0 ton
 #define THIS_NAME                 THIS_VEH_ID(str_name_veh_) // concatenated identifier using CPP 

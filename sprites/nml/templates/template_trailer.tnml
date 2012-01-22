@@ -5,7 +5,13 @@
 // it can be over-ridden when custom spritegroups etc are needed (not common) - simply define THIS_TRAILER_GRAPHICS_CHAIN_ID as a custom switch identifier in the file for the vehicle
 
 #define THIS_TRAILER_CAPACITY_CB_ID  THIS_TRAILER_ID(switch_trailer_capacity_cb_)
-#include "../templates/trailer_templates/capacity_cb_trailers.tnml"
+
+#if THIS_TRUCK_TYPE == GLOBAL_TRUCK_TYPE_FIFTH_WHEEL 
+  #include "../templates/trailer_templates/capacity_cb_trailers_fifth_wheel_truck.tnml"
+#endif
+#if THIS_TRUCK_TYPE == GLOBAL_TRUCK_TYPE_DRAWBAR 
+  #include "../templates/trailer_templates/capacity_cb_trailers_drawbar_truck.tnml"
+#endif
 
 #include "../templates/trailer_templates/graphics_trailers.tnml"
 

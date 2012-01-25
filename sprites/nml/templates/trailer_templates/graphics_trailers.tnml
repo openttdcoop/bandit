@@ -1,5 +1,5 @@
 // handle graphics
-spriteset(THIS_TRAILER_ID(ss_invisible_), THIS_TRAILER_GRAPHICS_FILE) {
+spriteset(THIS_TRAILER_ID(ss_invisible_), "sprites/graphics/empty_sprites.png") {
   spriteset_template_truck_28(0, 20) // (search 'sprites/nml' to find where spriteset templates are defined)  
 }
 

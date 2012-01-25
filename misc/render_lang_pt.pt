@@ -1,0 +1,7 @@
+<html>
+<body>
+<tal:build_lang repeat="vehicle_repeat options/vehicle_list">
+<pre><span tal:replace="string:str_name_veh_${vehicle_repeat/id}" />  :<span tal:replace="python:('DEFAULT NAME',vehicle_repeat.title)[len(vehicle_repeat.title) > 0]" /></pre>
+</tal:build_lang>
+</body>
+</html>

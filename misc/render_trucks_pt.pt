@@ -3,6 +3,7 @@
 <tal:build_vehicles repeat="vehicle_repeat options/vehicle_list">
 <pre>
 #define THIS_VEH_ID(...)          __VA_ARGS__ ## <span tal:replace="vehicle_repeat/id" /> // __VA_ARGS__ and ## allow for concatenating the veh ID with strings to construct further IDs
+#define THIS_NUMERIC_ID           <span tal:replace="vehicle_repeat/numeric_ID" />
 #define THIS_TRUCK_TYPE           <span tal:replace="vehicle_repeat/truck_type" />
 #define THIS_NUM_TRAILERS         <span tal:replace="vehicle_repeat/truck_num_trailers" />
 </pre>
@@ -11,10 +12,10 @@
 </tal:build_trailer_ID_defines>
 <pre>
 #define THIS_CAPACITY_BUY_MENU    <span tal:replace="python:options['vehicle_calculated_props'][vehicle_repeat.id()]['total_capacity']" /> // fake capacity for buy menu - set to total consist capacity
-#define THIS_CAPACITY             <span tal:replace="vehicle_repeat/truck_capacity" /> // capacity for truck
+#define THIS_CAPACITY             <span tal:replace="python: (vehicle_repeat.truck_capacity,options['vehicle_calculated_props'][vehicle_repeat.id()]['adjusted_truck_capacity'])[vehicle_repeat.truck_type == 'GLOBAL_TRUCK_TYPE_FIFTH_WHEEL']" /> // capacity for truck - add part of first trailer capacity if fifth wheel truck 
 </pre>
 <tal:build_trailer_capacity_defines repeat="trailers_repeat python:options['vehicle_calculated_props'][vehicle_repeat.id()]['trailer_capacities']">
-<pre>#define <span tal:replace="trailers_repeat" />   <span tal:replace="python:options['vehicle_calculated_props'][vehicle_repeat.id()]['trailer_capacities'][trailers_repeat]" /> // common case is all trailers same cap.  Where needed use defines for TRAILER_1_CAPACITY, TRAILER_2_CAPACITY etc.</pre>
+<pre>#define <span tal:replace="trailers_repeat" />   <span tal:replace="python:options['vehicle_calculated_props'][vehicle_repeat.id()]['trailer_capacities'][trailers_repeat]" /> // capacity first trailer may be split with truck if fifth wheel truck </pre>
 </tal:build_trailer_capacity_defines>
 <pre>
 // include trailer weight(s) as ottd trailing parts have weight=0. If number of trailers varies by subtype, define weight for each subtype.
@@ -28,25 +29,35 @@
 #define THIS_SMOKE_OFFSET         <span tal:replace="vehicle_repeat/truck_smoke_offset" />
 #define THIS_BUY_COST             <span tal:replace="vehicle_repeat/truck_buy_cost" />
 #define THIS_RUN_COST             <span tal:replace="vehicle_repeat/truck_run_cost" />
-#define THIS_INTRO_DATE           date(1919,01,01)
+#define THIS_INTRO_DATE           date(<span tal:replace="string:${vehicle_repeat/truck_intro_date/year},1,1" />)
 #define THIS_MODEL_LIFE           <span tal:replace="vehicle_repeat/truck_model_life" />
 #define THIS_VEHICLE_LIFE         <span tal:replace="vehicle_repeat/truck_vehicle_life" />
 #define THIS_LENGTH               SHORTEN_TO_2_8 // 1 unit = 4px; fifth-wheel articulated trucks may be shorter than their sprites so trailer overlaps  
 #define THIS_GRAPHICS_FILE        <span tal:replace='string:"sprites/graphics/${vehicle_repeat/truck_graphics_file}"' />
 // predefined cargo refits. Multiple templates available for different vehicle types.
-#include "../templates/refits/refits_default.tnml"
+#include "templates/refits/refits_default.tnml"
+
 // template for lead truck properties, graphics and callback handling
-#include "../templates/template_truck_with_trailers.tnml"
+<tal:solo_truck condition="python:vehicle_repeat.truck_type == 'GLOBAL_TRUCK_TYPE_SOLO'">
+#include "templates/template_truck_solo.tnml"
+</tal:solo_truck>
+
+<tal:articulated_truck condition="python:vehicle_repeat.truck_type != 'GLOBAL_TRUCK_TYPE_SOLO'">
+#include "templates/template_truck_with_trailers.tnml"
 // provide trailers for this truck
 <tal:build_trailers repeat="trailers_repeat python:options['vehicle_calculated_props'][vehicle_repeat.id()]['trailer_vehicle_ids']">
 #define THIS_TRAILER_ID(...)            __VA_ARGS__ ## <span tal:replace="python:options['vehicle_calculated_props'][vehicle_repeat.id()]['trailer_vehicle_ids'][trailers_repeat]" />
+#define THIS_TRAILER_NUMERIC_ID         <span tal:define="trailer_num repeat/trailers_repeat/number" tal:replace="python:options['vehicle_calculated_props'][vehicle_repeat.id()]['trailer_vehicle_numeric_ids']['THIS_TRAILER_' + str(trailer_num) + '_NUMERIC_ID']" />
 #define THIS_TRAILER_GRAPHICS_FILE      "sprites/graphics/trailer_test.png"
 #define THIS_TRAILER_CAPACITY           <span tal:define="trailer_num repeat/trailers_repeat/number" tal:replace="string:THIS_TRAILER_${trailer_num}_CAPACITY" />
 #define THIS_TRAILER_GRAPHICS_CHAIN_ID  THIS_TRAILER_ID(graphics_chain_switch_)
-#include "../templates/template_trailer.tnml"
+#include "templates/template_trailer.tnml"
 </tal:build_trailers>
 // trailers done
-#include "../templates/template_clear_defines.tnml"
+</tal:articulated_truck>
+
+#include "templates/template_clear_defines.tnml"
+
 </pre>
 </tal:build_vehicles>
 </body>

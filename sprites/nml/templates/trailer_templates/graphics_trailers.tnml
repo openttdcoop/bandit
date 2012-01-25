@@ -36,7 +36,7 @@ switch (FEAT_ROADVEHS, SELF, THIS_TRAILER_ID(cargo_switch), cargo_classes) {
 
 
 // switches specific to drawbar trucks
-
+// [cargo subtype in consist is 0-indexed]
 switch (FEAT_ROADVEHS, SELF, THIS_TRAILER_ID(visibility_switch_drawbar_truck_trailer_1), cargo_subtype) {
     0: return THIS_TRAILER_ID(sg_invisible_); // trailer isn't in use so show invisible sprites
     1..255: return THIS_TRAILER_ID(cargo_switch); // merges back to cargo switches - same for all positions / subtypes 
@@ -53,6 +53,7 @@ switch (FEAT_ROADVEHS, SELF, THIS_TRAILER_ID(visibility_switch_drawbar_truck_tra
     return 0xFF; //end cb
 }
 
+// [position in consist is 0-indexed]
 switch (FEAT_ROADVEHS, SELF, THIS_TRAILER_ID(consist_position_drawbar_truck), position_in_consist) {
     1: THIS_TRAILER_ID(visibility_switch_drawbar_truck_trailer_1);
     2: THIS_TRAILER_ID(visibility_switch_drawbar_truck_trailer_2);
@@ -61,7 +62,7 @@ switch (FEAT_ROADVEHS, SELF, THIS_TRAILER_ID(consist_position_drawbar_truck), po
 }
 
 // switches specific to fifth wheel trucks
-
+// [cargo subtype in consist is 0-indexed]
 switch (FEAT_ROADVEHS, SELF, THIS_TRAILER_ID(visibility_switch_fifth_wheel_truck_trailer_2), cargo_subtype) {
     0: return THIS_TRAILER_ID(sg_invisible_); // trailer isn't in use so show invisible sprites
     1..255: return THIS_TRAILER_ID(cargo_switch); // merges back to cargo switches - same for all positions / subtypes 

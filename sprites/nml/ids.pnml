@@ -12,3 +12,14 @@
 #define GLOBAL_TRUCK_TYPE_SOLO                   0 
 #define GLOBAL_TRUCK_TYPE_DRAWBAR                1 
 #define GLOBAL_TRUCK_TYPE_FIFTH_WHEEL            2
+
+
+
+// LEGACY CPP STUFF HACKED AROUND DURING REBUILD TO CHAMELEON
+
+// use comma separated lists for allowed/disallowed cargos and cargo classes
+#define THIS_ALLOWED_CARGOS                 // empty
+#define THIS_DISALLOWED_CARGOS              // empty
+#define THIS_ALLOWED_CARGO_CLASSES        CC_MAIL, CC_EXPRESS, CC_ARMOURED, CC_BULK, CC_PIECE_GOODS, \
+                                          CC_LIQUID, CC_REFRIGERATED, CC_COVERED, 
+#define THIS_DISALLOWED_CARGO_CLASSES     CC_PASSENGERS

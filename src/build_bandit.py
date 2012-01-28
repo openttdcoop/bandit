@@ -7,6 +7,7 @@ currentdir = os.curdir
 
 from chameleon import PageTemplateLoader
 templates = PageTemplateLoader(os.path.join(currentdir, "sprites/nml"), format='text')
+lang_templates = PageTemplateLoader(os.path.join(currentdir, "lang"), format='text')
 
 
 from dict_test import vehicles_dict
@@ -19,29 +20,31 @@ class Truck:
       self.properties = properties
       
     def output(self):
-      template = templates['test_1.pt']
+      template = templates['truck_template_solo.tnml']
       return template(vehicle=self)
 
-objects=[]
+vehicles=[]
 
 
 for i in vehicles_dict:
-  objects.append(Truck(id=i,properties=vehicles_dict[i]))
+  vehicles.append(Truck(id=i,properties=vehicles_dict[i]))
 
 """  
-for i in objects:
-  print i.properties['title']
+for i in vehicles:
+  print i.output()
 """
 
-master_template = templates['bandit.tnml']
 
 #compile a single final nml file for the grf (currently c pre-processor is still available and used, so pnml file) 
+master_template = templates['bandit.tnml']
+
 bandit_nml = open('sprites/nml/bandit.pnml','w')
-bandit_nml.write(master_template())
+bandit_nml.write(master_template(vehicles=vehicles))
 bandit_nml.close()
 
 #compile strings to single lang file (english only at the moment, but i8n translation is possible)
-local_strings = open('lang/english.lng.in').read()
+lang_template = lang_templates['english.lng.in']
+
 lang = open('lang/english.lng', 'w')
-lang.write(local_strings)
+lang.write(lang_template(vehicles=vehicles))
 lang.close()

@@ -1,0 +1,49 @@
+// some of the identifiers used are NML built-ins, some are defined by BANDIT.  No easy way to tell except by searching...
+
+// setup graphics
+// trailer_graphics_includer includes a bunch of repeated spritesets and spritegroups, as well as creating a bunch of defines
+// it can be over-ridden when custom spritegroups etc are needed (not common) - simply define THIS_TRAILER_GRAPHICS_CHAIN_ID as a custom switch identifier in the file for the vehicle
+
+#define THIS_TRAILER_CAPACITY_CB_ID  THIS_TRAILER_ID(switch_trailer_capacity_cb_)
+
+#if THIS_TRUCK_TYPE == GLOBAL_TRUCK_TYPE_FIFTH_WHEEL 
+  #include "../templates/trailer_templates/capacity_cb_trailers_fifth_wheel_truck.tnml"
+#endif
+#if THIS_TRUCK_TYPE == GLOBAL_TRUCK_TYPE_DRAWBAR 
+  #include "../templates/trailer_templates/capacity_cb_trailers_drawbar_truck.tnml"
+#endif
+
+#include "../templates/trailer_templates/graphics_trailers.tnml"
+
+
+item(FEAT_ROADVEHS, THIS_TRAILER_ID(), THIS_TRAILER_NUMERIC_ID) {
+    property {
+        climates_available:             NO_CLIMATE; //hide trailers from buy menu by setting climate availability to 'none'
+        cargo_capacity:                 1; //set to 1 - or vehicle not refittable.  Automatically set to correct value with cb36
+        sprite_id:                      SPRITE_ID_NEW_ROADVEH; //enable new graphics
+        power:                          0; //should be 0 for trailers
+        weight:                         0; //should be 0 for trailers
+        tractive_effort_coefficient:    0; //should be 0 for trailers
+        cost_factor:                    0; //should be 0 for trailers
+        running_cost_factor:            0; //should be 0 for trailers
+        running_cost_base:              RUNNING_COST_NONE; //should be 0 for trailers
+        refittable_cargo_classes:       bitmask(THIS_ALLOWED_CARGO_CLASSES);
+        non_refittable_cargo_classes:   bitmask(THIS_DISALLOWED_CARGO_CLASSES);
+        cargo_allow_refit:              [THIS_ALLOWED_CARGOS];
+        cargo_disallow_refit:           [THIS_DISALLOWED_CARGOS];
+    }
+    graphics {
+        //shorten_vehicle:                THIS_TRAILER_LENGTH;
+        cargo_capacity:                 THIS_TRAILER_CAPACITY_CB_ID;
+        purchase_cargo_capacity:        0;
+        cargo_subtype_text:             THIS_CARGO_SUBTYPE_TEXT_CB_ID;
+        default:                        THIS_TRAILER_GRAPHICS_CHAIN_ID;
+    }
+}
+
+#undef THIS_TRAILER_ID
+#undef THIS_TRAILER_NUMERIC_ID
+#undef THIS_TRAILER_LENGTH
+#undef THIS_TRAILER_SG_ID
+#undef THIS_TRAILER_GRAPHICS_FILE
+#undef THIS_TRAILER_CAPACITY

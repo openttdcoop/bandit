@@ -1,0 +1,91 @@
+// handle graphics
+spriteset(THIS_TRAILER_ID(ss_invisible_), "sprites/graphics/empty_sprites.png") {
+  spriteset_template_truck_28(0, 20) // (search 'sprites/nml' to find where spriteset templates are defined)  
+}
+
+spritegroup THIS_TRAILER_ID(sg_invisible_) {
+    loaded:  [THIS_TRAILER_ID(ss_invisible_)];
+    loading: [THIS_TRAILER_ID(ss_invisible_)];
+}
+
+spriteset(THIS_TRAILER_ID(ss_cargo_1_), THIS_TRAILER_GRAPHICS_FILE) {
+  spriteset_template_truck_28(0, 20) // (search 'sprites/nml' to find where spriteset templates are defined)  
+}
+
+spritegroup THIS_TRAILER_ID(sg_cargo_1_) {
+    loaded:  [THIS_TRAILER_ID(ss_cargo_1_)];
+    loading: [THIS_TRAILER_ID(ss_cargo_1_)];
+}
+
+spriteset(THIS_TRAILER_ID(ss_cargo_2_), THIS_TRAILER_GRAPHICS_FILE) {
+  spriteset_template_truck_28(0, 20) // (search 'sprites/nml' to find where spriteset templates are defined)  
+}
+
+spritegroup THIS_TRAILER_ID(sg_cargo_2_) {
+    loaded:  [THIS_TRAILER_ID(ss_cargo_2_)];
+    loading: [THIS_TRAILER_ID(ss_cargo_2_)];
+}
+
+
+switch (FEAT_ROADVEHS, SELF, THIS_TRAILER_ID(cargo_switch), cargo_classes) {
+    0: return THIS_TRAILER_ID(sg_cargo_1_);
+    1..255: return THIS_TRAILER_ID(sg_cargo_2_);
+    return 0xFF; //end cb
+}
+
+
+
+// switches specific to drawbar trucks
+// [cargo subtype in consist is 0-indexed]
+switch (FEAT_ROADVEHS, SELF, THIS_TRAILER_ID(visibility_switch_drawbar_truck_trailer_1), cargo_subtype) {
+    0: return THIS_TRAILER_ID(sg_invisible_); // trailer isn't in use so show invisible sprites
+    1..255: return THIS_TRAILER_ID(cargo_switch); // merges back to cargo switches - same for all positions / subtypes 
+    return 0xFF; //end cb
+}
+switch (FEAT_ROADVEHS, SELF, THIS_TRAILER_ID(visibility_switch_drawbar_truck_trailer_2), cargo_subtype) {
+    0..1: return THIS_TRAILER_ID(sg_invisible_); // trailer isn't in use so show invisible sprites
+    2..255: return THIS_TRAILER_ID(cargo_switch); // merges back to cargo switches - same for all positions / subtypes 
+    return 0xFF; //end cb
+}
+switch (FEAT_ROADVEHS, SELF, THIS_TRAILER_ID(visibility_switch_drawbar_truck_trailer_3), cargo_subtype) {
+    0..2: return THIS_TRAILER_ID(sg_invisible_); // trailer isn't in use so show invisible sprites
+    3..255: return THIS_TRAILER_ID(cargo_switch); // merges back to cargo switches - same for all positions / subtypes 
+    return 0xFF; //end cb
+}
+
+// [position in consist is 0-indexed]
+switch (FEAT_ROADVEHS, SELF, THIS_TRAILER_ID(consist_position_drawbar_truck), position_in_consist) {
+    1: THIS_TRAILER_ID(visibility_switch_drawbar_truck_trailer_1);
+    2: THIS_TRAILER_ID(visibility_switch_drawbar_truck_trailer_2);
+    3: THIS_TRAILER_ID(visibility_switch_drawbar_truck_trailer_3);
+    return 0xFF; //end cb
+}
+
+// switches specific to fifth wheel trucks
+// [cargo subtype in consist is 0-indexed]
+switch (FEAT_ROADVEHS, SELF, THIS_TRAILER_ID(visibility_switch_fifth_wheel_truck_trailer_2), cargo_subtype) {
+    0: return THIS_TRAILER_ID(sg_invisible_); // trailer isn't in use so show invisible sprites
+    1..255: return THIS_TRAILER_ID(cargo_switch); // merges back to cargo switches - same for all positions / subtypes 
+    return 0xFF; //end cb
+}
+switch (FEAT_ROADVEHS, SELF, THIS_TRAILER_ID(visibility_switch_fifth_wheel_truck_trailer_3), cargo_subtype) {
+    0..1: return THIS_TRAILER_ID(sg_invisible_); // trailer isn't in use so show invisible sprites
+    2..255: return THIS_TRAILER_ID(cargo_switch); // merges back to cargo switches - same for all positions / subtypes 
+    return 0xFF; //end cb
+}
+
+// [position in consist is 0-indexed]
+switch (FEAT_ROADVEHS, SELF, THIS_TRAILER_ID(consist_position_fifth_wheel_truck), position_in_consist) {
+    1: THIS_TRAILER_ID(cargo_switch); // 1st trailer always visible for fifth wheel trucks
+    2: THIS_TRAILER_ID(visibility_switch_fifth_wheel_truck_trailer_2);
+    3: THIS_TRAILER_ID(visibility_switch_fifth_wheel_truck_trailer_3);
+    return 0xFF; //end cb
+}
+
+// switch to branch according to truck type
+
+switch (FEAT_ROADVEHS, SELF, THIS_TRAILER_GRAPHICS_CHAIN_ID, THIS_TRUCK_TYPE) {
+    GLOBAL_TRUCK_TYPE_DRAWBAR: return THIS_TRAILER_ID(consist_position_drawbar_truck);
+    GLOBAL_TRUCK_TYPE_FIFTH_WHEEL: return THIS_TRAILER_ID(consist_position_fifth_wheel_truck);
+    return CB_RESULT_NO_TEXT;
+}

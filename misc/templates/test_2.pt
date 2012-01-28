@@ -1,0 +1,5 @@
+<tal:include_header tal:define="header load: test_3.pt" metal:use-macro="header" />
+
+<tal:build repeat="object objects">
+  ${object.output()}
+</tal:build>

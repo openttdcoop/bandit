@@ -1,53 +1,21 @@
 // some of the identifiers used are NML built-ins, some are defined by BANDIT.  No easy way to tell except by searching...
 
-// the cargo subtype switches are shared globally, no unique identifiers per truck
-// they're called from here, appropriate to the truck type
-switch (FEAT_ROADVEHS, SELF, $truck_switch_cargo_subtype, $truck_type) {
-    GLOBAL_TRUCK_TYPE_DRAWBAR: return switch_cb_cargo_subtypes_drawbar_truck;
-    GLOBAL_TRUCK_TYPE_FIFTH_WHEEL: return switch_cb_cargo_subtypes_fifth_wheel_truck;
-    return CB_RESULT_NO_TEXT;
-}
-
-
-#if ${truck_number_of_trailers} == 1
-  switch (FEAT_ROADVEHS, SELF, $truck_switch_articulated, extra_callback_info1) {
-      1: return THIS_TRAILER_1_ID;
-      return CB_RESULT_NO_MORE_ARTICULATED_PARTS;
-  }
-#endif  
-#if ${truck_number_of_trailers} == 2
-  switch (FEAT_ROADVEHS, SELF, $truck_switch_articulated, extra_callback_info1) {
-      1: return THIS_TRAILER_1_ID;
-      2: return THIS_TRAILER_2_ID;
-      return CB_RESULT_NO_MORE_ARTICULATED_PARTS;
-  }
-#endif  
-#if ${truck_number_of_trailers} == 3
-  switch (FEAT_ROADVEHS, SELF, $truck_switch_articulated, extra_callback_info1) {
-      1: return THIS_TRAILER_1_ID;
-      2: return THIS_TRAILER_2_ID;
-      3: return THIS_TRAILER_3_ID;
-      return CB_RESULT_NO_MORE_ARTICULATED_PARTS;
-  }
-#endif  
-
-
  // use CPP to concatenate some identifiers from the vehicle ID and some strings
  // putting these on defines isnt strictly necessary; they could be concatenated inline, but this way helps my brain read other parts of the code
-#define THIS_SG_ID   ${truck_id}_sg
-#define THIS_SS_ID   ${truck_id}_ss
+#define THIS_SG_ID   THIS_VEH_ID(sg_)
+#define THIS_SS_ID   THIS_VEH_ID(ss_)
 spriteset(THIS_SS_ID, THIS_GRAPHICS_FILE) {
   spriteset_template_truck_16(0, 20) // (search 'sprites/nml' to find where spriteset templates are defined)  
 }
 
-spritegroup $truck_sg {
-    loaded:  [$truck_sg];
-    loading: [$truck_sg];
+spritegroup THIS_SG_ID {
+    loaded:  [THIS_SS_ID];
+    loading: [THIS_SS_ID];
 }
 
 
-// set the vehicle props + switches (handle callbacks etc) 
-item(FEAT_ROADVEHS, ${truck_id}, THIS_NUMERIC_ID) {
+
+item(FEAT_ROADVEHS, THIS_VEH_ID(), THIS_NUMERIC_ID) {
     property {
         name:                           string(THIS_NAME);
         climates_available:             ALL_CLIMATES;
@@ -57,7 +25,7 @@ item(FEAT_ROADVEHS, ${truck_id}, THIS_NUMERIC_ID) {
         cargo_capacity:                 THIS_CAPACITY;
         sprite_id:                      SPRITE_ID_NEW_ROADVEH; //enable new graphics
         speed:                          THIS_SPEED;
-        power:                          $power;
+        power:                          THIS_POWER;
         weight:                         THIS_WEIGHT;
         tractive_effort_coefficient:    THIS_TE_COEFFICIENT;
         cost_factor:                    THIS_BUY_COST;
@@ -72,11 +40,6 @@ item(FEAT_ROADVEHS, ${truck_id}, THIS_NUMERIC_ID) {
     }
     graphics {
         shorten_vehicle:                THIS_LENGTH;
-        articulated_part:               $truck_switch_articulated;
-        purchase_cargo_capacity:        THIS_CAPACITY_BUY_MENU;
-        cargo_subtype_text:             $truck_switch_cargo_subtype;
-        default:                        $truck_sg;
+        default:                        THIS_SG_ID;
     }
 }
-
-$test_include

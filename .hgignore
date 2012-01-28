@@ -38,3 +38,6 @@ bandit*
 # Files created by Mac image preview and file browser:
 .DS_Store
 Thumbs.db
+
+# Don't add python .pyc files
+*.pyc

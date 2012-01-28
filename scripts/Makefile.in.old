@@ -1,0 +1,18 @@
+# Here also go all build targets specific to this very newgrf
+
+bandit.nml: sprites/nml/all_trucks.gnml
+bandit.src.dep: sprites/nml/all_trucks.gnml
+
+GENERATE=src/build_bandit.py
+
+sprites/nml/all_trucks.gnml: paste_here.txt $(GENERATE)
+	$(_E) [GENERATE] from pasted text
+	$(_V) python src/build_bandit.py
+
+%.lng: %.lng.in paste_here.txt $(GENERATE)
+	$(_E) [GENERATE] from pasted text
+	$(_V) python src/build_bandit.py
+
+clean::
+	$(_V)-rm sprites/nml/all_trucks.gnml
+	$(_V)-rm lang/*.lng

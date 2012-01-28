@@ -1,10 +1,8 @@
 <tal:truck define="properties vehicle.properties">
 // -- begin ${properties.title} --
 
-// some of the identifiers used are NML built-ins, some are defined by BANDIT.  No easy way to tell except by searching...
+// some of the CAPS identifiers used are NML built-ins, some are still defined by CPP (legacy).  No easy way to tell except by searching...
 
- // use CPP to concatenate some identifiers from the vehicle ID and some strings
- // putting these on defines isnt strictly necessary; they could be concatenated inline, but this way helps my brain read other parts of the code
 spriteset(${vehicle.id}_ss, "sprites/graphics/${properties.truck_graphics_file}") {
   spriteset_template_truck_16(0, 20) // (search 'sprites/nml' to find where spriteset templates are defined)  
 }
@@ -13,6 +11,14 @@ spritegroup ${vehicle.id}_sg {
     loaded:  ${vehicle.id}_ss;
     loading: ${vehicle.id}_ss;
 }
+
+<tal:check_for_trailers condition="python:hasattr(vehicle,'trailers')">
+  <tal:build_trailers repeat="trailer vehicle.trailers">
+    //-- provide ${trailer.id} --
+    // ${trailer.render()}
+  </tal:build_trailers>
+</tal:check_for_trailers>
+
 
 item(FEAT_ROADVEHS, ${vehicle.id}, ${properties.numeric_ID}) {
     property {
@@ -23,8 +29,8 @@ item(FEAT_ROADVEHS, ${vehicle.id}, ${properties.numeric_ID}) {
         introduction_date:              ${properties.truck_intro_date};
         cargo_capacity:                 ${properties.truck_capacity};
         sprite_id:                      SPRITE_ID_NEW_ROADVEH; //enable new graphics - nml constant
-        speed:                          ${properties.truck_speed};
-        power:                          ${properties.truck_power};
+        speed:                          ${properties.truck_speed}mph;
+        power:                          ${properties.truck_power}hp;
         weight:                         ${properties.truck_weight};
         tractive_effort_coefficient:    GLOBAL_DEFAULT_TE_COEFFICIENT; // cpp constant - may need to vary per truck
         cost_factor:                    ${properties.truck_buy_cost};
@@ -39,6 +45,7 @@ item(FEAT_ROADVEHS, ${vehicle.id}, ${properties.numeric_ID}) {
     }
     graphics {
         shorten_vehicle:                ${properties.truck_length};
+        purchase_cargo_capacity:        ${properties.total_capacity};
         default:                        ${vehicle.id}_sg;
     }
 }

@@ -13,6 +13,14 @@ lang_templates = PageTemplateLoader(os.path.join(currentdir, "lang"), format='te
 from dict_test import vehicles_dict
 #print vehicles_dict
 
+class Trailer:
+    """Base class for trailers"""
+    def __init__(self, id, properties):
+      self.id = id
+    
+    def render(self):
+      return self.id
+
 class Truck:
     """Base class for all types of trucks"""
     def __init__(self, id, properties):
@@ -22,18 +30,18 @@ class Truck:
         self.template = templates['truck_template_solo.tnml']
       elif properties['truck_type'] == 'GLOBAL_TRUCK_TYPE_FIFTH_WHEEL' or properties['truck_type'] == 'GLOBAL_TRUCK_TYPE_DRAWBAR':
         self.template = templates['truck_template_solo.tnml']
-        self.trailers = {}
-        for i in range(0,properties['truck_num_trailers']):
-          self.trailers['trailer_' + str(i+1)] = {}
-        print self.trailers
+        self.trailers = [] # note that order of trailers here doesn't matter as we'll finally build them using the identifiers 
+        for i in properties['trailers_properties']:
+          self.trailers.append(Trailer(id=i,properties=properties['trailers_properties'][i]))
       else: 
         print "Error from " + os.path.basename(__file__)+ ": " + self.id + " has no valid value for truck_type"
         
-    def output(self):
+    def render(self):
       if hasattr(self, 'template'):
         return self.template(vehicle=self)
       else:
         return #no template defined - useful while developing, avoids errors for vehicle types that don't have template coded yet 
+
 
 
 vehicles=[]

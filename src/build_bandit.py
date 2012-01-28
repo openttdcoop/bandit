@@ -18,10 +18,19 @@ class Truck:
     def __init__(self, id, properties):
       self.id = id
       self.properties = properties
-      
+      if properties['truck_type'] == 'GLOBAL_TRUCK_TYPE_SOLO':
+        self.template = templates['truck_template_solo.tnml']
+      elif properties['truck_type'] == 'GLOBAL_TRUCK_TYPE_FIFTH_WHEEL' or properties['truck_type'] == 'GLOBAL_TRUCK_TYPE_DRAWBAR':
+        self.template = templates['truck_template_solo.tnml']
+      else: 
+        print "Error from " + os.path.basename(__file__)+ ": " + self.id + " has no valid value for truck_type"
+        
     def output(self):
-      template = templates['truck_template_solo.tnml']
-      return template(vehicle=self)
+      if hasattr(self, 'template'):
+        return self.template(vehicle=self)
+      else:
+        return #no template defined - useful while developing, avoids errors for vehicle types that don't have template coded yet 
+
 
 vehicles=[]
 

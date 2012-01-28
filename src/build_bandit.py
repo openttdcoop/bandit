@@ -22,6 +22,10 @@ class Truck:
         self.template = templates['truck_template_solo.tnml']
       elif properties['truck_type'] == 'GLOBAL_TRUCK_TYPE_FIFTH_WHEEL' or properties['truck_type'] == 'GLOBAL_TRUCK_TYPE_DRAWBAR':
         self.template = templates['truck_template_solo.tnml']
+        self.trailers = {}
+        for i in range(0,properties['truck_num_trailers']):
+          self.trailers['trailer_' + str(i+1)] = {}
+        print self.trailers
       else: 
         print "Error from " + os.path.basename(__file__)+ ": " + self.id + " has no valid value for truck_type"
         

@@ -1,5 +1,3 @@
-#define GLOBAL_DEFAULT_TE_COEFFICIENT            0.3
-
 #define GLOBAL_MODEL_LIFE_SHORT                  10
 #define GLOBAL_MODEL_LIFE_MEDIUM                 20
 #define GLOBAL_MODEL_LIFE_LONG                   30

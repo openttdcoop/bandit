@@ -55,7 +55,7 @@ item(FEAT_ROADVEHS, ${vehicle.id}, ${properties.numeric_id}) {
         speed:                          ${properties.truck_speed}mph;
         power:                          ${properties.truck_power}hp;
         weight:                         ${properties.truck_weight};
-        tractive_effort_coefficient:    GLOBAL_DEFAULT_TE_COEFFICIENT; // cpp constant - may need to vary per truck
+        tractive_effort_coefficient:    0.3; // just use default value until evidence arises for need to vary this per truck
         cost_factor:                    ${properties.truck_buy_cost};
         running_cost_factor:            ${properties.truck_run_cost};
         refittable_cargo_classes:       bitmask(THIS_ALLOWED_CARGO_CLASSES); // cpp constant

@@ -6,7 +6,7 @@ for i in vehicle_list:
   this_veh_props = {}
   for j in i.propertyIds():
     if i.getPropertyType(j) == 'date':
-      this_veh_props[j] = str(i.getProperty(j))
+      this_veh_props[j] = i.getProperty(j).year() # this is a hack, the truck_intro_date property should be changed to an int type
     else:      
       this_veh_props[j] = i.getProperty(j)
   del this_veh_props['content_type'] #zope adds this property to file objects automatically but we don't need it here

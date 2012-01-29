@@ -49,7 +49,7 @@ item(FEAT_ROADVEHS, ${vehicle.id}, ${properties.numeric_id}) {
         climates_available:             ALL_CLIMATES; // nml constant
         sound_effect:                   SOUND_TRUCK_START_2; //nml constant - likely this will be replaced by python global vars  
         visual_effect:                  visual_effect(VISUAL_EFFECT_DIESEL, ${properties.truck_smoke_offset}); // nml constant for DIESEL
-        introduction_date:              ${properties.truck_intro_date};
+        introduction_date:              date(${properties.truck_intro_date},01,01); // config just supplies intro year - openttd randomises intro dates a bit anyway
         cargo_capacity:                 ${properties.truck_capacity};
         sprite_id:                      SPRITE_ID_NEW_ROADVEH; //enable new graphics - nml constant
         speed:                          ${properties.truck_speed}mph;
@@ -67,7 +67,7 @@ item(FEAT_ROADVEHS, ${vehicle.id}, ${properties.numeric_id}) {
         vehicle_life:                   ${properties.truck_vehicle_life};
     }
     graphics {
-        shorten_vehicle:                ${8 - properties.truck_length};
+        length:                         ${properties.truck_length};
         purchase_cargo_capacity:        ${vehicle.getTotalConsistCapacity()};
         cargo_subtype_text:             ${vehicle.id}_switch_cargo_subtype;
         articulated_part:               ${vehicle.id}_articulated_cb_switch; // always call articulated switch, trailers will only be built if needed 

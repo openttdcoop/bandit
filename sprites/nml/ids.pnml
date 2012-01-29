@@ -23,3 +23,6 @@
 #define THIS_ALLOWED_CARGO_CLASSES        CC_MAIL, CC_EXPRESS, CC_ARMOURED, CC_BULK, CC_PIECE_GOODS, \
                                           CC_LIQUID, CC_REFRIGERATED, CC_COVERED, 
 #define THIS_DISALLOWED_CARGO_CLASSES     CC_PASSENGERS
+
+
+#define THIS_TRAILER_GRAPHICS_FILE        "sprites/graphics/trailer_test.png"

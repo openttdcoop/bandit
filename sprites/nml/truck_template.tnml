@@ -15,7 +15,7 @@ spritegroup ${vehicle.id}_sg {
 <tal:build_trailers repeat="trailer vehicle.trailers">
   <!--! if truck has no trailers (e.g. solo truck), trailers list will be empty so no trailers built --> 
   //-- provide ${trailer.id} --
-  // ${trailer.render()}
+  // ${trailer.render(vehicle)}
 </tal:build_trailers>
 
 

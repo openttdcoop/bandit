@@ -38,6 +38,10 @@ switch (FEAT_ROADVEHS, SELF, ${vehicle.id}_switch_cargo_subtype, ${properties.tr
     return CB_RESULT_NO_TEXT;
 }
 
+// -- print some of the vehicle non-nml properties to aid debugging -- //
+// truck_type    ${properties.truck_type}
+// truck_num_trailers  ${properties.truck_num_trailers}
+// fifth_wheel_truck_capacity_fraction   ${properties.fifth_wheel_truck_capacity_fraction}
 
 item(FEAT_ROADVEHS, ${vehicle.id}, ${properties.numeric_ID}) {
     property {

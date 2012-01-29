@@ -1,15 +1,22 @@
 #!/usr/bin/env python
 
+import sys
+sys.path.append('sprites/nml') # add to the module search path
+
 import os.path
 
 currentdir = os.curdir
 
 from chameleon import PageTemplateLoader
+# setup the places we look for templates
 templates = PageTemplateLoader(os.path.join(currentdir, "sprites/nml"), format='text')
 lang_templates = PageTemplateLoader(os.path.join(currentdir, "lang"), format='text')
 
 
 from BANDIT_vehicles_config import vehicles_dict
+
+from template_globals import template_globals, standard_class_refits
+#print template_globals
 
 
 class Trailer:
@@ -29,7 +36,11 @@ class Truck:
     """Base class for all types of trucks"""
     def __init__(self, id, properties):
       self.id = id
-      self.properties = properties
+      self.properties = properties      
+
+      #setup refits
+      self.properties['refittable_classes'] = standard_class_refits['default']['allow']
+      self.properties['non_refittable_classes'] = standard_class_refits['default']['disallow']
 
       if self.properties['truck_type'] == "GLOBAL_TRUCK_TYPE_FIFTH_WHEEL":
         self.modifyCapacitiesFifthWheelTrucks()
@@ -64,10 +75,11 @@ for i in vehicles_dict:
 
 
 #compile a single final nml file for the grf (currently c pre-processor is still available and used, so pnml file) 
+
 master_template = templates['bandit.tnml']
 
 bandit_nml = open('sprites/nml/bandit.pnml','w')
-bandit_nml.write(master_template(vehicles=vehicles))
+bandit_nml.write(master_template(vehicles=vehicles,))
 bandit_nml.close()
 
 

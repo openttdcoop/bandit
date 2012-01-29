@@ -14,9 +14,12 @@ from BANDIT_config import vehicles_dict
 
 class Trailer:
     """Base class for trailers"""
-    def __init__(self, id, properties):
-      self.id = id
-      self.properties = properties
+    def __init__(self, i, truck):
+      self.id = truck.id + '_trailer_' + str(i+1)
+      self.properties = {
+        'trailer_capacity' : int(truck.properties['trailer_capacities'][i]),
+        'numeric_id' : truck.properties['numeric_ID'] + i + 1,
+      }
     
     def render(self, truck):
       template = templates['trailer_template.tnml']
@@ -28,12 +31,21 @@ class Truck:
       self.id = id
       self.properties = properties
 
+      if self.properties['truck_type'] == "GLOBAL_TRUCK_TYPE_FIFTH_WHEEL":
+        self.modifyCapacitiesFifthWheelTrucks()
       # add trailer objects - will only be added if needed
       # order of trailers here doesn't matter as we'll finally build them using numeric identifiers based on the vehicle id
       self.trailers = []
-      for i in properties['trailers_properties']:
-        self.trailers.append(Trailer(id=i,properties=properties['trailers_properties'][i]))
-        
+      for i in range(0, self.properties['truck_num_trailers']):
+        self.trailers.append(Trailer(i = i, truck = self))
+
+    def modifyCapacitiesFifthWheelTrucks(self):
+      # fifth wheel trucks split part of the capacity of first trailer onto the truck, for TE reasons
+      # the ratio is controlled by a decimal fraction defined as a property of the truck
+      trailer_capacity = self.properties['trailer_capacities'][0]
+      self.properties['truck_capacity'] = truck_capacity = int(trailer_capacity * (self.properties['fifth_wheel_truck_capacity_fraction']))
+      self.properties['trailer_capacities'][0] = trailer_capacity - truck_capacity
+      
     def getTotalConsistCapacity(self):
       # used for the purchase menu
       capacity = self.properties['truck_capacity']

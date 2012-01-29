@@ -1,21 +1,21 @@
-#define THIS_TRAILER_CAPACITY 50
+<tal:trailer_capacity define="this_capacity trailer.properties.trailer_capacity">
 
 // switches specific to drawbar trucks
 switch (FEAT_ROADVEHS, SELF, ${trailer.id}_cap_drawbar_pos_1, cargo_subtype) {
     0: return 0;
-    1..255: return THIS_TRAILER_CAPACITY;
+    1..255: return ${this_capacity};
     return 0xFF; //end cb
 }
 
 switch (FEAT_ROADVEHS, SELF, ${trailer.id}_cap_drawbar_pos_2, cargo_subtype) {
     0..1: return 0;
-    2..255: return THIS_TRAILER_CAPACITY;
+    2..255: return ${this_capacity};
     return 0xFF; //end cb
 }
 
 switch (FEAT_ROADVEHS, SELF, ${trailer.id}_cap_drawbar_pos_3, cargo_subtype) {
     0..2: return 0;
-    3..255: return THIS_TRAILER_CAPACITY;
+    3..255: return ${this_capacity};
     return 0xFF; //end cb
 }
 
@@ -30,18 +30,18 @@ switch (FEAT_ROADVEHS, SELF, ${trailer.id}_cap_position_drawbar_truck, position_
 // switches specific to fifth wheel trucks
 switch (FEAT_ROADVEHS, SELF, ${trailer.id}_cap_fifth_wheel_pos_2, cargo_subtype) {
     0: return 0;
-    1..255: return THIS_TRAILER_CAPACITY;
+    1..255: return ${this_capacity};
     return 0xFF; //end cb
 }
 
 switch (FEAT_ROADVEHS, SELF, ${trailer.id}_cap_fifth_wheel_pos_3, cargo_subtype) {
     0..1: return 0;
-    2..255: return THIS_TRAILER_CAPACITY;
+    2..255: return ${this_capacity};
     return 0xFF; //end cb
 }
 
 switch (FEAT_ROADVEHS, SELF, ${trailer.id}_cap_fifth_wheel_switch, position_in_consist) {
-    1: return THIS_TRAILER_CAPACITY;
+    1: return ${this_capacity};
     2: ${trailer.id}_cap_fifth_wheel_pos_2;
     3: ${trailer.id}_cap_fifth_wheel_pos_3;
     return 0xFF; //end cb
@@ -56,3 +56,5 @@ switch (FEAT_ROADVEHS, SELF, ${trailer.id}_capacity_cb_switch, ${truck.propertie
     GLOBAL_TRUCK_TYPE_FIFTH_WHEEL: return ${trailer.id}_cap_fifth_wheel_switch;
     return 0; // default result - in this case should never be reached
 }
+
+</tal:trailer_capacity>

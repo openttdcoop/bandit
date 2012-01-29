@@ -2,7 +2,6 @@
 
 import os.path
 
-#path = os.getcwd()
 currentdir = os.curdir
 
 from chameleon import PageTemplateLoader
@@ -11,6 +10,7 @@ lang_templates = PageTemplateLoader(os.path.join(currentdir, "lang"), format='te
 
 
 from BANDIT_config import vehicles_dict
+
 
 class Trailer:
     """Base class for trailers"""
@@ -57,6 +57,7 @@ master_template = templates['bandit.tnml']
 bandit_nml = open('sprites/nml/bandit.pnml','w')
 bandit_nml.write(master_template(vehicles=vehicles))
 bandit_nml.close()
+
 
 #compile strings to single lang file (english only at the moment, but i18n translation is possible)
 lang_template = lang_templates['english.lng.in']

@@ -1,9 +1,3 @@
-// some of the identifiers used are NML built-ins, some are defined by BANDIT.  No easy way to tell except by searching...
-
-// setup graphics
-// trailer_graphics_includer includes a bunch of repeated spritesets and spritegroups, as well as creating a bunch of defines
-// it can be over-ridden when custom spritegroups etc are needed (not common) - simply define THIS_TRAILER_GRAPHICS_CHAIN_ID as a custom switch identifier in the file for the vehicle
-
 //#define THIS_TRAILER_CAPACITY_CB_ID  THIS_TRAILER_ID(switch_trailer_capacity_cb_)
 
 

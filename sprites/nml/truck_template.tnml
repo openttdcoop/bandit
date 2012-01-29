@@ -1,5 +1,5 @@
 <tal:truck define="properties vehicle.properties">
-// -- begin ${properties.title} --
+// -- begin ${properties.title} -- <!--! this adds a comment to aid reading the final nml -->
 
 // some of the CAPS identifiers used are NML built-ins, some are still defined by CPP (legacy).  No easy way to tell except by searching...
 
@@ -12,12 +12,16 @@ spritegroup ${vehicle.id}_sg {
     loading: ${vehicle.id}_ss;
 }
 
+// include the trailer vehicles if needed 
+// if truck has no trailers (e.g. solo truck), trailers list will be empty so no trailers will be included 
 <tal:render_trailer_vehicles repeat="trailer vehicle.trailers">
-  <!--! if truck has no trailers (e.g. solo truck), trailers list will be empty so no trailers built --> 
-  //-- provide ${trailer.id} --
+  //-- begin ${trailer.id} -- // <!--! this adds a comment to aid reading the final nml -->
   ${trailer.render(truck=vehicle)}
+  //-- end ${trailer.id} -- // <!--! another comment to aid reading the final nml  -->
 </tal:render_trailer_vehicles>
 
+// add the trailer vehicles to articulated consist (if needed) 
+// if truck has no trailers (e.g. solo truck), switch will be called anyway but no trailers added
 switch (FEAT_ROADVEHS, SELF, ${vehicle.id}_articulated_cb_switch, extra_callback_info1) {
     <tal:build_trailers repeat="n range(len(vehicle.trailers))">
     ${n+1}: return ${vehicle.id + '_trailer_' + str(n+1)};
@@ -25,7 +29,15 @@ switch (FEAT_ROADVEHS, SELF, ${vehicle.id}_articulated_cb_switch, extra_callback
   return CB_RESULT_NO_MORE_ARTICULATED_PARTS;
 }
 
-//${len(vehicle.trailers)}
+
+// the cargo subtype switches are shared globally, no unique identifiers per truck
+// they're called from here, appropriate to the truck type
+switch (FEAT_ROADVEHS, SELF, ${vehicle.id}_switch_cargo_subtype, ${properties.truck_type}) {
+    GLOBAL_TRUCK_TYPE_DRAWBAR: return switch_cb_cargo_subtypes_drawbar_truck;
+    GLOBAL_TRUCK_TYPE_FIFTH_WHEEL: return switch_cb_cargo_subtypes_fifth_wheel_truck;
+    return CB_RESULT_NO_TEXT;
+}
+
 
 item(FEAT_ROADVEHS, ${vehicle.id}, ${properties.numeric_ID}) {
     property {
@@ -51,13 +63,14 @@ item(FEAT_ROADVEHS, ${vehicle.id}, ${properties.numeric_ID}) {
         vehicle_life:                   ${properties.truck_vehicle_life};
     }
     graphics {
-        shorten_vehicle:                ${properties.truck_length};
+        shorten_vehicle:                ${8 - properties.truck_length};
         purchase_cargo_capacity:        ${properties.total_capacity};
-        default:                        ${vehicle.id}_sg;
+        cargo_subtype_text:             ${vehicle.id}_switch_cargo_subtype;
         articulated_part:               ${vehicle.id}_articulated_cb_switch; // always call articulated switch, trailers will only be built if needed 
+        default:                        ${vehicle.id}_sg;
     }
 }
 
 
-// -- end ${properties.title} --
+// -- end ${properties.title} -- <!--! another comment to aid reading the final nml  -->
 </tal:truck>

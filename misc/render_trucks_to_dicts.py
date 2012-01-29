@@ -9,7 +9,7 @@ for i in vehicle_list:
       this_veh_props[j] = str(i.getProperty(j))
     else:      
       this_veh_props[j] = i.getProperty(j)
-  del this_veh_props['content_type']
+  del this_veh_props['content_type'] #zope adds this property to file objects automatically but we don't need it here
   this_veh_props['trailers_properties'] = {}
   for j in range(0,i.truck_num_trailers):
     trailer_props = this_veh_props['trailers_properties'][i.id() + "_trailer_" + str(j+1)] = {}

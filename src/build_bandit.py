@@ -18,7 +18,7 @@ class Trailer:
       self.id = truck.id + '_trailer_' + str(i+1)
       self.properties = {
         'trailer_capacity' : int(truck.properties['trailer_capacities'][i]),
-        'numeric_id' : truck.properties['numeric_ID'] + i + 1,
+        'numeric_id' : truck.properties['numeric_id'] + i + 1,
       }
     
     def render(self, truck):

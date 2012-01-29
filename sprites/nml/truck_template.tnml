@@ -20,7 +20,7 @@ spritegroup ${vehicle.id}_sg {
 
 switch (FEAT_ROADVEHS, SELF, ${vehicle.id}_articulated_cb_switch, extra_callback_info1) {
     <tal:build_trailers repeat="n range(len(vehicle.trailers))">
-    ${n}: return ${vehicle.properties.numeric_ID + n};
+    ${n+1}: return ${vehicle.id + '_trailer_' + str(n+1)};
     </tal:build_trailers>
   return CB_RESULT_NO_MORE_ARTICULATED_PARTS;
 }

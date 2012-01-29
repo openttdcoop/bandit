@@ -45,17 +45,10 @@ class Truck:
       template = templates['truck_template.tnml']
       return template(vehicle=self)
 
-
+#compose vehicle objects into a list; order is not significant as numeric identifiers used to build vehicles 
 vehicles=[]
-
-
 for i in vehicles_dict:
   vehicles.append(Truck(id=i,properties=vehicles_dict[i]))
-
-"""  
-for i in vehicles:
-  print i.output()
-"""
 
 
 #compile a single final nml file for the grf (currently c pre-processor is still available and used, so pnml file) 

@@ -12,12 +12,20 @@ spritegroup ${vehicle.id}_sg {
     loading: ${vehicle.id}_ss;
 }
 
-<tal:build_trailers repeat="trailer vehicle.trailers">
+<tal:render_trailer_vehicles repeat="trailer vehicle.trailers">
   <!--! if truck has no trailers (e.g. solo truck), trailers list will be empty so no trailers built --> 
   //-- provide ${trailer.id} --
-  // ${trailer.render(vehicle)}
-</tal:build_trailers>
+  ${trailer.render(truck=vehicle)}
+</tal:render_trailer_vehicles>
 
+switch (FEAT_ROADVEHS, SELF, ${vehicle.id}_articulated_cb_switch, extra_callback_info1) {
+    <tal:build_trailers repeat="n range(len(vehicle.trailers))">
+    ${n}: return ${vehicle.properties.numeric_ID + n};
+    </tal:build_trailers>
+  return CB_RESULT_NO_MORE_ARTICULATED_PARTS;
+}
+
+//${len(vehicle.trailers)}
 
 item(FEAT_ROADVEHS, ${vehicle.id}, ${properties.numeric_ID}) {
     property {
@@ -46,6 +54,7 @@ item(FEAT_ROADVEHS, ${vehicle.id}, ${properties.numeric_ID}) {
         shorten_vehicle:                ${properties.truck_length};
         purchase_cargo_capacity:        ${properties.total_capacity};
         default:                        ${vehicle.id}_sg;
+        articulated_part:               ${vehicle.id}_articulated_cb_switch; // always call articulated switch, trailers will only be built if needed 
     }
 }
 

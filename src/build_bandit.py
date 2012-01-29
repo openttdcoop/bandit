@@ -26,22 +26,20 @@ class Truck:
     def __init__(self, id, properties):
       self.id = id
       self.properties = properties
+      self.trailers = [] # note that order of trailers here doesn't matter as we'll finally build them using the identifiers 
+      # !! this template assigning business might be redundant if one template serves for all trucks 
       if properties['truck_type'] == 'GLOBAL_TRUCK_TYPE_SOLO':
-        self.template = templates['truck_template_solo.tnml']
-      elif properties['truck_type'] == 'GLOBAL_TRUCK_TYPE_FIFTH_WHEEL' or properties['truck_type'] == 'GLOBAL_TRUCK_TYPE_DRAWBAR':
-        self.template = templates['truck_template_solo.tnml']
-        self.trailers = [] # note that order of trailers here doesn't matter as we'll finally build them using the identifiers 
+        pass # currently just part of error checking - no special stuff needed for solo trucks 
+      elif properties['truck_type'] == 'GLOBAL_TRUCK_TYPE_FIFTH_WHEEL' or properties['truck_type'] == 'GLOBAL_TRUCK_TYPE_DRAWBAR':        
         for i in properties['trailers_properties']:
           self.trailers.append(Trailer(id=i,properties=properties['trailers_properties'][i]))
       else: 
         print "Error from " + os.path.basename(__file__)+ ": " + self.id + " has no valid value for truck_type"
+        # ^ error handling truck_type might be over-engineering :P
         
     def render(self):
-      if hasattr(self, 'template'):
-        return self.template(vehicle=self)
-      else:
-        return #no template defined - useful while developing, avoids errors for vehicle types that don't have template coded yet 
-
+      self.template = templates['truck_template.tnml']
+      return self.template(vehicle=self)
 
 
 vehicles=[]

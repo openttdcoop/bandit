@@ -12,12 +12,11 @@ spritegroup ${vehicle.id}_sg {
     loading: ${vehicle.id}_ss;
 }
 
-<tal:check_for_trailers condition="python:hasattr(vehicle,'trailers')">
-  <tal:build_trailers repeat="trailer vehicle.trailers">
-    //-- provide ${trailer.id} --
-    // ${trailer.render()}
-  </tal:build_trailers>
-</tal:check_for_trailers>
+<tal:build_trailers repeat="trailer vehicle.trailers">
+  <!--! if truck has no trailers (e.g. solo truck), trailers list will be empty so no trailers built --> 
+  //-- provide ${trailer.id} --
+  // ${trailer.render()}
+</tal:build_trailers>
 
 
 item(FEAT_ROADVEHS, ${vehicle.id}, ${properties.numeric_ID}) {

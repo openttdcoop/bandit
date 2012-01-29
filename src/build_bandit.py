@@ -9,7 +9,7 @@ templates = PageTemplateLoader(os.path.join(currentdir, "sprites/nml"), format='
 lang_templates = PageTemplateLoader(os.path.join(currentdir, "lang"), format='text')
 
 
-from BANDIT_config import vehicles_dict
+from BANDIT_vehicles_config import vehicles_dict
 
 
 class Trailer:

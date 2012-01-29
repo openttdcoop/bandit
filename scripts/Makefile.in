@@ -5,11 +5,11 @@ bandit.src.dep: sprites/nml/bandit.pnml
 
 GENERATE=src/build_bandit.py
 
-sprites/nml/bandit.pnml: src/dict_test.py $(GENERATE)
+sprites/nml/bandit.pnml: src/BANDIT_config.py $(GENERATE)
 	$(_E) [GENERATE] from pasted input
 	$(_V) python src/build_bandit.py
 
-%.lng: %.lng.in src/dict_test.py $(GENERATE)
+%.lng: %.lng.in src/BANDIT_config.py $(GENERATE)
 	$(_E) [GENERATE] from pasted input
 	$(_V) python src/build_bandit.py
 

@@ -10,8 +10,7 @@ templates = PageTemplateLoader(os.path.join(currentdir, "sprites/nml"), format='
 lang_templates = PageTemplateLoader(os.path.join(currentdir, "lang"), format='text')
 
 
-from dict_test import vehicles_dict
-#print vehicles_dict
+from BANDIT_config import vehicles_dict
 
 class Trailer:
     """Base class for trailers"""
@@ -44,6 +43,7 @@ class Truck:
     def render(self):
       template = templates['truck_template.tnml']
       return template(vehicle=self)
+
 
 #compose vehicle objects into a list; order is not significant as numeric identifiers used to build vehicles 
 vehicles=[]

@@ -38,6 +38,11 @@ class Truck:
         print "Error from " + os.path.basename(__file__)+ ": " + self.id + " has no valid value for truck_type"
         # ^ error handling truck_type might be over-engineering :P
         
+    def getTotalConsistCapacity(self):
+        capacity = self.properties['truck_capacity']
+        capacity = capacity + sum([i.properties['trailer_capacity'] for i in self.trailers]) 
+        return capacity
+        
     def render(self):
       template = templates['truck_template.tnml']
       return template(vehicle=self)

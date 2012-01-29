@@ -68,7 +68,7 @@ item(FEAT_ROADVEHS, ${vehicle.id}, ${properties.numeric_ID}) {
     }
     graphics {
         shorten_vehicle:                ${8 - properties.truck_length};
-        purchase_cargo_capacity:        ${properties.total_capacity};
+        purchase_cargo_capacity:        ${vehicle.getTotalConsistCapacity()};
         cargo_subtype_text:             ${vehicle.id}_switch_cargo_subtype;
         articulated_part:               ${vehicle.id}_articulated_cb_switch; // always call articulated switch, trailers will only be built if needed 
         default:                        ${vehicle.id}_sg;

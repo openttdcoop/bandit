@@ -29,15 +29,9 @@ class Truck:
       self.id = id
       self.properties = properties
       self.trailers = [] # trailers will only be added if needed; order of trailers here doesn't matter as we'll finally build them using the identifiers
-      if properties['truck_type'] == 'GLOBAL_TRUCK_TYPE_SOLO':
-        pass # currently just part of error checking - no special stuff needed for solo trucks 
-      elif properties['truck_type'] == 'GLOBAL_TRUCK_TYPE_FIFTH_WHEEL' or properties['truck_type'] == 'GLOBAL_TRUCK_TYPE_DRAWBAR':        
-        for i in properties['trailers_properties']:
-          self.trailers.append(Trailer(id=i,properties=properties['trailers_properties'][i]))
-      else: 
-        print "Error from " + os.path.basename(__file__)+ ": " + self.id + " has no valid value for truck_type"
-        # ^ error handling truck_type might be over-engineering :P
-        
+      for i in properties['trailers_properties']:
+        self.trailers.append(Trailer(id=i,properties=properties['trailers_properties'][i]))
+        print i
     def getTotalConsistCapacity(self):
         capacity = self.properties['truck_capacity']
         capacity = capacity + sum([i.properties['trailer_capacity'] for i in self.trailers]) 

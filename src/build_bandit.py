@@ -63,7 +63,7 @@ bandit_nml = open('sprites/nml/bandit.pnml','w')
 bandit_nml.write(master_template(vehicles=vehicles))
 bandit_nml.close()
 
-#compile strings to single lang file (english only at the moment, but i8n translation is possible)
+#compile strings to single lang file (english only at the moment, but i18n translation is possible)
 lang_template = lang_templates['english.lng.in']
 
 lang = open('lang/english.lng', 'w')

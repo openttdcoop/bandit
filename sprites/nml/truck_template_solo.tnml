@@ -24,7 +24,7 @@ item(FEAT_ROADVEHS, ${vehicle.id}, ${properties.numeric_ID}) {
     property {
         name:                           string(str_name_${vehicle.id});
         climates_available:             ALL_CLIMATES; // nml constant
-        sound_effect:                   SOUND_TRUCK_START_2; //cpp constant - likely this will be replaced by python global vars  
+        sound_effect:                   SOUND_TRUCK_START_2; //nml constant - likely this will be replaced by python global vars  
         visual_effect:                  visual_effect(VISUAL_EFFECT_DIESEL, ${properties.truck_smoke_offset}); // nml constant for DIESEL
         introduction_date:              ${properties.truck_intro_date};
         cargo_capacity:                 ${properties.truck_capacity};

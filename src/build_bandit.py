@@ -17,9 +17,11 @@ class Trailer:
     """Base class for trailers"""
     def __init__(self, id, properties):
       self.id = id
+      self.properties = properties
     
     def render(self):
-      return self.id
+      template = templates['trailer_template.tnml']
+      return template(trailer=self)
 
 class Truck:
     """Base class for all types of trucks"""
@@ -37,8 +39,8 @@ class Truck:
         # ^ error handling truck_type might be over-engineering :P
         
     def render(self):
-      self.template = templates['truck_template.tnml']
-      return self.template(vehicle=self)
+      template = templates['truck_template.tnml']
+      return template(vehicle=self)
 
 
 vehicles=[]

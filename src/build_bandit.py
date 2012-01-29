@@ -28,14 +28,18 @@ class Truck:
     def __init__(self, id, properties):
       self.id = id
       self.properties = properties
-      self.trailers = [] # trailers will only be added if needed; order of trailers here doesn't matter as we'll finally build them using the identifiers
+
+      # add trailer objects - will only be added if needed
+      # order of trailers here doesn't matter as we'll finally build them using numeric identifiers based on the vehicle id
+      self.trailers = []
       for i in properties['trailers_properties']:
         self.trailers.append(Trailer(id=i,properties=properties['trailers_properties'][i]))
-        print i
+        
     def getTotalConsistCapacity(self):
-        capacity = self.properties['truck_capacity']
-        capacity = capacity + sum([i.properties['trailer_capacity'] for i in self.trailers]) 
-        return capacity
+      # used for the purchase menu
+      capacity = self.properties['truck_capacity']
+      capacity = capacity + sum([i.properties['trailer_capacity'] for i in self.trailers]) 
+      return capacity
         
     def render(self):
       template = templates['truck_template.tnml']

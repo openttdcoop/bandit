@@ -20,9 +20,16 @@
 // use comma separated lists for allowed/disallowed cargos and cargo classes
 #define THIS_ALLOWED_CARGOS                 // empty
 #define THIS_DISALLOWED_CARGOS              // empty
+// default refits
 #define THIS_ALLOWED_CARGO_CLASSES        CC_MAIL, CC_EXPRESS, CC_ARMOURED, CC_BULK, CC_PIECE_GOODS, \
                                           CC_LIQUID, CC_REFRIGERATED, CC_COVERED, 
 #define THIS_DISALLOWED_CARGO_CLASSES     CC_PASSENGERS
+// heavy duty refits
+//#define THIS_ALLOWED_CARGO_CLASSES        CC_BULK
+// express refits
+//#define THIS_ALLOWED_CARGO_CLASSES        CC_MAIL, CC_EXPRESS, CC_ARMOURED 
+
+
 
 
 #define THIS_TRAILER_GRAPHICS_FILE        "sprites/graphics/trailer_test.png"

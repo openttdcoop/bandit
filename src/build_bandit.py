@@ -26,8 +26,7 @@ class Truck:
     def __init__(self, id, properties):
       self.id = id
       self.properties = properties
-      self.trailers = [] # note that order of trailers here doesn't matter as we'll finally build them using the identifiers 
-      # !! this template assigning business might be redundant if one template serves for all trucks 
+      self.trailers = [] # trailers will only be added if needed; order of trailers here doesn't matter as we'll finally build them using the identifiers
       if properties['truck_type'] == 'GLOBAL_TRUCK_TYPE_SOLO':
         pass # currently just part of error checking - no special stuff needed for solo trucks 
       elif properties['truck_type'] == 'GLOBAL_TRUCK_TYPE_FIFTH_WHEEL' or properties['truck_type'] == 'GLOBAL_TRUCK_TYPE_DRAWBAR':        

@@ -19,7 +19,7 @@ item(FEAT_ROADVEHS, ${trailer.id}, ${trailer.properties.numeric_id}) {
         cargo_disallow_refit:           [THIS_DISALLOWED_CARGOS]; // cpp constant
     }
     graphics {
-        //shorten_vehicle:                THIS_TRAILER_LENGTH;
+        //length:                THIS_TRAILER_LENGTH;
         cargo_capacity:                 ${trailer.id}_capacity_cb_switch;
         purchase_cargo_capacity:        0;
         //cargo_subtype_text:             THIS_CARGO_SUBTYPE_TEXT_CB_ID;

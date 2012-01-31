@@ -17,8 +17,8 @@ from BANDIT_vehicles_config import vehicles_dict
 
 # n.b global constants are only exposed to a template if explicitly passed when the template is called on an object
 # where possible, I prefer to process globals onto the object as required - templates are simpler when they read directly from their object(s) 
-import global_constants # expose all constants for easy passing 
-from global_constants import * #import all stuff from constants for easy reference
+import global_constants # expose all constants for easy passing to templates
+from global_constants import * #import all stuff from constants for easy reference in python scripts
 
 class Trailer:
     """Base class for trailers"""

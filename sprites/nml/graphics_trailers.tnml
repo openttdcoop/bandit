@@ -1,3 +1,5 @@
+#define THIS_TRAILER_GRAPHICS_FILE        "sprites/graphics/trailer_test.png"
+
 // handle graphics
 spriteset(${trailer.id}_ss_invisible, "sprites/graphics/empty_sprites.png") {
   spriteset_template_truck_28(0, 20) // (search 'sprites/nml' to find where spriteset templates are defined)  

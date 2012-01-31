@@ -59,8 +59,8 @@ item(FEAT_ROADVEHS, ${vehicle.id}, ${properties.numeric_id}) {
         running_cost_factor:            ${properties.truck_run_cost};
         refittable_cargo_classes:       bitmask(${properties.refittable_classes}); 
         non_refittable_cargo_classes:   bitmask(${properties.non_refittable_classes});
-        cargo_allow_refit:              [THIS_ALLOWED_CARGOS]; // cpp constant
-        cargo_disallow_refit:           [THIS_DISALLOWED_CARGOS]; //cpp constant
+        cargo_allow_refit:              [${properties.allowed_cargos}];
+        cargo_disallow_refit:           [${properties.disallowed_cargos}];
         misc_flags:                     bitmask(ROADVEH_FLAG_2CC, ROADVEH_FLAG_AUTOREFIT); // nml constants
         model_life:                     ${properties.truck_model_life};
         vehicle_life:                   ${properties.truck_vehicle_life};

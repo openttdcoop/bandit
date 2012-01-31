@@ -1,7 +1,6 @@
 // List of source files included from main file
 
 <tal:include define="header load: header.pnml" metal:use-macro="header" />
-<tal:include define="cpp_ids load: ids.pnml" metal:use-macro="cpp_ids" />
 
 <tal:include define="cargo_table load: cargo_table.pnml" metal:use-macro="cargo_table" />
 <tal:include define="disable_default_trucks load: disable_default_trucks.pnml" metal:use-macro="disable_default_trucks" />

@@ -16,7 +16,7 @@ lang_templates = PageTemplateLoader(os.path.join(currentdir, "lang"), format='te
 from BANDIT_vehicles_config import vehicles_dict
 
 # n.b global constants are only exposed to a template if explicitly passed when the template is called on an object
-# where possible, I prefer not to expose globals to the template; instead process on the objects - makes templates simpler
+# where possible, I prefer to process globals onto the object as required - templates are simpler when they read directly from their object(s) 
 import global_constants # expose all constants for easy passing 
 from global_constants import * #import all stuff from constants for easy reference
 
@@ -43,9 +43,11 @@ class Truck:
       self.id = id
       self.properties = properties      
 
-      #setup refits
+      #setup various properties that make use of global constants
       self.properties['refittable_classes'] = standard_class_refits['default']['allow']
       self.properties['non_refittable_classes'] = standard_class_refits['default']['disallow']
+      self.properties['allowed_cargos'] = '' # ! unfinished
+      self.properties['disallowed_cargos'] = '' # ! unfinished
       self.properties['truck_model_life'] = model_lives[properties['truck_model_life']]
       self.properties['truck_vehicle_life'] = vehicle_lives[properties['truck_vehicle_life']]
       self.properties['truck_type_as_num'] = truck_type_nums[properties['truck_type']]

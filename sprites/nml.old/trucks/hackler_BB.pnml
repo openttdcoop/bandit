@@ -1,5 +1,5 @@
 #define THIS_VEH_ID(...)          __VA_ARGS__ ## hackler_BB // __VA_ARGS__ and ## allow for concatenating the veh ID with strings to construct further IDs
-#define THIS_TRUCK_TYPE           GLOBAL_TRUCK_TYPE_DRAWBAR
+#define THIS_TRUCK_TYPE           BANDIT_TRUCK_TYPE_DRAWBAR
 #define THIS_NUM_TRAILERS         2
 #define THIS_TRAILER_1_ID         hackler_BB_trailer_1
 #define THIS_TRAILER_2_ID         hackler_BB_trailer_2

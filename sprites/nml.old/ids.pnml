@@ -9,6 +9,6 @@
 #define GLOBAL_VEHICLE_LIFE_LONG                 35
 
 // used for templating trailer stuff, could be used for other stuff
-#define GLOBAL_TRUCK_TYPE_SOLO                   0 
-#define GLOBAL_TRUCK_TYPE_DRAWBAR                1 
-#define GLOBAL_TRUCK_TYPE_FIFTH_WHEEL            2
+#define BANDIT_TRUCK_TYPE_SOLO                   0 
+#define BANDIT_TRUCK_TYPE_DRAWBAR                1 
+#define BANDIT_TRUCK_TYPE_FIFTH_WHEEL            2

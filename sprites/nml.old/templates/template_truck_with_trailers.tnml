@@ -5,8 +5,8 @@
 // the cargo subtype switches are shared globally, no unique identifiers per truck
 // they're called from here, appropriate to the truck type
 switch (FEAT_ROADVEHS, SELF, THIS_CARGO_SUBTYPE_TEXT_CB_ID, THIS_TRUCK_TYPE) {
-    GLOBAL_TRUCK_TYPE_DRAWBAR: return switch_cb_cargo_subtypes_drawbar_truck;
-    GLOBAL_TRUCK_TYPE_FIFTH_WHEEL: return switch_cb_cargo_subtypes_fifth_wheel_truck;
+    BANDIT_TRUCK_TYPE_DRAWBAR: return switch_cb_cargo_subtypes_drawbar_truck;
+    BANDIT_TRUCK_TYPE_FIFTH_WHEEL: return switch_cb_cargo_subtypes_fifth_wheel_truck;
     return CB_RESULT_NO_TEXT;
 }
 

@@ -1,6 +1,6 @@
 // AC	Hackler	Epoch B	1925	Standard	2 axle	Long nose (day)	1 semi, 2 pup	0	27	120							
 #define THIS_VEH_ID(...)          __VA_ARGS__ ## veh_hackler_CD // __VA_ARGS__ and ## allow for concatenating the veh ID with strings to construct further IDs
-#define THIS_TRUCK_TYPE           GLOBAL_TRUCK_TYPE_FIFTH_WHEEL
+#define THIS_TRUCK_TYPE           BANDIT_TRUCK_TYPE_FIFTH_WHEEL
 #define THIS_NUM_TRAILERS         3
 #define THIS_TRAILER_1_ID         veh_hackler_CD_trailer_1
 #define THIS_TRAILER_2_ID         veh_hackler_CD_trailer_2

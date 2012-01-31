@@ -1,10 +1,3 @@
-// used for templating trailer stuff, could be used for other stuff
-#define GLOBAL_TRUCK_TYPE_SOLO                   0 
-#define GLOBAL_TRUCK_TYPE_DRAWBAR                1 
-#define GLOBAL_TRUCK_TYPE_FIFTH_WHEEL            2
-
-
-
 // LEGACY CPP STUFF HACKED AROUND DURING REBUILD TO CHAMELEON
 
 // use comma separated lists for allowed/disallowed cargos and cargo classes

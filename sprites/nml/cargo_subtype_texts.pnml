@@ -50,4 +50,3 @@ switch (FEAT_ROADVEHS, SELF, switch_cb_cargo_subtypes_fifth_wheel_truck, num_veh
     4: return switch_cb_cargo_subtype_text_3_trailer_fifth_wheel_truck;
     return CB_RESULT_NO_TEXT;
 }
-

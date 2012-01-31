@@ -17,8 +17,7 @@ from BANDIT_vehicles_config import vehicles_dict
 
 # n.b global constants are only exposed to a template if explicitly passed when the template is called on an object
 # where possible, I prefer not to expose globals to the template; instead process on the objects - makes templates simpler
-from global_constants import vehicle_lives, model_lives, standard_class_refits
-
+from global_constants import *
 
 class Trailer:
     """Base class for trailers"""
@@ -26,12 +25,15 @@ class Trailer:
       self.id = truck.id + '_trailer_' + str(i+1)
       self.properties = {
         'trailer_capacity' : int(truck.properties['trailer_capacities'][i]),
-        'numeric_id' : truck.properties['numeric_id'] + i + 1,
+        'numeric_id'       : truck.properties['numeric_id'] + i + 1,
       }
     
     def render(self, truck):
       template = templates['trailer_template.tnml']
-      return template(trailer=self, truck=truck)
+      return template(
+        trailer = self, 
+        truck = truck,
+      )
 
 class Truck:
     """Base class for all types of trucks"""
@@ -44,8 +46,10 @@ class Truck:
       self.properties['non_refittable_classes'] = standard_class_refits['default']['disallow']
       self.properties['truck_model_life'] = model_lives[properties['truck_model_life']]
       self.properties['truck_vehicle_life'] = vehicle_lives[properties['truck_vehicle_life']]
+      self.properties['truck_type_as_num'] = truck_type_nums[properties['truck_type']]
+      
 
-      if self.properties['truck_type'] == "GLOBAL_TRUCK_TYPE_FIFTH_WHEEL":
+      if self.properties['truck_type'] == "BANDIT_TRUCK_TYPE_FIFTH_WHEEL":
         self.modify_capacities_fifth_wheel_trucks()
       # add trailer objects - will only be added if needed
       # order of trailers here doesn't matter as we'll finally build them based on the vehicle id
@@ -68,7 +72,9 @@ class Truck:
         
     def render(self):
       template = templates['truck_template.tnml']
-      return template(vehicle=self)
+      return template(
+        vehicle = self,
+      )
 
 
 #compose vehicle objects into a list; order is not significant as numeric identifiers used to build vehicles 
@@ -82,7 +88,7 @@ for i in vehicles_dict:
 master_template = templates['bandit.tnml']
 
 bandit_nml = open('sprites/nml/bandit.pnml','w')
-bandit_nml.write(master_template(vehicles=vehicles,))
+bandit_nml.write(master_template(vehicles=vehicles))
 bandit_nml.close()
 
 

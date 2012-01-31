@@ -1,4 +1,4 @@
-<tal:truck define="properties vehicle.properties">
+<tal:truck define="properties vehicle.properties;">
 // -- begin ${properties.title} -- <!--! this adds a comment to aid reading the final nml -->
 
 // some of the CAPS identifiers used are NML built-ins, some are still defined by CPP (legacy).  No easy way to tell except by searching...
@@ -10,6 +10,14 @@ spriteset(${vehicle.id}_ss, "sprites/graphics/${properties.truck_graphics_file}"
 spritegroup ${vehicle.id}_sg {
     loaded:  ${vehicle.id}_ss;
     loading: ${vehicle.id}_ss;
+}
+
+// the cargo subtype switches are shared globally, no unique identifiers per truck
+// they're called from here, appropriate to the truck type
+switch (FEAT_ROADVEHS, SELF, ${vehicle.id}_switch_cargo_subtype, ${properties.truck_type_as_num}) {
+    1: return switch_cb_cargo_subtypes_drawbar_truck;
+    2: return switch_cb_cargo_subtypes_fifth_wheel_truck;
+    return CB_RESULT_NO_TEXT;
 }
 
 // include the trailer vehicles if needed 
@@ -27,15 +35,6 @@ switch (FEAT_ROADVEHS, SELF, ${vehicle.id}_articulated_cb_switch, extra_callback
     ${n+1}: return ${vehicle.id + '_trailer_' + str(n+1)};
     </tal:build_trailers>
   return CB_RESULT_NO_MORE_ARTICULATED_PARTS;
-}
-
-
-// the cargo subtype switches are shared globally, no unique identifiers per truck
-// they're called from here, appropriate to the truck type
-switch (FEAT_ROADVEHS, SELF, ${vehicle.id}_switch_cargo_subtype, ${properties.truck_type}) {
-    GLOBAL_TRUCK_TYPE_DRAWBAR: return switch_cb_cargo_subtypes_drawbar_truck;
-    GLOBAL_TRUCK_TYPE_FIFTH_WHEEL: return switch_cb_cargo_subtypes_fifth_wheel_truck;
-    return CB_RESULT_NO_TEXT;
 }
 
 // -- print some of the vehicle non-nml properties to aid debugging -- //

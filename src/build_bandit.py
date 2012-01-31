@@ -17,7 +17,8 @@ from BANDIT_vehicles_config import vehicles_dict
 
 # n.b global constants are only exposed to a template if explicitly passed when the template is called on an object
 # where possible, I prefer not to expose globals to the template; instead process on the objects - makes templates simpler
-from global_constants import *
+import global_constants # expose all constants for easy passing 
+from global_constants import * #import all stuff from constants for easy reference
 
 class Trailer:
     """Base class for trailers"""
@@ -33,6 +34,7 @@ class Trailer:
       return template(
         trailer = self, 
         truck = truck,
+        global_constants = global_constants,
       )
 
 class Truck:
@@ -74,6 +76,7 @@ class Truck:
       template = templates['truck_template.tnml']
       return template(
         vehicle = self,
+        global_constants = global_constants
       )
 
 

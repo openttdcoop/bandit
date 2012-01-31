@@ -15,8 +15,8 @@ spritegroup ${vehicle.id}_sg {
 // the cargo subtype switches are shared globally, no unique identifiers per truck
 // they're called from here, appropriate to the truck type
 switch (FEAT_ROADVEHS, SELF, ${vehicle.id}_switch_cargo_subtype, ${properties.truck_type_as_num}) {
-    1: return switch_cb_cargo_subtypes_drawbar_truck;
-    2: return switch_cb_cargo_subtypes_fifth_wheel_truck;
+    ${global_constants.truck_type_nums.drawbar_truck}: return switch_cb_cargo_subtypes_drawbar_truck;
+    ${global_constants.truck_type_nums.fifth_wheel_truck}: return switch_cb_cargo_subtypes_fifth_wheel_truck;
     return CB_RESULT_NO_TEXT;
 }
 

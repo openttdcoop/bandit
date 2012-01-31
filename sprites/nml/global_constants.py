@@ -23,7 +23,16 @@ vehicle_lives = {
 # trucks refit to quite standard sets of cargos.  The main reason for variation is to provide gameplay difference between truck models
 standard_class_refits = {
   'default' : {
-        'allow' : 'CC_MAIL, CC_EXPRESS, CC_ARMOURED, CC_BULK, CC_PIECE_GOODS,CC_LIQUID, CC_REFRIGERATED, CC_COVERED,',
+        'allow'    : 'CC_MAIL, CC_EXPRESS, CC_ARMOURED, CC_BULK, CC_PIECE_GOODS,CC_LIQUID, CC_REFRIGERATED, CC_COVERED,',
         'disallow' : 'CC_PASSENGERS',
   },
+  'express' : {
+        'allow'    : 'CC_EXPRESS',
+        'disallow' : 'CC_PASSENGERS',
+  },
+  'heavy_duty' : {
+        'allow'    : 'CC_BULK',
+        'disallow' : 'CC_PASSENGERS',
+  }
 }
+

@@ -15,7 +15,7 @@ lang_templates = PageTemplateLoader(os.path.join(currentdir, "lang"), format='te
 
 from BANDIT_vehicles_config import vehicles_dict
 
-from template_globals import template_globals, standard_class_refits
+from global_constants import template_globals, standard_class_refits
 #print template_globals
 
 

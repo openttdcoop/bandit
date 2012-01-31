@@ -15,8 +15,9 @@ lang_templates = PageTemplateLoader(os.path.join(currentdir, "lang"), format='te
 
 from BANDIT_vehicles_config import vehicles_dict
 
-from global_constants import template_globals, standard_class_refits
-#print template_globals
+# n.b global constants are only exposed to a template if explicitly passed when the template is called on an object
+# where possible, I prefer not to expose globals to the template; instead process on the objects - makes templates simpler
+from global_constants import vehicle_lives, model_lives, standard_class_refits
 
 
 class Trailer:
@@ -41,6 +42,8 @@ class Truck:
       #setup refits
       self.properties['refittable_classes'] = standard_class_refits['default']['allow']
       self.properties['non_refittable_classes'] = standard_class_refits['default']['disallow']
+      self.properties['truck_model_life'] = model_lives[properties['truck_model_life']]
+      self.properties['truck_vehicle_life'] = vehicle_lives[properties['truck_vehicle_life']]
 
       if self.properties['truck_type'] == "GLOBAL_TRUCK_TYPE_FIFTH_WHEEL":
         self.modify_capacities_fifth_wheel_trucks()

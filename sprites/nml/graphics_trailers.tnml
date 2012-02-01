@@ -1,4 +1,5 @@
-#define THIS_TRAILER_GRAPHICS_FILE        "sprites/graphics/trailer_test.png"
+<!--! temporary hack - graphics file path should come from object -->
+<tal:temp define="global THIS_TRAILER_GRAPHICS_FILE string:sprites/graphics/trailer_test.png" />
 
 // handle graphics
 spriteset(${trailer.id}_ss_invisible, "sprites/graphics/empty_sprites.png") {
@@ -10,7 +11,7 @@ spritegroup ${trailer.id}_sg_invisible {
     loading: [${trailer.id}_ss_invisible];
 }
 
-spriteset(${trailer.id}_ss_cargo_1, THIS_TRAILER_GRAPHICS_FILE) {
+spriteset(${trailer.id}_ss_cargo_1, "${THIS_TRAILER_GRAPHICS_FILE}") {
   spriteset_template_truck_28(0, 20) // (search 'sprites/nml' to find where spriteset templates are defined)  
 }
 
@@ -19,7 +20,7 @@ spritegroup ${trailer.id}_sg_cargo_1 {
     loading: [${trailer.id}_ss_cargo_1];
 }
 
-spriteset(${trailer.id}_ss_cargo_2, THIS_TRAILER_GRAPHICS_FILE) {
+spriteset(${trailer.id}_ss_cargo_2, "${THIS_TRAILER_GRAPHICS_FILE}") {
   spriteset_template_truck_28(0, 20) // (search 'sprites/nml' to find where spriteset templates are defined)  
 }
 

@@ -1,0 +1,8 @@
+<!--! this is the easiest way to expose the global constants to templates -->
+<!--! to use, define this template as a macro at the head of the template where you wish to use the globals -->
+<tal:setup_globals define="
+  global global_constants            import: global_constants;  
+  global SOLO_TRUCK_TYPE_NUM         global_constants.SOLO_TRUCK_TYPE_NUM;
+  global FIFTH_WHEEL_TRUCK_TYPE_NUM  global_constants.FIFTH_WHEEL_TRUCK_TYPE_NUM;
+  global DRAWBAR_TRUCK_TYPE_NUM      global_constants.DRAWBAR_TRUCK_TYPE_NUM;
+" />

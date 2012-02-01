@@ -1,3 +1,5 @@
+<tal:call_global_template define="global_template load: global_template.pt" metal:use-macro="global_template" />
+
 <tal:truck define="properties vehicle.properties;">
 // -- begin ${properties.title} -- <!--! this adds a comment to aid reading the final nml -->
 
@@ -15,8 +17,8 @@ spritegroup ${vehicle.id}_sg {
 // the cargo subtype switches are shared globally, no unique identifiers per truck
 // they're called from here, appropriate to the truck type
 switch (FEAT_ROADVEHS, SELF, ${vehicle.id}_switch_cargo_subtype, ${properties.truck_type_as_num}) {
-    ${global_constants.truck_type_nums.drawbar_truck}: return switch_cb_cargo_subtypes_drawbar_truck;
-    ${global_constants.truck_type_nums.fifth_wheel_truck}: return switch_cb_cargo_subtypes_fifth_wheel_truck;
+    ${DRAWBAR_TRUCK_TYPE_NUM}: return switch_cb_cargo_subtypes_drawbar_truck;
+    ${FIFTH_WHEEL_TRUCK_TYPE_NUM}: return switch_cb_cargo_subtypes_fifth_wheel_truck;
     return CB_RESULT_NO_TEXT;
 }
 

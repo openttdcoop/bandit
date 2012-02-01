@@ -34,7 +34,6 @@ class Trailer:
       return template(
         trailer = self, 
         truck = truck,
-        global_constants = global_constants,
       )
 
 class Truck:
@@ -78,7 +77,6 @@ class Truck:
       template = templates['truck_template.tnml']
       return template(
         vehicle = self,
-        global_constants = global_constants
       )
 
 

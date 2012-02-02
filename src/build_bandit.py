@@ -7,11 +7,12 @@ import os.path
 
 currentdir = os.curdir
 
+
+
 from chameleon import PageTemplateLoader
 # setup the places we look for templates
 templates = PageTemplateLoader(os.path.join(currentdir, "sprites/nml"), format='text')
 lang_templates = PageTemplateLoader(os.path.join(currentdir, "lang"), format='text')
-
 
 from BANDIT_vehicles_config import vehicles_dict
 
@@ -20,6 +21,12 @@ from BANDIT_vehicles_config import vehicles_dict
 import global_constants # expose all constants for easy passing to templates
 from global_constants import * #import all stuff from constants for easy reference in python scripts
 
+# get args passed by makefile
+if (len(sys.argv) > 1):
+  repo_vars = {'repo_title' : sys.argv[1], 'repo_version' : sys.argv[2]}
+else: # provide some defaults so templates don't explode when testing python script without command line args
+  repo_vars = {'repo_title' : 'BANDIT - compiled without makefile', 'repo_version' : 1}
+    
 class Trailer:
     """Base class for trailers"""
     def __init__(self, i, truck):
@@ -91,7 +98,7 @@ for i in vehicles_dict:
 master_template = templates['bandit.tnml']
 
 bandit_nml = open('sprites/nml/bandit.pnml','w')
-bandit_nml.write(master_template(vehicles=vehicles))
+bandit_nml.write(master_template(vehicles=vehicles,repo_vars=repo_vars))
 bandit_nml.close()
 
 
@@ -99,5 +106,5 @@ bandit_nml.close()
 lang_template = lang_templates['english.lng.in']
 
 lang = open('lang/english.lng', 'w')
-lang.write(lang_template(vehicles=vehicles))
+lang.write(lang_template(vehicles=vehicles,repo_vars=repo_vars))
 lang.close()

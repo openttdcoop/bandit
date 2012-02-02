@@ -1,6 +1,6 @@
 ##grflangid 0x01
-STR_GRF_NAME                                                    :BANDIT {VERSION}
-STR_GRF_DESCRIPTION                                             :License: {SILVER}GPL v2{}{BLACK}
+str_grf_name                                                    :BANDIT ${repo_vars.repo_title}
+str_grf_description                                             :License: {SILVER}GPL v2{}{BLACK}
 
 str_cargo_refit_0_trailer                                       :(No trailer)
 str_cargo_refit_0_trailers                                      :(No trailers)

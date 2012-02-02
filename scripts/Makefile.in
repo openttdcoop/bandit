@@ -7,11 +7,11 @@ GENERATE=src/build_bandit.py
 
 sprites/nml/bandit.pnml: src/BANDIT_vehicles_config.py $(GENERATE)
 	$(_E) [GENERATE] from pasted input
-	$(_V) python src/build_bandit.py
+	$(_V) python src/build_bandit.py '${REPO_TITLE}' '${REPO_REVISION}'
 
 %.lng: %.lng.in src/BANDIT_vehicles_config.py $(GENERATE)
 	$(_E) [GENERATE] from pasted input
-	$(_V) python src/build_bandit.py
+	$(_V) python src/build_bandit.py '${REPO_TITLE}' '${REPO_REVISION}'
 
 clean::
 	$(_V)-rm sprites/nml/bandit.pnml

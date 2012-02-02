@@ -4,10 +4,9 @@ import sys
 sys.path.append('sprites/nml') # add to the module search path
 
 import os.path
-
 currentdir = os.curdir
 
-
+import codecs #used for writing files - more unicode friendly than standard open() module
 
 from chameleon import PageTemplateLoader
 # setup the places we look for templates
@@ -97,7 +96,7 @@ for i in vehicles_dict:
 
 master_template = templates['bandit.tnml']
 
-bandit_nml = open('sprites/nml/bandit.pnml','w')
+bandit_nml = codecs.open('sprites/nml/bandit.pnml','w','utf8')
 bandit_nml.write(master_template(vehicles=vehicles,repo_vars=repo_vars))
 bandit_nml.close()
 
@@ -105,6 +104,6 @@ bandit_nml.close()
 #compile strings to single lang file (english only at the moment, but i18n translation is possible)
 lang_template = lang_templates['english.lng.in']
 
-lang = open('lang/english.lng', 'w')
+lang = codecs.open('lang/english.lng', 'w','utf8')
 lang.write(lang_template(vehicles=vehicles,repo_vars=repo_vars))
 lang.close()

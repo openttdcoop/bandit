@@ -32,8 +32,7 @@ spritegroup ${trailer.id}_sg_cargo_2 {
 
 switch (FEAT_ROADVEHS, SELF, ${trailer.id}_cargo_switch, cargo_classes) {
     0: return ${trailer.id}_sg_cargo_1;
-    1..255: return ${trailer.id}_sg_cargo_2;
-    return 0xFF; //end cb
+    return ${trailer.id}_sg_cargo_2;
 }
 
 

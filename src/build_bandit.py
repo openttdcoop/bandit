@@ -12,6 +12,7 @@ from chameleon import PageTemplateLoader
 # setup the places we look for templates
 templates = PageTemplateLoader(os.path.join(currentdir, "sprites/nml"), format='text')
 lang_templates = PageTemplateLoader(os.path.join(currentdir, "lang"), format='text')
+docs_templates = PageTemplateLoader(os.path.join(currentdir, "docs"), format='text')
 
 from BANDIT_vehicles_config import vehicles_dict
 
@@ -107,3 +108,11 @@ lang_template = lang_templates['english.lng.in']
 lang = codecs.open('lang/english.lng', 'w','utf8')
 lang.write(lang_template(vehicles=vehicles,repo_vars=repo_vars))
 lang.close()
+
+#compile docs (english only at the moment, but i18n translation is possible)
+docs_template = docs_templates['readme.ptxt']
+
+docs = codecs.open('docs/readme.txt', 'w','utf8')
+docs.write(docs_template(repo_vars=repo_vars))
+docs.close()
+

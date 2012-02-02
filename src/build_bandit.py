@@ -37,10 +37,7 @@ class Trailer:
     
     def render(self, truck):
       template = templates['trailer_template.tnml']
-      return template(
-        trailer = self, 
-        truck = truck,
-      )
+      return template(trailer = self, truck = truck)
 
 class Truck:
     """Base class for all types of trucks"""

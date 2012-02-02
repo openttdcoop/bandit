@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 
-import sys
-sys.path.append('sprites/nml') # add to the module search path
-
 import os.path
 currentdir = os.curdir
+
+import sys
+sys.path.append(os.path.join('sprites','nml')) # add to the module search path
 
 import codecs #used for writing files - more unicode friendly than standard open() module
 
@@ -89,20 +89,20 @@ vehicles = [Truck(id=i,properties=j) for i,j in vehicles_dict.iteritems()]
 #compile a single final nml file for the grf (currently c pre-processor is still available and used, so pnml file) 
 master_template = templates['bandit.tnml']
 
-bandit_nml = codecs.open('sprites/nml/bandit.pnml','w','utf8')
+bandit_nml = codecs.open(os.path.join('sprites','nml','bandit.pnml'),'w','utf8')
 bandit_nml.write(master_template(vehicles=vehicles,repo_vars=repo_vars))
 bandit_nml.close()
 
 #compile strings to single lang file (english only at the moment, but i18n translation is possible)
 lang_template = lang_templates['english.lng.in']
 
-lang = codecs.open('lang/english.lng', 'w','utf8')
+lang = codecs.open(os.path.join('lang','english.lng'), 'w','utf8')
 lang.write(lang_template(vehicles=vehicles,repo_vars=repo_vars))
 lang.close()
 
 #compile docs (english only at the moment, but i18n translation is possible)
 docs_template = docs_templates['readme.ptxt']
 
-docs = codecs.open('docs/readme.txt', 'w','utf8')
+docs = codecs.open(os.path.join('docs','readme.txt'), 'w','utf8')
 docs.write(docs_template(repo_vars=repo_vars))
 docs.close()

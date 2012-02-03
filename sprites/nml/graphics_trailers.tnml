@@ -3,7 +3,7 @@
 
 // handle graphics
 spriteset(${trailer.id}_ss_invisible, "sprites/graphics/empty_sprites.png") {
-  spriteset_template_truck_28(0, 20) // (search 'sprites/nml' to find where spriteset templates are defined)  
+  spriteset_template_truck_28(0, 20) // (nml provides a way to add spriteset templates - search the project to find where they are defined)
 }
 
 spritegroup ${trailer.id}_sg_invisible {
@@ -12,7 +12,7 @@ spritegroup ${trailer.id}_sg_invisible {
 }
 
 spriteset(${trailer.id}_ss_cargo_1, "${THIS_TRAILER_GRAPHICS_FILE}") {
-  spriteset_template_truck_28(0, 20) // (search 'sprites/nml' to find where spriteset templates are defined)  
+  spriteset_template_truck_28(0, 20)
 }
 
 spritegroup ${trailer.id}_sg_cargo_1 {
@@ -21,7 +21,7 @@ spritegroup ${trailer.id}_sg_cargo_1 {
 }
 
 spriteset(${trailer.id}_ss_cargo_2, "${THIS_TRAILER_GRAPHICS_FILE}") {
-  spriteset_template_truck_28(0, 20) // (search 'sprites/nml' to find where spriteset templates are defined)  
+  spriteset_template_truck_28(0, 20) 
 }
 
 spritegroup ${trailer.id}_sg_cargo_2 {

@@ -3,10 +3,8 @@
 <tal:truck define="properties vehicle.properties;">
 // -- begin ${properties.title} -- <!--! this adds a comment to aid reading the final nml -->
 
-// some of the CAPS identifiers used are NML built-ins, some are still defined by CPP (legacy).  No easy way to tell except by searching...
-
 spriteset(${vehicle.id}_ss, "sprites/graphics/${properties.truck_graphics_file}") {
-  spriteset_template_truck_16(0, 20) // (search 'sprites/nml' to find where spriteset templates are defined)  
+  spriteset_template_truck_16(0, 20) // (nml provides a way to add spriteset templates - search the project to find where they are defined)  
 }
 
 spritegroup ${vehicle.id}_sg {

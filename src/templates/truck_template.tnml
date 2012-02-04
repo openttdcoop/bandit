@@ -3,7 +3,7 @@
 <tal:truck define="properties vehicle.properties;">
 // -- begin ${properties.title} -- <!--! this adds a comment to aid reading the final nml -->
 
-spriteset(${vehicle.id}_ss, "sprites/graphics/${properties.truck_graphics_file}") {
+spriteset(${vehicle.id}_ss, "src/graphics/${properties.truck_graphics_file}") {
   spriteset_template_truck_16(0, 20) // (nml provides a way to add spriteset templates - search the project to find where they are defined)  
 }
 

@@ -1,11 +1,10 @@
 # Here also go all build targets specific to this very newgrf
 
-bandit.nml: sprites/nml/bandit.pnml
-bandit.src.dep: sprites/nml/bandit.pnml
+bandit.src.dep: bandit.nml
 
 GENERATE=src/build_bandit.py
 
-sprites/nml/bandit.pnml: src/BANDIT_vehicles_config.py $(GENERATE)
+bandit.nml: src/BANDIT_vehicles_config.py $(GENERATE)
 	$(_E) [GENERATE] from pasted input
 	$(_V) python src/build_bandit.py '${REPO_TITLE}' '${REPO_REVISION}'
 
@@ -14,5 +13,5 @@ sprites/nml/bandit.pnml: src/BANDIT_vehicles_config.py $(GENERATE)
 	$(_V) python src/build_bandit.py '${REPO_TITLE}' '${REPO_REVISION}'
 
 clean::
-	$(_V)-rm sprites/nml/bandit.pnml
+	$(_V)-rm bandit.nml
 	$(_V)-rm lang/*.lng

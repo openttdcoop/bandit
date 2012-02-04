@@ -4,15 +4,15 @@ import os.path
 currentdir = os.curdir
 
 import sys
-sys.path.append(os.path.join('sprites','nml')) # add to the module search path
+sys.path.append(os.path.join('src','templates')) # add to the module search path
 
 import codecs #used for writing files - more unicode friendly than standard open() module
 
 from chameleon import PageTemplateLoader
 # setup the places we look for templates
-templates = PageTemplateLoader(os.path.join(currentdir, "sprites", "nml"), format='text')
-lang_templates = PageTemplateLoader(os.path.join(currentdir, "lang"), format='text')
-docs_templates = PageTemplateLoader(os.path.join(currentdir, "docs"), format='text')
+templates = PageTemplateLoader(os.path.join(currentdir, 'src', 'templates'), format='text')
+lang_templates = PageTemplateLoader(os.path.join(currentdir, 'lang'), format='text')
+docs_templates = PageTemplateLoader(os.path.join(currentdir,'docs'), format='text')
 
 from BANDIT_vehicles_config import vehicles_dict
 
@@ -89,7 +89,7 @@ vehicles = [Truck(id=i,properties=j) for i,j in vehicles_dict.iteritems()]
 #compile a single final nml file for the grf (currently c pre-processor is still available and used, so pnml file) 
 master_template = templates['bandit.tnml']
 
-bandit_nml = codecs.open(os.path.join('sprites','nml','bandit.pnml'),'w','utf8')
+bandit_nml = codecs.open(os.path.join('bandit.nml'),'w','utf8')
 bandit_nml.write(master_template(vehicles=vehicles,repo_vars=repo_vars))
 bandit_nml.close()
 

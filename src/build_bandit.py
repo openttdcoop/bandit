@@ -41,7 +41,6 @@ class Truck(object):
   """Base class for all types of trucks"""
   def __init__(self, id, properties):
     self.id = id
-    self.properties = properties      
 
     #setup various properties that make use of global constants
     self.refittable_classes = standard_class_refits['default']['allow']

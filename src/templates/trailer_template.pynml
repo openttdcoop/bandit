@@ -1,8 +1,8 @@
 <tal:call_global_template define="global_template load: global_template.pt" metal:use-macro="global_template" />
 
-<tal:include define="capacity_cb_trailers load: capacity_cb_trailers.tnml" metal:use-macro="capacity_cb_trailers" />
+<tal:include define="capacity_cb_trailers load: capacity_cb_trailers.pynml" metal:use-macro="capacity_cb_trailers" />
 
-<tal:include define="graphics_trailers load: graphics_trailers.tnml" metal:use-macro="graphics_trailers" />
+<tal:include define="graphics_trailers load: graphics_trailers.pynml" metal:use-macro="graphics_trailers" />
 
 item(FEAT_ROADVEHS, ${trailer.id}, ${trailer.numeric_id}) {
     property {

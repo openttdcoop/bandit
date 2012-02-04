@@ -49,7 +49,7 @@ class Trailer(object):
     self.numeric_id = truck.numeric_id + i + 1
   
   def render(self, truck):
-    template = templates['trailer_template.tnml']
+    template = templates['trailer_template.pynml']
     return template(trailer = self, truck = truck)
 
 class Truck(object):
@@ -107,7 +107,7 @@ class Truck(object):
     return capacity
       
   def render(self):
-    template = templates['truck_template.tnml']
+    template = templates['truck_template.pynml']
     return template(
       vehicle = self,
     )
@@ -117,21 +117,21 @@ class Truck(object):
 vehicles = [Truck(id=i) for i in config.sections()]
 
 #compile a single final nml file for the grf (currently c pre-processor is still available and used, so pnml file) 
-master_template = templates['bandit.tnml']
+master_template = templates['bandit.pynml']
 
 bandit_nml = codecs.open(os.path.join('bandit.nml'),'w','utf8')
 bandit_nml.write(master_template(vehicles=vehicles,repo_vars=repo_vars))
 bandit_nml.close()
 
 #compile strings to single lang file (english only at the moment, but i18n translation is possible)
-lang_template = lang_templates['english.lng.in']
+lang_template = lang_templates['english.pylng']
 
 lang = codecs.open(os.path.join('lang','english.lng'), 'w','utf8')
 lang.write(lang_template(vehicles=vehicles,repo_vars=repo_vars))
 lang.close()
 
 #compile docs (english only at the moment, but i18n translation is possible)
-docs_template = docs_templates['readme.ptxt']
+docs_template = docs_templates['readme.pytxt']
 
 docs = codecs.open(os.path.join('docs','readme.txt'), 'w','utf8')
 docs.write(docs_template(repo_vars=repo_vars))

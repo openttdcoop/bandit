@@ -69,7 +69,7 @@ class Truck(object):
     self.truck_length = properties['truck_length']  
     
 
-    if self.truck_type == "BANDIT_TRUCK_TYPE_FIFTH_WHEEL":
+    if self.truck_type_as_num == global_constants.fifth_wheel_truck_type_num:
       self.modify_capacities_fifth_wheel_trucks()
     # add trailer objects - will only be added if needed
     # order of trailers here doesn't matter as we'll finally build them based on the vehicle id
@@ -88,7 +88,9 @@ class Truck(object):
   def get_total_consist_capacity(self):
     # used for the purchase menu
     capacity = self.truck_capacity
-    capacity = capacity + sum([i.trailer_capacity for i in self.trailers]) 
+    capacity = capacity + sum([i.trailer_capacity for i in self.trailers])
+    print self.title
+    print capacity
     return capacity
       
   def render(self):

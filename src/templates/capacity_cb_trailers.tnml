@@ -51,8 +51,8 @@ switch (FEAT_ROADVEHS, SELF, ${trailer.id}_cap_fifth_wheel_switch, position_in_c
 
 //switch between truck types
 switch (FEAT_ROADVEHS, SELF, ${trailer.id}_cap_cb_switch, ${truck.truck_type_as_num}) {
-    ${DRAWBAR_TRUCK_TYPE_NUM}: return ${trailer.id}_cap_position_drawbar_truck;
-    ${FIFTH_WHEEL_TRUCK_TYPE_NUM}: return ${trailer.id}_cap_fifth_wheel_switch;
+    ${global_constants.drawbar_truck_type_num}: return ${trailer.id}_cap_position_drawbar_truck;
+    ${global_constants.fifth_wheel_truck_type_num}: return ${trailer.id}_cap_fifth_wheel_switch;
     return 0; // default result - in this case should never be reached
 }
 

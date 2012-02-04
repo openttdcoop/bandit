@@ -86,7 +86,7 @@ switch (FEAT_ROADVEHS, SELF, ${trailer.id}_consist_position_fifth_wheel_truck, p
 
 // switch to branch according to truck type
 switch (FEAT_ROADVEHS, SELF, ${trailer.id}_graphics, ${truck.truck_type_as_num}) {
-    ${DRAWBAR_TRUCK_TYPE_NUM}: return ${trailer.id}_consist_position_drawbar_truck;
-    ${FIFTH_WHEEL_TRUCK_TYPE_NUM}: return ${trailer.id}_consist_position_fifth_wheel_truck;
+    ${global_constants.drawbar_truck_type_num}: return ${trailer.id}_consist_position_drawbar_truck;
+    ${global_constants.fifth_wheel_truck_type_num}: return ${trailer.id}_consist_position_fifth_wheel_truck;
     return CB_RESULT_NO_TEXT;
 }

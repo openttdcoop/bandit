@@ -5,10 +5,10 @@ truck_type_nums = {
   'drawbar_truck'      : 1,
   'fifth_wheel_truck'  : 2,
 }
-
-SOLO_TRUCK_TYPE_NUM        = truck_type_nums['solo_truck']
-FIFTH_WHEEL_TRUCK_TYPE_NUM = truck_type_nums['fifth_wheel_truck']
-DRAWBAR_TRUCK_TYPE_NUM     = truck_type_nums['drawbar_truck']
+# expose these identifiers as a convenience 
+solo_truck_type_num        = truck_type_nums['solo_truck']
+fifth_wheel_truck_type_num = truck_type_nums['fifth_wheel_truck']
+drawbar_truck_type_num     = truck_type_nums['drawbar_truck']
 
 # model lives are pretty standard, the game randomises them anyway so no need to offer much variety
 model_lives = {

@@ -21,9 +21,9 @@ from BANDIT_vehicles_config import vehicles_dict
 import ConfigParser
 
 import re
-pattern = re.compile('\\d+$')
+pattern = re.compile('\\d+$') #regular expressions magic: pattern of digits
 def config_option_to_list_of_ints(txt):
-  result = []
+  result = [] # we always want at minimum an empty list here or other code will be sad
   for i in txt.split('|'):
     m = pattern.match(i)
     if m:

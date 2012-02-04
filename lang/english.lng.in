@@ -8,6 +8,8 @@ str_cargo_refit_1_trailer                                       :(1 trailer)
 str_cargo_refit_2_trailers                                      :(2 trailers)
 str_cargo_refit_3_trailers                                      :(3 trailers)
 
+<!--! vehicle names -->
 <tal:build_vehicle_names repeat="vehicle vehicles">
 str_name_${vehicle.id}                                          :${vehicle.properties.title}
 </tal:build_vehicle_names>
+

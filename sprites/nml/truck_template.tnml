@@ -69,7 +69,8 @@ item(FEAT_ROADVEHS, ${vehicle.id}, ${properties.numeric_id}) {
         length:                         ${properties.truck_length};
         purchase_cargo_capacity:        ${vehicle.get_total_consist_capacity()};
         cargo_subtype_text:             ${vehicle.id}_switch_cargo_subtype;
-        articulated_part:               ${vehicle.id}_articulated_cb_switch; // always call articulated switch, trailers will only be built if needed 
+        articulated_part:               ${vehicle.id}_articulated_cb_switch; // always call articulated switch, trailers will only be built if needed
+        //additional_text:                string(str_cargo_refit_0_trailer + str_cargo_refit_1_trailer);
         default:                        ${vehicle.id}_sg;
     }
 }

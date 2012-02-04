@@ -4,7 +4,7 @@
 
 <tal:include define="graphics_trailers load: graphics_trailers.tnml" metal:use-macro="graphics_trailers" />
 
-item(FEAT_ROADVEHS, ${trailer.id}, ${trailer.properties.numeric_id}) {
+item(FEAT_ROADVEHS, ${trailer.id}, ${trailer.numeric_id}) {
     property {
         climates_available:             NO_CLIMATE; //hide trailers from buy menu by setting climate availability to 'none'
         cargo_capacity:                 1; //set to 1 - or vehicle not refittable.  Automatically set to correct value with cb36
@@ -15,10 +15,10 @@ item(FEAT_ROADVEHS, ${trailer.id}, ${trailer.properties.numeric_id}) {
         cost_factor:                    0; //should be 0 for trailers
         running_cost_factor:            0; //should be 0 for trailers
         running_cost_base:              RUNNING_COST_NONE; //should be 0 for trailers
-        refittable_cargo_classes:       bitmask(${truck.properties.refittable_classes});
-        non_refittable_cargo_classes:   bitmask(${truck.properties.non_refittable_classes});
-        cargo_allow_refit:              [${truck.properties.allowed_cargos}]; // cpp constant
-        cargo_disallow_refit:           [${truck.properties.allowed_cargos}]; // cpp constant
+        refittable_cargo_classes:       bitmask(${truck.refittable_classes});
+        non_refittable_cargo_classes:   bitmask(${truck.non_refittable_classes});
+        cargo_allow_refit:              [${truck.allowed_cargos}]; // cpp constant
+        cargo_disallow_refit:           [${truck.allowed_cargos}]; // cpp constant
     }
     graphics {
         //length:                THIS_TRAILER_LENGTH;

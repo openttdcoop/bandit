@@ -1,9 +1,8 @@
 <tal:call_global_template define="global_template load: global_template.pt" metal:use-macro="global_template" />
 
-<tal:truck define="properties vehicle.properties;">
-// -- begin ${properties.title} -- <!--! this adds a comment to aid reading the final nml -->
+// -- begin ${vehicle.title} -- <!--! this adds a comment to aid reading the final nml -->
 
-spriteset(${vehicle.id}_ss, "src/graphics/${properties.truck_graphics_file}") {
+spriteset(${vehicle.id}_ss, "src/graphics/${vehicle.truck_graphics_file}") {
   spriteset_template_truck_16(0, 20) // (nml provides a way to add spriteset templates - search the project to find where they are defined)  
 }
 
@@ -14,7 +13,7 @@ spritegroup ${vehicle.id}_sg {
 
 // the cargo subtype switches are shared globally, no unique identifiers per truck
 // they're called from here, appropriate to the truck type
-switch (FEAT_ROADVEHS, SELF, ${vehicle.id}_switch_cargo_subtype, ${properties.truck_type_as_num}) {
+switch (FEAT_ROADVEHS, SELF, ${vehicle.id}_switch_cargo_subtype, ${vehicle.truck_type_as_num}) {
     ${DRAWBAR_TRUCK_TYPE_NUM}: return switch_cb_cargo_subtypes_drawbar_truck;
     ${FIFTH_WHEEL_TRUCK_TYPE_NUM}: return switch_cb_cargo_subtypes_fifth_wheel_truck;
     return CB_RESULT_NO_TEXT;
@@ -38,35 +37,35 @@ switch (FEAT_ROADVEHS, SELF, ${vehicle.id}_articulated_cb_switch, extra_callback
 }
 
 // -- print some of the vehicle non-nml properties to aid debugging -- //
-// truck_type    ${properties.truck_type}
-// truck_num_trailers  ${properties.truck_num_trailers}
-// fifth_wheel_truck_capacity_fraction   ${properties.fifth_wheel_truck_capacity_fraction}
+// truck_type    ${vehicle.truck_type}
+// truck_num_trailers  ${vehicle.truck_num_trailers}
+// fifth_wheel_truck_capacity_fraction   ${vehicle.fifth_wheel_truck_capacity_fraction}
 
-item(FEAT_ROADVEHS, ${vehicle.id}, ${properties.numeric_id}) {
+item(FEAT_ROADVEHS, ${vehicle.id}, ${vehicle.numeric_id}) {
     property {
         name:                           string(str_name_${vehicle.id});
         climates_available:             ALL_CLIMATES; // nml constant
         sound_effect:                   SOUND_TRUCK_START_2; //nml constant - likely this will be replaced by python global vars  
-        visual_effect:                  visual_effect(VISUAL_EFFECT_DIESEL, ${properties.truck_smoke_offset}); // nml constant for DIESEL
-        introduction_date:              date(${properties.truck_intro_date},01,01); // config just supplies intro year - openttd randomises intro dates a bit anyway
-        cargo_capacity:                 ${properties.truck_capacity};
+        visual_effect:                  visual_effect(VISUAL_EFFECT_DIESEL, ${vehicle.truck_smoke_offset}); // nml constant for DIESEL
+        introduction_date:              date(${vehicle.truck_intro_date},01,01); // config just supplies intro year - openttd randomises intro dates a bit anyway
+        cargo_capacity:                 ${vehicle.truck_capacity};
         sprite_id:                      SPRITE_ID_NEW_ROADVEH; //enable new graphics - nml constant
-        speed:                          ${properties.truck_speed}mph;
-        power:                          ${properties.truck_power}hp;
-        weight:                         ${properties.truck_weight};
+        speed:                          ${vehicle.truck_speed}mph;
+        power:                          ${vehicle.truck_power}hp;
+        weight:                         ${vehicle.truck_weight};
         tractive_effort_coefficient:    0.3; // just use default value until evidence arises for need to vary this per truck
-        cost_factor:                    ${properties.truck_buy_cost};
-        running_cost_factor:            ${properties.truck_run_cost};
-        refittable_cargo_classes:       bitmask(${properties.refittable_classes}); 
-        non_refittable_cargo_classes:   bitmask(${properties.non_refittable_classes});
-        cargo_allow_refit:              [${properties.allowed_cargos}];
-        cargo_disallow_refit:           [${properties.disallowed_cargos}];
+        cost_factor:                    ${vehicle.truck_buy_cost};
+        running_cost_factor:            ${vehicle.truck_run_cost};
+        refittable_cargo_classes:       bitmask(${vehicle.refittable_classes}); 
+        non_refittable_cargo_classes:   bitmask(${vehicle.non_refittable_classes});
+        cargo_allow_refit:              [${vehicle.allowed_cargos}];
+        cargo_disallow_refit:           [${vehicle.disallowed_cargos}];
         misc_flags:                     bitmask(ROADVEH_FLAG_2CC, ROADVEH_FLAG_AUTOREFIT); // nml constants
-        model_life:                     ${properties.truck_model_life};
-        vehicle_life:                   ${properties.truck_vehicle_life};
+        model_life:                     ${vehicle.truck_model_life};
+        vehicle_life:                   ${vehicle.truck_vehicle_life};
     }
     graphics {
-        length:                         ${properties.truck_length};
+        length:                         ${vehicle.truck_length};
         purchase_cargo_capacity:        ${vehicle.get_total_consist_capacity()};
         cargo_subtype_text:             ${vehicle.id}_switch_cargo_subtype;
         articulated_part:               ${vehicle.id}_articulated_cb_switch; // always call articulated switch, trailers will only be built if needed
@@ -76,5 +75,4 @@ item(FEAT_ROADVEHS, ${vehicle.id}, ${properties.numeric_id}) {
 }
 
 
-// -- end ${properties.title} -- <!--! another comment to aid reading the final nml  -->
-</tal:truck>
+// -- end ${vehicle.title} -- <!--! another comment to aid reading the final nml  -->

@@ -30,10 +30,8 @@ class Trailer(object):
   """Base class for trailers"""
   def __init__(self, i, truck):
     self.id = truck.id + '_trailer_' + str(i+1)
-    self.properties = {
-      'trailer_capacity' : int(truck.properties['trailer_capacities'][i]),
-      'numeric_id'       : truck.properties['numeric_id'] + i + 1,
-    }
+    self.trailer_capacity = int(truck.trailer_capacities[i])
+    self.numeric_id = truck.numeric_id + i + 1
   
   def render(self, truck):
     template = templates['trailer_template.tnml']
@@ -46,34 +44,53 @@ class Truck(object):
     self.properties = properties      
 
     #setup various properties that make use of global constants
-    self.properties['refittable_classes'] = standard_class_refits['default']['allow']
-    self.properties['non_refittable_classes'] = standard_class_refits['default']['disallow']
-    self.properties['allowed_cargos'] = '' # ! unfinished
-    self.properties['disallowed_cargos'] = '' # ! unfinished
-    self.properties['truck_model_life'] = model_lives[properties['truck_model_life']]
-    self.properties['truck_vehicle_life'] = vehicle_lives[properties['truck_vehicle_life']]
-    self.properties['truck_type_as_num'] = truck_type_nums[properties['truck_type']]
+    self.refittable_classes = standard_class_refits['default']['allow']
+    self.non_refittable_classes = standard_class_refits['default']['disallow']
+    self.allowed_cargos = '' # ! unfinished
+    self.disallowed_cargos = '' # ! unfinished
+    self.truck_model_life = model_lives[properties['truck_model_life']]
+    self.truck_vehicle_life = vehicle_lives[properties['truck_vehicle_life']]
+    self.truck_type_as_num = truck_type_nums[properties['truck_type']]
+
+    self.numeric_id = properties['numeric_id']
+    self.trailer_capacities = properties['trailer_capacities']
+    self.truck_speed = properties['truck_speed']
+    self.truck_buy_cost = properties['truck_buy_cost']
+    self.truck_run_cost = properties['truck_run_cost']
+    self.truck_power = properties['truck_power']
+    self.trailer_graphics_files = properties['trailer_graphics_files']
+    self.truck_graphics_file = properties['truck_graphics_file']
+    self.title = properties['title']
+    self.fifth_wheel_truck_capacity_fraction = properties['fifth_wheel_truck_capacity_fraction']
+    self.truck_weight = properties['truck_weight']
+    self.truck_intro_date = properties['truck_intro_date']
+    self.truck_type = properties['truck_type']
+    self.truck_num_trailers = properties['truck_num_trailers']
+    self.truck_smoke_offset = properties['truck_smoke_offset']
+    self.truck_capacity = properties['truck_capacity']  
+    self.truck_length = properties['truck_length']  
     
 
-    if self.properties['truck_type'] == "BANDIT_TRUCK_TYPE_FIFTH_WHEEL":
+    if self.truck_type == "BANDIT_TRUCK_TYPE_FIFTH_WHEEL":
       self.modify_capacities_fifth_wheel_trucks()
     # add trailer objects - will only be added if needed
     # order of trailers here doesn't matter as we'll finally build them based on the vehicle id
     self.trailers = []
-    for i in range(0, self.properties['truck_num_trailers']):
+    for i in range(0, self.truck_num_trailers):
       self.trailers.append(Trailer(i = i, truck = self))
-
+    
+    
   def modify_capacities_fifth_wheel_trucks(self):
     # fifth wheel trucks split part of the capacity of first trailer onto the truck, for TE reasons
     # the ratio is controlled by a decimal fraction defined as a property of the truck
-    trailer_capacity = self.properties['trailer_capacities'][0]
-    self.properties['truck_capacity'] = truck_capacity = int(trailer_capacity * (self.properties['fifth_wheel_truck_capacity_fraction']))
-    self.properties['trailer_capacities'][0] = trailer_capacity - truck_capacity
+    trailer_capacity = self.trailer_capacities[0]
+    self.truck_capacity = truck_capacity = int(trailer_capacity * (self.fifth_wheel_truck_capacity_fraction))
+    self.trailer_capacities[0] = trailer_capacity - truck_capacity
     
   def get_total_consist_capacity(self):
     # used for the purchase menu
-    capacity = self.properties['truck_capacity']
-    capacity = capacity + sum([i.properties['trailer_capacity'] for i in self.trailers]) 
+    capacity = self.truck_capacity
+    capacity = capacity + sum([i.trailer_capacity for i in self.trailers]) 
     return capacity
       
   def render(self):

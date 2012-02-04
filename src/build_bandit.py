@@ -18,7 +18,6 @@ from BANDIT_vehicles_config import vehicles_dict
 
 # get the globals - however for using globals in templates, it's better for the template to use global_template.pt as a macro   
 import global_constants # expose all constants for easy passing to templates
-from global_constants import * #import all stuff from constants for easy reference in python scripts
 
 # get args passed by makefile
 if len(sys.argv) > 1:
@@ -43,13 +42,13 @@ class Truck(object):
     self.id = id
 
     #setup various properties that make use of global constants
-    self.refittable_classes = standard_class_refits['default']['allow']
-    self.non_refittable_classes = standard_class_refits['default']['disallow']
+    self.refittable_classes = global_constants.standard_class_refits['default']['allow']
+    self.non_refittable_classes = global_constants.standard_class_refits['default']['disallow']
     self.allowed_cargos = '' # ! unfinished
     self.disallowed_cargos = '' # ! unfinished
-    self.truck_model_life = model_lives[properties['truck_model_life']]
-    self.truck_vehicle_life = vehicle_lives[properties['truck_vehicle_life']]
-    self.truck_type_as_num = truck_type_nums[properties['truck_type']]
+    self.truck_model_life = global_constants.model_lives[properties['truck_model_life']]
+    self.truck_vehicle_life = global_constants.vehicle_lives[properties['truck_vehicle_life']]
+    self.truck_type_as_num = global_constants.truck_type_nums[properties['truck_type']]
 
     self.numeric_id = properties['numeric_id']
     self.trailer_capacities = properties['trailer_capacities']

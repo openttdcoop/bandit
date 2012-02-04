@@ -16,6 +16,24 @@ docs_templates = PageTemplateLoader(os.path.join(currentdir,'docs'), format='tex
 
 from BANDIT_vehicles_config import vehicles_dict
 
+
+# the parser handles config file formats; provides a custom utility function for parsing to a list 
+import ConfigParser
+
+import re
+pattern = re.compile('\\d+$')
+def config_option_to_list_of_ints(txt):
+  result = []
+  for i in txt.split('|'):
+    m = pattern.match(i)
+    if m:
+      result.append(int(i))
+  return result
+
+config = ConfigParser.RawConfigParser()
+config.read(os.path.join(currentdir, 'src', 'BANDIT.cfg'))
+
+
 # get the globals - however for using globals in templates, it's better for the template to use global_template.pt as a macro   
 import global_constants # expose all constants for easy passing to templates
 
@@ -38,36 +56,34 @@ class Trailer(object):
 
 class Truck(object):
   """Base class for all types of trucks"""
-  def __init__(self, id, properties):
+  def __init__(self, id):
     self.id = id
-
-    #setup various properties that make use of global constants
+    
+    #setup properties for this vehicle
     self.refittable_classes = global_constants.standard_class_refits['default']['allow']
     self.non_refittable_classes = global_constants.standard_class_refits['default']['disallow']
     self.allowed_cargos = '' # ! unfinished
     self.disallowed_cargos = '' # ! unfinished
-    self.truck_model_life = global_constants.model_lives[properties['truck_model_life']]
-    self.truck_vehicle_life = global_constants.vehicle_lives[properties['truck_vehicle_life']]
-    self.truck_type_as_num = global_constants.truck_type_nums[properties['truck_type']]
-
-    self.numeric_id = properties['numeric_id']
-    self.trailer_capacities = properties['trailer_capacities']
-    self.truck_speed = properties['truck_speed']
-    self.truck_buy_cost = properties['truck_buy_cost']
-    self.truck_run_cost = properties['truck_run_cost']
-    self.truck_power = properties['truck_power']
-    self.trailer_graphics_files = properties['trailer_graphics_files']
-    self.truck_graphics_file = properties['truck_graphics_file']
-    self.title = properties['title']
-    self.fifth_wheel_truck_capacity_fraction = properties['fifth_wheel_truck_capacity_fraction']
-    self.truck_weight = properties['truck_weight']
-    self.truck_intro_date = properties['truck_intro_date']
-    self.truck_type = properties['truck_type']
-    self.truck_num_trailers = properties['truck_num_trailers']
-    self.truck_smoke_offset = properties['truck_smoke_offset']
-    self.truck_capacity = properties['truck_capacity']  
-    self.truck_length = properties['truck_length']  
-    
+    self.truck_model_life = global_constants.model_lives[config.get(id, 'truck_model_life')]
+    self.truck_vehicle_life = global_constants.vehicle_lives[config.get(id, 'truck_vehicle_life')]
+    self.truck_type_as_num = global_constants.truck_type_nums[config.get(id, 'truck_type')]
+    self.numeric_id = config.getint(id, 'numeric_id')
+    self.truck_speed = config.getint(id, 'truck_speed')
+    self.truck_buy_cost = config.getint(id, 'truck_buy_cost')
+    self.truck_run_cost = config.getint(id, 'truck_run_cost')
+    self.truck_power = config.getint(id, 'truck_power')
+    self.trailer_graphics_files = config.get(id, 'trailer_graphics_files').split('|')
+    self.truck_graphics_file = config.get(id, 'truck_graphics_file')
+    self.title = config.get(id, 'title')
+    self.fifth_wheel_truck_capacity_fraction = config.getfloat(id, 'fifth_wheel_truck_capacity_fraction')
+    self.truck_weight = config.getint(id, 'truck_weight')
+    self.truck_intro_date = config.getint(id, 'truck_intro_date')
+    self.truck_type = config.get(id, 'truck_type')
+    self.truck_num_trailers = config.getint(id, 'truck_num_trailers')
+    self.truck_smoke_offset = config.getint(id, 'truck_smoke_offset')
+    self.truck_capacity = config.getint(id, 'truck_capacity')  
+    self.truck_length = config.getint(id, 'truck_length')
+    self.trailer_capacities = config_option_to_list_of_ints(config.get(id, 'trailer_capacities'))
 
     if self.truck_type == 'fifth_wheel_truck':
       self.modify_capacities_fifth_wheel_trucks()
@@ -76,12 +92,13 @@ class Truck(object):
     self.trailers = []
     for i in range(0, self.truck_num_trailers):
       self.trailers.append(Trailer(i = i, truck = self))
-        
+      
+    
   def modify_capacities_fifth_wheel_trucks(self):
     # fifth wheel trucks split part of the capacity of first trailer onto the truck, for TE reasons
     # the ratio is controlled by a decimal fraction defined as a property of the truck
     trailer_capacity = self.trailer_capacities[0]
-    self.truck_capacity = truck_capacity = int(trailer_capacity * (self.fifth_wheel_truck_capacity_fraction))
+    self.truck_capacity = truck_capacity = int(trailer_capacity * self.fifth_wheel_truck_capacity_fraction)
     self.trailer_capacities[0] = trailer_capacity - truck_capacity
 
     
@@ -99,7 +116,7 @@ class Truck(object):
 
 
 #compose vehicle objects into a list; order is not significant as numeric identifiers used to build vehicles 
-vehicles = [Truck(id=i,properties=j) for i,j in vehicles_dict.iteritems()]
+vehicles = [Truck(id=i) for i in config.sections()]
 
 #compile a single final nml file for the grf (currently c pre-processor is still available and used, so pnml file) 
 master_template = templates['bandit.tnml']

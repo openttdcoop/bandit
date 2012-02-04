@@ -14,8 +14,6 @@ templates = PageTemplateLoader(os.path.join(currentdir, 'src', 'templates'), for
 lang_templates = PageTemplateLoader(os.path.join(currentdir, 'lang'), format='text')
 docs_templates = PageTemplateLoader(os.path.join(currentdir,'docs'), format='text')
 
-from BANDIT_vehicles_config import vehicles_dict
-
 
 # the parser handles config file formats; provides a custom utility function for parsing to a list 
 import ConfigParser

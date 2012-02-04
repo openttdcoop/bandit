@@ -4,12 +4,12 @@ bandit.src.dep: bandit.nml
 
 GENERATE=src/build_bandit.py
 
-bandit.nml: src/BANDIT_vehicles_config.py $(GENERATE)
-	$(_E) [GENERATE] from pasted input
+bandit.nml: src/BANDIT.cfg $(GENERATE)
+	$(_E) [GENERATE] from BANDIT.cfg
 	$(_V) python src/build_bandit.py '${REPO_TITLE}' '${REPO_REVISION}'
 
-%.lng: %.lng.in src/BANDIT_vehicles_config.py $(GENERATE)
-	$(_E) [GENERATE] from pasted input
+%.lng: %.lng.in src/BANDIT.cfg $(GENERATE)
+	$(_E) [GENERATE] from BANDIT.cfg
 	$(_V) python src/build_bandit.py '${REPO_TITLE}' '${REPO_REVISION}'
 
 clean::

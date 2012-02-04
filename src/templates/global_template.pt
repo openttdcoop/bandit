@@ -1,5 +1,3 @@
 <!--! this is a convenient way to expose the global constants to templates -->
 <!--! to use, define this template as a macro at the head of the template where you wish to use the globals -->
-<tal:setup_globals define="
-  global global_constants            import: global_constants;  
-" />
+<tal:setup_globals define="global global_constants  import: global_constants;" />

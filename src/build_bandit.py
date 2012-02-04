@@ -69,28 +69,26 @@ class Truck(object):
     self.truck_length = properties['truck_length']  
     
 
-    if self.truck_type_as_num == global_constants.fifth_wheel_truck_type_num:
+    if self.truck_type == 'fifth_wheel_truck':
       self.modify_capacities_fifth_wheel_trucks()
     # add trailer objects - will only be added if needed
     # order of trailers here doesn't matter as we'll finally build them based on the vehicle id
     self.trailers = []
     for i in range(0, self.truck_num_trailers):
       self.trailers.append(Trailer(i = i, truck = self))
-    
-    
+        
   def modify_capacities_fifth_wheel_trucks(self):
     # fifth wheel trucks split part of the capacity of first trailer onto the truck, for TE reasons
     # the ratio is controlled by a decimal fraction defined as a property of the truck
     trailer_capacity = self.trailer_capacities[0]
     self.truck_capacity = truck_capacity = int(trailer_capacity * (self.fifth_wheel_truck_capacity_fraction))
     self.trailer_capacities[0] = trailer_capacity - truck_capacity
+
     
   def get_total_consist_capacity(self):
     # used for the purchase menu
     capacity = self.truck_capacity
     capacity = capacity + sum([i.trailer_capacity for i in self.trailers])
-    print self.title
-    print capacity
     return capacity
       
   def render(self):

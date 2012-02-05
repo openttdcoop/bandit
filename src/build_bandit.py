@@ -85,6 +85,7 @@ class Truck(object):
 
     if self.truck_type == 'fifth_wheel_truck':
       self.modify_capacities_fifth_wheel_trucks()
+      
     # add trailer objects - will only be added if needed
     # order of trailers here doesn't matter as we'll finally build them based on the vehicle id
     self.trailers = []
@@ -106,6 +107,15 @@ class Truck(object):
     capacity = capacity + sum([i.trailer_capacity for i in self.trailers])
     return capacity
       
+  def get_vehicle_type_string(self):
+    return 'str_vehicle_type_default'
+
+  def get_trailer_info_string(self):
+    if self.truck_num_trailers > 0:
+      return 'str_buy_menu_trailer_info_' + self.id
+    else:
+      return 'str_empty'
+      
   def render(self):
     template = templates['truck_template.pynml']
     return template(
@@ -113,15 +123,17 @@ class Truck(object):
     )
 
 
-#compose vehicle objects into a list; order is not significant as numeric identifiers used to build vehicles 
+#compose vehicle objects into a list; order is not significant as numeric identifiers are used to build vehicles 
 vehicles = [Truck(id=i) for i in config.sections()]
 
-#compile a single final nml file for the grf (currently c pre-processor is still available and used, so pnml file) 
+
+#compile a single final nml file for the grf 
 master_template = templates['bandit.pynml']
 
 bandit_nml = codecs.open(os.path.join('bandit.nml'),'w','utf8')
 bandit_nml.write(master_template(vehicles=vehicles,repo_vars=repo_vars))
 bandit_nml.close()
+
 
 #compile strings to single lang file (english only at the moment, but i18n translation is possible)
 lang_template = lang_templates['english.pylng']
@@ -129,6 +141,7 @@ lang_template = lang_templates['english.pylng']
 lang = codecs.open(os.path.join('lang','english.lng'), 'w','utf8')
 lang.write(lang_template(vehicles=vehicles,repo_vars=repo_vars))
 lang.close()
+
 
 #compile docs (english only at the moment, but i18n translation is possible)
 docs_template = docs_templates['readme.pytxt']

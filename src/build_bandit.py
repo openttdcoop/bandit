@@ -106,16 +106,57 @@ class Truck(object):
     capacity = self.truck_capacity
     capacity = capacity + sum([i.trailer_capacity for i in self.trailers])
     return capacity
-      
-  def get_vehicle_type_string(self):
-    return 'str_vehicle_type_default'
 
-  def get_trailer_info_string(self):
-    if self.truck_num_trailers > 0:
-      return 'str_buy_menu_trailer_info_' + self.id
-    else:
-      return 'str_empty'
+  @classmethod
+  def make_buy_menu_trailer_tree(cls,items):
+    # this is a tree to recurse over an arbitrary number of trailers - used to set buy menu strings; thanks to Eddi for this   
+    if len(items) == 0: # guard against zero length items which cause recursion to fail
+      return "string(str_empty)"
+    if len(items) == 1: 
+      return "string(STR_BUY_MENU_TRAILER,%d,%d)"%items[0]
+    return "string(STR_ONE_MORE_LINE,%s,%s)"%(cls.make_buy_menu_trailer_tree(items[:len(items)/2]), cls.make_buy_menu_trailer_tree(items[len(items)/2:]))
       
+  def get_buy_menu_string(self):
+    # this is an intricate function to set buy menu texts according to various truck properties :P
+    from string import Template
+    if self.truck_type == 'solo_truck': #this for testing only - needs additional property on trucks to set extra info strings  
+      extra_type_info = 'express'
+    else: 
+      extra_type_info = 'heavy_duty'
+
+    if self.truck_type == 'solo_truck':
+      # for solo trucks, no need to calculate trailer capacites
+      buy_menu_template = Template(
+        "string(str_buy_menu_text, string(str_vehicle_type_${extra_type_info}), string(str_empty))"
+      )
+      return buy_menu_template.substitute(extra_type_info=extra_type_info)
+    else:
+      # for articulated trucks, we'll want the capacities
+      trailer_details = []
+      cumulative_capacity = 0
+      # we get the capacities out of the config, not from the vehicle props (because fifth wheel trucks split capacity prop on first trailer with truck TE reasons)
+      for i, x in enumerate (config_option_to_list_of_ints(config.get(self.id, 'trailer_capacities'))):
+        cumulative_capacity = cumulative_capacity + x
+        print self.id, i, cumulative_capacity
+        trailer_details.append((cumulative_capacity, i+1))
+      
+      # for drawbar trucks we also show truck capacity with no trailers
+      if self.truck_type == 'drawbar_truck':
+        optional_truck_cap_info = 'string(STR_BUY_MENU_CAP_DRAWBAR_TRUCK,' + str(self.truck_capacity) + ')'
+      else:
+        optional_truck_cap_info = 'string(str_empty)'
+      
+      trailer_info = self.make_buy_menu_trailer_tree(trailer_details)
+      buy_menu_template = Template(
+        "string(str_buy_menu_text, string(str_vehicle_type_${extra_type_info}), string(str_buy_menu_consist_info,${optional_truck_cap_info},${trailer_info}))"
+      )
+      return buy_menu_template.substitute(
+        extra_type_info=extra_type_info,
+        optional_truck_cap_info = optional_truck_cap_info,
+        trailer_info=trailer_info
+      )
+
+
   def render(self):
     template = templates['truck_template.pynml']
     return template(
@@ -131,7 +172,7 @@ vehicles = [Truck(id=i) for i in config.sections()]
 master_template = templates['bandit.pynml']
 
 bandit_nml = codecs.open(os.path.join('bandit.nml'),'w','utf8')
-bandit_nml.write(master_template(vehicles=vehicles,repo_vars=repo_vars))
+bandit_nml.write(master_template(vehicles=vehicles, repo_vars=repo_vars))
 bandit_nml.close()
 
 
@@ -139,7 +180,7 @@ bandit_nml.close()
 lang_template = lang_templates['english.pylng']
 
 lang = codecs.open(os.path.join('lang','english.lng'), 'w','utf8')
-lang.write(lang_template(vehicles=vehicles,repo_vars=repo_vars))
+lang.write(lang_template(vehicles=vehicles, repo_vars=repo_vars))
 lang.close()
 
 

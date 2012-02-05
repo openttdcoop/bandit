@@ -1,4 +1,5 @@
 ##grflangid 0x01
+##plural 0
 str_grf_name                                                    :BANDIT ${repo_vars.repo_title}
 str_grf_description                                             :License: {SILVER}GPL v2{}{BLACK}
 
@@ -14,13 +15,13 @@ str_vehicle_type_express                                        :Truck type: {GO
 str_vehicle_type_default                                        :Truck type: {GOLD}Normal{}
 str_vehicle_type_heavy_duty                                     :Truck type: {GOLD}Heavy Duty{}
 
+str_buy_menu_text                                               :{STRING}{STRING}
+str_buy_menu_consist_info                                       :{BLACK}Can be refitted to haul:{}{GOLD}{STRING}{STRING}
+STR_ONE_MORE_LINE                                               :{STRING}{}{STRING}
+STR_BUY_MENU_CAP_DRAWBAR_TRUCK                                  :    {COMMA}t with no trailer{}
+STR_BUY_MENU_TRAILER                                            :    {COMMA}t with {COMMA} trailer{P 1 "" s}
+
 <!--! vehicle names -->
 <tal:build_vehicle_names repeat="vehicle vehicles">
 str_name_${vehicle.id}                                          :${vehicle.title}
 </tal:build_vehicle_names>
-
-<tal:build_vehicle_names repeat="vehicle vehicles">
-str_buy_menu_text_${vehicle.id}                                 :{STRING} {STRING}
-str_buy_menu_trailer_info_${vehicle.id}                         :{BLACK}Can be refitted to haul:{}{GOLD} ${vehicle.truck_num_trailers} trailer${['','s'][vehicle.truck_num_trailers > 1]}
-</tal:build_vehicle_names>
-

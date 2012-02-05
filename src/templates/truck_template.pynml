@@ -69,7 +69,7 @@ item(FEAT_ROADVEHS, ${vehicle.id}, ${vehicle.numeric_id}) {
         purchase_cargo_capacity:        ${vehicle.get_total_consist_capacity()};
         cargo_subtype_text:             ${vehicle.id}_switch_cargo_subtype;
         articulated_part:               ${vehicle.id}_articulated_cb_switch; // always call articulated switch, trailers will only be built if needed
-        additional_text:                string(str_buy_menu_text_${vehicle.id}, string(${vehicle.get_vehicle_type_string()}), string(${vehicle.get_trailer_info_string()}));
+        additional_text:                ${vehicle.get_buy_menu_string()};
         default:                        ${vehicle.id}_sg;
     }
 }

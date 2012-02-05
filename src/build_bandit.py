@@ -137,7 +137,6 @@ class Truck(object):
       # we get the capacities out of the config, not from the vehicle props (because fifth wheel trucks split capacity prop on first trailer with truck TE reasons)
       for i, x in enumerate (config_option_to_list_of_ints(config.get(self.id, 'trailer_capacities'))):
         cumulative_capacity = cumulative_capacity + x
-        print self.id, i, cumulative_capacity
         trailer_details.append((cumulative_capacity, i+1))
       
       # for drawbar trucks we also show truck capacity with no trailers

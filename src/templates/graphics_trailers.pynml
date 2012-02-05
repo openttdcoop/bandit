@@ -11,28 +11,49 @@ spritegroup ${trailer.id}_sg_invisible {
     loading: [${trailer.id}_ss_invisible];
 }
 
-spriteset(${trailer.id}_ss_cargo_1, "${THIS_TRAILER_GRAPHICS_FILE}") {
-  spriteset_template_truck_28(0, 20)
+spriteset(${trailer.id}_ss_cargo_box, "${THIS_TRAILER_GRAPHICS_FILE}") {
+  spriteset_template_truck_28(0, 60)
 }
 
-spritegroup ${trailer.id}_sg_cargo_1 {
-    loaded:  [${trailer.id}_ss_cargo_1];
-    loading: [${trailer.id}_ss_cargo_1];
+spritegroup ${trailer.id}_sg_cargo_box {
+    loaded:  [${trailer.id}_ss_cargo_box];
+    loading: [${trailer.id}_ss_cargo_box];
 }
 
-spriteset(${trailer.id}_ss_cargo_2, "${THIS_TRAILER_GRAPHICS_FILE}") {
-  spriteset_template_truck_28(0, 20) 
+spriteset(${trailer.id}_ss_cargo_tanker, "${THIS_TRAILER_GRAPHICS_FILE}") {
+  spriteset_template_truck_28(0, 100) 
 }
 
-spritegroup ${trailer.id}_sg_cargo_2 {
-    loaded:  [${trailer.id}_ss_cargo_2];
-    loading: [${trailer.id}_ss_cargo_2];
+spritegroup ${trailer.id}_sg_cargo_tanker {
+    loaded:  [${trailer.id}_ss_cargo_tanker];
+    loading: [${trailer.id}_ss_cargo_tanker];
+}
+
+spriteset(${trailer.id}_ss_cargo_flat, "${THIS_TRAILER_GRAPHICS_FILE}") {
+  spriteset_template_truck_28(0, 140)
+}
+
+spritegroup ${trailer.id}_sg_cargo_flat {
+    loaded:  [${trailer.id}_ss_cargo_flat];
+    loading: [${trailer.id}_ss_cargo_flat];
+}
+
+spriteset(${trailer.id}_ss_cargo_dump, "${THIS_TRAILER_GRAPHICS_FILE}") {
+  spriteset_template_truck_28(0, 180)
+}
+
+spritegroup ${trailer.id}_sg_cargo_dump {
+    loaded:  [${trailer.id}_ss_cargo_dump];
+    loading: [${trailer.id}_ss_cargo_dump];
 }
 
 
-switch (FEAT_ROADVEHS, SELF, ${trailer.id}_cargo_switch, cargo_classes) {
-    0: return ${trailer.id}_sg_cargo_1;
-    return ${trailer.id}_sg_cargo_2;
+
+switch (FEAT_ROADVEHS, SELF, ${trailer.id}_cargo_switch, cargo_type_in_veh) {
+    <tal:build_cargo_mapping_repeat repeat="cargo global_constants.cargo_body_type_mappings">
+    ${cargo}:return ${trailer.id}_sg_cargo_${global_constants.cargo_body_type_mappings[cargo]};
+    </tal:build_cargo_mapping_repeat>
+    return ${trailer.id}_sg_cargo_box;
 }
 
 

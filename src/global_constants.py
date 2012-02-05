@@ -40,3 +40,17 @@ standard_class_refits = {
   }
 }
 
+cargo_body_type_mappings = dict(
+  MILK = 'tanker',
+  OIL_ = 'tanker',
+  RFPR = 'tanker',
+  WATR = 'tanker',
+  PETR = 'tanker',
+  DYES = 'tanker',
+  COAL = 'dump',
+  IORE = 'dump',
+  CLAY = 'dump',
+  SAND = 'dump',
+  STEL = 'flat',
+  VEHI = 'flat',
+)

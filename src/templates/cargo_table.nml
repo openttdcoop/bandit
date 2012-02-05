@@ -20,5 +20,5 @@ cargotable {                        // cargos needed for special refit orders
     PASS, MAIL, BATT, SWET,
     FMSP, ENSP, MNSP, DYES,
     PLST, LIME, COPR, SGCN,
-    SGBT, OLSD
+    SGBT, OLSD, BEER,
 }

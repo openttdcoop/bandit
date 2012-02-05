@@ -40,17 +40,32 @@ standard_class_refits = {
   }
 }
 
+# use the dict constructor here, normally I don't, but it makes adding cargos faster (no string quotes needed).
+# design note: small variations probably better than large ones, e.g. ['flat_large_crates','flat_small_crates'] rather than ['flat','tanker']
 cargo_body_type_mappings = dict(
-  MILK = 'tanker',
-  OIL_ = 'tanker',
-  RFPR = 'tanker',
-  WATR = 'tanker',
-  PETR = 'tanker',
-  DYES = 'tanker',
-  COAL = 'dump',
-  IORE = 'dump',
-  CLAY = 'dump',
-  SAND = 'dump',
-  STEL = 'flat',
-  VEHI = 'flat',
+  MILK = ['tanker'],
+  OIL_ = ['tanker'],
+  RFPR = ['tanker'],
+  WATR = ['tanker'],
+  PETR = ['tanker'],
+  DYES = ['tanker'],
+  COAL = ['dump'],
+  IORE = ['dump'],
+  CLAY = ['dump'],
+  SAND = ['dump'],
+  STEL = ['grey_metals'],
+  VEHI = ['flat'],
+  ENSP = ['flat','box'],
+  BEER = ['flat','tanker','dump','logs','livestock','lowbed'], # these values for testing only
+)
+
+body_type_spritesheet_y_offset_mapping = dict (
+  box          =  60,
+  tanker       = 100,
+  flat         = 140,
+  dump         = 180,
+  logs         = 140, # value for testing only
+  grey_metals  = 140, # value for testing only
+  livestock    = 140, # value for testing only
+  lowbed       = 140, # value for testing only
 )

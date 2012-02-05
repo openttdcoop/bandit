@@ -11,47 +11,29 @@ spritegroup ${trailer.id}_sg_invisible {
     loading: [${trailer.id}_ss_invisible];
 }
 
-spriteset(${trailer.id}_ss_cargo_box, "${THIS_TRAILER_GRAPHICS_FILE}") {
-  spriteset_template_truck_28(0, 60)
+<tal:build_spritesets_spritegroups repeat="body_type global_constants.body_type_spritesheet_y_offset_mapping">
+spriteset(${trailer.id}_ss_cargo_${body_type}, "${THIS_TRAILER_GRAPHICS_FILE}") {
+  spriteset_template_truck_28(0, ${global_constants.body_type_spritesheet_y_offset_mapping[body_type]})
 }
 
-spritegroup ${trailer.id}_sg_cargo_box {
-    loaded:  [${trailer.id}_ss_cargo_box];
-    loading: [${trailer.id}_ss_cargo_box];
+spritegroup ${trailer.id}_sg_cargo_${body_type} {
+    loaded:  [${trailer.id}_ss_cargo_${body_type}];
+    loading: [${trailer.id}_ss_cargo_${body_type}];
 }
+</tal:build_spritesets_spritegroups>
 
-spriteset(${trailer.id}_ss_cargo_tanker, "${THIS_TRAILER_GRAPHICS_FILE}") {
-  spriteset_template_truck_28(0, 100) 
+
+<tal:build_cargo_to_body_type_switches repeat="cargo global_constants.cargo_body_type_mappings">
+random_switch (FEAT_ROADVEHS, PARENT, ${trailer.id}_cargo_body_type_switch_${cargo}) {
+    <tal:build_body_type_repeat repeat="body_type python:global_constants.cargo_body_type_mappings[cargo]">
+    1: return ${trailer.id}_sg_cargo_${body_type};
+    </tal:build_body_type_repeat>
 }
-
-spritegroup ${trailer.id}_sg_cargo_tanker {
-    loaded:  [${trailer.id}_ss_cargo_tanker];
-    loading: [${trailer.id}_ss_cargo_tanker];
-}
-
-spriteset(${trailer.id}_ss_cargo_flat, "${THIS_TRAILER_GRAPHICS_FILE}") {
-  spriteset_template_truck_28(0, 140)
-}
-
-spritegroup ${trailer.id}_sg_cargo_flat {
-    loaded:  [${trailer.id}_ss_cargo_flat];
-    loading: [${trailer.id}_ss_cargo_flat];
-}
-
-spriteset(${trailer.id}_ss_cargo_dump, "${THIS_TRAILER_GRAPHICS_FILE}") {
-  spriteset_template_truck_28(0, 180)
-}
-
-spritegroup ${trailer.id}_sg_cargo_dump {
-    loaded:  [${trailer.id}_ss_cargo_dump];
-    loading: [${trailer.id}_ss_cargo_dump];
-}
-
-
+</tal:build_cargo_to_body_type_switches>
 
 switch (FEAT_ROADVEHS, SELF, ${trailer.id}_cargo_switch, cargo_type_in_veh) {
     <tal:build_cargo_mapping_repeat repeat="cargo global_constants.cargo_body_type_mappings">
-    ${cargo}:return ${trailer.id}_sg_cargo_${global_constants.cargo_body_type_mappings[cargo]};
+    ${cargo}: return ${trailer.id}_cargo_body_type_switch_${cargo};
     </tal:build_cargo_mapping_repeat>
     return ${trailer.id}_sg_cargo_box;
 }

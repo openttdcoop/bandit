@@ -133,7 +133,7 @@ class Truck(object):
     else:
       # for articulated trucks, we'll want the capacities
       trailer_details = []
-      cumulative_capacity = 0
+      cumulative_capacity = (0, self.truck_capacity)[self.truck_type=='drawbar_truck']
       # we get the capacities out of the config, not from the vehicle props (because fifth wheel trucks split capacity prop on first trailer with truck TE reasons)
       for i, x in enumerate (config_option_to_list_of_ints(config.get(self.id, 'trailer_capacities'))):
         cumulative_capacity = cumulative_capacity + x

@@ -119,15 +119,12 @@ class Truck(object):
   def get_buy_menu_string(self):
     # this is an intricate function to set buy menu texts according to various truck properties :P
     from string import Template
-    if self.truck_type == 'solo_truck': #this for testing only - needs additional property on trucks to set extra info strings  
-      extra_type_info = 'express'
-    else: 
-      extra_type_info = 'heavy_duty'
+    extra_type_info = config.get(self.id, 'buy_menu_extra_type_info')
 
     if self.truck_type == 'solo_truck':
       # for solo trucks, no need to calculate trailer capacites
       buy_menu_template = Template(
-        "string(str_buy_menu_text, string(str_vehicle_type_${extra_type_info}), string(str_empty))"
+        "string(str_buy_menu_text, string(${extra_type_info}), string(str_empty))"
       )
       return buy_menu_template.substitute(extra_type_info=extra_type_info)
     else:
@@ -147,7 +144,7 @@ class Truck(object):
       
       trailer_info = self.make_buy_menu_trailer_tree(trailer_details)
       buy_menu_template = Template(
-        "string(str_buy_menu_text, string(str_vehicle_type_${extra_type_info}), string(str_buy_menu_consist_info,${optional_truck_cap_info},${trailer_info}))"
+        "string(str_buy_menu_text, string(${extra_type_info}), string(str_buy_menu_consist_info,${optional_truck_cap_info},${trailer_info}))"
       )
       return buy_menu_template.substitute(
         extra_type_info=extra_type_info,

@@ -1,8 +1,8 @@
 // define the newgrf
 grf {
 	grfid: "\28\B5\FA\35";
-	name: string(str_grf_name);
-	desc: string(str_grf_description);
+	name: string(STR_GRF_NAME);
+	desc: string(STR_GRF_DESCRIPTION);
 	version: ${repo_vars.repo_version};
 	min_compatible_version: 1;
 }

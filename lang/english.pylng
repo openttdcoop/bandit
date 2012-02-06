@@ -1,15 +1,15 @@
 ##grflangid 0x01
 ##plural 0
-str_grf_name                                                    :BANDIT ${repo_vars.repo_title}
-str_grf_description                                             :License: {SILVER}GPL v2{}{BLACK}
+STR_GRF_NAME                                                    :BANDIT ${repo_vars.repo_title}
+STR_GRF_DESCRIPTION                                             :License: {SILVER}GPL v2{}{BLACK}
 
-str_empty                                                       :
+STR_EMPTY                                                       :
 
-str_cargo_refit_0_trailer                                       :(No trailer)
-str_cargo_refit_0_trailers                                      :(No trailers)
-str_cargo_refit_1_trailer                                       :(1 trailer)
-str_cargo_refit_2_trailers                                      :(2 trailers)
-str_cargo_refit_3_trailers                                      :(3 trailers)
+STR_CARGO_REFIT_0_TRAILER                                       :(No trailer)
+STR_CARGO_REFIT_0_TRAILERS                                      :(No trailers)
+STR_CARGO_REFIT_1_TRAILER                                       :(1 trailer)
+STR_CARGO_REFIT_2_TRAILERS                                      :(2 trailers)
+STR_CARGO_REFIT_3_TRAILERS                                      :(3 trailers)
 
 STR_EXPRESS_TRUCK                                               :Truck type: {GOLD}Express{}
 STR_EXPRESS_TRUCK_LONG_HAUL                                     :Truck type: {GOLD}Express (Long Haul){}
@@ -18,13 +18,13 @@ STR_GENERAL_PURPOSE_LONG_HAUL                                   :Truck type: {GO
 STR_HEAVY_DUTY                                                  :Truck type: {GOLD}Heavy Duty{}
 STR_HEAVY_DUTY_LONG_HAUL                                        :Truck type: {GOLD}Heavy Duty (Long Haul){}
 
-str_buy_menu_text                                               :{STRING}{STRING}
-str_buy_menu_consist_info                                       :{BLACK}Can be refitted to haul:{}{GOLD}{STRING}{STRING}
+STR_BUY_MENU_TEXT                                               :{STRING}{STRING}
+STR_BUY_MENU_CONSIST_INFO                                       :{BLACK}Can be refitted to haul:{}{GOLD}{STRING}{STRING}
 STR_ONE_MORE_LINE                                               :{STRING}{}{STRING}
 STR_BUY_MENU_CAP_DRAWBAR_TRUCK                                  :    {COMMA}t with no trailer{}
 STR_BUY_MENU_TRAILER                                            :    {COMMA}t with {COMMA} trailer{P 1 "" s}
 
 <!--! vehicle names -->
 <tal:build_vehicle_names repeat="vehicle vehicles">
-str_name_${vehicle.id}                                          :${vehicle.title}
+STR_NAME_${vehicle.id}                                          :${vehicle.title}
 </tal:build_vehicle_names>

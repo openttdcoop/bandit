@@ -111,7 +111,7 @@ class Truck(object):
   def make_buy_menu_trailer_tree(cls,items):
     # this is a tree to recurse over an arbitrary number of trailers - used to set buy menu strings; thanks to Eddi for this   
     if len(items) == 0: # guard against zero length items which cause recursion to fail
-      return "string(str_empty)"
+      return "string(STR_EMPTY)"
     if len(items) == 1: 
       return "string(STR_BUY_MENU_TRAILER,%d,%d)"%items[0]
     return "string(STR_ONE_MORE_LINE,%s,%s)"%(cls.make_buy_menu_trailer_tree(items[:len(items)/2]), cls.make_buy_menu_trailer_tree(items[len(items)/2:]))
@@ -124,7 +124,7 @@ class Truck(object):
     if self.truck_type == 'solo_truck':
       # for solo trucks, no need to calculate trailer capacites
       buy_menu_template = Template(
-        "string(str_buy_menu_text, string(${extra_type_info}), string(str_empty))"
+        "string(STR_BUY_MENU_TEXT, string(${extra_type_info}), string(STR_EMPTY))"
       )
       return buy_menu_template.substitute(extra_type_info=extra_type_info)
     else:
@@ -140,11 +140,11 @@ class Truck(object):
       if self.truck_type == 'drawbar_truck':
         optional_truck_cap_info = 'string(STR_BUY_MENU_CAP_DRAWBAR_TRUCK,' + str(self.truck_capacity) + ')'
       else:
-        optional_truck_cap_info = 'string(str_empty)'
+        optional_truck_cap_info = 'string(STR_EMPTY)'
       
       trailer_info = self.make_buy_menu_trailer_tree(trailer_details)
       buy_menu_template = Template(
-        "string(str_buy_menu_text, string(${extra_type_info}), string(str_buy_menu_consist_info,${optional_truck_cap_info},${trailer_info}))"
+        "string(STR_BUY_MENU_TEXT, string(${extra_type_info}), string(STR_BUY_MENU_CONSIST_INFO,${optional_truck_cap_info},${trailer_info}))"
       )
       return buy_menu_template.substitute(
         extra_type_info=extra_type_info,

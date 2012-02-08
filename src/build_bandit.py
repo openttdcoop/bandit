@@ -184,5 +184,5 @@ lang.close()
 docs_template = docs_templates['readme.pytxt']
 
 docs = codecs.open(os.path.join('docs','readme.txt'), 'w','utf8')
-docs.write(docs_template(repo_vars=repo_vars))
+docs.write(docs_template(vehicles=vehicles, repo_vars=repo_vars))
 docs.close()

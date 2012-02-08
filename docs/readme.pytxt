@@ -1,3 +1,7 @@
+--- THIS README NEEDS RE-WRITING :o ---
+
+<tal:build_vehicles_list repeat="vehicle vehicles">${vehicle.title} ${' ' * (28-len(vehicle.title))} Introduced: ${vehicle.truck_intro_date}; Maximum capacity: ${vehicle.get_total_consist_capacity()}t; Speed: ${vehicle.truck_speed}mph</tal:build_vehicles_list>
+
 My Fancy NewGRF Name
 -----------------------------------
 

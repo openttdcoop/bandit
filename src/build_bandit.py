@@ -68,7 +68,7 @@ class Truck(object):
     self.numeric_id = config.getint(id, 'numeric_id')
     self.truck_speed = config.getint(id, 'truck_speed')
     self.truck_buy_cost = config.getint(id, 'truck_buy_cost')
-    self.truck_run_cost = config.getint(id, 'truck_run_cost')
+    self.run_cost_multiplier = config.getfloat(id, 'run_cost_multiplier')
     self.truck_power = config.getint(id, 'truck_power')
     self.trailer_graphics_files = config.get(id, 'trailer_graphics_files').split('|')
     self.truck_graphics_file = config.get(id, 'truck_graphics_file')
@@ -100,6 +100,8 @@ class Truck(object):
     self.truck_capacity = truck_capacity = int(trailer_capacity * self.fifth_wheel_truck_capacity_fraction)
     self.trailer_capacities[0] = trailer_capacity - truck_capacity
 
+  def get_running_cost(self):
+    return int(0.5 * self.truck_power * self.run_cost_multiplier)
     
   def get_total_consist_capacity(self):
     # used for the purchase menu

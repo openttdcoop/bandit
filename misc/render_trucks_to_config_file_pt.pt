@@ -8,6 +8,7 @@ title                               = <span tal:replace="vehicle/title" />
 numeric_id                          = <span tal:replace="vehicle/numeric_id" />
 truck_graphics_file                 = <span tal:replace="vehicle/truck_graphics_file" />
 truck_type                          = <span tal:replace="vehicle/truck_type" />
+buy_menu_extra_type_info            = STR_<span tal:replace="vehicle/buy_menu_extra_type_info" />
 
 truck_model_life                    = <span tal:replace="vehicle/truck_model_life" />
 truck_vehicle_life                  = <span tal:replace="vehicle/truck_vehicle_life" />
@@ -19,7 +20,7 @@ truck_weight                        = <span tal:replace="vehicle/truck_weight" /
 truck_length                        = <span tal:replace="vehicle/truck_length" />
 
 truck_buy_cost                      = <span tal:replace="vehicle/truck_buy_cost" />
-truck_run_cost                      = <span tal:replace="vehicle/truck_run_cost" />
+run_cost_multiplier                 = <span tal:replace="vehicle/run_cost_multiplier" /> 
 truck_capacity                      = <span tal:replace="vehicle/truck_capacity" />
 
 fifth_wheel_truck_capacity_fraction = <span tal:replace="vehicle/fifth_wheel_truck_capacity_fraction" />

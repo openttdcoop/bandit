@@ -55,7 +55,7 @@ item(FEAT_ROADVEHS, ${vehicle.id}, ${vehicle.numeric_id}) {
         weight:                         ${vehicle.truck_weight};
         tractive_effort_coefficient:    0.3; // just use default value until evidence arises for need to vary this per truck
         cost_factor:                    ${vehicle.truck_buy_cost};
-        running_cost_factor:            ${vehicle.truck_run_cost};
+        running_cost_factor:            ${vehicle.get_running_cost()};
         refittable_cargo_classes:       bitmask(${vehicle.refittable_classes}); 
         non_refittable_cargo_classes:   bitmask(${vehicle.non_refittable_classes});
         cargo_allow_refit:              [${vehicle.allowed_cargos}];

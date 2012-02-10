@@ -23,6 +23,9 @@
         margin:0;
         padding:5px;
       }
+      td {
+        white-space: nowrap;
+      }
       th {
         background-color: #ddd;   
         vertical-align:top;
@@ -38,6 +41,13 @@
       }
       tr.odd-row {
         background-color: #eee;
+      }
+      tr a {
+        text-decoration: none;
+        color: black;
+      } 
+      tr a:hover {
+        text-decoration: underline;
       }
       tr.error {
         color:red;
@@ -55,7 +65,7 @@
        Duplicate numeric IDs: <span tal:replace="python:options['duplicate_numeric_ids']" />
     </div>
  
-    <p><a href="render_all_for_pasting">Render everything for pasting into BANDIT project</a></p>
+    <p><a href="render_trucks_to_dicts">Render everything for pasting into BANDIT project</a></p>
 
     <p>For fifth-wheel articulated trucks, capacity of first trailer will automatically be split between truck and trailer.</p>
     
@@ -68,7 +78,6 @@
         <th>truck weight</th>
         <th>power</th>
         <th>buy cost</th>
-        <th>run cost</th>
         <th>intro date</th>
         <th>speed</th>
         <th>truck capacity</th>
@@ -82,23 +91,44 @@
         <th>smoke offset</th>
         <th>model life</th>
         <th>vehicle life</th>
+        <th>buy menu extra type info</th>
       </tr>
       <tal:render_skus repeat="vehicle_repeat options/all_vehicles">
         <tr tal:define="oddrow repeat/vehicle_repeat/odd" tal:attributes="class python:(('','odd-row')[oddrow]) + ' ' + (('','error')[vehicle_repeat.numeric_ID in options['duplicate_numeric_ids']])">
-          <td class="number"><span tal:attributes="title vehicle_repeat/id" tal:content="vehicle_repeat/numeric_ID" /></td>
-          <td>
-            <a class="iframe" tal:attributes="href string:${vehicle_repeat/absolute_url}/manage_propertiesForm"><span tal:attributes="title vehicle_repeat/id" tal:content="vehicle_repeat/id" /></a>
-          </td>
-          <td nowrap="true">
-            <span tal:attributes="title vehicle_repeat/id" tal:content="vehicle_repeat/title" /></td>
-          <td class="number"><span tal:attributes="title vehicle_repeat/id" tal:content="vehicle_repeat/truck_type" /></td>
-          <td class="number"><span tal:attributes="title vehicle_repeat/id" tal:content="vehicle_repeat/truck_weight" /></td>
-          <td class="number"><span tal:attributes="title vehicle_repeat/id" tal:content="vehicle_repeat/truck_power" /></td>
-          <td class="number"><span tal:attributes="title vehicle_repeat/id" tal:content="vehicle_repeat/truck_buy_cost" /></td>
           <td class="number">
             <a class="iframe" tal:attributes="href string:${vehicle_repeat/absolute_url}/manage_propertiesForm">
-              <span tal:attributes="title vehicle_repeat/id" tal:content="vehicle_repeat/truck_run_cost" />
+              <span tal:attributes="title vehicle_repeat/id" tal:content="vehicle_repeat/numeric_ID" />
+            </a>            
+          </td>
+          <td>
+            <a class="iframe" tal:attributes="href string:${vehicle_repeat/absolute_url}/manage_propertiesForm">
+              <span tal:attributes="title vehicle_repeat/id" tal:content="vehicle_repeat/id" />
+            </a>            
+          </td>
+          <td nowrap="true">
+            <a class="iframe" tal:attributes="href string:${vehicle_repeat/absolute_url}/manage_propertiesForm">
+              <span tal:attributes="title vehicle_repeat/id" tal:content="vehicle_repeat/title" />
+            </a>            
+          </td>
+          <td class="number">
+            <a class="iframe" tal:attributes="href string:${vehicle_repeat/absolute_url}/manage_propertiesForm">
+              <span tal:attributes="title vehicle_repeat/id" tal:content="vehicle_repeat/truck_type" />
             </a>
+          </td>
+          <td class="number">
+            <a class="iframe" tal:attributes="href string:${vehicle_repeat/absolute_url}/manage_propertiesForm">
+              <span tal:attributes="title vehicle_repeat/id" tal:content="vehicle_repeat/truck_weight" />
+            </a>              
+          </td>
+          <td class="number">
+            <a class="iframe" tal:attributes="href string:${vehicle_repeat/absolute_url}/manage_propertiesForm">
+              <span tal:attributes="title vehicle_repeat/id" tal:content="vehicle_repeat/truck_power" />
+            </a>              
+          </td>
+          <td class="number">
+            <a class="iframe" tal:attributes="href string:${vehicle_repeat/absolute_url}/manage_propertiesForm">
+              <span tal:attributes="title vehicle_repeat/id" tal:content="vehicle_repeat/truck_buy_cost" />
+            </a>              
           </td>
           <td>
             <a class="iframe" tal:attributes="href string:${vehicle_repeat/absolute_url}/manage_propertiesForm">
@@ -140,15 +170,36 @@
               <span tal:condition="python:vehicle_repeat.truck_type != 'GLOBAL_TRUCK_TYPE_SOLO'" tal:attributes="title vehicle_repeat/id" tal:content="vehicle_repeat/trailer_graphics_files" />
             </a>
           </td>
-          <td class="number"><span tal:attributes="title vehicle_repeat/id" tal:content="vehicle_repeat/truck_length" /></td>
+          <td class="number">
+            <a class="iframe" tal:attributes="href string:${vehicle_repeat/absolute_url}/manage_propertiesForm">
+              <span tal:attributes="title vehicle_repeat/id" tal:content="vehicle_repeat/truck_length" />
+            </a>
+          </td>
           <td>
             <a class="iframe" tal:attributes="href string:${vehicle_repeat/absolute_url}/manage_propertiesForm">
               <span tal:condition="python:vehicle_repeat.truck_type != 'GLOBAL_TRUCK_TYPE_SOLO'" tal:attributes="title vehicle_repeat/id" tal:content="vehicle_repeat/trailer_lengths" />
             </a>
           </td>
-          <td class="number"><span tal:attributes="title vehicle_repeat/id" tal:content="vehicle_repeat/truck_smoke_offset" /></td>
-          <td class="number"><span tal:attributes="title vehicle_repeat/id" tal:content="vehicle_repeat/truck_model_life" /></td>
-          <td class="number"><span tal:attributes="title vehicle_repeat/id" tal:content="vehicle_repeat/truck_vehicle_life" /></td>
+          <td class="number">
+            <a class="iframe" tal:attributes="href string:${vehicle_repeat/absolute_url}/manage_propertiesForm">
+              <span tal:attributes="title vehicle_repeat/id" tal:content="vehicle_repeat/truck_smoke_offset" />
+            </a>
+          </td>
+          <td class="number">
+            <a class="iframe" tal:attributes="href string:${vehicle_repeat/absolute_url}/manage_propertiesForm">
+              <span tal:attributes="title vehicle_repeat/id" tal:content="vehicle_repeat/truck_model_life" />
+            </a>
+          </td>
+          <td class="number">
+            <a class="iframe" tal:attributes="href string:${vehicle_repeat/absolute_url}/manage_propertiesForm">
+              <span tal:attributes="title vehicle_repeat/id" tal:content="vehicle_repeat/truck_vehicle_life" />
+            </a>
+          </td>
+          <td>
+            <a class="iframe" tal:attributes="href string:${vehicle_repeat/absolute_url}/manage_propertiesForm">
+              <span tal:attributes="title vehicle_repeat/id" tal:content="vehicle_repeat/buy_menu_extra_type_info" />
+            </a>
+          </td>
         </tr>
       </tal:render_skus>
     </table>

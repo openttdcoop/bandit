@@ -62,23 +62,23 @@ class Truck(object):
     self.non_refittable_classes = global_constants.standard_class_refits['default']['disallow']
     self.allowed_cargos = '' # ! unfinished
     self.disallowed_cargos = '' # ! unfinished
-    self.truck_model_life = global_constants.model_lives[config.get(id, 'truck_model_life')]
-    self.truck_vehicle_life = global_constants.vehicle_lives[config.get(id, 'truck_vehicle_life')]
+    self.model_life = global_constants.model_lives[config.get(id, 'model_life')]
+    self.vehicle_life = global_constants.vehicle_lives[config.get(id, 'vehicle_life')]
     self.truck_type_as_num = global_constants.truck_type_nums[config.get(id, 'truck_type')]
     self.numeric_id = config.getint(id, 'numeric_id')
-    self.truck_speed = config.getint(id, 'truck_speed')
-    self.truck_buy_cost = config.getint(id, 'truck_buy_cost')
+    self.speed = config.getint(id, 'speed')
+    self.buy_cost = config.getint(id, 'buy_cost')
     self.run_cost_multiplier = config.getfloat(id, 'run_cost_multiplier')
-    self.truck_power = config.getint(id, 'truck_power')
+    self.power = config.getint(id, 'power')
     self.trailer_graphics_files = config.get(id, 'trailer_graphics_files').split('|')
     self.truck_graphics_file = config.get(id, 'truck_graphics_file')
     self.title = config.get(id, 'title')
     self.fifth_wheel_truck_capacity_fraction = config.getfloat(id, 'fifth_wheel_truck_capacity_fraction')
-    self.truck_intro_date = config.getint(id, 'truck_intro_date')
+    self.intro_date = config.getint(id, 'intro_date')
     self.truck_type = config.get(id, 'truck_type')
     self.extra_type_info = config.get(self.id, 'extra_type_info')
-    self.truck_num_trailers = config.getint(id, 'truck_num_trailers')
-    self.truck_smoke_offset = config.getint(id, 'truck_smoke_offset')
+    self.num_trailers = config.getint(id, 'num_trailers')
+    self.smoke_offset = config.getint(id, 'smoke_offset')
     self.truck_capacity = config.getint(id, 'truck_capacity')  
     self.truck_length = config.getint(id, 'truck_length')
     self.trailer_capacities = config_option_to_list_of_ints(config.get(id, 'trailer_capacities'))
@@ -89,7 +89,7 @@ class Truck(object):
     # add trailer objects - will only be added if needed
     # order of trailers here doesn't matter as we'll finally build them based on the vehicle id
     self.trailers = []
-    for i in range(0, self.truck_num_trailers):
+    for i in range(0, self.num_trailers):
       self.trailers.append(Trailer(i = i, truck = self))
       
     
@@ -101,7 +101,7 @@ class Truck(object):
     self.trailer_capacities[0] = trailer_capacity - truck_capacity
 
   def get_running_cost(self):
-    return int(0.5 * self.truck_power * self.run_cost_multiplier)
+    return int(0.5 * self.power * self.run_cost_multiplier)
   
   def get_consist_weight(self, num_trailers):
     weight = self.truck_length * global_constants.weight_factors[self.extra_type_info]

@@ -5,7 +5,7 @@
 #define THIS_VEH_ID(...)          __VA_ARGS__ ## <span tal:replace="vehicle_repeat/id" /> // __VA_ARGS__ and ## allow for concatenating the veh ID with strings to construct further IDs
 #define THIS_NUMERIC_ID           <span tal:replace="vehicle_repeat/numeric_ID" />
 #define THIS_TRUCK_TYPE           <span tal:replace="vehicle_repeat/truck_type" />
-#define THIS_NUM_TRAILERS         <span tal:replace="vehicle_repeat/truck_num_trailers" />
+#define THIS_NUM_TRAILERS         <span tal:replace="vehicle_repeat/num_trailers" />
 </pre>
 <tal:build_trailer_ID_defines repeat="trailers_repeat python:options['vehicle_calculated_props'][vehicle_repeat.id()]['trailer_vehicle_ids']">
 <pre>#define <span tal:replace="trailers_repeat" />         <span tal:replace="python:options['vehicle_calculated_props'][vehicle_repeat.id()]['trailer_vehicle_ids'][trailers_repeat]" /></pre>
@@ -21,17 +21,17 @@
 // include trailer weight(s) as ottd trailing parts have weight=0. If number of trailers varies by subtype, define weight for each subtype.
 #define THIS_WEIGHT               <span tal:replace="vehicle_repeat/truck_weight" /> ton
 #define THIS_NAME                 THIS_VEH_ID(str_name_veh_) // concatenated identifier using CPP 
-#define THIS_SPEED                <span tal:replace="vehicle_repeat/truck_speed" /> km/h
-#define THIS_POWER                <span tal:replace="vehicle_repeat/truck_power" /> hp
+#define THIS_SPEED                <span tal:replace="vehicle_repeat/speed" /> km/h
+#define THIS_POWER                <span tal:replace="vehicle_repeat/power" /> hp
 #define THIS_TE_COEFFICIENT       GLOBAL_DEFAULT_TE_COEFFICIENT
 #define THIS_SOUND_EFFECT         SOUND_TRUCK_START_2
 #define THIS_SMOKE                VISUAL_EFFECT_DIESEL
-#define THIS_SMOKE_OFFSET         <span tal:replace="vehicle_repeat/truck_smoke_offset" />
-#define THIS_BUY_COST             <span tal:replace="vehicle_repeat/truck_buy_cost" />
+#define THIS_SMOKE_OFFSET         <span tal:replace="vehicle_repeat/smoke_offset" />
+#define THIS_BUY_COST             <span tal:replace="vehicle_repeat/buy_cost" />
 #define THIS_RUN_COST             <span tal:replace="vehicle_repeat/truck_run_cost" />
-#define THIS_INTRO_DATE           date(<span tal:replace="string:${vehicle_repeat/truck_intro_date/year},1,1" />)
-#define THIS_MODEL_LIFE           <span tal:replace="vehicle_repeat/truck_model_life" />
-#define THIS_VEHICLE_LIFE         <span tal:replace="vehicle_repeat/truck_vehicle_life" />
+#define THIS_INTRO_DATE           date(<span tal:replace="string:${vehicle_repeat/intro_date/year},1,1" />)
+#define THIS_MODEL_LIFE           <span tal:replace="vehicle_repeat/model_life" />
+#define THIS_VEHICLE_LIFE         <span tal:replace="vehicle_repeat/vehicle_life" />
 #define THIS_LENGTH               SHORTEN_TO_2_8 // 1 unit = 4px; fifth-wheel articulated trucks may be shorter than their sprites so trailer overlaps  
 #define THIS_GRAPHICS_FILE        <span tal:replace='string:"sprites/graphics/${vehicle_repeat/truck_graphics_file}"' />
 // predefined cargo refits. Multiple templates available for different vehicle types.

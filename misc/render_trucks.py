@@ -7,7 +7,7 @@ for i in vehicle_list:
   this_veh['total_capacity'] = i.truck_capacity
   this_veh['trailer_vehicle_ids'] = {}
   this_veh['trailer_vehicle_numeric_ids'] = {}
-  for j in range(1,i.truck_num_trailers+1):
+  for j in range(1,i.num_trailers+1):
     this_veh['trailer_vehicle_ids']["THIS_TRAILER_" + str(j) + "_ID"] = i.id() + "_trailer_" + str(j)
     this_veh['trailer_vehicle_numeric_ids']["THIS_TRAILER_" + str(j) + "_NUMERIC_ID"] = i.numeric_ID + j
   this_veh['trailer_capacities'] = {}

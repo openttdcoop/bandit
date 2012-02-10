@@ -8,7 +8,7 @@ title                               = <span tal:replace="vehicle/title" />
 numeric_id                          = <span tal:replace="vehicle/numeric_id" />
 truck_graphics_file                 = <span tal:replace="vehicle/truck_graphics_file" />
 truck_type                          = <span tal:replace="vehicle/truck_type" />
-extra_type_info                     = <span tal:replace="vehicle/buy_menu_extra_type_info" />
+extra_type_info                     = <span tal:replace="vehicle/extra_type_info" />
 
 truck_model_life                    = <span tal:replace="vehicle/truck_model_life" />
 truck_vehicle_life                  = <span tal:replace="vehicle/truck_vehicle_life" />

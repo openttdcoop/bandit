@@ -1,15 +1,3 @@
-# provide mapping of truck_type strings to numbers for use in range checks etc
-# constants like this are one case where c pre-processor was a little more elegant than python 
-truck_type_nums = {
-  'solo_truck'         : 0, 
-  'drawbar_truck'      : 1,
-  'fifth_wheel_truck'  : 2,
-}
-# expose these identifiers as a convenience 
-solo_truck_type_num        = truck_type_nums['solo_truck']
-fifth_wheel_truck_type_num = truck_type_nums['fifth_wheel_truck']
-drawbar_truck_type_num     = truck_type_nums['drawbar_truck']
-
 # model lives are pretty standard, the game randomises them anyway so no need to offer much variety
 model_lives = {
   'BANDIT_MODEL_LIFE_SHORT'  : 10,
@@ -69,3 +57,15 @@ body_type_spritesheet_y_offset_mapping = dict (
   livestock    = 140, # value for testing only
   lowbed       = 140, # value for testing only
 )
+
+# provide mapping of truck_type strings to numbers for use in range checks etc
+# constants like this are one case where c pre-processor was a little more elegant than python 
+truck_type_nums = {
+  'solo_truck'         : 0, 
+  'drawbar_truck'      : 1,
+  'fifth_wheel_truck'  : 2,
+}
+# expose these identifiers as a convenience 
+solo_truck_type_num        = truck_type_nums['solo_truck']
+fifth_wheel_truck_type_num = truck_type_nums['fifth_wheel_truck']
+drawbar_truck_type_num     = truck_type_nums['drawbar_truck']

@@ -31,49 +31,49 @@ standard_class_refits = {
 # use the dict constructor here, normally I don't, but it makes adding cargos faster (no string quotes needed).
 # design note: small variations probably better than large ones, e.g. ['flat_large_crates','flat_small_crates'] rather than ['flat','tanker']
 cargo_body_type_mappings = dict(
-  MILK = ['tanker'],
-  OIL_ = ['tanker'],
-  RFPR = ['tanker'],
-  WATR = ['tanker'],
-  PETR = ['tanker'],
-  DYES = ['tanker'],
-  COAL = ['dump'],
-  IORE = ['dump'],
-  CLAY = ['dump'],
-  SAND = ['dump'],
-  STEL = ['grey_metals'],
-  VEHI = ['flat'],
-  ENSP = ['flat','box'],
-  BEER = ['flat','tanker','dump','logs','livestock','lowbed'], # these values for testing only
+    MILK = ['tanker'],
+    OIL_ = ['tanker'],
+    RFPR = ['tanker'],
+    WATR = ['tanker'],
+    PETR = ['tanker'],
+    DYES = ['tanker'],
+    COAL = ['dump'],
+    IORE = ['dump'],
+    CLAY = ['dump'],
+    SAND = ['dump'],
+    STEL = ['grey_metals'],
+    VEHI = ['flat'],
+    ENSP = ['flat','box'],
+    BEER = ['flat','tanker','dump','logs','livestock','lowbed'], # these values for testing only
 )
 
 body_type_spritesheet_y_offset_mapping = dict (
-  box          =  60,
-  tanker       = 100,
-  flat         = 140,
-  dump         = 180,
-  logs         = 140, # value for testing only
-  grey_metals  = 140, # value for testing only
-  livestock    = 140, # value for testing only
-  lowbed       = 140, # value for testing only
+    box          =  60,
+    tanker       = 100,
+    flat         = 140,
+    dump         = 180,
+    logs         = 140, # value for testing only
+    grey_metals  = 140, # value for testing only
+    livestock    = 140, # value for testing only
+    lowbed       = 140, # value for testing only
 )
 
 #map truck weight factors to extra_type_info
 weight_factors = dict (
-  EXPRESS_TRUCK              = 0.8,
-  EXPRESS_TRUCK_LONG_HAUL    = 1,
-  GENERAL_PURPOSE            = 1,
-  GENERAL_PURPOSE_LONG_HAUL  = 1.2,
-  HEAVY_DUTY                 = 1.4,
-  HEAVY_DUTY_LONG_HAUL       = 1.6,
+    EXPRESS_TRUCK              = 0.8,
+    EXPRESS_TRUCK_LONG_HAUL    = 1,
+    GENERAL_PURPOSE            = 1,
+    GENERAL_PURPOSE_LONG_HAUL  = 1.2,
+    HEAVY_DUTY                 = 1.4,
+    HEAVY_DUTY_LONG_HAUL       = 1.6,
 )
 
 # provide mapping of truck_type strings to numbers for use in range checks etc
 # constants like this are one case where c pre-processor was a little more elegant than python 
 truck_type_nums = {
-  'solo_truck'         : 0, 
-  'drawbar_truck'      : 1,
-  'fifth_wheel_truck'  : 2,
+    'solo_truck'         : 0, 
+    'drawbar_truck'      : 1,
+    'fifth_wheel_truck'  : 2,
 }
 # expose these identifiers as a convenience 
 solo_truck_type_num        = truck_type_nums['solo_truck']

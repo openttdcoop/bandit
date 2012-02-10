@@ -58,6 +58,16 @@ body_type_spritesheet_y_offset_mapping = dict (
   lowbed       = 140, # value for testing only
 )
 
+#map truck weight factors to extra_type_info
+weight_factors = dict (
+  EXPRESS_TRUCK              = 0.8,
+  EXPRESS_TRUCK_LONG_HAUL    = 1,
+  GENERAL_PURPOSE            = 1,
+  GENERAL_PURPOSE_LONG_HAUL  = 1.2,
+  HEAVY_DUTY                 = 1.4,
+  HEAVY_DUTY_LONG_HAUL       = 1.6,
+)
+
 # provide mapping of truck_type strings to numbers for use in range checks etc
 # constants like this are one case where c pre-processor was a little more elegant than python 
 truck_type_nums = {

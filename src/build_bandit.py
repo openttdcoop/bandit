@@ -74,9 +74,9 @@ class Truck(object):
     self.truck_graphics_file = config.get(id, 'truck_graphics_file')
     self.title = config.get(id, 'title')
     self.fifth_wheel_truck_capacity_fraction = config.getfloat(id, 'fifth_wheel_truck_capacity_fraction')
-    self.truck_weight = config.getint(id, 'truck_weight')
     self.truck_intro_date = config.getint(id, 'truck_intro_date')
     self.truck_type = config.get(id, 'truck_type')
+    self.extra_type_info = config.get(self.id, 'extra_type_info')
     self.truck_num_trailers = config.getint(id, 'truck_num_trailers')
     self.truck_smoke_offset = config.getint(id, 'truck_smoke_offset')
     self.truck_capacity = config.getint(id, 'truck_capacity')  
@@ -102,7 +102,11 @@ class Truck(object):
 
   def get_running_cost(self):
     return int(0.5 * self.truck_power * self.run_cost_multiplier)
-    
+  
+  def get_consist_weight(self, num_trailers):
+    weight = self.truck_length * global_constants.weight_factors[self.extra_type_info]
+    return int(weight)
+  
   def get_total_consist_capacity(self):
     # used for the purchase menu
     capacity = self.truck_capacity
@@ -121,7 +125,7 @@ class Truck(object):
   def get_buy_menu_string(self):
     # this is an intricate function to set buy menu texts according to various truck properties :P
     from string import Template
-    extra_type_info = config.get(self.id, 'buy_menu_extra_type_info')
+    extra_type_info = 'STR_' + self.extra_type_info
 
     if self.truck_type == 'solo_truck':
       # for solo trucks, no need to calculate trailer capacites

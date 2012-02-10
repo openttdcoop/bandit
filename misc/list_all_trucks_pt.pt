@@ -75,7 +75,6 @@
         <th>Truck ID</th>
         <th>name</th>
         <th>type</th>
-        <th>truck weight</th>
         <th>power</th>
         <th>buy cost</th>
         <th>intro date</th>
@@ -114,11 +113,6 @@
             <a class="iframe" tal:attributes="href string:${vehicle_repeat/absolute_url}/manage_propertiesForm">
               <span tal:attributes="title vehicle_repeat/id" tal:content="vehicle_repeat/truck_type" />
             </a>
-          </td>
-          <td class="number">
-            <a class="iframe" tal:attributes="href string:${vehicle_repeat/absolute_url}/manage_propertiesForm">
-              <span tal:attributes="title vehicle_repeat/id" tal:content="vehicle_repeat/truck_weight" />
-            </a>              
           </td>
           <td class="number">
             <a class="iframe" tal:attributes="href string:${vehicle_repeat/absolute_url}/manage_propertiesForm">

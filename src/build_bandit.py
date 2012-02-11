@@ -116,6 +116,9 @@ class Truck(object):
         capacity = capacity + sum([i.trailer_capacity for i in self.trailers])
         return capacity
         
+    def get_te_coefficient(self, num_trailers=0):
+        return 77
+        
     @classmethod
     def make_buy_menu_trailer_tree(cls,items):
         # this is a tree to recurse over an arbitrary number of trailers - used to set buy menu strings; thanks to Eddi for this   

@@ -21,6 +21,8 @@ switch (FEAT_ROADVEHS, SELF, ${vehicle.id}_switch_cargo_subtype, ${vehicle.truck
 
 <tal:include define="consist_weight load: consist_weight.pynml" metal:use-macro="consist_weight" />
 
+<tal:include define="te_coefficient load: te_coefficient.pynml" metal:use-macro="te_coefficient" />
+
 // include the trailer vehicles if needed 
 // if truck has no trailers (e.g. solo truck), trailers list will be empty so no trailers will be included 
 <tal:render_trailer_vehicles repeat="trailer vehicle.trailers">
@@ -54,8 +56,8 @@ item(FEAT_ROADVEHS, ${vehicle.id}, ${vehicle.numeric_id}) {
         sprite_id:                      SPRITE_ID_NEW_ROADVEH; //enable new graphics - nml constant
         speed:                          ${vehicle.speed}mph;
         power:                          ${vehicle.power}hp;
-        weight:                         ${vehicle.get_consist_weight()};
-        tractive_effort_coefficient:    0.3; // just use default value until evidence arises for need to vary this per truck
+        weight:                         0; // set by cb
+        tractive_effort_coefficient:    0; // set by cb
         cost_factor:                    ${vehicle.buy_cost};
         running_cost_base:              RUNNING_COST_ROADVEH;
         running_cost_factor:            ${vehicle.get_running_cost()};
@@ -70,6 +72,7 @@ item(FEAT_ROADVEHS, ${vehicle.id}, ${vehicle.numeric_id}) {
     graphics {
         length:                         ${vehicle.truck_length};
         weight:                         ${vehicle.id}_switch_consist_weight;
+        tractive_effort_coefficient:    ${vehicle.id}_switch_te_coefficient;
         purchase_cargo_capacity:        ${vehicle.get_total_consist_capacity()};
         cargo_subtype_text:             ${vehicle.id}_switch_cargo_subtype;
         articulated_part:               ${vehicle.id}_articulated_cb_switch; // always call articulated switch, trailers will only be built if needed

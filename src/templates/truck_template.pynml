@@ -19,12 +19,14 @@ switch (FEAT_ROADVEHS, SELF, ${vehicle.id}_switch_cargo_subtype, ${vehicle.truck
     return CB_RESULT_NO_TEXT;
 }
 
+<tal:include define="consist_weight load: consist_weight.pynml" metal:use-macro="consist_weight" />
+
 // include the trailer vehicles if needed 
 // if truck has no trailers (e.g. solo truck), trailers list will be empty so no trailers will be included 
 <tal:render_trailer_vehicles repeat="trailer vehicle.trailers">
-  //-- begin ${trailer.id} -- // <!--! this adds a comment to aid reading the final nml -->
-  ${trailer.render(truck=vehicle)}
-  //-- end ${trailer.id} -- // <!--! another comment to aid reading the final nml  -->
+    //-- begin ${trailer.id} -- // <!--! this adds a comment to aid reading the final nml -->
+    ${trailer.render(truck=vehicle)}
+    //-- end ${trailer.id} -- // <!--! another comment to aid reading the final nml  -->
 </tal:render_trailer_vehicles>
 
 // add the trailer vehicles to articulated consist (if needed) 
@@ -52,7 +54,7 @@ item(FEAT_ROADVEHS, ${vehicle.id}, ${vehicle.numeric_id}) {
         sprite_id:                      SPRITE_ID_NEW_ROADVEH; //enable new graphics - nml constant
         speed:                          ${vehicle.speed}mph;
         power:                          ${vehicle.power}hp;
-        weight:                         ${vehicle.get_consist_weight(num_trailers=0)};
+        weight:                         ${vehicle.get_consist_weight()};
         tractive_effort_coefficient:    0.3; // just use default value until evidence arises for need to vary this per truck
         cost_factor:                    ${vehicle.buy_cost};
         running_cost_base:              RUNNING_COST_ROADVEH;
@@ -67,6 +69,7 @@ item(FEAT_ROADVEHS, ${vehicle.id}, ${vehicle.numeric_id}) {
     }
     graphics {
         length:                         ${vehicle.truck_length};
+        weight:                         ${vehicle.id}_switch_consist_weight;
         purchase_cargo_capacity:        ${vehicle.get_total_consist_capacity()};
         cargo_subtype_text:             ${vehicle.id}_switch_cargo_subtype;
         articulated_part:               ${vehicle.id}_articulated_cb_switch; // always call articulated switch, trailers will only be built if needed

@@ -58,30 +58,31 @@ class Truck(object):
         self.id = id
         
         #setup properties for this vehicle
+        self.title = config.get(id, 'title')
+        self.numeric_id = config.getint(id, 'numeric_id')
+        self.truck_type = config.get(id, 'truck_type')
+        self.truck_type_as_num = global_constants.truck_type_nums[config.get(id, 'truck_type')]
+        self.extra_type_info = config.get(self.id, 'extra_type_info')
+        self.intro_date = config.getint(id, 'intro_date')
         self.refittable_classes = global_constants.standard_class_refits['default']['allow']
         self.non_refittable_classes = global_constants.standard_class_refits['default']['disallow']
         self.allowed_cargos = '' # ! unfinished
         self.disallowed_cargos = '' # ! unfinished
         self.model_life = global_constants.model_lives[config.get(id, 'model_life')]
         self.vehicle_life = global_constants.vehicle_lives[config.get(id, 'vehicle_life')]
-        self.truck_type_as_num = global_constants.truck_type_nums[config.get(id, 'truck_type')]
-        self.numeric_id = config.getint(id, 'numeric_id')
-        self.speed = config.getint(id, 'speed')
         self.buy_cost = config.getint(id, 'buy_cost')
         self.run_cost_multiplier = config.getfloat(id, 'run_cost_multiplier')
+        self.speed = config.getint(id, 'speed')
         self.power = config.getint(id, 'power')
+        self.smoke_offset = config.getint(id, 'smoke_offset')
+        self.num_trailers = config.getint(id, 'num_trailers')
         self.trailer_graphics_files = config.get(id, 'trailer_graphics_files').split('|')
         self.truck_graphics_file = config.get(id, 'truck_graphics_file')
-        self.title = config.get(id, 'title')
         self.fifth_wheel_truck_capacity_fraction = config.getfloat(id, 'fifth_wheel_truck_capacity_fraction')
-        self.intro_date = config.getint(id, 'intro_date')
-        self.truck_type = config.get(id, 'truck_type')
-        self.extra_type_info = config.get(self.id, 'extra_type_info')
-        self.num_trailers = config.getint(id, 'num_trailers')
-        self.smoke_offset = config.getint(id, 'smoke_offset')
         self.truck_capacity = config.getint(id, 'truck_capacity')  
         self.truck_length = config.getint(id, 'truck_length')
         self.trailer_capacities = config_option_to_list_of_ints(config.get(id, 'trailer_capacities'))
+        self.trailer_lengths = config_option_to_list_of_ints(config.get(id, 'trailer_lengths'))
     
         if self.truck_type == 'fifth_wheel_truck':
             self.modify_capacities_fifth_wheel_trucks()
@@ -103,16 +104,21 @@ class Truck(object):
     def get_running_cost(self):
         return int(0.5 * self.power * self.run_cost_multiplier)
 
-    def get_consist_weight(self, num_trailers):
+    def get_consist_weight(self, num_trailers=0):
         weight = self.truck_length * global_constants.weight_factors[self.extra_type_info]
-        return int(weight)
+        print self.id
+        print weight
+        for i in range(num_trailers):
+            weight = weight + (self.trailer_lengths[i] * global_constants.weight_factors[self.extra_type_info])     
+            print weight
+        return int(weight) * 4 # NML can't handle absolute weights in cb at time of writing, RV weight property dimension is 1/4tons
 
     def get_total_consist_capacity(self):
         # used for the purchase menu
         capacity = self.truck_capacity
         capacity = capacity + sum([i.trailer_capacity for i in self.trailers])
         return capacity
-
+        
     @classmethod
     def make_buy_menu_trailer_tree(cls,items):
         # this is a tree to recurse over an arbitrary number of trailers - used to set buy menu strings; thanks to Eddi for this   

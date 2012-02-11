@@ -2,26 +2,15 @@
 
 // -- begin ${vehicle.title} -- <!--! this adds a comment to aid reading the final nml -->
 
-spriteset(${vehicle.id}_ss, "src/graphics/${vehicle.truck_graphics_file}") {
-  spriteset_template_truck_16(0, 20) // (nml provides a way to add spriteset templates - search the project to find where they are defined)  
-}
-
-spritegroup ${vehicle.id}_sg {
-    loaded:  ${vehicle.id}_ss;
-    loading: ${vehicle.id}_ss;
-}
-
 // the cargo subtype switches are shared globally, no unique identifiers per truck
 // they're called from here, appropriate to the truck type
+// these need to be called before trailers, as trailers reference them
 switch (FEAT_ROADVEHS, SELF, ${vehicle.id}_switch_cargo_subtype, ${vehicle.truck_type_as_num}) {
     ${global_constants.drawbar_truck_type_num}: return switch_cb_cargo_subtypes_drawbar_truck;
     ${global_constants.fifth_wheel_truck_type_num}: return switch_cb_cargo_subtypes_fifth_wheel_truck;
     return CB_RESULT_NO_TEXT;
 }
 
-<tal:include define="consist_weight load: consist_weight.pynml" metal:use-macro="consist_weight" />
-
-<tal:include define="te_coefficient load: te_coefficient.pynml" metal:use-macro="te_coefficient" />
 
 // include the trailer vehicles if needed 
 // if truck has no trailers (e.g. solo truck), trailers list will be empty so no trailers will be included 
@@ -39,6 +28,15 @@ switch (FEAT_ROADVEHS, SELF, ${vehicle.id}_articulated_cb_switch, extra_callback
     </tal:build_trailers>
   return CB_RESULT_NO_MORE_ARTICULATED_PARTS;
 }
+
+
+<tal:include define="graphics_trucks load: graphics_trucks.pynml" metal:use-macro="graphics_trucks" />
+
+<tal:include define="consist_weight load: consist_weight.pynml" metal:use-macro="consist_weight" />
+
+<tal:include define="te_coefficient load: te_coefficient.pynml" metal:use-macro="te_coefficient" />
+
+
 
 // -- print some of the vehicle non-nml properties to aid debugging -- //
 // truck_type    ${vehicle.truck_type}
@@ -77,7 +75,7 @@ item(FEAT_ROADVEHS, ${vehicle.id}, ${vehicle.numeric_id}) {
         cargo_subtype_text:             ${vehicle.id}_switch_cargo_subtype;
         articulated_part:               ${vehicle.id}_articulated_cb_switch; // always call articulated switch, trailers will only be built if needed
         additional_text:                ${vehicle.get_buy_menu_string()};
-        default:                        ${vehicle.id}_sg;
+        default:                        ${vehicle.id}_cargo_switch;
     }
 }
 

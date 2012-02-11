@@ -108,7 +108,7 @@ class Truck(object):
         weight = self.truck_length * global_constants.weight_factors[self.extra_type_info]
         for i in range(num_trailers):
             weight = weight + (self.trailer_lengths[i] * global_constants.weight_factors[self.extra_type_info])     
-        return int(weight) * 4 # NML can't handle absolute weights in cb at time of writing, RV weight property dimension is 1/4tons
+        return int(round(weight * 4)) # RV weight property dimension is 1/4 tons - NML can't handle absolute weights in cb at time of writing
 
     def get_total_consist_capacity(self):
         # used for the purchase menu
@@ -117,7 +117,13 @@ class Truck(object):
         return capacity
         
     def get_te_coefficient(self, num_trailers=0):
-        return 77
+        default_te_coefficient = 0.3 * 255
+        total_weight = self.get_consist_weight(num_trailers=num_trailers)
+        truck_weight = self.get_consist_weight(num_trailers=0)
+        adjusted_te_coefficient = default_te_coefficient / (float(total_weight) / float(truck_weight))
+        print self.id
+        print 'truck_weight ', truck_weight, ' total_weight ', total_weight, ' adjusted TE coeff ' , adjusted_te_coefficient
+        return int(adjusted_te_coefficient)
         
     @classmethod
     def make_buy_menu_trailer_tree(cls,items):

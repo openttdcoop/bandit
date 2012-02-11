@@ -3,7 +3,7 @@ switch (FEAT_ROADVEHS, SELF, ${vehicle.id}_weight_drawbar_truck, cargo_subtype) 
     <tal:drawbar_weights repeat="n range(vehicle.num_trailers+1)">
     ${n}: return ${vehicle.get_consist_weight(num_trailers=n)};
     </tal:drawbar_weights> 
-    return 0xFF; //end cb
+    return 0; // we should never reach this result, setting 0 for weight should make this error noticeable 
 }
 
 // weight switch specific to fifth wheel trucks
@@ -11,7 +11,7 @@ switch (FEAT_ROADVEHS, SELF, ${vehicle.id}_weight_fifth_wheel, cargo_subtype) {
     <tal:fifth_wheel_weights repeat="n range(vehicle.num_trailers)">
     ${n}: return ${vehicle.get_consist_weight(num_trailers=n+1)};
     </tal:fifth_wheel_weights> 
-    return 0xFF; //end cb
+    return 0; // we should never reach this result, setting 0 for weight should make this error noticeable 
 }
 
 // weight - switch between truck types

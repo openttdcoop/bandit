@@ -3,7 +3,7 @@ switch (FEAT_ROADVEHS, SELF, ${vehicle.id}_te_coefficient_position_drawbar_truck
     <tal:drawbar_weights repeat="n range(vehicle.num_trailers+1)">
     ${n}: return ${vehicle.get_te_coefficient(num_trailers=n)};
     </tal:drawbar_weights> 
-    return 0xFF; //end cb
+    return 0; // we should never reach this result, setting 0 for TE should make this error noticeable 
 }
 
 // weight switch specific to fifth wheel trucks
@@ -11,7 +11,7 @@ switch (FEAT_ROADVEHS, SELF, ${vehicle.id}_te_coefficient_fifth_wheel_switch, ca
     <tal:fifth_wheel_weights repeat="n range(vehicle.num_trailers)">
     ${n}: return ${vehicle.get_te_coefficient(num_trailers=n+1)};
     </tal:fifth_wheel_weights> 
-    return 0xFF; //end cb
+    return 0; // we should never reach this result, setting 0 for TE should make this error noticeable 
 }
 
 // weight - switch between truck types

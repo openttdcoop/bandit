@@ -121,8 +121,6 @@ class Truck(object):
         total_weight = self.get_consist_weight(num_trailers=num_trailers)
         truck_weight = self.get_consist_weight(num_trailers=0)
         adjusted_te_coefficient = default_te_coefficient / (float(total_weight) / float(truck_weight))
-        print self.id
-        print 'truck_weight ', truck_weight, ' total_weight ', total_weight, ' adjusted TE coeff ' , adjusted_te_coefficient
         return int(adjusted_te_coefficient)
         
     @classmethod

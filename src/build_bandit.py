@@ -143,6 +143,12 @@ class Truck(object):
                 "string(STR_BUY_MENU_TEXT, string(${extra_type_info}), string(STR_EMPTY))"
             )
             return buy_menu_template.substitute(extra_type_info=extra_type_info)
+        elif self.truck_type == 'fifth_wheel_truck' and self.num_trailers == 1:
+            #fifth wheel trucks with just one trailer are not refittable
+            buy_menu_template = Template(
+                "string(STR_BUY_MENU_TEXT, string(${extra_type_info}), string(STR_BUY_MENU_TRAILER_NO_REFIT))"
+            )
+            return buy_menu_template.substitute(extra_type_info=extra_type_info)           
         else:
             # for articulated trucks, we'll want the capacities
             trailer_details = []

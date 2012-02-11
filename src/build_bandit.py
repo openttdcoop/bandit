@@ -106,11 +106,8 @@ class Truck(object):
 
     def get_consist_weight(self, num_trailers=0):
         weight = self.truck_length * global_constants.weight_factors[self.extra_type_info]
-        print self.id
-        print weight
         for i in range(num_trailers):
             weight = weight + (self.trailer_lengths[i] * global_constants.weight_factors[self.extra_type_info])     
-            print weight
         return int(weight) * 4 # NML can't handle absolute weights in cb at time of writing, RV weight property dimension is 1/4tons
 
     def get_total_consist_capacity(self):

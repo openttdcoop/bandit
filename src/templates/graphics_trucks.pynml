@@ -1,5 +1,5 @@
 <!--! temporary hack - graphics file path should come from object -->
-<tal:temp define="global THIS_TRAILER_GRAPHICS_FILE string:src/graphics/trailer_test.png" />
+<tal:temp define="global THIS_TRAILER_GRAPHICS_FILE string:src/graphics/cabover_truck_test_2.png" />
 
 // handle graphics
 

@@ -81,25 +81,11 @@ class Truck(object):
         self.trailer_capacities = config_option_to_list_of_ints(config.get(id, 'trailer_capacities'))
         self.trailer_lengths = config_option_to_list_of_ints(config.get(id, 'trailer_lengths'))
         self.trailer_graphics_files = config.get(id, 'trailer_graphics_files').split('|')
+        self.buy_cost = self.get_buy_cost()
         self.run_cost_override = config.getfloat(id, 'run_cost_override')
+        self.graphics_file = global_constants.graphics_path + self.get_graphics_filename()
 
-        # if buy cost override is 0 (i.e. not defined), calculate the buy cost, otherwise use the value of cost override
-        self.buy_cost_override = config.getint(id, 'buy_cost_override')
-        if self.buy_cost_override == 0:
-            max_power = 900 # a plausible upper limit for hp in this set
-            # costs matched approximately to HEQS; 12 seems to be an appropriate min value, rest of cost is from calculated from hp 
-            self.buy_cost = 12 + int((float(self.power) / float(max_power)) * 243)
-        else:
-            self.buy_cost = self.buy_cost_override
-        
-        # graphics file names for trucks are automatic from id, or can be overridden 
-        self.truck_graphics_file_override = config.get(id, 'truck_graphics_file_override')
-        if self.truck_graphics_file_override == '': 
-            self.graphics_file = global_constants.graphics_path + self.id + '.png'
-        else:
-            self.graphics_file = global_constants.graphics_path + self.truck_graphics_file_override
-
-        # fifth wheel trucks need capacities modifying
+        # fifth wheel trucks need capacities modifying 
         if self.truck_type == 'fifth_wheel_truck':
             self.modify_capacities_fifth_wheel_trucks()
       
@@ -109,7 +95,25 @@ class Truck(object):
         for i in range(0, self.num_trailers):
             self.trailers.append(Trailer(i = i, truck = self))
       
-    
+    def get_buy_cost(self):
+        # if buy cost override is 0 (i.e. not defined), calculate the buy cost, otherwise use the value of cost override
+        buy_cost_override = config.getint(self.id, 'buy_cost_override')
+        if buy_cost_override == 0:
+            max_power = 900 # a plausible upper limit for hp in this set
+            # costs matched approximately to HEQS; 12 seems to be an appropriate min value, rest of cost is from calculated from hp 
+            return 12 + int((float(self.power) / float(max_power)) * 243)
+        else:
+            return buy_cost_override
+
+    def get_graphics_filename(self):
+        # graphics file names for trucks are automatic from id, or can be overridden 
+        self.truck_graphics_file_override = config.get(self.id, 'truck_graphics_file_override')
+        if self.truck_graphics_file_override == '': 
+            return self.id + '.png'
+        else:
+            return self.truck_graphics_file_override
+
+            
     def modify_capacities_fifth_wheel_trucks(self):
         # fifth wheel trucks split part of the capacity of first trailer onto the truck, for TE reasons
         # the ratio is controlled by a decimal fraction defined as a property of the truck

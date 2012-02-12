@@ -81,7 +81,8 @@
             <th>name</th>
             <th>type</th>
             <th>power</th>
-            <th>buy cost</th>
+            <th>buy cost override</th>
+            <th>run cost override</th>
             <th>intro date</th>
             <th>speed</th>
             <th>truck capacity</th>
@@ -128,7 +129,12 @@
               </td>
               <td class="number">
                 <a class="iframe" tal:attributes="href string:${vehicle_repeat/absolute_url}/manage_propertiesForm">
-                  <span tal:attributes="title vehicle_repeat/id" tal:content="vehicle_repeat/truck_buy_cost" />
+                  <span tal:attributes="title vehicle_repeat/id" tal:content="vehicle_repeat/buy_cost_override" />
+                </a>              
+              </td>
+              <td class="number">
+                <a class="iframe" tal:attributes="href string:${vehicle_repeat/absolute_url}/manage_propertiesForm">
+                  <span tal:attributes="title vehicle_repeat/id" tal:content="vehicle_repeat/run_cost_override" />
                 </a>              
               </td>
               <td>

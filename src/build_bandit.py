@@ -93,11 +93,11 @@ class Truck(object):
             self.buy_cost = self.buy_cost_override
         
         # graphics file names for trucks are automatic from id, or can be overridden 
-        self.truck_graphics_file_override = global_constants.graphics_path + config.get(id, 'truck_graphics_file_override')
+        self.truck_graphics_file_override = config.get(id, 'truck_graphics_file_override')
         if self.truck_graphics_file_override == '': 
-            self.graphics_file = self.id + '.png'
+            self.graphics_file = global_constants.graphics_path + self.id + '.png'
         else:
-            self.graphics_file = self.truck_graphics_file_override
+            self.graphics_file = global_constants.graphics_path + self.truck_graphics_file_override
 
         # fifth wheel trucks need capacities modifying
         if self.truck_type == 'fifth_wheel_truck':

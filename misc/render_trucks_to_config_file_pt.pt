@@ -16,14 +16,18 @@ intro_date                          = <span tal:replace="vehicle/truck_intro_dat
 
 speed                               = <span tal:replace="vehicle/truck_speed" />
 power                               = <span tal:replace="vehicle/truck_power" />
-truck_length                        = <span tal:replace="vehicle/truck_length" />
-
-buy_cost                            = <span tal:replace="vehicle/truck_buy_cost" />
-run_cost_multiplier                 = <span tal:replace="vehicle/run_cost_multiplier" /> 
 truck_capacity                      = <span tal:replace="vehicle/truck_capacity" />
 
-fifth_wheel_truck_quota             = <span tal:replace="vehicle/fifth_wheel_truck_quota" />
+truck_length                        = <span tal:replace="vehicle/truck_length" />
 smoke_offset                        = <span tal:replace="vehicle/truck_smoke_offset" />
+
+# buy cost: leave at 0 for automatic calculation, or set a value (1-255) to override automatic calculation
+buy_cost_override                   = <span tal:replace="vehicle/buy_cost_override" />
+
+# run cost: leave at 0 for automatic calculation, or set a value (1-255) to override automatic calculation
+run_cost_override                   = <span tal:replace="vehicle/run_cost_override" /> 
+
+fifth_wheel_truck_quota             = <span tal:replace="vehicle/fifth_wheel_truck_quota" />
 
 num_trailers                        = <span tal:replace="vehicle/truck_num_trailers" />
 trailer_capacities                  = <span tal:replace="vehicle/trailer_capacities" />

@@ -71,8 +71,8 @@ class Truck(object):
         self.disallowed_cargos = '' # ! unfinished
         self.model_life = global_constants.model_lives[config.get(id, 'model_life')]
         self.vehicle_life = global_constants.vehicle_lives[config.get(id, 'vehicle_life')]
-        self.buy_cost = config.getint(id, 'buy_cost')
-        self.run_cost_multiplier = config.getfloat(id, 'run_cost_multiplier')
+        self.buy_cost_override = config.getint(id, 'buy_cost_override')
+        self.run_cost_override = config.getfloat(id, 'run_cost_override')
         self.speed = config.getint(id, 'speed')
         self.power = config.getint(id, 'power')
         self.smoke_offset = config.getint(id, 'smoke_offset')
@@ -83,6 +83,7 @@ class Truck(object):
         self.trailer_capacities = config_option_to_list_of_ints(config.get(id, 'trailer_capacities'))
         self.trailer_lengths = config_option_to_list_of_ints(config.get(id, 'trailer_lengths'))
         self.trailer_graphics_files = config.get(id, 'trailer_graphics_files').split('|')
+        
         self.graphics_file = global_constants.graphics_path + config.get(id, 'truck_graphics_file')
 
     
@@ -104,17 +105,22 @@ class Truck(object):
         self.trailer_capacities[0] = trailer_capacity - truck_capacity
 
     def get_running_cost(self):
-        # does what it says on the tin - derives a running cost based on power and a multiplier value
-        return int(0.5 * self.power * self.run_cost_multiplier)
+        # if buy cost is 0 (i.e. not defined), derive the buy cost, otherwise use the defined cost
+        if self.run_cost_override == 0:
+            # calculate a running cost based on power and a multiplier value
+            return int(0.5 * self.power)
+        else:
+            return self.run_cost_override
+
     
     def get_buy_cost(self):
         # if buy cost is 0 (i.e. not defined), derive the buy cost, otherwise use the defined cost
-        if self.buy_cost == 0:
+        if self.buy_cost_override == 0:
             max_power = 900 # a plausible upper limit for hp in this set
             # costs matched approximately to HEQS; 12 seems to be an appropriate min value, rest of cost is from calculated from hp 
             return 12 + int((float(self.power) / float(max_power)) * 243)
         else:
-            return self.buy_cost
+            return self.buy_cost_override
 
     def get_consist_weight(self, num_trailers=0):
         # get the sum of unladen weight of truck and trailers; use num_trailers to exclude invisible trailers according to refit option

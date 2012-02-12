@@ -104,13 +104,20 @@ class Truck(object):
         self.trailer_capacities[0] = trailer_capacity - truck_capacity
 
     def get_running_cost(self):
+        # does what it says on the tin - derives a running cost based on power and a multiplier value
         return int(0.5 * self.power * self.run_cost_multiplier)
     
     def get_buy_cost(self):
-        max_power = 900 # a plausible upper limit for hp in this set
-        return 12 + int((float(self.power) / float(max_power)) * 243)
+        # if buy cost is 0 (i.e. not defined), derive the buy cost, otherwise use the defined cost
+        if self.buy_cost == 0:
+            max_power = 900 # a plausible upper limit for hp in this set
+            # costs matched approximately to HEQS; 12 seems to be an appropriate min value, rest of cost is from calculated from hp 
+            return 12 + int((float(self.power) / float(max_power)) * 243)
+        else:
+            return self.buy_cost
 
     def get_consist_weight(self, num_trailers=0):
+        # get the sum of unladen weight of truck and trailers; use num_trailers to exclude invisible trailers according to refit option
         weight = self.truck_length * global_constants.weight_factors[self.extra_type_info]
         for i in range(num_trailers):
             weight = weight + (self.trailer_lengths[i] * global_constants.weight_factors[self.extra_type_info])     
@@ -123,6 +130,8 @@ class Truck(object):
         return capacity
         
     def get_te_coefficient(self, num_trailers=0):
+        # if default RV te_coefficient is used, TE may be too high as total consist weight is stored on first vehicle
+        # this adjusts te_coefficient to reflect that weight of lead vehicle only should be used to calculate TE
         default_te_coefficient = 0.3 * 255
         total_weight = self.get_consist_weight(num_trailers=num_trailers)
         truck_weight = self.get_consist_weight(num_trailers=0)

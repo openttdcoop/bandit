@@ -47,7 +47,7 @@ class Trailer(object):
         self.id = truck.id + '_trailer_' + str(i+1)
         self.trailer_capacity = int(truck.trailer_capacities[i])
         self.numeric_id = truck.numeric_id + i + 1
-        #self.trailer_graphics_file = global_constants.graphics_path + truck.trailer_graphics_files[i]
+        #self.graphics_file = global_constants.graphics_path + truck.trailer_graphics_files[i]
   
     def render(self, truck):
         template = templates['trailer_template.pynml']
@@ -83,7 +83,7 @@ class Truck(object):
         self.trailer_capacities = config_option_to_list_of_ints(config.get(id, 'trailer_capacities'))
         self.trailer_lengths = config_option_to_list_of_ints(config.get(id, 'trailer_lengths'))
         self.trailer_graphics_files = config.get(id, 'trailer_graphics_files').split('|')
-        self.truck_graphics_file = global_constants.graphics_path + config.get(id, 'truck_graphics_file')
+        self.graphics_file = global_constants.graphics_path + config.get(id, 'truck_graphics_file')
 
     
         if self.truck_type == 'fifth_wheel_truck':

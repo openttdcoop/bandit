@@ -48,14 +48,14 @@ cargo_body_type_mappings = dict(
 )
 
 body_type_spritesheet_y_offset_mapping = dict (
-    box          =  60,
-    tanker       = 100,
-    flat         = 140,
-    dump         = 180,
-    logs         = 140, # value for testing only
-    grey_metals  = 140, # value for testing only
-    livestock    = 140, # value for testing only
-    lowbed       = 140, # value for testing only
+    box          =  20,
+    tanker       =  60,
+    flat         = 100,
+    dump         = 140,
+    logs         = 100, # value for testing only
+    grey_metals  = 100, # value for testing only
+    livestock    = 100, # value for testing only
+    lowbed       = 100, # value for testing only
 )
 
 #map truck weight factors to extra_type_info

@@ -15,8 +15,8 @@ for i in vehicle_list:
   for j, x in enumerate(i.trailer_capacities):
     #capacity first trailer split with truck according to decimal ratio
     if j == 0 and i.truck_type == "GLOBAL_TRUCK_TYPE_FIFTH_WHEEL":
-      trailer_capacity = int(float(x) * (1 - i.fifth_wheel_truck_capacity_fraction))
-      this_veh['adjusted_truck_capacity'] = int(float(x) * (i.fifth_wheel_truck_capacity_fraction))
+      trailer_capacity = int(float(x) * (1 - i.fifth_wheel_truck_quota))
+      this_veh['adjusted_truck_capacity'] = int(float(x) * (i.fifth_wheel_truck_quota))
     else:
       trailer_capacity = int(x)
     this_veh['total_capacity'] = this_veh['total_capacity']+int(x)    

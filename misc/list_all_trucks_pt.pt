@@ -40,7 +40,7 @@
       tr:hover, tr.odd-row:hover {
         background-color: #fff999;
       }
-      tr.odd-row {
+      tr.odd {
         background-color: #eee;
       }
       tr a {
@@ -231,7 +231,9 @@
 <script type="text/javascript">
     $(document).ready(function() 
         { 
-            $("#vehicletable").tablesorter(); 
+            $("#vehicletable").tablesorter({
+               widgets: ['zebra'],
+            }); 
         } 
     ); 
 </script>

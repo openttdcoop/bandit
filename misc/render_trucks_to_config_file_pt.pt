@@ -6,7 +6,7 @@
 [<span tal:replace="vehicle_repeat" />]
 title                               = <span tal:replace="vehicle/title" />
 numeric_id                          = <span tal:replace="vehicle/numeric_id" />
-truck_graphics_file                 = <span tal:replace="vehicle/truck_graphics_file" />
+truck_graphics_file_override        = <span tal:replace="vehicle/truck_graphics_file" />
 truck_type                          = <span tal:replace="vehicle/truck_type" />
 extra_type_info                     = <span tal:replace="vehicle/extra_type_info" />
 

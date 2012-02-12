@@ -71,8 +71,6 @@ class Truck(object):
         self.disallowed_cargos = '' # ! unfinished
         self.model_life = global_constants.model_lives[config.get(id, 'model_life')]
         self.vehicle_life = global_constants.vehicle_lives[config.get(id, 'vehicle_life')]
-        self.buy_cost_override = config.getint(id, 'buy_cost_override')
-        self.run_cost_override = config.getfloat(id, 'run_cost_override')
         self.speed = config.getint(id, 'speed')
         self.power = config.getint(id, 'power')
         self.smoke_offset = config.getint(id, 'smoke_offset')
@@ -83,10 +81,25 @@ class Truck(object):
         self.trailer_capacities = config_option_to_list_of_ints(config.get(id, 'trailer_capacities'))
         self.trailer_lengths = config_option_to_list_of_ints(config.get(id, 'trailer_lengths'))
         self.trailer_graphics_files = config.get(id, 'trailer_graphics_files').split('|')
-        
-        self.graphics_file = global_constants.graphics_path + config.get(id, 'truck_graphics_file')
+        self.run_cost_override = config.getfloat(id, 'run_cost_override')
 
-    
+        # if buy cost override is 0 (i.e. not defined), calculate the buy cost, otherwise use the value of cost override
+        self.buy_cost_override = config.getint(id, 'buy_cost_override')
+        if self.buy_cost_override == 0:
+            max_power = 900 # a plausible upper limit for hp in this set
+            # costs matched approximately to HEQS; 12 seems to be an appropriate min value, rest of cost is from calculated from hp 
+            self.buy_cost = 12 + int((float(self.power) / float(max_power)) * 243)
+        else:
+            self.buy_cost = self.buy_cost_override
+        
+        # graphics file names for trucks are automatic from id, or can be overridden 
+        self.truck_graphics_file_override = global_constants.graphics_path + config.get(id, 'truck_graphics_file_override')
+        if self.truck_graphics_file_override == '': 
+            self.graphics_file = self.id + '.png'
+        else:
+            self.graphics_file = self.truck_graphics_file_override
+
+        # fifth wheel trucks need capacities modifying
         if self.truck_type == 'fifth_wheel_truck':
             self.modify_capacities_fifth_wheel_trucks()
       
@@ -111,17 +124,7 @@ class Truck(object):
             return int(0.5 * self.power)
         else:
             return self.run_cost_override
-
     
-    def get_buy_cost(self):
-        # if buy cost is 0 (i.e. not defined), derive the buy cost, otherwise use the defined cost
-        if self.buy_cost_override == 0:
-            max_power = 900 # a plausible upper limit for hp in this set
-            # costs matched approximately to HEQS; 12 seems to be an appropriate min value, rest of cost is from calculated from hp 
-            return 12 + int((float(self.power) / float(max_power)) * 243)
-        else:
-            return self.buy_cost_override
-
     def get_consist_weight(self, num_trailers=0):
         # get the sum of unladen weight of truck and trailers; use num_trailers to exclude invisible trailers according to refit option
         weight = self.truck_length * global_constants.weight_factors[self.extra_type_info]

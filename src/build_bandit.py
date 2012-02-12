@@ -105,6 +105,10 @@ class Truck(object):
 
     def get_running_cost(self):
         return int(0.5 * self.power * self.run_cost_multiplier)
+    
+    def get_buy_cost(self):
+        max_power = 900 # a plausible upper limit for hp in this set
+        return 12 + int((float(self.power) / float(max_power)) * 243)
 
     def get_consist_weight(self, num_trailers=0):
         weight = self.truck_length * global_constants.weight_factors[self.extra_type_info]

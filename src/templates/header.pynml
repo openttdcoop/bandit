@@ -7,3 +7,6 @@ grf {
 	min_compatible_version: 1;
 }
 
+basecost {
+    PR_BUILD_VEHICLE_ROAD: 1;
+}

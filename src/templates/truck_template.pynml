@@ -56,7 +56,7 @@ item(FEAT_ROADVEHS, ${vehicle.id}, ${vehicle.numeric_id}) {
         power:                          ${vehicle.power}hp;
         weight:                         0; // set by cb
         tractive_effort_coefficient:    0; // set by cb
-        cost_factor:                    ${vehicle.buy_cost};
+        cost_factor:                    ${vehicle.get_buy_cost()};
         running_cost_base:              RUNNING_COST_ROADVEH;
         running_cost_factor:            ${vehicle.get_running_cost()};
         refittable_cargo_classes:       bitmask(${vehicle.refittable_classes}); 

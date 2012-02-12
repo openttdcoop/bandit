@@ -68,6 +68,8 @@ weight_factors = dict (
     HEAVY_DUTY_LONG_HAUL       = 1.6,
 )
 
+graphics_path = 'src/graphics/' # this is for nml, don't need to use python path module here
+
 # provide mapping of truck_type strings to numbers for use in range checks etc
 # constants like this are one case where c pre-processor was a little more elegant than python 
 truck_type_nums = {

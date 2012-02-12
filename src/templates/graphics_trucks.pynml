@@ -1,11 +1,8 @@
-<!--! temporary hack - graphics file path should come from object -->
-<tal:temp define="global THIS_TRAILER_GRAPHICS_FILE string:src/graphics/cabover_truck_test_2.png" />
-
 // handle graphics
 
 <tal:graphics_for_trucks_without_cargo_bodies condition="vehicle.truck_type == 'fifth_wheel_truck'">
     // some truck types don't carry cargo on lead vehicle (e.g. fifth wheel trucks), so don't need cargo specific graphics
-    spriteset(${vehicle.id}_ss, "src/graphics/${vehicle.truck_graphics_file}") {
+    spriteset(${vehicle.id}_ss, "${vehicle.truck_graphics_file}") {
       spriteset_template_truck_16(0, 20) // (nml provides a way to add spriteset templates - search the project to find where they are defined)  
     }
     
@@ -24,8 +21,8 @@
 <tal:graphics_for_trucks_with_cargo_bodies condition="vehicle.truck_type != 'fifth_wheel_truck'">
     // cargo specific graphics for trucks that carry cargo on the lead vehicle
     <tal:build_spritesets_spritegroups repeat="body_type global_constants.body_type_spritesheet_y_offset_mapping">
-    spriteset(${vehicle.id}_ss_cargo_${body_type}, "${THIS_TRAILER_GRAPHICS_FILE}") {
-      spriteset_template_truck_28(0, ${global_constants.body_type_spritesheet_y_offset_mapping[body_type]})
+    spriteset(${vehicle.id}_ss_cargo_${body_type}, "${vehicle.truck_graphics_file}") {
+      spriteset_template_truck_16(0, ${global_constants.body_type_spritesheet_y_offset_mapping[body_type]})
     }
     
     spritegroup ${vehicle.id}_sg_cargo_${body_type} {

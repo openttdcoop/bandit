@@ -81,3 +81,5 @@ truck_type_nums = {
 solo_truck_type_num        = truck_type_nums['solo_truck']
 fifth_wheel_truck_type_num = truck_type_nums['fifth_wheel_truck']
 drawbar_truck_type_num     = truck_type_nums['drawbar_truck']
+
+fifth_wheel_truck_quota = 0.5 # constant representing proportion of capacity etc transferred to fifth wheel trucks from first trailer

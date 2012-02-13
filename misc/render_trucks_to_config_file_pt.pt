@@ -1,12 +1,8 @@
-<html>
-<body>
 <tal:build_vehicles repeat="vehicle_repeat options/vehicles">
-<pre>
 <tal:scope define="vehicle python:options['vehicles'][vehicle_repeat]">
 [<span tal:replace="vehicle_repeat" />]
 title                               = <span tal:replace="vehicle/title" />
 numeric_id                          = <span tal:replace="vehicle/numeric_id" />
-truck_graphics_file_override        = <span tal:replace="vehicle/truck_graphics_file" />
 truck_type                          = <span tal:replace="vehicle/truck_type" />
 extra_type_info                     = <span tal:replace="vehicle/extra_type_info" />
 
@@ -27,14 +23,12 @@ buy_cost_override                   = <span tal:replace="vehicle/buy_cost_overri
 # run cost: leave at 0 for automatic calculation, or set a value (1-255) to override automatic calculation
 run_cost_override                   = <span tal:replace="vehicle/run_cost_override" /> 
 
-fifth_wheel_truck_quota             = <span tal:replace="vehicle/fifth_wheel_truck_quota" />
+# graphics file: leave empty to automatically use filename=truck id, or set a filename (including extension) to override automatic filename use
+truck_graphics_file_override        = <span tal:replace="vehicle/truck_graphics_file" />
 
 num_trailers                        = <span tal:replace="vehicle/truck_num_trailers" />
 trailer_capacities                  = <span tal:replace="vehicle/trailer_capacities" />
 trailer_graphics_files              = <span tal:replace="vehicle/trailer_graphics_files" />
 trailer_lengths                     = <span tal:replace="vehicle/trailer_lengths" />
 </tal:scope>
-</pre>
 </tal:build_vehicles>
-</body>
-</html>

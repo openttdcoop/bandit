@@ -75,7 +75,6 @@ class Truck(object):
         self.power = config.getint(id, 'power')
         self.smoke_offset = config.getint(id, 'smoke_offset')
         self.num_trailers = config.getint(id, 'num_trailers')
-        self.fifth_wheel_truck_quota = config.getfloat(id, 'fifth_wheel_truck_quota')
         self.truck_capacity = config.getint(id, 'truck_capacity')  
         self.truck_length = config.getint(id, 'truck_length')
         self.trailer_capacities = config_option_to_list_of_ints(config.get(id, 'trailer_capacities'))
@@ -118,7 +117,7 @@ class Truck(object):
         # fifth wheel trucks split part of the capacity of first trailer onto the truck, for TE reasons
         # the ratio is controlled by a decimal fraction defined as a property of the truck
         trailer_capacity = self.trailer_capacities[0]
-        self.truck_capacity = truck_capacity = int(trailer_capacity * self.fifth_wheel_truck_quota)
+        self.truck_capacity = truck_capacity = int(trailer_capacity * global_constants.fifth_wheel_truck_quota)
         self.trailer_capacities[0] = trailer_capacity - truck_capacity
 
     def get_running_cost(self):

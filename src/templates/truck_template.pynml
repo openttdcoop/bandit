@@ -41,7 +41,6 @@ switch (FEAT_ROADVEHS, SELF, ${vehicle.id}_articulated_cb_switch, extra_callback
 // -- print some of the vehicle non-nml properties to aid debugging -- //
 // truck_type    ${vehicle.truck_type}
 // num_trailers  ${vehicle.num_trailers}
-// fifth_wheel_truck_quota   ${vehicle.fifth_wheel_truck_quota}
 
 item(FEAT_ROADVEHS, ${vehicle.id}, ${vehicle.numeric_id}) {
     property {

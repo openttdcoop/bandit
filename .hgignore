@@ -39,5 +39,6 @@ bandit*
 .DS_Store
 Thumbs.db
 
-# Don't add python .pyc files
+# Don't add python .pyc and .pyo files
 *.pyc
+*.pyo

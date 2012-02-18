@@ -3,10 +3,12 @@ from pixa import render as render
 import Image
 
 # set palette index for lightest colour of cargo; range for rest will be calculated automatically 
-# when defining a new cargo, worth looking at resultng sprites in case range overflowed into wrong colours
+# when defining a new cargo, worth looking at resulting sprites in case range overflowed into wrong colours
 bulk_cargos = {
-    'coal' : 4,
-    'iore' : 77,
+    'COAL' : 4,
+    'IORE' : 77,
+    'GRAI' : 67,
+    'CLAY' : 117,
 }  
 
 # load states - values define y offset for drawing load (above floor)

@@ -5,6 +5,9 @@ sys.path.append(os.path.join('gestalts')) # add to the module search path
 
 import Image
 import ImageDraw
+from P import P
+
+from gestalts import tipping_trailer_4px
 
 spritesheet = Image.open('test_input.png')
 spritesheetpx = spritesheet.load()
@@ -17,8 +20,6 @@ def get_pixel_sequence(x, y, key_colour):
     for P in raw_sequence:
         pixel_sequence.append((x + P.dx, y - P.dy, P.colour + key_map['colour_shift']))
     return pixel_sequence
-
-import tipping_trailer_4px
 
 gestalt = tipping_trailer_4px
 

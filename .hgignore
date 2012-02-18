@@ -43,5 +43,6 @@ Thumbs.db
 *.pyc
 *.pyo
 
-#
+# paths where the pixel generator might put output
 misc/test_pixel_generator/results*
+misc/pixel_generator/results*

@@ -1,0 +1,30 @@
+*gestalt file (.py)*
+
+called by
+  - graphics building script with args
+  - shell with args(?)
+
+loads
+  - input file(s) (from args)
+
+defines
+  - all pixel mapping
+  - may get pixel colour definitions from global constants
+  - variations
+	- colour variations
+	- load sprites or other composites
+	- show front wheels or paint out front wheels
+
+calls
+  - pixel generator(s)	
+	- pass pixel sequences
+	- pass block of pixels (spriterow for vehicles, arbitrary for buildings)
+	- returned: block of pixels
+  - compositor
+	- composite according to rules (x,y of magic pixels; specified x,y)
+	- pass block of pixels (spriterow for vehicles, arbitrary for buildings)
+	- returned: block of pixels
+  
+writes
+  - png files, either many, or one long spritesheet
+  - names are by convention

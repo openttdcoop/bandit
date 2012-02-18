@@ -42,3 +42,6 @@ Thumbs.db
 # Don't add python .pyc and .pyo files
 *.pyc
 *.pyo
+
+#
+misc/test_pixel_generator/results*

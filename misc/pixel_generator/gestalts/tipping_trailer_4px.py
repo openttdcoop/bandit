@@ -20,8 +20,9 @@ load_states = [
     ('load_3', 4),
 ]
 
+# constants
 SPRITEROW_HEIGHT = 40
-SPRITEROW_START_Y = 10
+FLOORPLAN_START_Y = 10
 
 # colour sets
 coloursets = {    
@@ -124,22 +125,16 @@ class Spritesheet:
         self.sprites.save(output_path, optimize=True)
 
 
-def render_and_save(input_image_path, spritesheet, cargo, load_state, load_offset):
-    output_image_path = 'results/' + input_image_path.split('.png')[0] + '_tipper_' + cargo + '_' + load_state + '.png'            
-    newspritesheet = render(spritesheet.copy(), key_colour_mapping(cargo=cargo, load_offset=load_offset))
-    newspritesheet.save(output_image_path, optimize=1)        
-
 def generate(input_image_path):
     floorplan = Image.open(input_image_path)
     # slice out the floorplan needed for this gestalt
-    floorplan = floorplan.crop((0, SPRITEROW_START_Y, floorplan.size[0], SPRITEROW_START_Y + SPRITEROW_HEIGHT))
+    floorplan = floorplan.crop((0, FLOORPLAN_START_Y, floorplan.size[0], FLOORPLAN_START_Y + SPRITEROW_HEIGHT))
     # get a palette
     palette = Image.open('palette_key.png').palette
     for variation in colour_variations:
         for cargo in bulk_cargos:
             spritesheet = variation.spritesheets.append(Spritesheet(cid=cargo, floorplan=floorplan, palette=palette))
             
-    for variation in colour_variations:
         for spritesheet in variation.spritesheets:
             spritesheet.render(coloursets[variation.id])
             spritesheet.save(variation.id)

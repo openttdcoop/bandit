@@ -95,7 +95,7 @@ class Spritesheet:
         self.floorplan = floorplan                            
         return None
         
-    def render_cargos(self):    
+    def render(self):    
         for i, load_state in enumerate(load_states):
             print i
             row = self.floorplan.copy()
@@ -127,5 +127,5 @@ def generate(input_image_path):
             
     for variation in colour_variations:
         for spritesheet in variation.spritesheets:
-            spritesheet.render_cargos()
+            spritesheet.render()
             spritesheet.save()

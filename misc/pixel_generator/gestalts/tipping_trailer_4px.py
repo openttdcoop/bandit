@@ -1,5 +1,5 @@
 from P import P
-from pixa import render as render
+from pixa import render as pixarender
 import Image
 
 # set palette index for lightest colour of cargo; range for rest will be calculated automatically 
@@ -113,7 +113,7 @@ class Spritesheet:
     def render(self, colourset):    
         for i, load_state in enumerate(load_states):
             row = self.floorplan.copy()
-            row = render(row, key_colour_mapping(cargo=self.cid, load_state=load_state, colourset=colourset))
+            row = pixarender(row, key_colour_mapping(cargo=self.cid, load_state=load_state, colourset=colourset))
             start_y = i * SPRITEROW_HEIGHT
             end_y = (i+1) * SPRITEROW_HEIGHT            
             self.sprites.paste(row,(0, start_y, row.size[0], end_y))    

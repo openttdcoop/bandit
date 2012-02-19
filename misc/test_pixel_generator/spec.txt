@@ -28,3 +28,20 @@ calls
 writes
   - png files, either many, or one long spritesheet
   - names are by convention
+
+---------------------------
+gestalt implementation - tipper trailer
+
+- create list for each cc variation
+	- for each cargo: 
+		- create empty spritesheet obj
+		- render empty body, load states
+		- comp into spritesheet obj using standard offsets  
+	        - push to list for each cc variation
+
+- for each spritesheet in each cc variation list
+	- re-render each spritesheet in list to add / remove front wheels (duplicate)
+	- save spritesheet per cargo, with variation suffix
+
+
+  

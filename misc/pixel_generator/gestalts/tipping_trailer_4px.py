@@ -12,11 +12,16 @@ bulk_cargos = {
 }  
 
 # load states - values define y offset for drawing load (above floor)
-load_states = {
-    'load_1' : 0,
-    'load_2' : 2,
-    'load_3' : 4,
-}
+# order needs to be predictable, so a dict won't do here
+load_states = [
+    ('empty', 0),
+    ('load_1', 0),
+    ('load_2', 2),
+    ('load_3', 4),
+]
+
+SPRITEROW_HEIGHT = 40
+SPRITEROW_START_Y = 10
 
 # colour onstants
 BODY = 10
@@ -50,11 +55,11 @@ body_inner = [
     P(0, 4, 14),
 ]
 
-def key_colour_mapping(cargo,load_offset):
-    if cargo == 'empty':
+def key_colour_mapping(cargo,load_state):
+    if load_state[0] == 'empty':
         cargo_or_empty = [P(0, 0, 19)] 
     else:
-        cargo_or_empty = bulk_load(cargo_colour=bulk_cargos[cargo],load_offset=load_offset)    
+        cargo_or_empty = bulk_load(cargo_colour=bulk_cargos[cargo],load_offset=load_state[1])    
     return {
         209 : dict(seq = body_inner,  colour_shift =  0),
          90 : dict(seq = body_inner,  colour_shift =  1),
@@ -69,18 +74,58 @@ def key_colour_mapping(cargo,load_offset):
         141 : dict(seq = cargo_or_empty, colour_shift =  0),
     }
 
+class Variation:
+    def __init__(self,id):
+        self.id = id
+        self.spritesheets = []
+
+colour_variations = [
+    Variation(id='cc1')
+]
+
+class Spritesheet:
+    def __init__(self,cid, floorplan, palette):
+        self.cid = cid # cargoid
+        # create the new spritesheet (empty at this stage)
+        self.spritesheet_width = floorplan.size[0]
+        self.spritesheet_height = SPRITEROW_HEIGHT * (len(load_states))
+        self.sprites = Image.new('P', (self.spritesheet_width, self.spritesheet_height))
+        self.sprites.putpalette(palette)
+        # store the floorplan
+        self.floorplan = floorplan                            
+        return None
+        
+    def render_cargos(self):    
+        for i, load_state in enumerate(load_states):
+            print i
+            row = self.floorplan.copy()
+            row = render(row, key_colour_mapping(cargo=self.cid, load_state=load_state))
+            start_y = i * SPRITEROW_HEIGHT
+            end_y = (i+1) * SPRITEROW_HEIGHT            
+            self.sprites.paste(row,(0, start_y, row.size[0], end_y))    
+        
+    def save(self):
+        length = '7_8' # !! hard coded var until this is figured out
+        output_path = 'results/' + length + '_tipping_trailer_' + self.cid + '.png' 
+        self.sprites.save(output_path, optimize=True)
+
+
 def render_and_save(input_image_path, spritesheet, cargo, load_state, load_offset):
     output_image_path = 'results/' + input_image_path.split('.png')[0] + '_tipper_' + cargo + '_' + load_state + '.png'            
     newspritesheet = render(spritesheet.copy(), key_colour_mapping(cargo=cargo, load_offset=load_offset))
     newspritesheet.save(output_image_path, optimize=1)        
 
 def generate(input_image_path):
-    spritesheet = Image.open(input_image_path)
-    for cargo in bulk_cargos:
-        for load_state in load_states:
-            load_offset = load_states[load_state]
-            render_and_save(input_image_path, spritesheet, cargo, load_state, load_offset)
-    cargo = 'empty'
-    load_state = '0'
-    load_offset = 0
-    render_and_save(input_image_path, spritesheet, cargo, load_state, load_offset)
+    floorplan = Image.open(input_image_path)
+    # slice out the floorplan needed for this gestalt
+    floorplan = floorplan.crop((0, SPRITEROW_START_Y, floorplan.size[0], SPRITEROW_START_Y + SPRITEROW_HEIGHT))
+    # get a palette
+    palette = Image.open('palette_key.png').palette
+    for variation in colour_variations:
+        for cargo in bulk_cargos:
+            spritesheet = variation.spritesheets.append(Spritesheet(cid=cargo, floorplan=floorplan, palette=palette))
+            
+    for variation in colour_variations:
+        for spritesheet in variation.spritesheets:
+            spritesheet.render_cargos()
+            spritesheet.save()

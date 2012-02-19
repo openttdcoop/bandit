@@ -1,7 +1,7 @@
 import Image
 import ImageDraw
 import ImagePalette
-spritesheet = Image.open('test_input.png')
+spritesheet = Image.open('foo.png')
 
 block_size = 30
 palette_key = Image.new('P',(16*block_size,16*block_size))

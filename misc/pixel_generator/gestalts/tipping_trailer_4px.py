@@ -92,21 +92,20 @@ class Spritesheet:
         self.sprites = Image.new('P', (self.spritesheet_width, self.spritesheet_height))
         self.sprites.putpalette(palette)
         # store the floorplan
-        self.floorplan = floorplan                            
+        self.floorplan = floorplan
         return None
         
     def render(self):    
         for i, load_state in enumerate(load_states):
-            print i
             row = self.floorplan.copy()
             row = render(row, key_colour_mapping(cargo=self.cid, load_state=load_state))
             start_y = i * SPRITEROW_HEIGHT
             end_y = (i+1) * SPRITEROW_HEIGHT            
             self.sprites.paste(row,(0, start_y, row.size[0], end_y))    
         
-    def save(self):
+    def save(self, variation):
         length = '7_8' # !! hard coded var until this is figured out
-        output_path = 'results/' + length + '_tipping_trailer_' + self.cid + '.png' 
+        output_path = 'results/' + length + '_tipping_trailer_' + variation.id + '_' + self.cid + '.png' 
         self.sprites.save(output_path, optimize=True)
 
 
@@ -128,4 +127,4 @@ def generate(input_image_path):
     for variation in colour_variations:
         for spritesheet in variation.spritesheets:
             spritesheet.render()
-            spritesheet.save()
+            spritesheet.save(variation)

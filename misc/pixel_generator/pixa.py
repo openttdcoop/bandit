@@ -20,7 +20,7 @@ def render(image, key_colour_mapping):
         if key_map is not None:
             for sx, sy, scol in get_pixel_sequence(x, y, key_map):
                 draw.point([(sx, sy)], fill=scol)
-    print colours # debug: what colours did we find in this spritesheet?
+    #print colours # debug: what colours did we find in this spritesheet?
     return image
 
 def generate(input_image_path, key_colour_mapping, output_image_path):

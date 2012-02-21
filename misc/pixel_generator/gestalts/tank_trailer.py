@@ -86,20 +86,67 @@ def tank_near_end_sw_ne(colour_set):
         P(0, 1, c['tank_colour']-1), 
         P(0, 0, c['tank_colour']-1), 
     ]
+def tank_far_end_nw_se(colour_set): 
+    c = colour_set
+    return [
+        P(0, 3, c['tank_colour']+1), 
+        P(0, 2, c['stripe_colour']), 
+        P(0, 1, c['tank_colour']-1), 
+        P(0, 0, c['tank_colour']-2), 
+    ]
 def tank_nw_se(colour_set): 
     c = colour_set
     return [
-        P(6, 2, c['tank_colour']), 
-        P(4, 2, c['tank_colour']-1), 
-        P(4, 1, c['tank_colour']), 
+        P(3, 5, c['tank_colour']-1), 
+        P(2, 5, c['tank_colour']), 
+        P(1, 5, c['tank_colour']), 
+        P(1, 4, c['tank_colour']+1), 
+        P(0, 4, c['tank_colour']+2), 
+        P(0, 3, c['tank_colour']+1), 
+        P(0, 2, c['stripe_colour']), 
+        P(0, 1, c['tank_colour']-1), 
+        P(0, 0, c['tank_colour']-2), 
+    ]
+def tank_near_end_nw_se(colour_set): 
+    c = colour_set
+    return [
+        P(4, 4, c['tank_colour']+2), 
+        P(4, 3, c['tank_colour']+2), 
+        P(4, 2, c['tank_colour']+2), 
+        P(3, 5, c['tank_colour']+1), 
+        P(3, 4, c['tank_colour']+1), 
+        P(3, 3, c['tank_colour']+3), 
+        P(3, 2, c['tank_colour']+2), 
+        P(3, 1, c['tank_colour']+1), 
+        P(2, 4, c['tank_colour']+1), 
+        P(2, 3, c['tank_colour']+3), 
+        P(2, 2, c['tank_colour']+2), 
         P(2, 1, c['tank_colour']+1), 
-        P(2, 0, c['tank_colour']), 
-        P(0, 0, c['tank_colour']), 
+        P(1, 4, c['tank_colour']+1), 
+        P(1, 3, c['tank_colour']+2), 
+        P(1, 2, c['tank_colour']+2), 
+        P(1, 1, c['tank_colour']+2), 
+        P(1, 0, c['tank_colour']+1), 
+        P(0, 3, c['tank_colour']+1), 
+        P(0, 2, c['tank_colour']+1), 
+        P(0, 1, c['tank_colour']+1), 
+        P(0, 0, c['tank_colour']+1), 
+    ]
+def tank_w_e(colour_set): 
+    c = colour_set
+    return [
+        P(0, 6, c['tank_colour']-1), 
+        P(0, 5, c['tank_colour']+1), 
+        P(0, 4, c['tank_colour']+2), 
+        P(0, 3, c['tank_colour']+1), 
+        P(0, 2, c['stripe_colour']), 
+        P(0, 1, c['tank_colour']-1), 
+        P(0, 0, c['tank_colour']-2), 
     ]
 def hide_or_show_drawbar_dolly_wheels(connection_type, colour, shift):
     if connection_type == 'drawbar':
-        if colour == 231:
-            return [P(0, 0, 19)]
+        if colour in [49, 48]:
+            return [P(0, 0, 19 + shift)]
         else:
             return [P(0, 0, 4 + shift)]
     else: 
@@ -107,17 +154,24 @@ def hide_or_show_drawbar_dolly_wheels(connection_type, colour, shift):
 
 def key_colour_mapping(cargo, load_state, colourset, connection_type):
     return {
-        #45 : dict(seq = tank_nw_se(colourset), colour_shift = 0), #47-40 NW-SE
-        40 : dict(seq = tank_nw_se(colourset), colour_shift = 0), #47-40 NW-SE
+         47 : dict(seq = tank_far_end_nw_se(colourset), colour_shift = 0), #47-40 NW-SE
+         45 : dict(seq = tank_nw_se(colourset), colour_shift = 0), #47-40 NW-SE
+         44 : dict(seq = tank_nw_se(colourset), colour_shift = -1), #47-40 NW-SE
+         40 : dict(seq = tank_near_end_nw_se(colourset), colour_shift = 0), #47-40 NW-SE
         143 : dict(seq = tank_far_end_sw_ne(colourset), colour_shift = 0), #143-136 SW-NE
         141 : dict(seq = tank_sw_ne(colourset), colour_shift = 0), #143-136 SW-NE
         140 : dict(seq = tank_sw_ne(colourset), colour_shift = -1), #143-136 SW-NE
         136 : dict(seq = tank_near_end_sw_ne(colourset), colour_shift = 0), #143-136 SW-NE
-        231 : dict(seq = hide_or_show_drawbar_dolly_wheels(connection_type, 231, 0), colour_shift =  0),
+        197 : dict(seq = tank_w_e(colourset), colour_shift = 1), #197-92 W-E
+        195 : dict(seq = tank_w_e(colourset), colour_shift = 0), #197-92 W-E
+        194 : dict(seq = tank_w_e(colourset), colour_shift = -1), #197-92 W-E
+        192 : dict(seq = tank_w_e(colourset), colour_shift = -1), #197-92 W-E
+        49 : dict(seq = hide_or_show_drawbar_dolly_wheels(connection_type, 49, 0), colour_shift =  0),
+        48 : dict(seq = hide_or_show_drawbar_dolly_wheels(connection_type, 48, 0), colour_shift =  -1),
         230 : dict(seq = hide_or_show_drawbar_dolly_wheels(connection_type, 230, 1), colour_shift =  0),
-        229 : dict(seq = hide_or_show_drawbar_dolly_wheels(connection_type, 229, -1), colour_shift =  0),
-        228 : dict(seq = hide_or_show_drawbar_dolly_wheels(connection_type, 228, -2), colour_shift =  0),
-        227 : dict(seq = hide_or_show_drawbar_dolly_wheels(connection_type, 227, -3), colour_shift =  0),
+        229 : dict(seq = hide_or_show_drawbar_dolly_wheels(connection_type, 229, 0), colour_shift =  0),
+        228 : dict(seq = hide_or_show_drawbar_dolly_wheels(connection_type, 228, -1), colour_shift =  0),
+        227 : dict(seq = hide_or_show_drawbar_dolly_wheels(connection_type, 227, -2), colour_shift =  0),
     }
 
 class Variation:

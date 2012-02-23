@@ -58,10 +58,14 @@ def flatbed_sw_ne(colour_set):
     c = colour_set
     return [
         P(-6, 2, c['company_colour']-1), 
-        P(-4, 2, c['deck_colour']-1), 
-        P(-4, 1, c['deck_colour']), 
-        P(-2, 1, c['deck_colour']+1), 
+        #P(-4, 2, c['deck_colour']-1), 
+        #P(-4, 1, c['deck_colour']), 
+        #P(-2, 1, c['deck_colour']+1), 
         P(-2, 0, c['deck_colour']), 
+        P(-2, 3, 11), 
+        P(-2, 2, 12), 
+        P(-1, 2, 10), 
+        P(-1, 1, 9), 
         P(0, 0, c['company_colour']), 
     ]
 def end_sw_ne(colour_set): 
@@ -72,29 +76,90 @@ def end_sw_ne(colour_set):
         P(-4, 1, c['company_colour']-1), 
         P(-2, 1, c['deck_colour']+1), 
         P(-2, 0, c['company_colour']-1), 
+        P(-1, 3, 6), 
+        P(-1, 2, 4), 
+        P(0, 2, 6), 
         P(0, 0, c['company_colour']), 
+    ]    
+def flatbed(): 
+    return [
+        P(0, 0, 115),      
     ]
+def stakes():
+    return [
+        P(0, 0, 133),      
+        P(0, 1, 21),      
+    ]
+    
+def coil_load():
+    return [
+        P(-1, 0, 3),          
+        P(0, 0, 4),          
+        P(1, 0, 3),          
+        P(2, 0, 3),
+        P(-2, 1, 3),
+        P(-1, 1, 4),
+        P(0 , 1, 1),
+        P(1, 1, 6),
+        P(2, 1, 5),
+        P(3, 1, 6),
+        P(-2, 2, 5),
+        P(-1, 2, 9),
+        P(0 , 2, 6),
+        P(1, 2, 8),
+        P(2, 2, 8),
+        P(3, 2, 10),
+        P(-2, 3, 6),
+        P(-1, 3, 7),
+        P(0 , 3, 3),
+        P(1, 3, 1),
+        P(2, 3, 6),
+        P(3, 3, 10),
+        P(-1, 4, 6),          
+        P(0, 4, 8),          
+        P(1, 4, 10),          
+        P(2, 4, 8),
+    ]
+    
 def hide_or_show_drawbar_dolly_wheels(connection_type, colour, shift):
     if connection_type == 'drawbar':
-        if colour == 231:
-            return [P(0, 0, 19)]
+        if colour in [49, 48]:
+            return [P(0, 0, 19 + shift)]
         else:
             return [P(0, 0, 4 + shift)]
     else: 
         return [P(0, 0, 0)]
 
-def key_colour_mapping(cargo, load_state, colourset, connection_type):
+def key_colour_mapping_pass_1(cargo, load_state, colourset, connection_type):
     return {
-        45 : dict(seq = flatbed_nw_se(colourset), colour_shift = 0), #47-40 NW-SE
-        40 : dict(seq = end_nw_se(colourset), colour_shift = 0), #47-40 NW-SE
-        141 : dict(seq = flatbed_sw_ne(colourset), colour_shift = 0), #143-136 SW-NE
+         94 : dict(seq = flatbed(),  colour_shift =  -1),
+         93 : dict(seq = stakes(),  colour_shift =  0),
+         45 : dict(seq = flatbed_nw_se(colourset), colour_shift = 0), #47-40 NW-SE
+         40 : dict(seq = end_nw_se(colourset), colour_shift = 0), #47-40 NW-SE
+        141 : dict(seq = flatbed(), colour_shift = 0),
         136 : dict(seq = end_sw_ne(colourset), colour_shift = 0), #143-136 SW-NE
-        231 : dict(seq = hide_or_show_drawbar_dolly_wheels(connection_type, 231, 0), colour_shift =  0),
+        165 : dict(seq = [P(0, 0, 202)], colour_shift = 0),
+        49 : dict(seq = hide_or_show_drawbar_dolly_wheels(connection_type, 49, 0), colour_shift =  0),
+        48 : dict(seq = hide_or_show_drawbar_dolly_wheels(connection_type, 48, 0), colour_shift =  -1),
         230 : dict(seq = hide_or_show_drawbar_dolly_wheels(connection_type, 230, 1), colour_shift =  0),
-        229 : dict(seq = hide_or_show_drawbar_dolly_wheels(connection_type, 229, -1), colour_shift =  0),
-        228 : dict(seq = hide_or_show_drawbar_dolly_wheels(connection_type, 228, -2), colour_shift =  0),
-        227 : dict(seq = hide_or_show_drawbar_dolly_wheels(connection_type, 227, -3), colour_shift =  0),
+        229 : dict(seq = hide_or_show_drawbar_dolly_wheels(connection_type, 229, 0), colour_shift =  0),
+        228 : dict(seq = hide_or_show_drawbar_dolly_wheels(connection_type, 228, -1), colour_shift =  0),
+        227 : dict(seq = hide_or_show_drawbar_dolly_wheels(connection_type, 227, -2), colour_shift =  0),
     }
+def key_colour_mapping_pass_2(cargo, load_state, colourset, connection_type):
+    return {
+        190 : dict(seq = coil_load(), colour_shift = 0),
+    }
+def key_colour_mapping_pass_3(cargo, load_state, colourset, connection_type):
+    return {
+        191 : dict(seq = coil_load(), colour_shift = 0),
+    }
+def key_colour_mapping_pass_4(cargo, load_state, colourset, connection_type):
+    return {
+        195 : dict(seq = [P(0, 0, 202)], colour_shift = 0),
+        197 : dict(seq = stakes(),  colour_shift =  0),
+    }
+
 
 class Variation:
     def __init__(self,id):
@@ -122,7 +187,10 @@ class Spritesheet:
     def render(self, colourset):    
         for i, load_state in enumerate(load_states):
             row = self.floorplan.copy()
-            row = pixarender(row, key_colour_mapping(cargo=self.cid, load_state=load_state, colourset=colourset, connection_type=self.connection_type))
+            row = pixarender(row, key_colour_mapping_pass_1(cargo=self.cid, load_state=load_state, colourset=colourset, connection_type=self.connection_type))
+            row = pixarender(row, key_colour_mapping_pass_2(cargo=self.cid, load_state=load_state, colourset=colourset, connection_type=self.connection_type))
+            row = pixarender(row, key_colour_mapping_pass_3(cargo=self.cid, load_state=load_state, colourset=colourset, connection_type=self.connection_type))
+            row = pixarender(row, key_colour_mapping_pass_4(cargo=self.cid, load_state=load_state, colourset=colourset, connection_type=self.connection_type))
             start_y = i * SPRITEROW_HEIGHT
             end_y = (i+1) * SPRITEROW_HEIGHT            
             self.sprites.paste(row,(0, start_y, row.size[0], end_y))    

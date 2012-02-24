@@ -143,6 +143,43 @@ def tank_w_e(colour_set):
         P(0, 1, c['tank_colour']-1), 
         P(0, 0, c['tank_colour']-2), 
     ]
+def tank_n_s(colour_set): 
+    c = colour_set
+    return [
+        P(7, 1, c['stripe_colour']+2), 
+        P(6, 2, c['tank_colour']+2), 
+        P(5, 2, c['tank_colour']+1), 
+        P(4, 2, c['tank_colour']), 
+        P(3, 2, c['tank_colour']-1), 
+        P(2, 2, c['tank_colour']-1), 
+        P(1, 2, c['tank_colour']-2), 
+        P(0, 1, c['tank_colour']-2), 
+    ]
+def tank_end_n_s(colour_set): 
+    c = colour_set
+    return [
+        P(6, 2, c['tank_colour']+1), 
+        P(5, 2, c['tank_colour']+2), 
+        P(4, 2, c['tank_colour']+1), 
+        P(3, 2, c['tank_colour']+1), 
+        P(2, 2, c['tank_colour']), 
+        P(1, 2, c['tank_colour']-1), 
+        P(7, 1, c['tank_colour']+1), 
+        P(6, 1, c['tank_colour']+1), 
+        P(5, 1, c['tank_colour']+1), 
+        P(4, 1, c['tank_colour']+1), 
+        P(3, 1, c['tank_colour']), 
+        P(2, 1, c['tank_colour']), 
+        P(1, 1, c['tank_colour']), 
+        P(0, 1, c['tank_colour']-1), 
+        P(6, 0, c['tank_colour']), 
+        P(5, 0, c['tank_colour']), 
+        P(4, 0, c['tank_colour']), 
+        P(3, 0, c['tank_colour']), 
+        P(2, 0, c['tank_colour']), 
+        P(1, 0, c['tank_colour']-1), 
+        P(0, 0, 2), 
+    ]
 def hide_or_show_drawbar_dolly_wheels(connection_type, colour, shift):
     if connection_type == 'drawbar':
         if colour in [49, 48]:
@@ -158,6 +195,9 @@ def key_colour_mapping(cargo, load_state, colourset, connection_type):
          45 : dict(seq = tank_nw_se(colourset), colour_shift = 0), #47-40 NW-SE
          44 : dict(seq = tank_nw_se(colourset), colour_shift = -1), #47-40 NW-SE
          40 : dict(seq = tank_near_end_nw_se(colourset), colour_shift = 0), #47-40 NW-SE
+         92 : dict(seq = tank_n_s(colourset), colour_shift = -1), #88-95 N-S
+         93 : dict(seq = tank_n_s(colourset), colour_shift = 0), #88-95 N-S
+         94 : dict(seq = tank_end_n_s(colourset), colour_shift = 0), #88-95 N-S
         143 : dict(seq = tank_far_end_sw_ne(colourset), colour_shift = 0), #143-136 SW-NE
         141 : dict(seq = tank_sw_ne(colourset), colour_shift = 0), #143-136 SW-NE
         140 : dict(seq = tank_sw_ne(colourset), colour_shift = -1), #143-136 SW-NE

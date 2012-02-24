@@ -136,9 +136,10 @@ def key_colour_mapping_pass_1(cargo, load_state, colourset, connection_type):
          93 : dict(seq = stakes(),  colour_shift =  0),
          45 : dict(seq = flatbed_nw_se(colourset), colour_shift = 0), #47-40 NW-SE
          40 : dict(seq = end_nw_se(colourset), colour_shift = 0), #47-40 NW-SE
-        141 : dict(seq = flatbed(), colour_shift = 0),
-        136 : dict(seq = end_sw_ne(colourset), colour_shift = 0), #143-136 SW-NE
-        165 : dict(seq = [P(0, 0, 202)], colour_shift = 0),
+        141 : dict(seq = flatbed(), colour_shift = 1), #143-136 flatbed
+        140 : dict(seq = flatbed(), colour_shift = 0), #143-136 flatbed
+        139 : dict(seq = flatbed(), colour_shift = -1), #143-136 flatbed
+        165 : dict(seq = [P(0, 0, 202)], colour_shift = -1),
         49 : dict(seq = hide_or_show_drawbar_dolly_wheels(connection_type, 49, 0), colour_shift =  0),
         48 : dict(seq = hide_or_show_drawbar_dolly_wheels(connection_type, 48, 0), colour_shift =  -1),
         230 : dict(seq = hide_or_show_drawbar_dolly_wheels(connection_type, 230, 1), colour_shift =  0),

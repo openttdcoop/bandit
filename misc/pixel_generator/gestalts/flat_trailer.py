@@ -1,20 +1,7 @@
 from P import P
 from pixa import render as pixarender
+from pixa import PixaSequence, PixaSequenceCollection, PixaMixer
 import Image
-
-class PixaSequence:
-    def __init__(sequence):
-        self.sequence = sequence
-        
-    def get_recolouring(self, colourset, transform):
-        """ Give sequence of pixels to colour to the caller. """ 
-        for dx, dy, col in self.sequence:
-          yield dx, dy, col
-
-class PixaSequenceCollection:
-    def __init__(sequences):
-        self.sequences = sequences
-        
                     
 # set palette index for lightest colour of cargo; range for rest will be calculated automatically 
 # when defining a new cargo, worth looking at resulting sprites in case range overflowed into wrong colours
@@ -144,7 +131,7 @@ def hide_or_show_drawbar_dolly_wheels(connection_type, colour, shift):
     else: 
         return [P(0, 0, 0)]
 
-def key_colour_mapping_pass_1(cargo, load_state, colourset, connection_type):
+def key_colour_mapping_pass_1(colourset, connection_type):
     return {
          94 : dict(seq = flatbed(),  colour_shift =  -1),
          93 : dict(seq = stakes(),  colour_shift =  0),
@@ -161,15 +148,21 @@ def key_colour_mapping_pass_1(cargo, load_state, colourset, connection_type):
         228 : dict(seq = hide_or_show_drawbar_dolly_wheels(connection_type, 228, -1), colour_shift =  0),
         227 : dict(seq = hide_or_show_drawbar_dolly_wheels(connection_type, 227, -2), colour_shift =  0),
     }
-def key_colour_mapping_pass_2(cargo, load_state, colourset, connection_type):
-    return {
-        190 : dict(seq = coil_load(), colour_shift = 0),
+    
+def colour_shift(colour, options):
+    return colour + options['shift_amount']
+
+key_colour_mapping_pass_2 = PixaSequenceCollection(
+    sequences =  {
+        190 : PixaMixer(sequence = coil_load()),
     }
-def key_colour_mapping_pass_3(cargo, load_state, colourset, connection_type):
-    return {
-        191 : dict(seq = coil_load(), colour_shift = 0),
+)
+key_colour_mapping_pass_3 = PixaSequenceCollection(
+    sequences =  {
+        191 : PixaMixer(sequence = coil_load()),
     }
-def key_colour_mapping_pass_4(cargo, load_state, colourset, connection_type):
+)
+def key_colour_mapping_pass_4(colourset):
     return {
         195 : dict(seq = [P(0, 0, 202)], colour_shift = 0),
         197 : dict(seq = stakes(),  colour_shift =  0),
@@ -202,10 +195,10 @@ class Spritesheet:
     def render(self, colourset):    
         for i, load_state in enumerate(load_states):
             row = self.floorplan.copy()
-            row = pixarender(row, key_colour_mapping_pass_1(cargo=self.cid, load_state=load_state, colourset=colourset, connection_type=self.connection_type))
-            row = pixarender(row, key_colour_mapping_pass_2(cargo=self.cid, load_state=load_state, colourset=colourset, connection_type=self.connection_type))
-            row = pixarender(row, key_colour_mapping_pass_3(cargo=self.cid, load_state=load_state, colourset=colourset, connection_type=self.connection_type))
-            row = pixarender(row, key_colour_mapping_pass_4(cargo=self.cid, load_state=load_state, colourset=colourset, connection_type=self.connection_type))
+            #row = pixarender(row, key_colour_mapping_pass_1(colourset=colourset, connection_type=self.connection_type))
+            row = pixarender(row, key_colour_mapping_pass_2)
+            row = pixarender(row, key_colour_mapping_pass_3)
+            #row = pixarender(row, key_colour_mapping_pass_4(colourset=colourset))
             start_y = i * SPRITEROW_HEIGHT
             end_y = (i+1) * SPRITEROW_HEIGHT            
             self.sprites.paste(row,(0, start_y, row.size[0], end_y))    

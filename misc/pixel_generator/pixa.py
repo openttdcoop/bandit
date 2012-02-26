@@ -1,10 +1,39 @@
 import Image
 import ImageDraw
 
-def get_pixel_sequence(x, y, sequence):
-    raw_sequence = sequence['seq']
-    for P in raw_sequence:
-        yield (x + P.dx, y - P.dy, P.colour + sequence['colour_shift'])
+
+class PixaSequence:
+    def __init__(self, sequence):
+        self.sequence = sequence
+
+    def get_sequence_values(self):
+        """ Give sequence of pixels to the caller. """ 
+        for dx, dy, col in self.sequence:
+          yield dx, dy, col
+
+class PixaSequenceCollection:
+    def __init__(self, sequences):
+        self.sequences = sequences
+        
+    def get_sequence_by_colour_index(self, colour):
+        return self.sequences.get(colour)        
+
+class PixaMixer:
+    def __init__(self, sequence, colourset = None, transform = None, transform_options = None):
+        self.sequence = sequence
+        self.colourset = colourset
+        self.transform = transform
+        self.transform_options = transform_options
+    
+    def get_recolouring(self, x, y):
+        """ Give sequence of pixels to be painted by the caller. """ 
+        for P in self.sequence:
+            colour = P.colour
+            if self.colourset != None:
+                colour = self.colourset[P.colour]
+            if self.transform != None:
+                colour = self.transform(P.colour, self.transform_options)
+            yield (x + P.dx, y - P.dy, colour)
 
 def render(image, sequence_collection):
     colours = set() #used for debug
@@ -15,9 +44,9 @@ def render(image, sequence_collection):
         colour = imagepx[x,y]
         if colour not in (0, 15, 255):
           colours.add(colour) #used for debug only
-        sequence = sequence_collection.get(imagepx[x,y])
+        sequence = sequence_collection.get_sequence_by_colour_index(imagepx[x,y])
         if sequence is not None:
-            for sx, sy, scol in get_pixel_sequence(x, y, sequence):
+            for sx, sy, scol in sequence.get_recolouring(x, y):
                 draw.point([(sx, sy)], fill=scol)
     #print colours # debug: what colours did we find in this spritesheet?
     return image

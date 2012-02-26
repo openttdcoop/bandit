@@ -1,13 +1,13 @@
 import Image
 import ImageDraw
 
-def get_pixel_sequence(x, y, key_map):
-    raw_sequence = key_map['seq']
+def get_pixel_sequence(x, y, sequence):
+    raw_sequence = sequence['seq']
     pixel_sequence = []
     for P in raw_sequence:
-        yield (x + P.dx, y - P.dy, P.colour + key_map['colour_shift'])
+        yield (x + P.dx, y - P.dy, P.colour + sequence['colour_shift'])
 
-def render(image, key_colour_mapping):
+def render(image, sequence_collection):
     colours = set() #used for debug
     imagepx = image.load()
     draw = ImageDraw.Draw(image)
@@ -16,9 +16,9 @@ def render(image, key_colour_mapping):
         colour = imagepx[x,y]
         if colour not in (0, 15, 255):
           colours.add(colour) #used for debug only
-        key_map = key_colour_mapping.get(imagepx[x,y])
-        if key_map is not None:
-            for sx, sy, scol in get_pixel_sequence(x, y, key_map):
+        sequence = sequence_collection.get(imagepx[x,y])
+        if sequence is not None:
+            for sx, sy, scol in get_pixel_sequence(x, y, sequence):
                 draw.point([(sx, sy)], fill=scol)
     #print colours # debug: what colours did we find in this spritesheet?
     return image

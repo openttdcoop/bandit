@@ -2,6 +2,15 @@ from P import P
 from pixa import render as pixarender
 import Image
 
+class PixaSequence:
+    def __init__(seq):
+        self.sequence = seq
+        
+    def get_recolouring(self):
+        """ Give sequence of pixels to colour to the caller. """ 
+        for dx, dy, col in self.sequence:
+          yield dx, dy, col
+
 # set palette index for lightest colour of cargo; range for rest will be calculated automatically 
 # when defining a new cargo, worth looking at resulting sprites in case range overflowed into wrong colours
 cargos = {

@@ -3,7 +3,6 @@ import ImageDraw
 
 def get_pixel_sequence(x, y, sequence):
     raw_sequence = sequence['seq']
-    pixel_sequence = []
     for P in raw_sequence:
         yield (x + P.dx, y - P.dy, P.colour + sequence['colour_shift'])
 

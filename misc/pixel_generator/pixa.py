@@ -19,23 +19,28 @@ class PixaSequenceCollection:
         return self.sequences.get(colour)        
 
 class PixaMixer:
-    def __init__(self, sequence, colourset = None, transform = None, transform_options = None):
+    def __init__(self, sequence, transform=None, transform_options=None):
         self.sequence = sequence
-        self.colourset = colourset
         self.transform = transform
         self.transform_options = transform_options
     
-    def get_recolouring(self, x, y):
+    def get_recolouring(self, x, y, colourset=None):
         """ Give sequence of pixels to be painted by the caller. """ 
         for P in self.sequence:
             colour = P.colour
-            if self.colourset != None:
-                colour = self.colourset[P.colour]
+            # is it a var for the colour?
+            if P.colour in colourset:
+                colour = colourset[P.colour]
+            try:
+                colour + 1
+            except:
+                print "! Error: '"+colour+"' is not a valid colour value. (perhaps it's missing from current colourset?)"
+                raise # colour is not an int; possibly the colour is a var that is missing from current colourset
             if self.transform != None:
-                colour = self.transform(P.colour, self.transform_options)
+                colour = self.transform(colour, self.transform_options)
             yield (x + P.dx, y - P.dy, colour)
 
-def render(image, sequence_collection):
+def render(image, sequence_collection, colourset=None):
     colours = set() #used for debug
     imagepx = image.load()
     draw = ImageDraw.Draw(image)
@@ -46,7 +51,7 @@ def render(image, sequence_collection):
           colours.add(colour) #used for debug only
         sequence = sequence_collection.get_sequence_by_colour_index(imagepx[x,y])
         if sequence is not None:
-            for sx, sy, scol in sequence.get_recolouring(x, y):
+            for sx, sy, scol in sequence.get_recolouring(x, y, colourset):
                 draw.point([(sx, sy)], fill=scol)
     #print colours # debug: what colours did we find in this spritesheet?
     return image

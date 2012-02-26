@@ -196,8 +196,8 @@ class Spritesheet:
         for i, load_state in enumerate(load_states):
             row = self.floorplan.copy()
             #row = pixarender(row, key_colour_mapping_pass_1(colourset=colourset, connection_type=self.connection_type))
-            row = pixarender(row, key_colour_mapping_pass_2)
-            row = pixarender(row, key_colour_mapping_pass_3)
+            row = pixarender(row, key_colour_mapping_pass_2, colourset)
+            row = pixarender(row, key_colour_mapping_pass_3, colourset)
             #row = pixarender(row, key_colour_mapping_pass_4(colourset=colourset))
             start_y = i * SPRITEROW_HEIGHT
             end_y = (i+1) * SPRITEROW_HEIGHT            

@@ -1,6 +1,10 @@
 import Image
 import ImageDraw
 
+# common transforms
+def colour_shift(colour, options):
+    return colour + options['shift_amount']
+# end common transforms
 
 class PixaSequence:
     def __init__(self, sequence=None):

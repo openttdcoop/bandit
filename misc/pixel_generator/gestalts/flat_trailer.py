@@ -1,6 +1,7 @@
 from P import P
 from pixa import render as pixarender
 from pixa import colour_shift as colour_shift
+from pixa import replace_with_mask_colour as replace_with_mask_colour
 from pixa import PixaSequence, PixaSequenceCollection, PixaMixer
 import Image
                     
@@ -30,7 +31,7 @@ coloursets = {
     ),
     'cc_2' : dict ( 
         deck_colour = 75,
-        company_colour = 202,
+        company_colour = 84,
     ),
 }
 # pixel sequences
@@ -83,7 +84,7 @@ key_colour_mapping_pass_1 = PixaSequenceCollection(
         141 : PixaMixer(sequence = flatbed, transform = colour_shift, transform_options = {'shift_amount' : 1}), #143-136 flatbed
         140 : PixaMixer(sequence = flatbed, transform = colour_shift, transform_options = {'shift_amount' : 0}), #143-136 flatbed
         139 : PixaMixer(sequence = flatbed, transform = colour_shift, transform_options = {'shift_amount' : -1}), #143-136 flatbed
-        165 : PixaMixer(sequence = PixaSequence(sequence = [(0, 0, 201)])),
+        165 : PixaMixer(sequence = PixaSequence(sequence = [(0, 0, 'company_colour')]), transform = colour_shift, transform_options = {'shift_amount':-1}),
     }
 )
 key_colour_mapping_pass_2 = PixaSequenceCollection(
@@ -98,39 +99,30 @@ key_colour_mapping_pass_3 = PixaSequenceCollection(
 )
 key_colour_mapping_pass_4 = PixaSequenceCollection(
     sequences = {
-        195 : PixaMixer(sequence = PixaSequence(sequence = [(0, 0, 202)])),
+        195 : PixaMixer(sequence = PixaSequence(sequence = [(0, 0, 'company_colour')])),
         197 : PixaMixer(sequence = stakes),
     }
-)
-
-key_colour_mapping_show_drawbar_wheels = PixaSequenceCollection(
-    sequences = {
-         49 : PixaMixer(sequence = PixaSequence(sequence = [(0, 0, 19)])),
-         48 : PixaMixer(sequence = PixaSequence(sequence = [(0, 0, 18)])),
-        230 : PixaMixer(sequence = PixaSequence(sequence = [(0, 0, 5)])),
-        229 : PixaMixer(sequence = PixaSequence(sequence = [(0, 0, 4)])),
-        228 : PixaMixer(sequence = PixaSequence(sequence = [(0, 0, 3)])),
-        227 : PixaMixer(sequence = PixaSequence(sequence = [(0, 0, 2)])),
-    }
-)
-
-key_colour_mapping_hide_drawbar_wheels = PixaSequenceCollection(
-    sequences = {
-         49 : PixaMixer(sequence = PixaSequence(sequence = [(0, 0, 0)])),
-         48 : PixaMixer(sequence = PixaSequence(sequence = [(0, 0, 0)])),
-        230 : PixaMixer(sequence = PixaSequence(sequence = [(0, 0, 0)])),
-        229 : PixaMixer(sequence = PixaSequence(sequence = [(0, 0, 0)])),
-        228 : PixaMixer(sequence = PixaSequence(sequence = [(0, 0, 0)])),
-        227 : PixaMixer(sequence = PixaSequence(sequence = [(0, 0, 0)])),
-    }
-)
-    
+)    
 def hide_or_show_drawbar_dolly_wheels(connection_type):
     """ returns sequences to draw in dolly wheels for drawbar trailers, or mask them out with blue """
     if connection_type == 'drawbar':
-        return key_colour_mapping_show_drawbar_wheels
+        transform = None
+        transform_options = None
     else: 
-        return key_colour_mapping_hide_drawbar_wheels
+        transform = replace_with_mask_colour
+        transform_options = {'mask_colour' : 0}
+                
+    return PixaSequenceCollection(
+        sequences = {
+             49 : PixaMixer(sequence = PixaSequence(sequence = [(0, 0, 19)]), transform = transform, transform_options = transform_options),
+             48 : PixaMixer(sequence = PixaSequence(sequence = [(0, 0, 18)]), transform = transform, transform_options = transform_options),
+            230 : PixaMixer(sequence = PixaSequence(sequence = [(0, 0, 5)]), transform = transform, transform_options = transform_options),
+            229 : PixaMixer(sequence = PixaSequence(sequence = [(0, 0, 4)]), transform = transform, transform_options = transform_options),
+            228 : PixaMixer(sequence = PixaSequence(sequence = [(0, 0, 3)]), transform = transform, transform_options = transform_options),
+            227 : PixaMixer(sequence = PixaSequence(sequence = [(0, 0, 2)]), transform = transform, transform_options = transform_options),
+        }
+    )
+    
 
         
 class Variation:

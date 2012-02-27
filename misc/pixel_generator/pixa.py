@@ -4,6 +4,8 @@ import ImageDraw
 # common transforms
 def colour_shift(colour, options):
     return colour + options['shift_amount']
+def replace_with_mask_colour(colour, options):
+    return options['mask_colour']
 # end common transforms
 
 class PixaSequence:

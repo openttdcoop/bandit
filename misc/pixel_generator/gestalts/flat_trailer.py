@@ -1,8 +1,8 @@
-from P import P
 from pixa import render as pixarender
 from pixa import colour_shift as colour_shift
 from pixa import replace_with_mask_colour as replace_with_mask_colour
 from pixa import PixaSequence, PixaSequenceCollection, PixaMixer
+from functools import partial
 import Image
                     
 # set palette index for lightest colour of cargo; range for rest will be calculated automatically 
@@ -79,12 +79,12 @@ coil_load = PixaSequence(
 
 key_colour_mapping_pass_1 = PixaSequenceCollection(
     sequences = {
-         94 : PixaMixer(sequence = flatbed, transform = colour_shift, transform_options = {'shift_amount' : -1}),
+         94 : PixaMixer(sequence = flatbed, transform = partial(colour_shift, shift_amount = -1)),
          93 : PixaMixer(sequence = stakes),
-        141 : PixaMixer(sequence = flatbed, transform = colour_shift, transform_options = {'shift_amount' : 1}), #143-136 flatbed
-        140 : PixaMixer(sequence = flatbed, transform = colour_shift, transform_options = {'shift_amount' : 0}), #143-136 flatbed
-        139 : PixaMixer(sequence = flatbed, transform = colour_shift, transform_options = {'shift_amount' : -1}), #143-136 flatbed
-        165 : PixaMixer(sequence = PixaSequence(sequence = [(0, 0, 'company_colour')]), transform = colour_shift, transform_options = {'shift_amount':-1}),
+        141 : PixaMixer(sequence = flatbed, transform = partial(colour_shift, shift_amount = 1)), #143-136 flatbed
+        140 : PixaMixer(sequence = flatbed, transform = partial(colour_shift, shift_amount = 0)), #143-136 flatbed
+        139 : PixaMixer(sequence = flatbed, transform = partial(colour_shift, shift_amount = -1)), #143-136 flatbed
+        165 : PixaMixer(sequence = PixaSequence(sequence = [(0, 0, 'company_colour')]), transform = partial(colour_shift, shift_amount = -1)),
     }
 )
 key_colour_mapping_pass_2 = PixaSequenceCollection(
@@ -109,17 +109,16 @@ def hide_or_show_drawbar_dolly_wheels(connection_type):
         transform = None
         transform_options = None
     else: 
-        transform = replace_with_mask_colour
-        transform_options = {'mask_colour' : 0}
+        transform = partial(replace_with_mask_colour,mask_colour=0)
                 
     return PixaSequenceCollection(
         sequences = {
-             49 : PixaMixer(sequence = PixaSequence(sequence = [(0, 0, 19)]), transform = transform, transform_options = transform_options),
-             48 : PixaMixer(sequence = PixaSequence(sequence = [(0, 0, 18)]), transform = transform, transform_options = transform_options),
-            230 : PixaMixer(sequence = PixaSequence(sequence = [(0, 0, 5)]), transform = transform, transform_options = transform_options),
-            229 : PixaMixer(sequence = PixaSequence(sequence = [(0, 0, 4)]), transform = transform, transform_options = transform_options),
-            228 : PixaMixer(sequence = PixaSequence(sequence = [(0, 0, 3)]), transform = transform, transform_options = transform_options),
-            227 : PixaMixer(sequence = PixaSequence(sequence = [(0, 0, 2)]), transform = transform, transform_options = transform_options),
+             49 : PixaMixer(sequence = PixaSequence(sequence = [(0, 0, 19)]), transform = transform),
+             48 : PixaMixer(sequence = PixaSequence(sequence = [(0, 0, 18)]), transform = transform),
+            230 : PixaMixer(sequence = PixaSequence(sequence = [(0, 0, 5)]), transform = transform),
+            229 : PixaMixer(sequence = PixaSequence(sequence = [(0, 0, 4)]), transform = transform),
+            228 : PixaMixer(sequence = PixaSequence(sequence = [(0, 0, 3)]), transform = transform),
+            227 : PixaMixer(sequence = PixaSequence(sequence = [(0, 0, 2)]), transform = transform),
         }
     )
     
@@ -153,9 +152,9 @@ class Spritesheet:
             row = self.floorplan.copy()
             row = pixarender(row, hide_or_show_drawbar_dolly_wheels(self.connection_type), colourset)
             row = pixarender(row, key_colour_mapping_pass_1, colourset)
-            row = pixarender(row, key_colour_mapping_pass_2, colourset)
-            row = pixarender(row, key_colour_mapping_pass_3, colourset)
-            row = pixarender(row, key_colour_mapping_pass_4, colourset)
+            #row = pixarender(row, key_colour_mapping_pass_2, colourset)
+            #row = pixarender(row, key_colour_mapping_pass_3, colourset)
+            #row = pixarender(row, key_colour_mapping_pass_4, colourset)
             #row = pixarender(row, key_colour_mapping_pass_5)
             start_y = i * SPRITEROW_HEIGHT
             end_y = (i+1) * SPRITEROW_HEIGHT            

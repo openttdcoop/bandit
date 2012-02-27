@@ -2,10 +2,13 @@ import Image
 import ImageDraw
 
 # common transforms
-def colour_shift(colour, options):
-    return colour + options['shift_amount']
-def replace_with_mask_colour(colour, options):
-    return options['mask_colour']
+def colour_shift(point, shift_amount):
+    point.colour + shift_amount
+    return point
+
+def replace_with_mask_colour(point, mask_colour):
+    point.colour = mask_colour
+    return point
 # end common transforms
 
 class PixaSequence:
@@ -49,19 +52,20 @@ class PixaMixer:
     
     def get_recolouring(self, x, y, colourset=None):
         """ Give sequence of pixels to be painted by the caller. """ 
-        for P in self.sequence.sequence:  #my my, that's ugly
-            colour = P.colour
+        for point in self.sequence.sequence:  #my my, that's ugly
+            colour = point.colour
             # is it a var for the colour?
-            if P.colour in colourset:
-                colour = colourset[P.colour]
+            if point.colour in colourset:
+                colour = colourset[point.colour]
             try:
                 colour + 1
             except:
                 print "! Error: '"+colour+"' is not a valid colour value. (perhaps it's missing from current colourset?)"
                 raise # colour is not an int; possibly the colour is a var that is missing from current colourset
             if self.transform != None:
-                colour = self.transform(colour, self.transform_options)
-            yield (x + P.dx, y - P.dy, colour)
+                point.colour = colour # !!! put the calculated colour back on the point object - might be better to create a new point obj locally ??
+                point = self.transform(point=point)
+            yield (x + point.dx, y - point.dy, colour)
 
 def render(image, sequence_collection, colourset=None):
     colours = set() #used for debug

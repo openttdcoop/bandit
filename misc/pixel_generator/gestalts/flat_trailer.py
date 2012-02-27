@@ -25,18 +25,18 @@ FLOORPLAN_START_Y = 90
 # colour sets
 coloursets = {    
     'cc_1' : dict ( 
-        deck_colour = 108,
+        deck_colour = 115,
         company_colour = 202,
     ),
     'cc_2' : dict ( 
-        deck_colour = 108,
+        deck_colour = 75,
         company_colour = 202,
     ),
 }
 # pixel sequences
 flatbed = PixaSequence( 
     sequence = [
-        (0, 0, 115),      
+        (0, 0, 'deck_colour'),      
     ]
 )
 stakes = PixaSequence(
@@ -75,15 +75,6 @@ coil_load = PixaSequence(
         (2, 4, 8),
     ]
 )
-    
-def hide_or_show_drawbar_dolly_wheels(connection_type, colour, shift):
-    if connection_type == 'drawbar':
-        if colour in [49, 48]:
-            return [P(0, 0, 19 + shift)]
-        else:
-            return [P(0, 0, 4 + shift)]
-    else: 
-        return [P(0, 0, 0)]
 
 key_colour_mapping_pass_1 = PixaSequenceCollection(
     sequences = {
@@ -111,19 +102,37 @@ key_colour_mapping_pass_4 = PixaSequenceCollection(
         197 : PixaMixer(sequence = stakes),
     }
 )
-"""
-key_colour_mapping_pass_5 = PixaSequenceCollection(
+
+key_colour_mapping_show_drawbar_wheels = PixaSequenceCollection(
     sequences = {
-        
-        49 : dict(seq = hide_or_show_drawbar_dolly_wheels(connection_type, 49, 0), colour_shift =  0),
-        48 : dict(seq = hide_or_show_drawbar_dolly_wheels(connection_type, 48, 0), colour_shift =  -1),
-        230 : dict(seq = hide_or_show_drawbar_dolly_wheels(connection_type, 230, 1), colour_shift =  0),
-        229 : dict(seq = hide_or_show_drawbar_dolly_wheels(connection_type, 229, 0), colour_shift =  0),
-        228 : dict(seq = hide_or_show_drawbar_dolly_wheels(connection_type, 228, -1), colour_shift =  0),
-        227 : dict(seq = hide_or_show_drawbar_dolly_wheels(connection_type, 227, -2), colour_shift =  0),
+         49 : PixaMixer(sequence = PixaSequence(sequence = [(0, 0, 19)])),
+         48 : PixaMixer(sequence = PixaSequence(sequence = [(0, 0, 18)])),
+        230 : PixaMixer(sequence = PixaSequence(sequence = [(0, 0, 5)])),
+        229 : PixaMixer(sequence = PixaSequence(sequence = [(0, 0, 4)])),
+        228 : PixaMixer(sequence = PixaSequence(sequence = [(0, 0, 3)])),
+        227 : PixaMixer(sequence = PixaSequence(sequence = [(0, 0, 2)])),
     }
 )
-"""
+
+key_colour_mapping_hide_drawbar_wheels = PixaSequenceCollection(
+    sequences = {
+         49 : PixaMixer(sequence = PixaSequence(sequence = [(0, 0, 0)])),
+         48 : PixaMixer(sequence = PixaSequence(sequence = [(0, 0, 0)])),
+        230 : PixaMixer(sequence = PixaSequence(sequence = [(0, 0, 0)])),
+        229 : PixaMixer(sequence = PixaSequence(sequence = [(0, 0, 0)])),
+        228 : PixaMixer(sequence = PixaSequence(sequence = [(0, 0, 0)])),
+        227 : PixaMixer(sequence = PixaSequence(sequence = [(0, 0, 0)])),
+    }
+)
+    
+def hide_or_show_drawbar_dolly_wheels(connection_type):
+    """ returns sequences to draw in dolly wheels for drawbar trailers, or mask them out with blue """
+    if connection_type == 'drawbar':
+        return key_colour_mapping_show_drawbar_wheels
+    else: 
+        return key_colour_mapping_hide_drawbar_wheels
+
+        
 class Variation:
     def __init__(self,id):
         self.id = id
@@ -150,6 +159,7 @@ class Spritesheet:
     def render(self, colourset):    
         for i, load_state in enumerate(load_states):
             row = self.floorplan.copy()
+            row = pixarender(row, hide_or_show_drawbar_dolly_wheels(self.connection_type), colourset)
             row = pixarender(row, key_colour_mapping_pass_1, colourset)
             row = pixarender(row, key_colour_mapping_pass_2, colourset)
             row = pixarender(row, key_colour_mapping_pass_3, colourset)

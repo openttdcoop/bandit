@@ -3,8 +3,24 @@ import ImageDraw
 
 
 class PixaSequence:
-    def __init__(self, sequence):
-        self.sequence = sequence
+    def __init__(self, sequence=None):
+        self.sequence = []
+        if sequence is not None:
+            for i in sequence:
+                self.set_point(i)
+
+    class Point:
+        """ simple class to hold the definition of a pixel that should be drawn """
+        def __init__(self, dx, dy, colour):
+            self.dx = dx
+            self.dy = dy
+            self.colour = colour
+                
+    def set_point(self, point_values):
+        """ pass in a tuple of x, y, colour """
+        point = self.Point(dx = point_values[0], dy = point_values[1], colour = point_values[2])
+        # ? could check here and print a warning if more than one point has same x,y ? 
+        self.sequence.append(point)
 
     def get_sequence_values(self):
         """ Give sequence of pixels to the caller. """ 
@@ -26,7 +42,7 @@ class PixaMixer:
     
     def get_recolouring(self, x, y, colourset=None):
         """ Give sequence of pixels to be painted by the caller. """ 
-        for P in self.sequence:
+        for P in self.sequence.sequence:  #my my, that's ugly
             colour = P.colour
             # is it a var for the colour?
             if P.colour in colourset:

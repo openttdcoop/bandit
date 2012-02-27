@@ -92,35 +92,36 @@ def stakes():
         P(0, 1, 21),      
     ]
     
-def coil_load():
-    return [
-        P(-1, 0, 3),          
-        P(0, 0, 4),          
-        P(1, 0, 3),          
-        P(2, 0, 3),
-        P(-2, 1, 3),
-        P(-1, 1, 4),
-        P(0 , 1, 1),
-        P(1, 1, 6),
-        P(2, 1, 5),
-        P(3, 1, 6),
-        P(-2, 2, 5),
-        P(-1, 2, 9),
-        P(0 , 2, 6),
-        P(1, 2, 8),
-        P(2, 2, 8),
-        P(3, 2, 10),
-        P(-2, 3, 6),
-        P(-1, 3, 7),
-        P(0 , 3, 3),
-        P(1, 3, 1),
-        P(2, 3, 6),
-        P(3, 3, 10),
-        P(-1, 4, 6),          
-        P(0, 4, 8),          
-        P(1, 4, 10),          
-        P(2, 4, 8),
+coil_load = PixaSequence(
+    sequence = [
+        (-1, 0, 3),          
+        (0, 0, 4),          
+        (1, 0, 3),          
+        (2, 0, 3),
+        (-2, 1, 3),
+        (-1, 1, 4),
+        (0 , 1, 1),
+        (1, 1, 6),
+        (2, 1, 5),
+        (3, 1, 6),
+        (-2, 2, 5),
+        (-1, 2, 9),
+        (0 , 2, 6),
+        (1, 2, 8),
+        (2, 2, 8),
+        (3, 2, 10),
+        (-2, 3, 6),
+        (-1, 3, 7),
+        (0 , 3, 3),
+        (1, 3, 1),
+        (2, 3, 6),
+        (3, 3, 10),
+        (-1, 4, 6),          
+        (0, 4, 8),          
+        (1, 4, 10),          
+        (2, 4, 8),
     ]
+)
     
 def hide_or_show_drawbar_dolly_wheels(connection_type, colour, shift):
     if connection_type == 'drawbar':
@@ -154,12 +155,12 @@ def colour_shift(colour, options):
 
 key_colour_mapping_pass_2 = PixaSequenceCollection(
     sequences =  {
-        190 : PixaMixer(sequence = coil_load()),
+        190 : PixaMixer(sequence = coil_load),
     }
 )
 key_colour_mapping_pass_3 = PixaSequenceCollection(
     sequences =  {
-        191 : PixaMixer(sequence = coil_load()),
+        191 : PixaMixer(sequence = coil_load),
     }
 )
 def key_colour_mapping_pass_4(colourset):

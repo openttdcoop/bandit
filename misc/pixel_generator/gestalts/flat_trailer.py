@@ -86,12 +86,12 @@ def flatbed():
     return [
         P(0, 0, 115),      
     ]
-def stakes():
-    return [
-        P(0, 0, 133),      
-        P(0, 1, 21),      
+stakes = PixaSequence(
+    sequence = [
+        (0, 0, 133),      
+        (0, 1, 21),      
     ]
-    
+)    
 coil_load = PixaSequence(
     sequence = [
         (-1, 0, 3),          
@@ -154,21 +154,21 @@ def colour_shift(colour, options):
     return colour + options['shift_amount']
 
 key_colour_mapping_pass_2 = PixaSequenceCollection(
-    sequences =  {
+    sequences = {
         190 : PixaMixer(sequence = coil_load),
     }
 )
 key_colour_mapping_pass_3 = PixaSequenceCollection(
-    sequences =  {
+    sequences = {
         191 : PixaMixer(sequence = coil_load),
     }
 )
-def key_colour_mapping_pass_4(colourset):
-    return {
-        195 : dict(seq = [P(0, 0, 202)], colour_shift = 0),
-        197 : dict(seq = stakes(),  colour_shift =  0),
+key_colour_mapping_pass_4 = PixaSequenceCollection(
+    sequences = {
+        195 : PixaMixer(sequence = PixaSequence(sequence = [(0, 0, 202)])),
+        197 : PixaMixer(sequence = stakes),
     }
-
+)
 
 class Variation:
     def __init__(self,id):
@@ -199,7 +199,7 @@ class Spritesheet:
             #row = pixarender(row, key_colour_mapping_pass_1(colourset=colourset, connection_type=self.connection_type))
             row = pixarender(row, key_colour_mapping_pass_2, colourset)
             row = pixarender(row, key_colour_mapping_pass_3, colourset)
-            #row = pixarender(row, key_colour_mapping_pass_4(colourset=colourset))
+            row = pixarender(row, key_colour_mapping_pass_4, colourset)
             start_y = i * SPRITEROW_HEIGHT
             end_y = (i+1) * SPRITEROW_HEIGHT            
             self.sprites.paste(row,(0, start_y, row.size[0], end_y))    

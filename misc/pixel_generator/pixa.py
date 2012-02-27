@@ -4,6 +4,7 @@ import ImageDraw
 
 class PixaSequence:
     def __init__(self, sequence=None):
+        """ pass on optional sequence, in format [(dx, dy, colour)...] """
         self.sequence = []
         if sequence is not None:
             for i in sequence:

@@ -109,6 +109,16 @@ class PixaShiftColour(PixaMixer):
                 result.append(p)
         return result
 
+class PixaMaskColour(PixaMixer):
+    """
+    Mask out all colours for an entire sequence (mask colour user-defined to allow for palette variations).
+    """
+    def __init__(self, mask_colour):
+        self.mask_colour = mask_colour
+
+    def convert(self, seq):
+        return [Point(p.dx, p.dy, self.mask_colour) for p in seq]
+
 
 class PixaShiftDY(PixaMixer):
     """

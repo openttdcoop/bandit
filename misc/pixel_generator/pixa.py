@@ -19,17 +19,30 @@ class Point:
         self.colour = colour                
 
 class PixaSequence:
-    def __init__(self, points=None):
+    def __init__(self, points=None, transforms=None):
         """ pass on optional sequence, in format [(dx, dy, colour)...] """
         self.points = []
+        self.transforms = []    
         if points is not None:
             for i in points:
-                self.set_point(i)                
+                self.add_point(i)
+        if transforms is not None:
+            for i in transforms:
+                self.add_transform(i)
 
-    def set_point(self, point_values):
+    def add_point(self, point):
         """ pass in a tuple of x, y, colour """
         # ? could check here and print a warning if more than one point has same x,y ? 
-        self.points.append(Point(dx = point_values[0], dy = point_values[1], colour = point_values[2]))
+        self.points.append(Point(dx = point[0], dy = point[1], colour = point[2]))
+
+    def add_transform(self, transform):
+        """ pass in an object for the transform """
+        """ 
+            ? this could be used by authors to add transforms at arbitrary points in their pipeline ? 
+            that would let authors add transforms using variables which might not be in scope earlier in the pipeline
+            however...order of transforms matter.  How would they control order when adding a transform? 
+        """        
+        self.transforms.append(transform)
 
     def get_sequence_values(self):
         """ Give sequence of pixels to the caller. """ 
@@ -144,14 +157,14 @@ def render(image, sequence_collection, colourset=None):
         colour = imagepx[x,y]
         if colour not in (0, 15, 255):
           colours.add(colour) #used for debug only
-        sequence_container = sequence_collection.get_sequence_by_colour_index(imagepx[x,y])
-        if sequence_container is not None:
-            sequence = sequence_container['sequence'].points
+        sequence = sequence_collection.get_sequence_by_colour_index(imagepx[x,y])
+        if sequence is not None:
+            points = sequence.points
             #print sequence
-            if sequence_container.setdefault('transforms',None) is not None:
-                for t in sequence_container['transforms']:
+            if sequence.transforms is not None:
+                for t in sequence.transforms:
                     if t is not None:
-                        print t.convert(sequence)                        
+                        print t.convert(points)                        
             """
             for sx, sy, scol in sequence.get_recolouring(x, y, colourset):
                 draw.point([(sx, sy)], fill=scol)

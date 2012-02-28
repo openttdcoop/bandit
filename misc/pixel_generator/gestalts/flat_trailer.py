@@ -138,16 +138,9 @@ class Spritesheet:
         self.connection_type = connection_type
         return None
         
-    def render(self, colourset):    
+    def render(self, render_passes):    
         for i, load_state in enumerate(load_states):
             spriterow = self.floorplan.copy()
-            render_passes = [
-                (hide_or_show_drawbar_dolly_wheels(self.connection_type), colourset),
-                (key_colour_mapping_pass_1, colourset),
-                (key_colour_mapping_pass_2, colourset),
-                (key_colour_mapping_pass_3, colourset),
-                (key_colour_mapping_pass_4, colourset),
-            ]
             for render_pass in render_passes:
                 spriterow = pixarender(spriterow, render_pass[0], render_pass[1])                
             start_y = i * SPRITEROW_HEIGHT
@@ -173,5 +166,13 @@ def generate(input_image_path):
             
         for spritesheet in variation.spritesheets:
             print coloursets[variation.id]
-            spritesheet.render(coloursets[variation.id])
+            colourset = coloursets[variation.id]
+            render_passes = [
+                (hide_or_show_drawbar_dolly_wheels(spritesheet.connection_type), colourset),
+                (key_colour_mapping_pass_1, colourset),
+                (key_colour_mapping_pass_2, colourset),
+                (key_colour_mapping_pass_3, colourset),
+                (key_colour_mapping_pass_4, colourset),
+            ]
+            spritesheet.render(render_passes)
             spritesheet.save(variation.id)

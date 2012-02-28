@@ -44,6 +44,7 @@ class PixaSequence:
         Colourset is required if points use vars for colours.  Colourset not required if all colours are specified as numbers.
         If transforms are defined in this sequence, they willl be applied after the colourset and before returning points.
         """
+        
         # create a copy of points, just used when returning to the caller
         # don't want to modify the actual point values stored in this sequence
         temp_points = deepcopy(self.points) # use deepcopy because we need to copy the objects in the list, not just the list

@@ -140,15 +140,19 @@ class Spritesheet:
         
     def render(self, colourset):    
         for i, load_state in enumerate(load_states):
-            row = self.floorplan.copy()
-            row = pixarender(row, hide_or_show_drawbar_dolly_wheels(self.connection_type), colourset)
-            row = pixarender(row, key_colour_mapping_pass_1, colourset)
-            row = pixarender(row, key_colour_mapping_pass_2, colourset)
-            row = pixarender(row, key_colour_mapping_pass_3, colourset)
-            row = pixarender(row, key_colour_mapping_pass_4, colourset)
+            spriterow = self.floorplan.copy()
+            render_passes = [
+                (hide_or_show_drawbar_dolly_wheels(self.connection_type), colourset),
+                (key_colour_mapping_pass_1, colourset),
+                (key_colour_mapping_pass_2, colourset),
+                (key_colour_mapping_pass_3, colourset),
+                (key_colour_mapping_pass_4, colourset),
+            ]
+            for render_pass in render_passes:
+                spriterow = pixarender(spriterow, render_pass[0], render_pass[1])                
             start_y = i * SPRITEROW_HEIGHT
             end_y = (i+1) * SPRITEROW_HEIGHT            
-            self.sprites.paste(row,(0, start_y, row.size[0], end_y))    
+            self.sprites.paste(spriterow,(0, start_y, spriterow.size[0], end_y))    
         
     def save(self, variation_id):
         length = '7_8' # !! hard coded var until this is figured out

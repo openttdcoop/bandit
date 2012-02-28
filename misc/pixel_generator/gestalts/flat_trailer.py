@@ -104,7 +104,6 @@ def hide_or_show_drawbar_dolly_wheels(connection_type):
         transform = None
     else:
         transform = PixaShiftColour(0, 255, -1)
-        #transform = partial(replace_with_mask_colour,mask_colour=0)
                 
     return PixaSequenceCollection(
         sequences = {
@@ -147,10 +146,9 @@ class Spritesheet:
             row = self.floorplan.copy()
             row = pixarender(row, hide_or_show_drawbar_dolly_wheels(self.connection_type), colourset)
             row = pixarender(row, key_colour_mapping_pass_1, colourset)
-            #row = pixarender(row, key_colour_mapping_pass_2, colourset)
-            #row = pixarender(row, key_colour_mapping_pass_3, colourset)
-            #row = pixarender(row, key_colour_mapping_pass_4, colourset)
-            #row = pixarender(row, key_colour_mapping_pass_5)
+            row = pixarender(row, key_colour_mapping_pass_2, colourset)
+            row = pixarender(row, key_colour_mapping_pass_3, colourset)
+            row = pixarender(row, key_colour_mapping_pass_4, colourset)
             start_y = i * SPRITEROW_HEIGHT
             end_y = (i+1) * SPRITEROW_HEIGHT            
             self.sprites.paste(row,(0, start_y, row.size[0], end_y))    
@@ -173,5 +171,6 @@ def generate(input_image_path):
             spritesheet = variation.spritesheets.append(Spritesheet(cid=cargo, floorplan=floorplan, palette=palette, connection_type='drawbar'))
             
         for spritesheet in variation.spritesheets:
+            print coloursets[variation.id]
             spritesheet.render(coloursets[variation.id])
             spritesheet.save(variation.id)

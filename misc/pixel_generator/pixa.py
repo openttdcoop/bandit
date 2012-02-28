@@ -1,5 +1,6 @@
 import Image
 import ImageDraw
+from copy import deepcopy
 
 # common transforms
 def colour_shift(point, shift_amount):
@@ -24,45 +25,56 @@ class PixaSequence:
         self.points = []
         self.transforms = []    
         if points is not None:
-            for i in points:
-                self.add_point(i)
+            self.add_points(points)
         if transforms is not None:
             for i in transforms:
                 self.add_transform(i)
 
-    def add_point(self, point):
-        """ pass in a tuple of x, y, colour """
+    def add_points(self, points):
+        """ pass in a list containing tuples of (x, y, colour) """
         # ? could check here and print a warning if more than one point has same x,y ? 
-        self.points.append(Point(dx = point[0], dy = point[1], colour = point[2]))
+        for i in points:
+            self.points.append(Point(dx = i[0], dy = i[1], colour = i[2]))
 
     def add_transform(self, transform):
         """ pass in an object for the transform """
         """ 
-            ? this could be used by authors to add transforms at arbitrary points in their pipeline ? 
-            that would let authors add transforms using variables which might not be in scope earlier in the pipeline
-            however...order of transforms matter.  How would they control order when adding a transform? 
+        ? this could be used by authors to add transforms at arbitrary points in their pipeline ? 
+        that would let authors add transforms using variables which might not be in scope earlier in the pipeline
+        however...order of transforms matter.  How would they control order when adding a transform? 
         """        
         self.transforms.append(transform)
 
-    def get_sequence_values(self):
-        """ Give sequence of pixels to the caller. """ 
-        for dx, dy, col in self.sequence:
-          yield dx, dy, col
-
     def get_recolouring(self, x, y, colourset=None):
-        """ Give sequence of pixels to be painted by the caller. """ 
-        for point in self.sequence:  #my my, that's ugly
-            colour = point.colour
+        """ 
+        Give points to be painted by the caller.
+        Colourset is required if points use vars for colours.  Colourset not required if all colours are specified as numbers.
+        If transforms are defined in this sequence, they willl be applied after the colourset and before returning points.
+        """
+        # create a copy of points, just used when returning to the caller
+        # don't want to modify the actual point values stored in this sequence
+        temp_points = deepcopy(self.points) # use deepcopy because we need to copy the objects in the list, not just the list
+        
+        for point in temp_points:            
             # is it a var for the colour?
             if point.colour in colourset:
-                colour = colourset[point.colour]
+                print point.colour
+                point.colour = colourset[point.colour]
+                print point.colour
             try:
-                colour + 1
+                point.colour + 1
             except:
                 print "! Error: '"+colour+"' is not a valid colour value. (perhaps it's missing from current colourset?)"
                 raise # colour is not an int; possibly the colour is a var that is missing from current colourset
-            yield (x + point.dx, y - point.dy, colour)
-
+        
+        if self.transforms is not None:
+            for t in self.transforms:
+                if t is not None:
+                    temp_points = t.convert(temp_points)
+        
+        for point in temp_points:
+            yield (x + point.dx, y - point.dy, point.colour)
+        
 
 class PixaSequenceCollection:
     def __init__(self, sequences):
@@ -104,7 +116,7 @@ class PixaShiftColour(PixaMixer):
         result = []
         for p in seq:
             if p.colour >= self.lower and p.colour <= self.upper:
-                result.append((p.dx, p.dy, p.colour + self.shift))
+                result.append(Point(p.dx, p.dy, p.colour + self.shift))
             else:
                 result.append(p)
         return result
@@ -124,30 +136,6 @@ class PixaShiftDY(PixaMixer):
         return [Point(p.dx, p.dy + self.ddy, p.colour) for p in seq]
 
 
-class PixaMixerOld:
-    def __init__(self, sequence, transform=None, transform_options=None):
-        self.sequence = sequence
-        self.transform = transform
-        self.transform_options = transform_options
-    
-    def get_recolouring(self, x, y, colourset=None):
-        """ Give sequence of pixels to be painted by the caller. """ 
-        for point in self.sequence.points:  #my my, that's ugly
-            colour = point.colour
-            # is it a var for the colour?
-            if point.colour in colourset:
-                colour = colourset[point.colour]
-            try:
-                colour + 1
-            except:
-                print "! Error: '"+colour+"' is not a valid colour value. (perhaps it's missing from current colourset?)"
-                raise # colour is not an int; possibly the colour is a var that is missing from current colourset
-            if self.transform != None:
-                point.colour = colour # !!! put the calculated colour back on the point object - might be better to create a new point obj locally ??
-                point = self.transform(point=point)
-            yield (x + point.dx, y - point.dy, colour)
-
-
 def render(image, sequence_collection, colourset=None):
     colours = set() #used for debug
     imagepx = image.load()
@@ -159,16 +147,8 @@ def render(image, sequence_collection, colourset=None):
           colours.add(colour) #used for debug only
         sequence = sequence_collection.get_sequence_by_colour_index(imagepx[x,y])
         if sequence is not None:
-            points = sequence.points
-            #print sequence
-            if sequence.transforms is not None:
-                for t in sequence.transforms:
-                    if t is not None:
-                        print t.convert(points)                        
-            """
             for sx, sy, scol in sequence.get_recolouring(x, y, colourset):
                 draw.point([(sx, sy)], fill=scol)
-            """  
     #print colours # debug: what colours did we find in this spritesheet?
     return image
 

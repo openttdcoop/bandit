@@ -2,16 +2,6 @@ import Image
 import ImageDraw
 from copy import deepcopy
 
-# common transforms
-def colour_shift(point, shift_amount):
-    point.colour + shift_amount
-    return point
-
-def replace_with_mask_colour(point, mask_colour):
-    point.colour = mask_colour
-    return point
-# end common transforms
-
 class Point:
     """ simple class to hold the definition of a pixel that should be drawn """
     def __init__(self, dx, dy, colour):
@@ -58,9 +48,7 @@ class PixaSequence:
         for point in temp_points:            
             # is it a var for the colour?
             if point.colour in colourset:
-                print point.colour
                 point.colour = colourset[point.colour]
-                print point.colour
             try:
                 point.colour + 1
             except:

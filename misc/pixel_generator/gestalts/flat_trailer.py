@@ -1,8 +1,5 @@
 from pixa import render as pixarender
-from pixa import colour_shift as colour_shift
-from pixa import replace_with_mask_colour as replace_with_mask_colour
 from pixa import PixaSequence, PixaSequenceCollection, PixaShiftColour
-from functools import partial
 import Image
                     
 # set palette index for lightest colour of cargo; range for rest will be calculated automatically 
@@ -104,7 +101,7 @@ def hide_or_show_drawbar_dolly_wheels(connection_type):
         transform = None
     else:
         transform = PixaShiftColour(0, 255, -1)
-                
+        print 'not drawbar'        
     return PixaSequenceCollection(
         sequences = {
              49 : PixaSequence(points = [(0, 0, 19)], transforms = [transform]),

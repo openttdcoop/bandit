@@ -11,31 +11,45 @@ def replace_with_mask_colour(point, mask_colour):
     return point
 # end common transforms
 
-class PixaSequence:
-    def __init__(self, sequence=None):
-        """ pass on optional sequence, in format [(dx, dy, colour)...] """
-        self.sequence = []
-        if sequence is not None:
-            for i in sequence:
-                self.set_point(i)
+class Point:
+    """ simple class to hold the definition of a pixel that should be drawn """
+    def __init__(self, dx, dy, colour):
+        self.dx = dx
+        self.dy = dy
+        self.colour = colour                
 
-    class Point:
-        """ simple class to hold the definition of a pixel that should be drawn """
-        def __init__(self, dx, dy, colour):
-            self.dx = dx
-            self.dy = dy
-            self.colour = colour
-                
+class PixaSequence:
+    def __init__(self, points=None):
+        """ pass on optional sequence, in format [(dx, dy, colour)...] """
+        self.points = []
+        if points is not None:
+            for i in points:
+                self.set_point(i)                
+
     def set_point(self, point_values):
         """ pass in a tuple of x, y, colour """
-        point = self.Point(dx = point_values[0], dy = point_values[1], colour = point_values[2])
         # ? could check here and print a warning if more than one point has same x,y ? 
-        self.sequence.append(point)
+        self.points.append(Point(dx = point_values[0], dy = point_values[1], colour = point_values[2]))
 
     def get_sequence_values(self):
         """ Give sequence of pixels to the caller. """ 
         for dx, dy, col in self.sequence:
           yield dx, dy, col
+
+    def get_recolouring(self, x, y, colourset=None):
+        """ Give sequence of pixels to be painted by the caller. """ 
+        for point in self.sequence:  #my my, that's ugly
+            colour = point.colour
+            # is it a var for the colour?
+            if point.colour in colourset:
+                colour = colourset[point.colour]
+            try:
+                colour + 1
+            except:
+                print "! Error: '"+colour+"' is not a valid colour value. (perhaps it's missing from current colourset?)"
+                raise # colour is not an int; possibly the colour is a var that is missing from current colourset
+            yield (x + point.dx, y - point.dy, colour)
+
 
 class PixaSequenceCollection:
     def __init__(self, sequences):
@@ -44,7 +58,60 @@ class PixaSequenceCollection:
     def get_sequence_by_colour_index(self, colour):
         return self.sequences.get(colour)        
 
-class PixaMixer:
+
+
+class PixaMixer(object):
+    """
+    Empty base class for modifying a sequence.
+    """
+
+    def convert(self, seq):
+        """
+        Convert the sequence.
+
+        @param seq: Sequence of points.
+        @type  seq: C{list} of L{Point}
+
+        @return Converted sequence.
+        @rtype: C{list} of L{Point}
+        """
+        raise NotImplementedError("Implement me in %r" % type(self))
+
+
+class PixaShiftColour(PixaMixer):
+    """
+    Shift colours for an entire sequence by some value.
+    """
+    def __init__(self, lower, upper, shift):
+        self.lower = lower
+        self.upper = upper
+        self.shift = shift
+
+    def convert(self, seq):
+        result = []
+        for p in seq:
+            if p.colour >= self.lower and p.colour <= self.upper:
+                result.append((p.dx, p.dy, p.colour + self.shift))
+            else:
+                result.append(p)
+        return result
+
+
+class PixaShiftDY(PixaMixer):
+    """
+    Shift Y position.
+
+    @ivar ddy: Change in dy.
+    @type ddy: C{int}
+    """
+    def __init__(self, ddy):
+        self.ddy = ddy
+
+    def convert(self, seq):
+        return [Point(p.dx, p.dy + self.ddy, p.colour) for p in seq]
+
+
+class PixaMixerOld:
     def __init__(self, sequence, transform=None, transform_options=None):
         self.sequence = sequence
         self.transform = transform
@@ -52,7 +119,7 @@ class PixaMixer:
     
     def get_recolouring(self, x, y, colourset=None):
         """ Give sequence of pixels to be painted by the caller. """ 
-        for point in self.sequence.sequence:  #my my, that's ugly
+        for point in self.sequence.points:  #my my, that's ugly
             colour = point.colour
             # is it a var for the colour?
             if point.colour in colourset:
@@ -67,6 +134,7 @@ class PixaMixer:
                 point = self.transform(point=point)
             yield (x + point.dx, y - point.dy, colour)
 
+
 def render(image, sequence_collection, colourset=None):
     colours = set() #used for debug
     imagepx = image.load()
@@ -76,10 +144,18 @@ def render(image, sequence_collection, colourset=None):
         colour = imagepx[x,y]
         if colour not in (0, 15, 255):
           colours.add(colour) #used for debug only
-        sequence = sequence_collection.get_sequence_by_colour_index(imagepx[x,y])
-        if sequence is not None:
+        sequence_container = sequence_collection.get_sequence_by_colour_index(imagepx[x,y])
+        if sequence_container is not None:
+            sequence = sequence_container['sequence'].points
+            #print sequence
+            if sequence_container.setdefault('transforms',None) is not None:
+                for t in sequence_container['transforms']:
+                    if t is not None:
+                        print t.convert(sequence)                        
+            """
             for sx, sy, scol in sequence.get_recolouring(x, y, colourset):
                 draw.point([(sx, sy)], fill=scol)
+            """  
     #print colours # debug: what colours did we find in this spritesheet?
     return image
 

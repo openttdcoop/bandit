@@ -1,7 +1,7 @@
 from pixa import render as pixarender
 from pixa import colour_shift as colour_shift
 from pixa import replace_with_mask_colour as replace_with_mask_colour
-from pixa import PixaSequence, PixaSequenceCollection, PixaMixer
+from pixa import PixaSequence, PixaSequenceCollection, PixaShiftColour
 from functools import partial
 import Image
                     
@@ -36,18 +36,18 @@ coloursets = {
 }
 # pixel sequences
 flatbed = PixaSequence( 
-    sequence = [
+    points = [
         (0, 0, 'deck_colour'),      
     ]
 )
 stakes = PixaSequence(
-    sequence = [
+    points = [
         (0, 0, 133),      
         (0, 1, 21),      
     ]
 )    
 coil_load = PixaSequence(
-    sequence = [
+    points = [
         (-1, 0, 3),          
         (0, 0, 4),          
         (1, 0, 3),          
@@ -79,46 +79,46 @@ coil_load = PixaSequence(
 
 key_colour_mapping_pass_1 = PixaSequenceCollection(
     sequences = {
-         94 : PixaMixer(sequence = flatbed, transform = partial(colour_shift, shift_amount = -1)),
-         93 : PixaMixer(sequence = stakes),
-        141 : PixaMixer(sequence = flatbed, transform = partial(colour_shift, shift_amount = 1)), #143-136 flatbed
-        140 : PixaMixer(sequence = flatbed, transform = partial(colour_shift, shift_amount = 0)), #143-136 flatbed
-        139 : PixaMixer(sequence = flatbed, transform = partial(colour_shift, shift_amount = -1)), #143-136 flatbed
-        165 : PixaMixer(sequence = PixaSequence(sequence = [(0, 0, 'company_colour')]), transform = partial(colour_shift, shift_amount = -1)),
+         94 : dict(sequence = flatbed, transforms = [PixaShiftColour(0, 255, -1)]),
+         93 : dict(sequence = stakes),
+        141 : dict(sequence = flatbed, transforms = [PixaShiftColour(0, 255, 1)]), #143-136 flatbed
+        140 : dict(sequence = flatbed, transforms = [PixaShiftColour(0, 255, 0)]), #143-136 flatbed
+        139 : dict(sequence = flatbed, transforms = [PixaShiftColour(0, 255, -1)]), #143-136 flatbed
+        165 : dict(sequence = PixaSequence(points = [(0, 0, 'company_colour')]), transforms = [PixaShiftColour(0, 255, -1)]),
     }
 )
 key_colour_mapping_pass_2 = PixaSequenceCollection(
     sequences = {
-        190 : PixaMixer(sequence = coil_load),
+        190 : dict(sequence = coil_load),
     }
 )
 key_colour_mapping_pass_3 = PixaSequenceCollection(
     sequences = {
-        191 : PixaMixer(sequence = coil_load),
+        191 : dict(sequence = coil_load),
     }
 )
 key_colour_mapping_pass_4 = PixaSequenceCollection(
     sequences = {
-        195 : PixaMixer(sequence = PixaSequence(sequence = [(0, 0, 'company_colour')])),
-        197 : PixaMixer(sequence = stakes),
+        195 : dict(sequence = PixaSequence(points = [(0, 0, 'company_colour')])),
+        197 : dict(sequence = stakes),
     }
 )    
 def hide_or_show_drawbar_dolly_wheels(connection_type):
     """ returns sequences to draw in dolly wheels for drawbar trailers, or mask them out with blue """
     if connection_type == 'drawbar':
         transform = None
-        transform_options = None
-    else: 
-        transform = partial(replace_with_mask_colour,mask_colour=0)
+    else:
+        transform = PixaShiftColour(0, 255, -1)
+        #transform = partial(replace_with_mask_colour,mask_colour=0)
                 
     return PixaSequenceCollection(
         sequences = {
-             49 : PixaMixer(sequence = PixaSequence(sequence = [(0, 0, 19)]), transform = transform),
-             48 : PixaMixer(sequence = PixaSequence(sequence = [(0, 0, 18)]), transform = transform),
-            230 : PixaMixer(sequence = PixaSequence(sequence = [(0, 0, 5)]), transform = transform),
-            229 : PixaMixer(sequence = PixaSequence(sequence = [(0, 0, 4)]), transform = transform),
-            228 : PixaMixer(sequence = PixaSequence(sequence = [(0, 0, 3)]), transform = transform),
-            227 : PixaMixer(sequence = PixaSequence(sequence = [(0, 0, 2)]), transform = transform),
+             49 : dict(sequence = PixaSequence(points = [(0, 0, 19)]), transforms = [transform]),
+             48 : dict(sequence = PixaSequence(points = [(0, 0, 18)]), transforms = [transform]),
+            230 : dict(sequence = PixaSequence(points = [(0, 0, 5)]), transforms = [transform]),
+            229 : dict(sequence = PixaSequence(points = [(0, 0, 4)]), transforms = [transform]),
+            228 : dict(sequence = PixaSequence(points = [(0, 0, 3)]), transforms = [transform]),
+            227 : dict(sequence = PixaSequence(points = [(0, 0, 2)]), transforms = [transform]),
         }
     )
     

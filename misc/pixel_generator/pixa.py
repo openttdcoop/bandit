@@ -11,14 +11,16 @@ class Point:
 
 class PixaSequence:
     def __init__(self, points=None, transforms=None):
-        """ pass on optional sequence, in format [(dx, dy, colour)...] """
+        """ 
+        pass an optional sequence, in format [(dx, dy, colour)...]
+        pass an optional list of transforms to use
+        """
         self.points = []
         self.transforms = []    
         if points is not None:
             self.add_points(points)
         if transforms is not None:
-            for i in transforms:
-                self.add_transform(i)
+            self.add_transforms(transforms)
 
     def add_points(self, points):
         """ pass in a list containing tuples of (x, y, colour) """
@@ -26,14 +28,15 @@ class PixaSequence:
         for i in points:
             self.points.append(Point(dx = i[0], dy = i[1], colour = i[2]))
 
-    def add_transform(self, transform):
+    def add_transforms(self, transforms):
         """ pass in an object for the transform """
         """ 
         ? this could be used by authors to add transforms at arbitrary points in their pipeline ? 
         that would let authors add transforms using variables which might not be in scope earlier in the pipeline
         however...order of transforms matter.  How would they control order when adding a transform? 
         """        
-        self.transforms.append(transform)
+        for transform in transforms:
+            self.transforms.append(transform)
 
     def get_recolouring(self, x, y, colourset=None):
         """ 

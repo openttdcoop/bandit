@@ -140,7 +140,7 @@ class Spritesheet:
             for render_pass in render_passes:
                 spriterow = pixarender(spriterow, render_pass[0], render_pass[1])                
             start_y = i * SPRITEROW_HEIGHT
-            end_y = (i+1) * SPRITEROW_HEIGHT            
+            end_y = start_y + SPRITEROW_HEIGHT            
             self.sprites.paste(spriterow,(0, start_y, spriterow.size[0], end_y))    
         
     def save(self, output_path):

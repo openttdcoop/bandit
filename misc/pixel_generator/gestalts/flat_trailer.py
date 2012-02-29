@@ -1,5 +1,4 @@
-from pixa import render as pixarender
-from pixa import PixaSequence, PixaSequenceCollection, PixaShiftColour, PixaMaskColour
+from pixa import PixaSequence, PixaSequenceCollection, PixaShiftColour, PixaMaskColour, Spritesheet
 import Image
                     
 # set palette index for lightest colour of cargo; range for rest will be calculated automatically 
@@ -122,27 +121,6 @@ class Variation:
         self.colourset = colourset
         self.cargo = cargo
         self.connection_type = connection_type
-
-class Spritesheet:
-    def __init__(self, spritesheet_width, spritesheet_height, palette):
-        # create the new spritesheet (empty at this stage)
-        self.spritesheet_width = spritesheet_width
-        self.spritesheet_height = spritesheet_height
-        self.sprites = Image.new('P', (self.spritesheet_width, self.spritesheet_height))
-        self.sprites.putpalette(palette)
-        
-    def render(self, spriterows):    
-        for i, spriterow in enumerate(spriterows):
-            result = spriterow['floorplan'].copy() # need to copy the floorplan image to draw into (to avoid modifying the original image object)
-            for render_pass in spriterow['render_passes']:
-                result = pixarender(result, render_pass['seq'], render_pass['colourset'])                
-            crop_start_y = i * spriterow['height']
-            crop_end_y = crop_start_y + spriterow['height']            
-            self.sprites.paste(result,(0, crop_start_y, result.size[0], crop_end_y))    
-        
-    def save(self, output_path):
-        self.sprites.save(output_path, optimize=True)
-
 
 def generate(input_image_path):
     floorplan = Image.open(input_image_path)

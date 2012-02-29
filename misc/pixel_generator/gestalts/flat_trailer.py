@@ -138,8 +138,8 @@ class Spritesheet:
         self.connection_type = connection_type
         return None
         
-    def render(self, render_passes):    
-        for i, load_state in enumerate(load_states):
+    def render(self, spriterows, render_passes):    
+        for i, load_state in enumerate(spriterows):
             spriterow = self.floorplan.copy()
             for render_pass in render_passes:
                 spriterow = pixarender(spriterow, render_pass[0], render_pass[1])                
@@ -174,5 +174,5 @@ def generate(input_image_path):
                 (key_colour_mapping_pass_3, colourset),
                 (key_colour_mapping_pass_4, colourset),
             ]
-            spritesheet.render(render_passes)
+            spritesheet.render(spriterows=load_states, render_passes=render_passes)
             spritesheet.save(variation.id)

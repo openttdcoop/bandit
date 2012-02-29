@@ -7,16 +7,16 @@ class Point:
     def __init__(self, dx, dy, colour):
         self.dx = dx
         self.dy = dy
-        self.colour = colour                
+        self.colour = colour
 
 class PixaSequence:
     def __init__(self, points=None, transforms=None):
-        """ 
+        """
         pass an optional sequence, in format [(dx, dy, colour)...]
         pass an optional list of transforms to use
         """
         self.points = []
-        self.transforms = []    
+        self.transforms = []
         if points is not None:
             self.add_points(points)
         if transforms is not None:
@@ -24,32 +24,32 @@ class PixaSequence:
 
     def add_points(self, points):
         """ pass in a list containing tuples of (x, y, colour) """
-        # ? could check here and print a warning if more than one point has same x,y ? 
+        # ? could check here and print a warning if more than one point has same x,y ?
         for i in points:
             self.points.append(Point(dx = i[0], dy = i[1], colour = i[2]))
 
     def add_transforms(self, transforms):
         """ pass in an object for the transform """
-        """ 
-        ? this could be used by authors to add transforms at arbitrary points in their pipeline ? 
+        """
+        ? this could be used by authors to add transforms at arbitrary points in their pipeline ?
         that would let authors add transforms using variables which might not be in scope earlier in the pipeline
-        however...order of transforms matter.  How would they control order when adding a transform? 
-        """        
+        however...order of transforms matter.  How would they control order when adding a transform?
+        """
         for transform in transforms:
             self.transforms.append(transform)
 
     def get_recolouring(self, x, y, colourset=None):
-        """ 
+        """
         Give points to be painted by the caller.
         Colourset is required if points use vars for colours.  Colourset not required if all colours are specified as numbers.
         If transforms are defined in this sequence, they willl be applied after the colourset and before returning points.
         """
-        
+
         # create a copy of points, just used when returning to the caller
         # don't want to modify the actual point values stored in this sequence
         temp_points = deepcopy(self.points) # use deepcopy because we need to copy the objects in the list, not just the list
-        
-        for point in temp_points:            
+
+        for point in temp_points:
             # is it a var for the colour?
             if point.colour in colourset:
                 point.colour = colourset[point.colour]
@@ -58,22 +58,22 @@ class PixaSequence:
             except:
                 print "! Error: '"+colour+"' is not a valid colour value. (perhaps it's missing from current colourset?)"
                 raise # colour is not an int; possibly the colour is a var that is missing from current colourset
-        
+
         if self.transforms is not None:
             for t in self.transforms:
                 if t is not None:
                     temp_points = t.convert(temp_points)
-        
+
         for point in temp_points:
             yield (x + point.dx, y - point.dy, point.colour)
-        
+
 
 class PixaSequenceCollection:
     def __init__(self, sequences):
         self.sequences = sequences
-        
+
     def get_sequence_by_colour_index(self, colour):
-        return self.sequences.get(colour)        
+        return self.sequences.get(colour)
 
 
 
@@ -137,23 +137,38 @@ class PixaShiftDY(PixaMixer):
     def convert(self, seq):
         return [Point(p.dx, p.dy + self.ddy, p.colour) for p in seq]
 
-class Spritesheet:
-    def __init__(self, spritesheet_width, spritesheet_height, palette):
-        # create the new spritesheet (empty at this stage)
-        self.spritesheet_width = spritesheet_width
-        self.spritesheet_height = spritesheet_height
-        self.sprites = Image.new('P', (self.spritesheet_width, self.spritesheet_height))
+class Spritesheet(object):
+    """
+    Class holding the sprite sheet.
+
+    @ivar sprites: The sprite sheet.
+    @type sprites: L{Image}
+    """
+    def __init__(self, width, height, palette):
+        """
+        Construct an empty sprite sheet.
+
+        @param width: Width of the sprite sheet.
+        @type  width: C{int}
+
+        @param height: Height of the sprite sheet.
+        @type  height: C{int}
+
+        @param palette: Palette of the sprite sheet.
+        @type  palette: C{list} of (256*3) C{int}
+        """
+        self.sprites = Image.new('P', (width, height))
         self.sprites.putpalette(palette)
-        
-    def render(self, spriterows):    
+
+    def render(self, spriterows):
         for i, spriterow in enumerate(spriterows):
             result = spriterow['floorplan'].copy() # need to copy the floorplan image to draw into (to avoid modifying the original image object)
             for render_pass in spriterow['render_passes']:
-                result = pixarender(result, render_pass['seq'], render_pass['colourset'])                
+                result = pixarender(result, render_pass['seq'], render_pass['colourset'])
             crop_start_y = i * spriterow['height']
-            crop_end_y = crop_start_y + spriterow['height']            
-            self.sprites.paste(result,(0, crop_start_y, result.size[0], crop_end_y))    
-        
+            crop_end_y = crop_start_y + spriterow['height']
+            self.sprites.paste(result,(0, crop_start_y, result.size[0], crop_end_y))
+
     def save(self, output_path):
         self.sprites.save(output_path, optimize=True)
 
@@ -175,6 +190,5 @@ def pixarender(image, sequence_collection, colourset=None):
 
 def generate(input_image_path, key_colour_mapping, output_image_path):
     spritesheet = Image.open(input_image_path)
-    draw = ImageDraw.Draw(spritesheet)
     spritesheet = render(spritesheet, key_colour_mapping)
     spritesheet.save(output_image_path, optimize=1)

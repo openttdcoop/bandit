@@ -1,13 +1,13 @@
 from pixa import PixaSequence, PixaSequenceCollection, PixaShiftColour, PixaMaskColour, Spritesheet
 import Image
-                    
-# set palette index for lightest colour of cargo; range for rest will be calculated automatically 
+
+# set palette index for lightest colour of cargo; range for rest will be calculated automatically
 # when defining a new cargo, worth looking at resulting sprites in case range overflowed into wrong colours
 cargos = {
     'STEL' : 4,
-}  
+}
 
-# load states - values define drawing parameters for the cargo to represent loading / loaded states 
+# load states - values define drawing parameters for the cargo to represent loading / loaded states
 # order needs to be predictable, so a dict won't do here
 load_states = [
     ('empty', 0),
@@ -20,51 +20,51 @@ SPRITEROW_HEIGHT = 40
 FLOORPLAN_START_Y = 90
 
 # colour sets
-coloursets = {    
-    'cc_1' : dict ( 
+coloursets = {
+    'cc_1' : dict (
         deck_colour = 115,
         company_colour = 202,
     ),
-    'cc_2' : dict ( 
+    'cc_2' : dict (
         deck_colour = 75,
         company_colour = 84,
     ),
 }
 # pixel sequences
 flatbed = [
-    (0, 0, 'deck_colour'),      
+    (0, 0, 'deck_colour'),
 ]
 stakes = [
-    (0, 0, 133),      
-    (0, 1, 21),      
+    (0, 0, 133),
+    (0, 1, 21),
 ]
 coil_load = [
-    (-1, 0, 3),          
-    (0, 0, 4),          
-    (1, 0, 3),          
-    (2, 0, 3),
+    (-1, 0, 3),
+    ( 0, 0, 4),
+    ( 1, 0, 3),
+    ( 2, 0, 3),
     (-2, 1, 3),
     (-1, 1, 4),
-    (0 , 1, 1),
-    (1, 1, 6),
-    (2, 1, 5),
-    (3, 1, 6),
+    ( 0, 1, 1),
+    ( 1, 1, 6),
+    ( 2, 1, 5),
+    ( 3, 1, 6),
     (-2, 2, 5),
     (-1, 2, 9),
-    (0 , 2, 6),
-    (1, 2, 8),
-    (2, 2, 8),
-    (3, 2, 10),
+    ( 0, 2, 6),
+    ( 1, 2, 8),
+    ( 2, 2, 8),
+    ( 3, 2, 10),
     (-2, 3, 6),
     (-1, 3, 7),
-    (0 , 3, 3),
-    (1, 3, 1),
-    (2, 3, 6),
-    (3, 3, 10),
-    (-1, 4, 6),          
-    (0, 4, 8),          
-    (1, 4, 10),          
-    (2, 4, 8),
+    ( 0, 3, 3),
+    ( 1, 3, 1),
+    ( 2, 3, 6),
+    ( 3, 3, 10),
+    (-1, 4, 6),
+    ( 0, 4, 8),
+    ( 1, 4, 10),
+    ( 2, 4, 8),
 ]
 
 sc_pass_1 = PixaSequenceCollection(
@@ -92,7 +92,7 @@ sc_pass_4 = PixaSequenceCollection(
         195 : PixaSequence(points = [(0, 0, 'company_colour')]),
         197 : PixaSequence(points = stakes),
     }
-)    
+)
 def hide_or_show_drawbar_dolly_wheels(connection_type):
     """ returns sequences to draw in dolly wheels for drawbar trailers, or mask them out with blue """
     if connection_type == 'drawbar':
@@ -110,8 +110,8 @@ def hide_or_show_drawbar_dolly_wheels(connection_type):
             227 : PixaSequence(points = [(0, 0, 2)], transforms = [transform]),
         }
     )
-    
-        
+
+
 class Variation:
     def __init__(self, colourset, cargo, connection_type):
         self.id = id
@@ -140,14 +140,14 @@ def generate(input_image_path):
                 variation.spritesheets.append(spritesheet)
                 variations.append(variation)
 
-    # render stage                
-    for variation in variations:                            
+    # render stage
+    for variation in variations:
         for spritesheet in variation.spritesheets:
             colourset = coloursets[variation.colourset]
             spriterows = []
             for load in load_states:
                 # spriterow holds data needed to render the row
-                spriterow = {'height' : SPRITEROW_HEIGHT, 'floorplan' : floorplan}         
+                spriterow = {'height' : SPRITEROW_HEIGHT, 'floorplan' : floorplan}
                 # add n render passes to the spriterow (list controls render order, index 0 = first pass)
                 spriterow['render_passes'] = [
                     {'seq' : hide_or_show_drawbar_dolly_wheels(variation.connection_type), 'colourset' : colourset},
@@ -159,6 +159,6 @@ def generate(input_image_path):
                 spriterows.append(spriterow)
             spritesheet.render(spriterows=spriterows)
             length = '7_8' # !! hard coded var until this is figured out
-            output_path = 'results/' + length + '_flat_trailer_' + variation.connection_type + '_' + variation.colourset + '_' + variation.cargo + '.png' 
+            output_path = 'results/' + length + '_flat_trailer_' + variation.connection_type + '_' + variation.colourset + '_' + variation.cargo + '.png'
             print output_path
             spritesheet.save(output_path)

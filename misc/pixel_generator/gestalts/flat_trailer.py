@@ -124,19 +124,16 @@ class Variation:
         self.connection_type = connection_type
 
 class Spritesheet:
-    def __init__(self, floorplan, palette):
+    def __init__(self, spritesheet_width, spritesheet_height, palette):
         # create the new spritesheet (empty at this stage)
-        self.spritesheet_width = floorplan.size[0]
-        self.spritesheet_height = SPRITEROW_HEIGHT * (len(load_states))
+        self.spritesheet_width = spritesheet_width
+        self.spritesheet_height = spritesheet_height
         self.sprites = Image.new('P', (self.spritesheet_width, self.spritesheet_height))
         self.sprites.putpalette(palette)
-        # store the floorplan
-        self.floorplan = floorplan
-        return None
         
     def render(self, spriterows):    
         for i, spriterow in enumerate(spriterows):
-            result = self.floorplan.copy()
+            result = spriterow['floorplan'].copy() # need to copy the floorplan image to draw into (to avoid modifying the original image object)
             for render_pass in spriterow['render_passes']:
                 result = pixarender(result, render_pass['seq'], render_pass['colourset'])                
             crop_start_y = i * spriterow['height']
@@ -153,22 +150,28 @@ def generate(input_image_path):
     floorplan = floorplan.crop((0, FLOORPLAN_START_Y, floorplan.size[0], FLOORPLAN_START_Y + SPRITEROW_HEIGHT))
     # get a palette
     palette = Image.open('palette_key.png').palette
+    # create variations containing empty spritesheets
     variations = []
     for colourset in coloursets:
         for cargo in cargos:
             for connection_type in ('fifth_wheel','drawbar'):
                 variation = Variation(colourset = colourset, cargo=cargo, connection_type='fifth_wheel')
-                variation.spritesheets.append(Spritesheet(floorplan=floorplan, palette=palette))
+                spritesheet = Spritesheet(
+                    spritesheet_width=floorplan.size[0],
+                    spritesheet_height=SPRITEROW_HEIGHT * (len(load_states)),
+                    palette=palette
+                )
+                variation.spritesheets.append(spritesheet)
                 variations.append(variation)
-                
+
+    # render stage                
     for variation in variations:                            
         for spritesheet in variation.spritesheets:
-            print coloursets[variation.colourset]
             colourset = coloursets[variation.colourset]
             spriterows = []
             for load in load_states:
                 # spriterow holds data needed to render the row
-                spriterow = {'height' : SPRITEROW_HEIGHT} 
+                spriterow = {'height' : SPRITEROW_HEIGHT, 'floorplan' : floorplan}         
                 # add n render passes to the spriterow (list controls render order, index 0 = first pass)
                 spriterow['render_passes'] = [
                     {'seq' : hide_or_show_drawbar_dolly_wheels(variation.connection_type), 'colourset' : colourset},

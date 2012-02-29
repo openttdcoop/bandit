@@ -134,14 +134,14 @@ class Spritesheet:
         self.floorplan = floorplan
         return None
         
-    def render(self, spriterows, render_passes):    
+    def render(self, spriterows, render_passes, spriterow_height):    
         for i, load_state in enumerate(spriterows):
             spriterow = self.floorplan.copy()
             for render_pass in render_passes:
                 spriterow = pixarender(spriterow, render_pass[0], render_pass[1])                
-            start_y = i * SPRITEROW_HEIGHT
-            end_y = start_y + SPRITEROW_HEIGHT            
-            self.sprites.paste(spriterow,(0, start_y, spriterow.size[0], end_y))    
+            crop_start_y = i * spriterow_height
+            crop_end_y = crop_start_y + spriterow_height            
+            self.sprites.paste(spriterow,(0, crop_start_y, spriterow.size[0], crop_end_y))    
         
     def save(self, output_path):
         self.sprites.save(output_path, optimize=True)
@@ -172,7 +172,7 @@ def generate(input_image_path):
                 (key_colour_mapping_pass_3, colourset),
                 (key_colour_mapping_pass_4, colourset),
             ]
-            spritesheet.render(spriterows=load_states, render_passes=render_passes)
+            spritesheet.render(spriterows=load_states, render_passes=render_passes, spriterow_height=SPRITEROW_HEIGHT)
             length = '7_8' # !! hard coded var until this is figured out
             output_path = 'results/' + length + '_flat_trailer_' + variation.connection_type + '_' + variation.colourset + '_' + variation.cargo + '.png' 
             print output_path

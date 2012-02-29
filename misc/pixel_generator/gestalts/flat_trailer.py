@@ -67,8 +67,7 @@ coil_load = [
     (2, 4, 8),
 ]
 
-
-key_colour_mapping_pass_1 = PixaSequenceCollection(
+sc_pass_1 = PixaSequenceCollection(
     sequences = {
          94 : PixaSequence(points = flatbed, transforms = [PixaShiftColour(0, 255, -1)]),
          93 : PixaSequence(points = stakes),
@@ -78,17 +77,17 @@ key_colour_mapping_pass_1 = PixaSequenceCollection(
         165 : PixaSequence(points = [(0, 0, 'company_colour')], transforms = [PixaShiftColour(0, 255, -1)]),
     }
 )
-key_colour_mapping_pass_2 = PixaSequenceCollection(
+sc_pass_2 = PixaSequenceCollection(
     sequences = {
         190 : PixaSequence(points = coil_load),
     }
 )
-key_colour_mapping_pass_3 = PixaSequenceCollection(
+sc_pass_3 = PixaSequenceCollection(
     sequences = {
         191 : PixaSequence(points = coil_load),
     }
 )
-key_colour_mapping_pass_4 = PixaSequenceCollection(
+sc_pass_4 = PixaSequenceCollection(
     sequences = {
         195 : PixaSequence(points = [(0, 0, 'company_colour')]),
         197 : PixaSequence(points = stakes),
@@ -112,7 +111,6 @@ def hide_or_show_drawbar_dolly_wheels(connection_type):
         }
     )
     
-
         
 class Variation:
     def __init__(self, colourset, cargo, connection_type):
@@ -153,10 +151,10 @@ def generate(input_image_path):
                 # add n render passes to the spriterow (list controls render order, index 0 = first pass)
                 spriterow['render_passes'] = [
                     {'seq' : hide_or_show_drawbar_dolly_wheels(variation.connection_type), 'colourset' : colourset},
-                    {'seq' : key_colour_mapping_pass_1, 'colourset' : colourset},
-                    {'seq' : key_colour_mapping_pass_2, 'colourset' : colourset},
-                    {'seq' : key_colour_mapping_pass_3, 'colourset' : colourset},
-                    {'seq' : key_colour_mapping_pass_4, 'colourset' : colourset},
+                    {'seq' : sc_pass_1, 'colourset' : colourset},
+                    {'seq' : sc_pass_2, 'colourset' : colourset},
+                    {'seq' : sc_pass_3, 'colourset' : colourset},
+                    {'seq' : sc_pass_4, 'colourset' : colourset},
                 ]
                 spriterows.append(spriterow)
             spritesheet.render(spriterows=spriterows)

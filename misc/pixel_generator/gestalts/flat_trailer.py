@@ -1,5 +1,6 @@
 from pixa import PixaSequence, PixaSequenceCollection, PixaShiftColour, PixaMaskColour, Spritesheet
 import Image
+import common
 
 # set palette index for lightest colour of cargo; range for rest will be calculated automatically
 # when defining a new cargo, worth looking at resulting sprites in case range overflowed into wrong colours
@@ -16,7 +17,6 @@ load_states = [
 ]
 
 # constants
-SPRITEROW_HEIGHT = 40
 FLOORPLAN_START_Y = 90
 
 # colour sets
@@ -87,24 +87,6 @@ sc_pass_4 = PixaSequenceCollection(
         197 : PixaSequence(points = stakes),
     }
 )
-def hide_or_show_drawbar_dolly_wheels(connection_type):
-    """ returns sequences to draw in dolly wheels for drawbar trailers, or mask them out with blue """
-    if connection_type == 'drawbar':
-        transform = None
-    else:
-        transform = PixaMaskColour(0)
-
-    return PixaSequenceCollection(
-        sequences = {
-             49 : PixaSequence(points = [(0, 0, 19)], transforms = [transform]),
-             48 : PixaSequence(points = [(0, 0, 18)], transforms = [transform]),
-            230 : PixaSequence(points = [(0, 0, 5)], transforms = [transform]),
-            229 : PixaSequence(points = [(0, 0, 4)], transforms = [transform]),
-            228 : PixaSequence(points = [(0, 0, 3)], transforms = [transform]),
-            227 : PixaSequence(points = [(0, 0, 2)], transforms = [transform]),
-        }
-    )
-
 
 class Variation:
     def __init__(self, set_name, colourset, cargo, connection_type):
@@ -117,7 +99,7 @@ class Variation:
 def generate(input_image_path):
     floorplan = Image.open(input_image_path)
     # slice out the floorplan needed for this gestalt
-    floorplan = floorplan.crop((0, FLOORPLAN_START_Y, floorplan.size[0], FLOORPLAN_START_Y + SPRITEROW_HEIGHT))
+    floorplan = floorplan.crop((0, FLOORPLAN_START_Y, floorplan.size[0], FLOORPLAN_START_Y + common.SPRITEROW_HEIGHT))
     # get a palette
     palette = Image.open('palette_key.png').palette
     # create variations containing empty spritesheets
@@ -128,7 +110,7 @@ def generate(input_image_path):
                 variation = Variation(set_name = set_name, colourset = colourset, cargo=cargo, connection_type='fifth_wheel')
                 spritesheet = Spritesheet(
                     width=floorplan.size[0],
-                    height=SPRITEROW_HEIGHT * (len(load_states)),
+                    height=common.SPRITEROW_HEIGHT * (len(load_states)),
                     palette=palette
                 )
                 variation.spritesheets.append(spritesheet)
@@ -140,10 +122,10 @@ def generate(input_image_path):
             spriterows = []
             for load in load_states:
                 # spriterow holds data needed to render the row
-                spriterow = {'height' : SPRITEROW_HEIGHT, 'floorplan' : floorplan}
+                spriterow = {'height' : common.SPRITEROW_HEIGHT, 'floorplan' : floorplan}
                 # add n render passes to the spriterow (list controls render order, index 0 = first pass)
                 spriterow['render_passes'] = [
-                    {'seq' : hide_or_show_drawbar_dolly_wheels(variation.connection_type), 'colourset' : variation.colourset},
+                    {'seq' : common.hide_or_show_drawbar_dolly_wheels(variation.connection_type), 'colourset' : variation.colourset},
                     {'seq' : sc_pass_1, 'colourset' : variation.colourset},
                     {'seq' : sc_pass_2, 'colourset' : variation.colourset},
                     {'seq' : sc_pass_3, 'colourset' : variation.colourset},

@@ -116,18 +116,15 @@ def hide_or_show_drawbar_dolly_wheels(connection_type):
 
         
 class Variation:
-    def __init__(self,id):
+    def __init__(self, colourset, cargo, connection_type):
         self.id = id
         self.spritesheets = []
-
-colour_variations = [
-    Variation(id='cc_1'),
-    Variation(id='cc_2'),
-]
+        self.colourset = colourset
+        self.cargo = cargo
+        self.connection_type = connection_type
 
 class Spritesheet:
-    def __init__(self,cid, floorplan, palette, connection_type):
-        self.cid = cid # cargoid
+    def __init__(self, floorplan, palette):
         # create the new spritesheet (empty at this stage)
         self.spritesheet_width = floorplan.size[0]
         self.spritesheet_height = SPRITEROW_HEIGHT * (len(load_states))
@@ -135,7 +132,6 @@ class Spritesheet:
         self.sprites.putpalette(palette)
         # store the floorplan
         self.floorplan = floorplan
-        self.connection_type = connection_type
         return None
         
     def render(self, spriterows, render_passes):    
@@ -147,9 +143,7 @@ class Spritesheet:
             end_y = (i+1) * SPRITEROW_HEIGHT            
             self.sprites.paste(spriterow,(0, start_y, spriterow.size[0], end_y))    
         
-    def save(self, variation_id):
-        length = '7_8' # !! hard coded var until this is figured out
-        output_path = 'results/' + length + '_flat_trailer_' + self.connection_type + '_' + variation_id + '_' + self.cid + '.png' 
+    def save(self, output_path):
         self.sprites.save(output_path, optimize=True)
 
 
@@ -159,20 +153,27 @@ def generate(input_image_path):
     floorplan = floorplan.crop((0, FLOORPLAN_START_Y, floorplan.size[0], FLOORPLAN_START_Y + SPRITEROW_HEIGHT))
     # get a palette
     palette = Image.open('palette_key.png').palette
-    for variation in colour_variations:
+    variations = []
+    for colourset in coloursets:
         for cargo in cargos:
-            spritesheet = variation.spritesheets.append(Spritesheet(cid=cargo, floorplan=floorplan, palette=palette, connection_type='fifth_wheel'))
-            spritesheet = variation.spritesheets.append(Spritesheet(cid=cargo, floorplan=floorplan, palette=palette, connection_type='drawbar'))
-            
+            for connection_type in ('fifth_wheel','drawbar'):
+                variation = Variation(colourset = colourset, cargo=cargo, connection_type='fifth_wheel')
+                variation.spritesheets.append(Spritesheet(floorplan=floorplan, palette=palette))
+                variations.append(variation)
+                
+    for variation in variations:                            
         for spritesheet in variation.spritesheets:
-            print coloursets[variation.id]
-            colourset = coloursets[variation.id]
+            print coloursets[variation.colourset]
+            colourset = coloursets[variation.colourset]
             render_passes = [
-                (hide_or_show_drawbar_dolly_wheels(spritesheet.connection_type), colourset),
+                (hide_or_show_drawbar_dolly_wheels(variation.connection_type), colourset),
                 (key_colour_mapping_pass_1, colourset),
                 (key_colour_mapping_pass_2, colourset),
                 (key_colour_mapping_pass_3, colourset),
                 (key_colour_mapping_pass_4, colourset),
             ]
             spritesheet.render(spriterows=load_states, render_passes=render_passes)
-            spritesheet.save(variation.id)
+            length = '7_8' # !! hard coded var until this is figured out
+            output_path = 'results/' + length + '_flat_trailer_' + variation.connection_type + '_' + variation.colourset + '_' + variation.cargo + '.png' 
+            print output_path
+            spritesheet.save(output_path)

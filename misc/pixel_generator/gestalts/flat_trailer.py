@@ -8,7 +8,7 @@ cargos = {
     'STEL' : 4,
 }  
 
-# load states - values define y offset for drawing load (above floor)
+# load states - values define drawing parameters for the cargo to represent loading / loaded states 
 # order needs to be predictable, so a dict won't do here
 load_states = [
     ('empty', 0),
@@ -134,14 +134,14 @@ class Spritesheet:
         self.floorplan = floorplan
         return None
         
-    def render(self, spriterows, render_passes, spriterow_height):    
-        for i, load_state in enumerate(spriterows):
-            spriterow = self.floorplan.copy()
-            for render_pass in render_passes:
-                spriterow = pixarender(spriterow, render_pass[0], render_pass[1])                
-            crop_start_y = i * spriterow_height
-            crop_end_y = crop_start_y + spriterow_height            
-            self.sprites.paste(spriterow,(0, crop_start_y, spriterow.size[0], crop_end_y))    
+    def render(self, spriterows):    
+        for i, spriterow in enumerate(spriterows):
+            result = self.floorplan.copy()
+            for render_pass in spriterow['render_passes']:
+                result = pixarender(result, render_pass['seq'], render_pass['colourset'])                
+            crop_start_y = i * spriterow['height']
+            crop_end_y = crop_start_y + spriterow['height']            
+            self.sprites.paste(result,(0, crop_start_y, result.size[0], crop_end_y))    
         
     def save(self, output_path):
         self.sprites.save(output_path, optimize=True)
@@ -165,14 +165,20 @@ def generate(input_image_path):
         for spritesheet in variation.spritesheets:
             print coloursets[variation.colourset]
             colourset = coloursets[variation.colourset]
-            render_passes = [
-                (hide_or_show_drawbar_dolly_wheels(variation.connection_type), colourset),
-                (key_colour_mapping_pass_1, colourset),
-                (key_colour_mapping_pass_2, colourset),
-                (key_colour_mapping_pass_3, colourset),
-                (key_colour_mapping_pass_4, colourset),
-            ]
-            spritesheet.render(spriterows=load_states, render_passes=render_passes, spriterow_height=SPRITEROW_HEIGHT)
+            spriterows = []
+            for load in load_states:
+                # spriterow holds data needed to render the row
+                spriterow = {'height' : SPRITEROW_HEIGHT} 
+                # add n render passes to the spriterow (list controls render order, index 0 = first pass)
+                spriterow['render_passes'] = [
+                    {'seq' : hide_or_show_drawbar_dolly_wheels(variation.connection_type), 'colourset' : colourset},
+                    {'seq' : key_colour_mapping_pass_1, 'colourset' : colourset},
+                    {'seq' : key_colour_mapping_pass_2, 'colourset' : colourset},
+                    {'seq' : key_colour_mapping_pass_3, 'colourset' : colourset},
+                    {'seq' : key_colour_mapping_pass_4, 'colourset' : colourset},
+                ]
+                spriterows.append(spriterow)
+            spritesheet.render(spriterows=spriterows)
             length = '7_8' # !! hard coded var until this is figured out
             output_path = 'results/' + length + '_flat_trailer_' + variation.connection_type + '_' + variation.colourset + '_' + variation.cargo + '.png' 
             print output_path

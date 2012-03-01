@@ -21,16 +21,17 @@ FLOORPLAN_START_Y = 90
 
 # colour sets
 coloursets = [
-    ('cc_1', dict(deck_colour = 115, company_colour = 202)),
-    ('cc_2', dict(deck_colour = 75,  company_colour = 84 )),
+    ('cc_1', dict(deck_colour = 115, company_colour_1 = common.CC1)),
+    ('cc_2', dict(deck_colour = 75,  company_colour_1 = common.CC2 )),
 ]
 # colours
-pc_deck_colour = PixaColour(name='deck_colour', default=115)
-pc_company_colour = PixaColour(name='company_colour', default=202)
+pc_deck = PixaColour(name='deck_colour', default=115)
+pc_cc1 = PixaColour(name='company_colour_1', default=common.CC1)
 
 # pixel sequences
+# x,y,colour (or colour object with optional shift)
 flatbed = [
-    (0, 0, pc_deck_colour()),
+    (0, 0, pc_deck()),
 ]
 stakes = [
     (0, 0, 133),
@@ -73,7 +74,7 @@ sc_pass_1 = PixaSequenceCollection(
         141 : PixaSequence(points = flatbed, transforms = [PixaShiftColour(0, 255, 1)]), #143-136 flatbed
         140 : PixaSequence(points = flatbed, transforms = [PixaShiftColour(0, 255, 0)]), #143-136 flatbed
         139 : PixaSequence(points = flatbed, transforms = [PixaShiftColour(0, 255, -1)]), #143-136 flatbed
-        165 : PixaSequence(points = [(0, 0, pc_company_colour(-1))]),
+        165 : PixaSequence(points = [(0, 0, pc_cc1(-1))]),
     }
 )
 sc_pass_2 = PixaSequenceCollection(
@@ -88,7 +89,7 @@ sc_pass_3 = PixaSequenceCollection(
 )
 sc_pass_4 = PixaSequenceCollection(
     sequences = {
-        195 : PixaSequence(points = [(0, 0, pc_company_colour())]),
+        195 : PixaSequence(points = [(0, 0, pc_cc1())]),
         197 : PixaSequence(points = stakes),
     }
 )

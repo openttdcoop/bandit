@@ -92,7 +92,7 @@ class PixaSequence:
         if self.transforms is not None:
             for t in self.transforms:
                 if t is not None:
-                    temp_points = t.convert(temp_points)
+                    temp_points = t.convert(temp_points)                    
 
         for p in temp_points:
             yield (x + p.dx, y - p.dy, p.colour())
@@ -136,7 +136,7 @@ class PixaShiftColour(PixaMixer):
     def convert(self, seq):
         result = []
         for p in seq:
-            if p.colour() >= self.lower and p.colour <= self.upper:
+            if p.colour() >= self.lower and p.colour() <= self.upper:
                 result.append(Point(p.dx, p.dy, p.colour() + self.shift))
             else:
                 result.append(p)

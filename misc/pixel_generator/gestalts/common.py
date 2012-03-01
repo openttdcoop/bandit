@@ -19,5 +19,9 @@ def hide_or_show_drawbar_dolly_wheels(connection_type):
         }
     )
     
+# constants
 SPRITEROW_HEIGHT = 40
-    
+
+# colour defaults
+CC1 = 202
+CC2 = 84

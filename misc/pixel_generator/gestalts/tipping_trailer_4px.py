@@ -1,6 +1,6 @@
-from P import P
-from pixa import render as pixarender
+from pixa import PixaColour, PixaSequence, PixaSequenceCollection, PixaShiftColour, PixaMaskColour, Spritesheet
 import Image
+import common
 
 # set palette index for lightest colour of cargo; range for rest will be calculated automatically 
 # when defining a new cargo, worth looking at resulting sprites in case range overflowed into wrong colours
@@ -21,23 +21,20 @@ load_states = [
 ]
 
 # constants
-SPRITEROW_HEIGHT = 40
 FLOORPLAN_START_Y = 10
 
 # colour sets
-coloursets = {    
-    'cc_1' : dict ( 
-        body_colour = 10,
-        company_colour = 202,
-    ),
-    'cc_2' : dict ( 
-        body_colour = 84,
-        company_colour = 202,
-    ),
-}
+coloursets = [   
+    ('light_grey', dict (body_colour = 10, stripe_colour = common.CC1)),
+    ('cc_1', dict (body_colour = common.CC1, stripe_colour = 10)),
+    ('cc_2', dict (body_colour = common.CC2, stripe_colour = 10)),
+]
+# colours
+pc_body = PixaColour(name='body_colour', default=10)
+pc_stripe = PixaColour(name='stripe_colour', default=common.CC1)
+
 # pixel sequences
-# each sequence contains stubby objects which are constructed with params (x-offset, y-offset, colour to draw)
-# if colour values etc need to change for different load states etc, sequence needs to be returned from a def
+# x,y,colour (or colour object with optional shift)
 def bulk_load(cargo_colour,load_offset): 
     return [P(0, load_offset, cargo_colour)]
 

@@ -2,8 +2,6 @@ from pixa import PixaColour, PixaSequence, PixaSequenceCollection, PixaShiftColo
 import Image
 import common
 
-# set palette index for lightest colour of cargo; range for rest will be calculated automatically 
-# when defining a new cargo, worth looking at resulting sprites in case range overflowed into wrong colours
 cargos = {
     'OIL_' : 4,
 }  
@@ -15,7 +13,6 @@ load_states = [
 ]
 
 # constants
-SPRITEROW_HEIGHT = 40
 FLOORPLAN_START_Y = 50
 
 # colour sets

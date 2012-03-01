@@ -1,4 +1,4 @@
-import psdparser
+from psdparser import psdparser
 import Image
 
 psd = psdparser.PSDParser("test.psd")

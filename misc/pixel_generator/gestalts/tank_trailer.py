@@ -1,6 +1,6 @@
-from P import P
-from pixa import render as pixarender
+from pixa import PixaSequence, PixaSequenceCollection, PixaShiftColour, PixaMaskColour, Spritesheet
 import Image
+import common
 
 # set palette index for lightest colour of cargo; range for rest will be calculated automatically 
 # when defining a new cargo, worth looking at resulting sprites in case range overflowed into wrong colours
@@ -19,166 +19,150 @@ SPRITEROW_HEIGHT = 40
 FLOORPLAN_START_Y = 50
 
 # colour sets
-coloursets = {    
-    'cc_1' : dict ( 
-        tank_colour = 202,
-        stripe_colour = 21,
-    ),
-    'cc_2' : dict ( 
-        tank_colour = 84,
-        stripe_colour = 21,
-    ),
-    'silver' : dict ( 
-        tank_colour = 20,
-        stripe_colour = 202,
-    ),
-    'black' : dict ( 
-        tank_colour = 4,
-        stripe_colour = 84,
-    ),
-}
+coloursets = [   
+    ('cc_1', dict (tank_colour = 202, stripe_colour = 21)),
+    ('cc_2', dict (tank_colour = 84, stripe_colour = 21)),
+    ('silver', dict (tank_colour = 20, stripe_colour = 202)),
+    ('black', dict (tank_colour = 4, stripe_colour = 84)),
+]
 # pixel sequences
-# each sequence contains stubby objects which are constructed with params (x-offset, y-offset, colour to draw)
-# if colour values etc need to change for different load states etc, sequence needs to be returned from a def
-def tank_far_end_sw_ne(colour_set): 
-    c = colour_set
-    return [
-        P(0, 3, c['tank_colour']+2), 
-        P(0, 2, c['stripe_colour']+1), 
-        P(0, 1, c['tank_colour']), 
-        P(0, 0, c['tank_colour']-1), 
-    ]
+tank_far_end_sw_ne = [
+        (0, 3, 'tank_colour', +2), 
+        (0, 2, 'stripe_colour', +1), 
+        (0, 1, 'tank_colour'), 
+        (0, 0, 'tank_colour', -1), 
+]
 def tank_sw_ne(colour_set): 
     c = colour_set
     return [
-        P(-3, 5, c['tank_colour']), 
-        P(-2, 5, c['tank_colour']+1), 
-        P(-1, 5, c['tank_colour']+1), 
-        P(-1, 4, c['tank_colour']+2), 
-        P(0, 4, c['tank_colour']+3), 
-        P(0, 3, c['tank_colour']+2), 
-        P(0, 2, c['stripe_colour']+1), 
-        P(0, 1, c['tank_colour']), 
-        P(0, 0, c['tank_colour']-1), 
+        (-3, 5, 'tank_colour'), 
+        (-2, 5, 'tank_colour', +1), 
+        (-1, 5, 'tank_colour', +1), 
+        (-1, 4, 'tank_colour', +2), 
+        (0, 4, 'tank_colour', +3), 
+        (0, 3, 'tank_colour', +2), 
+        (0, 2, 'stripe_colour', +1), 
+        (0, 1, 'tank_colour'), 
+        (0, 0, 'tank_colour', -1), 
     ]
 def tank_near_end_sw_ne(colour_set): 
     c = colour_set
     return [
-        P(-4, 4, c['tank_colour']-2), 
-        P(-4, 3, c['tank_colour']-3), 
-        P(-4, 2, c['tank_colour']-3), 
-        P(-3, 5, c['tank_colour']-1), 
-        P(-3, 4, c['tank_colour']-2), 
-        P(-3, 3, c['tank_colour']-2), 
-        P(-3, 2, c['tank_colour']-2), 
-        P(-3, 1, c['tank_colour']-3), 
-        P(-2, 4, c['tank_colour']-1), 
-        P(-2, 3, c['tank_colour']-2), 
-        P(-2, 2, c['tank_colour']-2), 
-        P(-2, 1, c['tank_colour']-2), 
-        P(-1, 4, c['tank_colour']-1), 
-        P(-1, 3, c['tank_colour']-2), 
-        P(-1, 2, c['tank_colour']-2), 
-        P(-1, 1, c['tank_colour']-2), 
-        P(-1, 0, c['tank_colour']-2), 
-        P(0, 3, c['tank_colour']-1), 
-        P(0, 2, c['tank_colour']-1), 
-        P(0, 1, c['tank_colour']-1), 
-        P(0, 0, c['tank_colour']-1), 
+        (-4, 4, 'tank_colour', -2), 
+        (-4, 3, 'tank_colour', -3), 
+        (-4, 2, 'tank_colour', -3), 
+        (-3, 5, 'tank_colour', -1), 
+        (-3, 4, 'tank_colour', -2), 
+        (-3, 3, 'tank_colour', -2), 
+        (-3, 2, 'tank_colour', -2), 
+        (-3, 1, 'tank_colour', -3), 
+        (-2, 4, 'tank_colour', -1), 
+        (-2, 3, 'tank_colour', -2), 
+        (-2, 2, 'tank_colour', -2), 
+        (-2, 1, 'tank_colour', -2), 
+        (-1, 4, 'tank_colour', -1), 
+        (-1, 3, 'tank_colour', -2), 
+        (-1, 2, 'tank_colour', -2), 
+        (-1, 1, 'tank_colour', -2), 
+        (-1, 0, 'tank_colour', -2), 
+        (0, 3, 'tank_colour', -1), 
+        (0, 2, 'tank_colour', -1), 
+        (0, 1, 'tank_colour', -1), 
+        (0, 0, 'tank_colour', -1), 
     ]
 def tank_far_end_nw_se(colour_set): 
     c = colour_set
     return [
-        P(0, 3, c['tank_colour']+1), 
-        P(0, 2, c['stripe_colour']), 
-        P(0, 1, c['tank_colour']-1), 
-        P(0, 0, c['tank_colour']-2), 
+        (0, 3, 'tank_colour', +1), 
+        (0, 2, 'stripe_colour'), 
+        (0, 1, 'tank_colour', -1), 
+        (0, 0, 'tank_colour', -2), 
     ]
 def tank_nw_se(colour_set): 
     c = colour_set
     return [
-        P(3, 5, c['tank_colour']-1), 
-        P(2, 5, c['tank_colour']), 
-        P(1, 5, c['tank_colour']), 
-        P(1, 4, c['tank_colour']+1), 
-        P(0, 4, c['tank_colour']+2), 
-        P(0, 3, c['tank_colour']+1), 
-        P(0, 2, c['stripe_colour']), 
-        P(0, 1, c['tank_colour']-1), 
-        P(0, 0, c['tank_colour']-2), 
+        (3, 5, 'tank_colour']-1), 
+        (2, 5, 'tank_colour']), 
+        (1, 5, 'tank_colour']), 
+        (1, 4, 'tank_colour']+1), 
+        (0, 4, 'tank_colour']+2), 
+        (0, 3, 'tank_colour']+1), 
+        (0, 2, 'stripe_colour']), 
+        (0, 1, 'tank_colour']-1), 
+        (0, 0, 'tank_colour']-2), 
     ]
 def tank_near_end_nw_se(colour_set): 
     c = colour_set
     return [
-        P(4, 4, c['tank_colour']+2), 
-        P(4, 3, c['tank_colour']+2), 
-        P(4, 2, c['tank_colour']+2), 
-        P(3, 5, c['tank_colour']+1), 
-        P(3, 4, c['tank_colour']+1), 
-        P(3, 3, c['tank_colour']+3), 
-        P(3, 2, c['tank_colour']+2), 
-        P(3, 1, c['tank_colour']+1), 
-        P(2, 4, c['tank_colour']+1), 
-        P(2, 3, c['tank_colour']+3), 
-        P(2, 2, c['tank_colour']+2), 
-        P(2, 1, c['tank_colour']+1), 
-        P(1, 4, c['tank_colour']+1), 
-        P(1, 3, c['tank_colour']+2), 
-        P(1, 2, c['tank_colour']+2), 
-        P(1, 1, c['tank_colour']+2), 
-        P(1, 0, c['tank_colour']+1), 
-        P(0, 3, c['tank_colour']+1), 
-        P(0, 2, c['tank_colour']+1), 
-        P(0, 1, c['tank_colour']+1), 
-        P(0, 0, c['tank_colour']+1), 
+        (4, 4, 'tank_colour']+2), 
+        (4, 3, 'tank_colour']+2), 
+        (4, 2, 'tank_colour']+2), 
+        (3, 5, 'tank_colour']+1), 
+        (3, 4, 'tank_colour']+1), 
+        (3, 3, 'tank_colour']+3), 
+        (3, 2, 'tank_colour']+2), 
+        (3, 1, 'tank_colour']+1), 
+        (2, 4, 'tank_colour']+1), 
+        (2, 3, 'tank_colour']+3), 
+        (2, 2, 'tank_colour']+2), 
+        (2, 1, 'tank_colour']+1), 
+        (1, 4, 'tank_colour']+1), 
+        (1, 3, 'tank_colour']+2), 
+        (1, 2, 'tank_colour']+2), 
+        (1, 1, 'tank_colour']+2), 
+        (1, 0, 'tank_colour']+1), 
+        (0, 3, 'tank_colour']+1), 
+        (0, 2, 'tank_colour']+1), 
+        (0, 1, 'tank_colour']+1), 
+        (0, 0, 'tank_colour']+1), 
     ]
 def tank_w_e(colour_set): 
     c = colour_set
     return [
-        P(0, 6, c['tank_colour']-1), 
-        P(0, 5, c['tank_colour']+1), 
-        P(0, 4, c['tank_colour']+2), 
-        P(0, 3, c['tank_colour']+1), 
-        P(0, 2, c['stripe_colour']), 
-        P(0, 1, c['tank_colour']-1), 
-        P(0, 0, c['tank_colour']-2), 
+        (0, 6, 'tank_colour']-1), 
+        (0, 5, 'tank_colour']+1), 
+        (0, 4, 'tank_colour']+2), 
+        (0, 3, 'tank_colour']+1), 
+        (0, 2, 'stripe_colour']), 
+        (0, 1, 'tank_colour']-1), 
+        (0, 0, 'tank_colour']-2), 
     ]
 def tank_n_s(colour_set): 
     c = colour_set
     return [
-        P(7, 1, c['stripe_colour']+2), 
-        P(6, 2, c['tank_colour']+2), 
-        P(5, 2, c['tank_colour']+1), 
-        P(4, 2, c['tank_colour']), 
-        P(3, 2, c['tank_colour']-1), 
-        P(2, 2, c['tank_colour']-1), 
-        P(1, 2, c['tank_colour']-2), 
-        P(0, 1, c['tank_colour']-2), 
+        (7, 1, 'stripe_colour']+2), 
+        (6, 2, 'tank_colour']+2), 
+        (5, 2, 'tank_colour']+1), 
+        (4, 2, 'tank_colour']), 
+        (3, 2, 'tank_colour']-1), 
+        (2, 2, 'tank_colour']-1), 
+        (1, 2, 'tank_colour']-2), 
+        (0, 1, 'tank_colour']-2), 
     ]
 def tank_end_n_s(colour_set): 
     c = colour_set
     return [
-        P(6, 2, c['tank_colour']+1), 
-        P(5, 2, c['tank_colour']+2), 
-        P(4, 2, c['tank_colour']+1), 
-        P(3, 2, c['tank_colour']+1), 
-        P(2, 2, c['tank_colour']), 
-        P(1, 2, c['tank_colour']-1), 
-        P(7, 1, c['tank_colour']+1), 
-        P(6, 1, c['tank_colour']+1), 
-        P(5, 1, c['tank_colour']+1), 
-        P(4, 1, c['tank_colour']+1), 
-        P(3, 1, c['tank_colour']), 
-        P(2, 1, c['tank_colour']), 
-        P(1, 1, c['tank_colour']), 
-        P(0, 1, c['tank_colour']-1), 
-        P(6, 0, c['tank_colour']), 
-        P(5, 0, c['tank_colour']), 
-        P(4, 0, c['tank_colour']), 
-        P(3, 0, c['tank_colour']), 
-        P(2, 0, c['tank_colour']), 
-        P(1, 0, c['tank_colour']-1), 
-        P(0, 0, 2), 
+        (6, 2, 'tank_colour']+1), 
+        (5, 2, 'tank_colour']+2), 
+        (4, 2, 'tank_colour']+1), 
+        (3, 2, 'tank_colour']+1), 
+        (2, 2, 'tank_colour']), 
+        (1, 2, 'tank_colour']-1), 
+        (7, 1, 'tank_colour']+1), 
+        (6, 1, 'tank_colour']+1), 
+        (5, 1, 'tank_colour']+1), 
+        (4, 1, 'tank_colour']+1), 
+        (3, 1, 'tank_colour']), 
+        (2, 1, 'tank_colour']), 
+        (1, 1, 'tank_colour']), 
+        (0, 1, 'tank_colour']-1), 
+        (6, 0, 'tank_colour']), 
+        (5, 0, 'tank_colour']), 
+        (4, 0, 'tank_colour']), 
+        (3, 0, 'tank_colour']), 
+        (2, 0, 'tank_colour']), 
+        (1, 0, 'tank_colour']-1), 
+        (0, 0, 2), 
     ]
 def hide_or_show_drawbar_dolly_wheels(connection_type, colour, shift):
     if connection_type == 'drawbar':

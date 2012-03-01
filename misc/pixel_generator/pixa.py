@@ -7,8 +7,41 @@ class Point:
     def __init__(self, dx, dy, colour):
         self.dx = dx
         self.dy = dy
-        self.colour = colour
+        self._colour = colour # private storage of colour value or object
+    
+    def colour(self, colourset=None):
+        """ get the actual colour via a method to hide the details from end user """
+        if hasattr(self._colour, 'get_colour'):                
+            # assume we have an object implementing a get_colour() method (ducktyped for ease of authors who want to provide their own colour object)
+            return self._colour.get_colour(colourset)
+        else:
+            # assume we have a valid int, if it isn't render stage will likely fail anyway, which imo is good enough in this case 
+            return self._colour
 
+class PixaColour:
+    """ 
+    small factory-like class
+    holds a variable for a colour index, for use in sequences
+    creates instances of spot colour classes which optionally shift up or down the colour index from the parent class 
+    """
+    
+    class PixaSpotColour: 
+        def __init__(self, shift, parent):
+            self.shift = shift
+            self.parent = parent
+            
+        def get_colour(self, colourset):
+            result = colourset.get(self.parent.name, self.parent.default)
+            return result + self.shift
+        
+    def __init__(self, name, default):
+        self.name = name
+        self.default = default
+
+    def __call__(self, shift=0):
+        return self.PixaSpotColour(shift, self)
+            
+    
 class PixaSequence:
     def __init__(self, points=None, transforms=None):
         """
@@ -46,26 +79,20 @@ class PixaSequence:
         """
 
         # create a copy of points, just used when returning to the caller
-        # don't want to modify the actual point values stored in this sequence
-        temp_points = deepcopy(self.points) # use deepcopy because we need to copy the objects in the list, not just the list
-
-        for point in temp_points:
-            # is it a var for the colour?
-            if point.colour in colourset:
-                point.colour = colourset[point.colour]
-            try:
-                point.colour + 1
-            except:
-                print "! Error: '"+colour+"' is not a valid colour value. (perhaps it's missing from current colourset?)"
-                raise # colour is not an int; possibly the colour is a var that is missing from current colourset
+        # don't want to modify the actual point values stored in the sequence definition
+        # n.b. we need to copy the objects in the list, not just the list
+        # we also apply a colourset at this point if available; if None, then default values will be used (if colour is provided by an object not int)
+        temp_points = []
+        for p in self.points:
+            temp_points.append(Point(dx=p.dx, dy=p.dy, colour=p.colour(colourset)))            
 
         if self.transforms is not None:
             for t in self.transforms:
                 if t is not None:
                     temp_points = t.convert(temp_points)
 
-        for point in temp_points:
-            yield (x + point.dx, y - point.dy, point.colour)
+        for p in temp_points:
+            yield (x + p.dx, y - p.dy, p.colour())
 
 
 class PixaSequenceCollection:
@@ -74,7 +101,6 @@ class PixaSequenceCollection:
 
     def get_sequence_by_colour_index(self, colour):
         return self.sequences.get(colour)
-
 
 
 class PixaMixer(object):
@@ -107,8 +133,8 @@ class PixaShiftColour(PixaMixer):
     def convert(self, seq):
         result = []
         for p in seq:
-            if p.colour >= self.lower and p.colour <= self.upper:
-                result.append(Point(p.dx, p.dy, p.colour + self.shift))
+            if p.colour() >= self.lower and p.colour <= self.upper:
+                result.append(Point(p.dx, p.dy, p.colour() + self.shift))
             else:
                 result.append(p)
         return result
@@ -135,7 +161,7 @@ class PixaShiftDY(PixaMixer):
         self.ddy = ddy
 
     def convert(self, seq):
-        return [Point(p.dx, p.dy + self.ddy, p.colour) for p in seq]
+        return [Point(p.dx, p.dy + self.ddy, p.colour()) for p in seq]
 
 class Spritesheet(object):
     """

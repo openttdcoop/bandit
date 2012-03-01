@@ -1,4 +1,4 @@
-from pixa import PixaSequence, PixaSequenceCollection, PixaShiftColour, PixaMaskColour, Spritesheet
+from pixa import PixaColour, PixaSequence, PixaSequenceCollection, PixaShiftColour, PixaMaskColour, Spritesheet
 import Image
 import common
 
@@ -24,9 +24,13 @@ coloursets = [
     ('cc_1', dict(deck_colour = 115, company_colour = 202)),
     ('cc_2', dict(deck_colour = 75,  company_colour = 84 )),
 ]
+# colours
+pc_deck_colour = PixaColour(name='deck_colour', default=115)
+pc_company_colour = PixaColour(name='company_colour', default=202)
+
 # pixel sequences
 flatbed = [
-    (0, 0, 'deck_colour'),
+    (0, 0, pc_deck_colour()),
 ]
 stakes = [
     (0, 0, 133),
@@ -61,6 +65,7 @@ coil_load = [
     ( 2, 4, 8),
 ]
 
+# sequence collections
 sc_pass_1 = PixaSequenceCollection(
     sequences = {
          94 : PixaSequence(points = flatbed, transforms = [PixaShiftColour(0, 255, -1)]),
@@ -68,7 +73,7 @@ sc_pass_1 = PixaSequenceCollection(
         141 : PixaSequence(points = flatbed, transforms = [PixaShiftColour(0, 255, 1)]), #143-136 flatbed
         140 : PixaSequence(points = flatbed, transforms = [PixaShiftColour(0, 255, 0)]), #143-136 flatbed
         139 : PixaSequence(points = flatbed, transforms = [PixaShiftColour(0, 255, -1)]), #143-136 flatbed
-        165 : PixaSequence(points = [(0, 0, 'company_colour')], transforms = [PixaShiftColour(0, 255, -1)]),
+        165 : PixaSequence(points = [(0, 0, pc_company_colour(-1))]),
     }
 )
 sc_pass_2 = PixaSequenceCollection(
@@ -83,7 +88,7 @@ sc_pass_3 = PixaSequenceCollection(
 )
 sc_pass_4 = PixaSequenceCollection(
     sequences = {
-        195 : PixaSequence(points = [(0, 0, 'company_colour')]),
+        195 : PixaSequence(points = [(0, 0, pc_company_colour())]),
         197 : PixaSequence(points = stakes),
     }
 )
@@ -107,7 +112,7 @@ def generate(input_image_path):
     for set_name, colourset in coloursets:
         for cargo in cargos:
             for connection_type in ('fifth_wheel','drawbar'):
-                variation = Variation(set_name = set_name, colourset = colourset, cargo=cargo, connection_type='fifth_wheel')
+                variation = Variation(set_name = set_name, colourset = colourset, cargo=cargo, connection_type=connection_type)
                 spritesheet = Spritesheet(
                     width=floorplan.size[0],
                     height=common.SPRITEROW_HEIGHT * (len(load_states)),

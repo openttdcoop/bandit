@@ -5,7 +5,7 @@ import common
 # set palette index for lightest colour of cargo; range for rest will be calculated automatically 
 # when defining a new cargo, worth looking at resulting sprites in case range overflowed into wrong colours
 cargos = {
-    'STEL' : 4,
+    'OIL_' : 4,
 }  
 
 # load states - values define y offset for drawing load (above floor)
@@ -176,14 +176,6 @@ sc_pass_1 = PixaSequenceCollection(
     }
 )
 
-class Variation:
-    def __init__(self, set_name, colourset, cargo, connection_type):
-        self.spritesheets = []
-        self.set_name = set_name
-        self.colourset = colourset
-        self.cargo = cargo
-        self.connection_type = connection_type
-
 def generate(input_image_path):
     floorplan = Image.open(input_image_path)
     # slice out the floorplan needed for this gestalt
@@ -195,7 +187,7 @@ def generate(input_image_path):
     for set_name, colourset in coloursets:
         for cargo in cargos:
             for connection_type in ('fifth_wheel','drawbar'):
-                variation = Variation(set_name = set_name, colourset = colourset, cargo=cargo, connection_type=connection_type)
+                variation = common.Variation(set_name=set_name, colourset=colourset, cargo=cargo, connection_type=connection_type)
                 spritesheet = Spritesheet(
                     width=floorplan.size[0],
                     height=common.SPRITEROW_HEIGHT * (len(load_states)),

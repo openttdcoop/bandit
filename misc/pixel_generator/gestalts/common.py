@@ -18,6 +18,15 @@ def hide_or_show_drawbar_dolly_wheels(connection_type):
             227 : PixaSequence(points = [(0, 0, 2)], transforms = [transform]),
         }
     )
+
+class Variation:
+    def __init__(self, set_name, colourset, cargo, connection_type, body_subtype=''):
+        self.spritesheets = []
+        self.set_name = set_name
+        self.colourset = colourset
+        self.cargo = cargo
+        self.connection_type = connection_type
+        self.body_subtype = body_subtype # optional, use for e.g. flatbeds with and w/o stakes
     
 # constants
 SPRITEROW_HEIGHT = 40

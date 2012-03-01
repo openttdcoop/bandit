@@ -10,7 +10,10 @@ class Point:
         self._colour = colour # private storage of colour value or object
     
     def colour(self, colourset=None):
-        """ get the actual colour via a method to hide the details from end user """
+        """ 
+        for any given Point instance, colour value might be stored as a numeric value, or calculated by an object (and returned on demand)  
+        therefore get the actual colour via a method to hide implementation details from end user 
+        """
         if hasattr(self._colour, 'get_colour'):                
             # assume we have an object implementing a get_colour() method (ducktyped for ease of authors who want to provide their own colour object)
             return self._colour.get_colour(colourset)

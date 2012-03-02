@@ -34,3 +34,4 @@ SPRITEROW_HEIGHT = 40
 # colour defaults
 CC1 = 202
 CC2 = 84
+COL_COAL = 4

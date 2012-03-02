@@ -1,4 +1,4 @@
-from pixa import PixaColour, PixaSequence, PixaSequenceCollection, PixaShiftColour, PixaMaskColour, Spritesheet
+from pixa import PixaColour, PixaSequence, PixaSequenceCollection, PixaShiftColour, PixaShiftDY, PixaMaskColour, Spritesheet
 import Image
 import common
 
@@ -118,7 +118,7 @@ def generate(input_image_path):
     for variation in variations:
         for spritesheet in variation.spritesheets:
             spriterows = []
-            for load in load_states:
+            for load_state in load_states:
                 # spriterow holds data needed to render the row
                 spriterow = {'height' : common.SPRITEROW_HEIGHT, 'floorplan' : floorplan}
                 # add n render passes to the spriterow (list controls render order, index 0 = first pass)

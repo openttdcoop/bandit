@@ -1,10 +1,10 @@
-from pixa import PixaColour, PixaSequence, PixaSequenceCollection, PixaShiftColour, PixaMaskColour, Spritesheet
+from pixa import PixaColour, PixaSequence, PixaSequenceCollection, PixaShiftColour, PixaShiftDY, PixaMaskColour, Spritesheet
 import Image
 import common
 
 # set palette index for lightest colour of cargo; range for rest will be calculated automatically 
 # when defining a new cargo, worth looking at resulting sprites in case range overflowed into wrong colours
-bulk_cargos = {
+cargos = {
     'COAL' : 4,
     'IORE' : 77,
     'GRAI' : 67,
@@ -13,11 +13,16 @@ bulk_cargos = {
 
 # load states - values define y offset for drawing load (above floor)
 # order needs to be predictable, so a dict won't do here
+class LoadState:
+    def __init__(self, name, yoffs):
+        self.name = name
+        self.yoffs = yoffs
+    
 load_states = [
-    ('empty', 0),
-    ('load_1', 0),
-    ('load_2', 2),
-    ('load_3', 4),
+    LoadState('empty', 0),
+    LoadState('load_1', 0),
+    LoadState('load_2', 2),
+    LoadState('load_3', 4),
 ]
 
 # constants
@@ -32,120 +37,99 @@ coloursets = [
 # colours
 pc_body = PixaColour(name='body_colour', default=10)
 pc_stripe = PixaColour(name='stripe_colour', default=common.CC1)
+pc_cargo = PixaColour(name='cargo_colour', default=common.COL_COAL)
 
 # pixel sequences
 # x,y,colour (or colour object with optional shift)
-def bulk_load(cargo_colour,load_offset): 
-    return [P(0, load_offset, cargo_colour)]
-
-def body_outer(colour_set):
-    c = colour_set
-    return [
-        P(0, 0, c['body_colour']),
-        P(0, 1, c['company_colour']), 
-        P(0, 2, c['body_colour']), 
-        P(0, 3, c['body_colour']), 
-        P(0, 4, 13),
-    ]
-def body_end(colour_set):
-    c = colour_set
-    return [
-        P(0, 0, c['body_colour']), 
-        P(0, 1, c['company_colour']), 
-        P(0, 2, c['body_colour']), 
-        P(0, 3, c['body_colour']), 
-        P(0, 4, 13),
-    ]
-def body_inner(colour_set):
-    c = colour_set
-    return [
-        P(0, 0, 16), 
-        P(0, 1, 17), 
-        P(0, 2, 18),
-        P(0, 3, 19), 
-        P(0, 4, 14),
-    ]
-def hide_or_show_drawbar_dolly_wheels(connection_type, colour, shift):
-    if connection_type == 'drawbar':
-        if colour == 231:
-            return [P(0, 0, 19)]
-        else:
-            return [P(0, 0, 4 + shift)]
-    else: 
-        return [P(0, 0, 0)]
-
-def key_colour_mapping(cargo, load_state, colourset, connection_type):
-    if load_state[0] == 'empty':
-        cargo_or_empty = [P(0, 0, 19)] 
-    else:
-        cargo_or_empty = bulk_load(cargo_colour=bulk_cargos[cargo],load_offset=load_state[1])    
-    return {
-         94 : dict(seq = body_inner(colourset),  colour_shift =  0),
-         93 : dict(seq = body_inner(colourset),  colour_shift =  1),
-        197 : dict(seq = body_outer(colourset),  colour_shift =  2),
-        195 : dict(seq = body_outer(colourset),  colour_shift =  0),
-        194 : dict(seq = body_outer(colourset),  colour_shift = -1),
-        167 : dict(seq = body_end(colourset),    colour_shift =  1),
-        165 : dict(seq = body_end(colourset),    colour_shift = -1),
-        141 : dict(seq = cargo_or_empty, colour_shift =  0),
-        140 : dict(seq = cargo_or_empty, colour_shift = -1),
-        139 : dict(seq = cargo_or_empty, colour_shift = -2),
-        138 : dict(seq = cargo_or_empty, colour_shift = -3),
-        231 : dict(seq = hide_or_show_drawbar_dolly_wheels(connection_type, 231, 0), colour_shift =  0),
-        230 : dict(seq = hide_or_show_drawbar_dolly_wheels(connection_type, 230, 1), colour_shift =  0),
-        229 : dict(seq = hide_or_show_drawbar_dolly_wheels(connection_type, 229, -1), colour_shift =  0),
-        228 : dict(seq = hide_or_show_drawbar_dolly_wheels(connection_type, 228, -2), colour_shift =  0),
-        227 : dict(seq = hide_or_show_drawbar_dolly_wheels(connection_type, 227, -3), colour_shift =  0),
-    }
-
-class Variation:
-    def __init__(self,id):
-        self.id = id
-        self.spritesheets = []
-
-colour_variations = [
-    Variation(id='cc_1'),
-    Variation(id='cc_2'),
+bulk_load = [
+    (0, 0, pc_cargo())
+]
+body_outer = [
+    (0, 0, pc_body()),
+    (0, 1, pc_stripe()), 
+    (0, 2, pc_body()), 
+    (0, 3, pc_body()), 
+    (0, 4, 13),
+]
+body_end = [
+    (0, 0, pc_body()), 
+    (0, 1, pc_stripe()), 
+    (0, 2, pc_body()), 
+    (0, 3, pc_body()), 
+    (0, 4, 13),
+]
+body_inner = [
+    (0, 0, 16), 
+    (0, 1, 17), 
+    (0, 2, 18),
+    (0, 3, 19), 
+    (0, 4, 14),
 ]
 
-class Spritesheet:
-    def __init__(self,cid, floorplan, palette, connection_type):
-        self.cid = cid # cargoid
-        # create the new spritesheet (empty at this stage)
-        self.spritesheet_width = floorplan.size[0]
-        self.spritesheet_height = SPRITEROW_HEIGHT * (len(load_states))
-        self.sprites = Image.new('P', (self.spritesheet_width, self.spritesheet_height))
-        self.sprites.putpalette(palette)
-        # store the floorplan
-        self.floorplan = floorplan
-        self.connection_type = connection_type
-        return None
-        
-    def render(self, colourset):    
-        for i, load_state in enumerate(load_states):
-            row = self.floorplan.copy()
-            row = pixarender(row, key_colour_mapping(cargo=self.cid, load_state=load_state, colourset=colourset, connection_type=self.connection_type))
-            start_y = i * SPRITEROW_HEIGHT
-            end_y = (i+1) * SPRITEROW_HEIGHT            
-            self.sprites.paste(row,(0, start_y, row.size[0], end_y))    
-        
-    def save(self, variation_id):
-        length = '7_8' # !! hard coded var until this is figured out
-        output_path = 'results/' + length + '_tipping_trailer_' + self.connection_type + '_' + variation_id + '_' + self.cid + '.png' 
-        self.sprites.save(output_path, optimize=True)
-
+# sequence collections
+sc_pass_1 = PixaSequenceCollection(
+    sequences = {
+         94 : PixaSequence(points = body_inner),
+         93 : PixaSequence(points = body_inner, transforms = [PixaShiftColour(0, 255, 1)]),
+    }
+)
+def get_sc_cargo(load_state):
+    # returns sequences with correct y offset for current load state
+    return  PixaSequenceCollection(
+        sequences = {
+            141 : PixaSequence(points = bulk_load, transforms = [ PixaShiftDY(load_state.yoffs)]),
+            140 : PixaSequence(points = bulk_load, transforms = [PixaShiftColour(0, 255, -1), PixaShiftDY(load_state.yoffs)]),
+            139 : PixaSequence(points = bulk_load, transforms = [PixaShiftColour(0, 255, -2), PixaShiftDY(load_state.yoffs)]),
+            138 : PixaSequence(points = bulk_load, transforms = [PixaShiftColour(0, 255, -3), PixaShiftDY(load_state.yoffs)]),
+        }
+    )
+sc_pass_3 = PixaSequenceCollection(
+    sequences = {
+        197 : PixaSequence(points = body_outer, transforms = [PixaShiftColour(0, 255, 2)]),
+        195 : PixaSequence(points = body_outer),
+        194 : PixaSequence(points = body_outer, transforms = [PixaShiftColour(0, 255, -1)]),
+        167 : PixaSequence(points = body_end, transforms = [PixaShiftColour(0, 255, 1)]),
+        165 : PixaSequence(points = body_end, transforms = [PixaShiftColour(0, 255, -1)]),
+    }
+)
 
 def generate(input_image_path):
     floorplan = Image.open(input_image_path)
     # slice out the floorplan needed for this gestalt
-    floorplan = floorplan.crop((0, FLOORPLAN_START_Y, floorplan.size[0], FLOORPLAN_START_Y + SPRITEROW_HEIGHT))
+    floorplan = floorplan.crop((0, FLOORPLAN_START_Y, floorplan.size[0], FLOORPLAN_START_Y + common.SPRITEROW_HEIGHT))
     # get a palette
     palette = Image.open('palette_key.png').palette
-    for variation in colour_variations:
-        for cargo in bulk_cargos:
-            spritesheet = variation.spritesheets.append(Spritesheet(cid=cargo, floorplan=floorplan, palette=palette, connection_type='fifth_wheel'))
-            spritesheet = variation.spritesheets.append(Spritesheet(cid=cargo, floorplan=floorplan, palette=palette, connection_type='drawbar'))
-            
+    # create variations containing empty spritesheets
+    variations = []
+    for set_name, colourset in coloursets:
+        for cargo in cargos:
+            for connection_type in ('fifth_wheel','drawbar'):
+                variation = common.Variation(set_name=set_name, colourset=colourset, cargo=cargo, connection_type=connection_type)
+                spritesheet = Spritesheet(
+                    width=floorplan.size[0],
+                    height=common.SPRITEROW_HEIGHT * (len(load_states)),
+                    palette=palette
+                )
+                variation.spritesheets.append(spritesheet)
+                variations.append(variation)
+
+    # render stage
+    for variation in variations:
         for spritesheet in variation.spritesheets:
-            spritesheet.render(coloursets[variation.id])
-            spritesheet.save(variation.id)
+            spriterows = []
+            for load_state in load_states:
+                # spriterow holds data needed to render the row
+                spriterow = {'height' : common.SPRITEROW_HEIGHT, 'floorplan' : floorplan}
+                # add n render passes to the spriterow (list controls render order, index 0 = first pass)
+                spriterow['render_passes'] = [
+                    {'seq' : common.hide_or_show_drawbar_dolly_wheels(variation.connection_type), 'colourset' : variation.colourset},
+                    {'seq' : sc_pass_1, 'colourset' : variation.colourset},
+                    {'seq' : get_sc_cargo(load_state), 'colourset' : variation.colourset},
+                    {'seq' : sc_pass_3, 'colourset' : variation.colourset},
+                ]
+                spriterows.append(spriterow)
+            spritesheet.render(spriterows=spriterows)
+            length = '7_8' # !! hard coded var until this is figured out
+            output_path = 'results/' + length + '_tipping_trailer_' + variation.connection_type + '_' + variation.set_name + '_' + variation.cargo + '.png'
+            print output_path
+            spritesheet.save(output_path)

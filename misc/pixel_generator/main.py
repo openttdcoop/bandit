@@ -10,8 +10,8 @@ from gestalts import flat_trailer
 from gestalts import tank_trailer
 input_image_path = 'test_input.png'
 
-#tipping_trailer_4px.generate(input_image_path)
-#flat_trailer.generate(input_image_path)
-#tank_trailer.generate(input_image_path)
+tipping_trailer_4px.generate(input_image_path)
+flat_trailer.generate(input_image_path)
+tank_trailer.generate(input_image_path)
 
 print "done"

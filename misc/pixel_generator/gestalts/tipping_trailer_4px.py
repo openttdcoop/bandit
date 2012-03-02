@@ -11,13 +11,11 @@ cargos = {
     'CLAY' : 117,
 }  
 
-# load states - values define y offset for drawing load (above floor)
-# order needs to be predictable, so a dict won't do here
 class LoadState:
     def __init__(self, name, yoffs):
         self.name = name
         self.yoffs = yoffs
-    
+# order needs to be predictable, so a dict won't do here
 load_states = [
     LoadState('empty', 0),
     LoadState('load_1', 0),

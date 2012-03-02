@@ -6,10 +6,10 @@ cargos = {
     'OIL_' : 4,
 }  
 
-# load states - values define y offset for drawing load (above floor)
+# load states are N/A for tank trailers, I left this in place to avoid modifying generator code
 # order needs to be predictable, so a dict won't do here
 load_states = (
-    ('default', 0),
+    ('default'),
 )
 
 # constants

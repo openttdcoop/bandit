@@ -8,12 +8,16 @@ cargos = {
     'STEL' : 4,
 }
 
+class LoadState:
+    def __init__(self, name, foo):
+        self.name = name
+        self.foo = foo # reminder that arbitrary attributes can be added to hold load state props
 # load states - values define drawing parameters for the cargo to represent loading / loaded states
 # order needs to be predictable, so a dict won't do here
 load_states = [
-    ('empty', 0),
-    ('load_1', 0),
-    ('load_2', 0),
+    LoadState('empty', 0),
+    LoadState('load_1', 0),
+    LoadState('load_2', 0),
 ]
 
 # constants

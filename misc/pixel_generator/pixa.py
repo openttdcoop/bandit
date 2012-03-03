@@ -198,9 +198,8 @@ class Spritesheet(object):
             crop_end_y = crop_start_y + spriterow['height']
             self.sprites.paste(result,(0, crop_start_y, result.size[0], crop_end_y))
 
-    def save(self, output_path):
-        pass
-        #self.sprites.save(output_path, optimize=True)
+    def save(self, output_path):        
+        self.sprites.save(output_path, optimize=True)
 
 def pixarender(image, sequence_collection, colourset=None):
     colours = set() #used for debug

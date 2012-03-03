@@ -128,6 +128,6 @@ def generate(input_image_path):
                 spriterows.append(spriterow)
             spritesheet.render(spriterows=spriterows)
             length = '7_8' # !! hard coded var until this is figured out
-            output_path = 'results/' + length + '_tipping_trailer_' + variation.connection_type + '_' + variation.set_name + '_' + variation.cargo + '.png'
+            output_path = common.get_output_path(length + '_tipping_trailer_' + variation.connection_type + '_' + variation.set_name + '_' + variation.cargo + '.png')
             print output_path
             spritesheet.save(output_path)

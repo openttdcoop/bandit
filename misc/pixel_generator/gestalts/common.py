@@ -1,5 +1,7 @@
 # constants, classes, methods etc common to all gestalts in this project
 from pixa import PixaSequence, PixaSequenceCollection, PixaShiftColour, PixaMaskColour, Spritesheet
+import os.path
+currentdir = os.curdir
 
 def hide_or_show_drawbar_dolly_wheels(connection_type):
     """ returns sequences to draw in dolly wheels for drawbar trailers, or mask them out with blue """
@@ -27,6 +29,9 @@ class Variation:
         self.cargo = cargo
         self.connection_type = connection_type
         self.body_subtype = body_subtype # optional, use for e.g. flatbeds with and w/o stakes
+
+def get_output_path(filename):
+    return os.path.join(currentdir, 'output', filename)
     
 # constants
 SPRITEROW_HEIGHT = 40

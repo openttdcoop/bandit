@@ -208,6 +208,7 @@ def generate(input_image_path):
                 spriterows.append(spriterow)
             spritesheet.render(spriterows=spriterows)
             length = '7_8' # !! hard coded var until this is figured out
-            output_path = common.get_output_path(length + '_tank_trailer_' + variation.connection_type + '_' + variation.set_name + '_' + variation.cargo + '.png')
+            gestalt_id = 'tank_trailer' 
+            output_path = common.get_output_path(common.construct_filename(gestalt_id, length, variation))
             print output_path
             spritesheet.save(output_path)

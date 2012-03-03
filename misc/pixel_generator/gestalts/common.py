@@ -30,7 +30,12 @@ class Variation:
         self.connection_type = connection_type
         self.body_subtype = body_subtype # optional, use for e.g. flatbeds with and w/o stakes
 
+def construct_filename(gestalt_id, length, variation):
+    """ simple filename maker, not much to see here """
+    return '_'.join([length, gestalt_id, variation.connection_type, variation.set_name, variation.cargo]) + '.png'
+
 def get_output_path(filename):
+    """ simple path maker, to deal with OS path. Expects a filename.  Currently hard coded to use 'output' dir """
     return os.path.join(currentdir, 'output', filename)
     
 # constants

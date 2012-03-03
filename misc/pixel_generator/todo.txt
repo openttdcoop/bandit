@@ -3,18 +3,32 @@ Pixa Todo
 - bitmap loader
 - ??
 - path mangler?
+	- move to common.py	
+	- use os.path, see input image loader for example
+		
 
 Cargo gestalts
-- coils
-- pipes/tubes
-- crates
-- ISO containers
-- loads covered by tarpaulins
-- dimensional lumber
-- vehicles / machinery
-- tree length logs
-- cut logs
-- livestock
-- barrels
-- sugar cane
-- bales
+
+Homogoneous for all angles (no load straps or other asymmetrical details)
+	- coils
+	- square tarps
+
+Vehicle length, stackable (probably need stakes on vehicle)
+	- pipes/tubes
+	- dimensional lumber
+	- tree length logs
+
+Heterogeneous for some or all angles, non stacking.  In length units of 1/8 - 4/8, then combined in multiples for other lengths
+	Unitised (only one graphic per unit)	
+		- loads covered by tarpaulins
+		- vehicles / machinery
+	Sub units (two graphics per unit: 50% loaded, 100% loaded)
+		- crates
+		- cut logs
+		- livestock
+		- barrels
+		- sugar cane
+		- bales
+
+Special case
+	- ISO containers (lengths are not in 1/8 units)

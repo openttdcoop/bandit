@@ -1,0 +1,20 @@
+Pixa Todo
+
+- bitmap loader
+- ??
+- path mangler?
+
+Cargo gestalts
+- coils
+- pipes/tubes
+- crates
+- ISO containers
+- loads covered by tarpaulins
+- dimensional lumber
+- vehicles / machinery
+- tree length logs
+- cut logs
+- livestock
+- barrels
+- sugar cane
+- bales

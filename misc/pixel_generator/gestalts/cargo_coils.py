@@ -44,7 +44,9 @@ stakes = [
 ]
 
 cargo_loader = PixaImageLoader(mask=(0,255))
-coil_load = cargo_loader.make_points(os.path.join(currentdir,'input','test_coil.png'), origin=(2,4))
+coil_path = os.path.join(currentdir,'input','test_coil.png')
+cargo_loader.make_cheat_sheat(coil_path)
+coil_load = cargo_loader.make_points(coil_path, origin=(2,4))
 
 # sequence collections
 sc_pass_1 = PixaSequenceCollection(

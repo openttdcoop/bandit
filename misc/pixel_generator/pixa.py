@@ -211,6 +211,30 @@ class PixaImageLoader:
         self.crop_box = crop_box # an optional 4-tuple defining the left, upper, right, and lower pixel coordinate for crop  
         self.mask = mask # a tuple of colour indexes that should be ignored when parsing this image
             
+    class _Options:
+        """ utility class to handle processing optional arguments """
+        def __init__(self, parent, crop_box, mask, origin):
+            # mask can't be None, use value from class instance (parent)
+            if mask == None:
+                self.mask = parent.mask
+            else:
+                self.mask = mask
+                            
+            # crop_box can validly be None on call and class instance
+            if crop_box != None:
+                self.crop_box = crop_box
+            elif parent.crop_box != None:
+                self.crop_box = parent.crop_box
+            else:
+                self.crop_box = None
+            
+            # origin can't be None, use value from class instance (parent)
+            if origin == None:
+                self.origin = parent.origin
+            else:
+                self.origin = origin
+
+    
     def make_points(self, image_file_path, crop_box=None, mask=None, origin=None):
         """ 
         Turns an image into a list of points (dx, dy, colour index) suitable for use with PixaSequence 
@@ -218,29 +242,24 @@ class PixaImageLoader:
         
         @param origin: tuple (x,y), relative to top-left of file; dx, dy for points will be calculated relative to this origin
         """
-        if mask == None:
-            mask = self.mask
-        if crop_box == None:
-            if self.crop_box != None:
-                crop_box = self.crop_box
-        if origin == None:
-            origin = self.origin
+        options = self._Options(self, crop_box, mask, origin)        
 
         raw = Image.open(image_file_path)
-        if crop_box != None:  # only crop if needed
-            raw = raw.crop(crop_box) 
+        if options.crop_box != None:  # only crop if needed
+            raw = raw.crop(options.crop_box) 
         rawpx = raw.load()
         points = []
         for x in range(raw.size[0]):
           for y in range(raw.size[1]):
             colour = rawpx[x,y]
-            if colour not in mask:  # don't include blue white (assumes dependency on DOS palette)
-                dx = x - origin[0]
-                dy = y - origin[1]
+            if colour not in options.mask:
+                dx = x - options.origin[0]
+                dy = y - options.origin[1]
                 points.append((dx, dy, colour))
         return points
         
-    #def make_    
+    def make_cheat_sheat(self, image_file_path):
+        pass
 
 def pixarender(image, sequence_collection, colourset=None):
     colours = set() #used for debug

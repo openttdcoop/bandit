@@ -2,6 +2,7 @@ import Image
 import ImageDraw
 from copy import deepcopy
 
+
 class Point:
     """ simple class to hold the definition of a pixel that should be drawn """
     def __init__(self, dx, dy, colour):
@@ -20,6 +21,7 @@ class Point:
         else:
             # assume we have a valid int, if it isn't render stage will likely fail anyway, which imo is good enough in this case 
             return self._colour
+
 
 class PixaColour:
     """ 
@@ -142,6 +144,7 @@ class PixaShiftColour(PixaMixer):
                 result.append(p)
         return result
 
+
 class PixaMaskColour(PixaMixer):
     """
     Mask out all colours for an entire sequence (mask colour user-defined to allow for palette variations).
@@ -165,6 +168,7 @@ class PixaShiftDY(PixaMixer):
 
     def convert(self, seq):
         return [Point(p.dx, p.dy + self.ddy, p.colour()) for p in seq]
+
 
 class Spritesheet(object):
     """
@@ -200,6 +204,7 @@ class Spritesheet(object):
 
     def save(self, output_path):        
         self.sprites.save(output_path, optimize=True)
+
 
 class PixaImageLoader:
     """ 
@@ -261,6 +266,7 @@ class PixaImageLoader:
     def make_cheat_sheat(self, image_file_path):
         pass
 
+
 def pixarender(image, sequence_collection, colourset=None):
     colours = set() #used for debug
     imagepx = image.load()
@@ -276,6 +282,7 @@ def pixarender(image, sequence_collection, colourset=None):
                 draw.point([(sx, sy)], fill=scol)
     #print colours # debug: what colours did we find in this spritesheet?
     return image
+
 
 def generate(input_image_path, key_colour_mapping, output_image_path):
     spritesheet = Image.open(input_image_path)

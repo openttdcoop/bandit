@@ -1,25 +1,20 @@
 Pixa Todo
 
 - bitmap loader
-- ??
-- path mangler?
-	- move to common.py	
-	- use os.path, see input image loader for example
-		
+
 
 Cargo gestalts
 
-Homogoneous for all angles (no load straps or other asymmetrical details)
+Homogeneous for all angles (no load straps or other asymmetrical details)
 	- coils
 	- square tarps
 
-Vehicle length, stackable (probably need stakes on vehicle)
-	- pipes/tubes
-	- dimensional lumber
-	- tree length logs
-
 Heterogeneous for some or all angles, non stacking.  In length units of 1/8 - 4/8, then combined in multiples for other lengths
-	Unitised (only one graphic per unit)	
+	Vehicle length, stackable (probably need stakes on vehicle)
+		- pipes/tubes
+		- dimensional lumber
+		- tree length logs
+	Unitised (only one graphic per unit), length of graphics can vary to length of vehicle
 		- loads covered by tarpaulins
 		- vehicles / machinery
 	Sub units (two graphics per unit: 50% loaded, 100% loaded)
@@ -29,6 +24,31 @@ Heterogeneous for some or all angles, non stacking.  In length units of 1/8 - 4/
 		- barrels
 		- sugar cane
 		- bales
+	Special case
+		- ISO containers (lengths are not in 1/8 units)
 
-Special case
-	- ISO containers (lengths are not in 1/8 units)
+----
+All cargos
+- positions png, containing 1 sprite row for each length
+	- 4 magic colours per angle, positioning up to 4 components in correct depth order
+	- for load states 1-3, components will not be drawn if not required
+	- drawing is into new spritesheet, at x,y location of magic colour pixels
+	- bounding boxes, positioning etc to map exactly to equivalent vehicle sprites for that length
+	- drawing guide to use horizontal planes, not cuboids; plane represents load surface of vehicle, and to be at equivalent height of same above wheels
+- colourset mappings, input indexes -> vars (1 dict); vars -> new indexes (1 dict per colourset).  Create utility to help generate first dict (consider using relative indexes to base colours, using the built-in shift capability)
+
+Homogeneous cargos
+- component png for each cargo
+	- one angle
+	- standard crop
+
+Vehicle length, stackable cargos:
+- components png containing sprites for one stackable: 
+	- for each length 1/8 - 8/8
+	- for 4 angles
+	- possibly coloured bg for auto-crop, or use crops
+
+?? Heterogeneous
+
+?? Special case
+	- ISO containers might be generated from floorplans

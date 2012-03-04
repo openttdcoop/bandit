@@ -264,7 +264,25 @@ class PixaImageLoader:
         return points
         
     def make_cheat_sheat(self, image_file_path):
-        pass
+        block_size = 30
+        raw = Image.open(image_file_path)
+        rawpx = raw.load()
+        result = Image.new('P',(raw.size[0] * block_size, raw.size[1] * block_size))
+        draw = ImageDraw.Draw(result)
+                
+        result.putpalette(Image.open(image_file_path).palette)
+        
+        for x in range(raw.size[0]):
+            for y in range(raw.size[1]):
+                pen_x = x * block_size
+                pen_y = y * block_size
+                colour = rawpx[x,y]
+                draw.rectangle([(pen_x,pen_y),(pen_x+block_size, pen_y+block_size)], fill=colour)
+                bg_size = draw.textsize(str(colour))
+                text_pos = (pen_x+(block_size/4), pen_y+(block_size/3))
+                draw.rectangle([(text_pos[0]-1,text_pos[1]+1), (text_pos[0]+bg_size[0],text_pos[1]+bg_size[1]-2)], fill=255)
+                draw.text((pen_x+(block_size/4), pen_y+(block_size/3)), str(colour),fill=1)
+        result.save('foo.png')
 
 
 def pixarender(image, sequence_collection, colourset=None):

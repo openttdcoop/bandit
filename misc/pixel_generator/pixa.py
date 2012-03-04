@@ -288,7 +288,7 @@ def make_cheatsheet(image, output_path, origin=None):
             pen_y = y * block_size
             colour = rawpx[x,y]
             draw.rectangle([(pen_x,pen_y),(pen_x+block_size, pen_y+block_size)], fill=colour)
-            if (x,y) == origin:
+            if origin is not None and (x,y) == origin:
                 # indicate origin; hacky, can't be bothered to learn to draw lines, so just draw more rects :P
                 draw.rectangle([(pen_x,pen_y),(pen_x+(block_size), pen_y+(block_size))], fill=224)
                 draw.rectangle([(pen_x+3,pen_y+3),(pen_x+(block_size-4), pen_y+(block_size-4))], fill=colour)

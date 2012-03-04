@@ -46,3 +46,4 @@ Thumbs.db
 # paths where the pixel generator might put output
 misc/test_pixel_generator/results*
 misc/pixel_generator/output*
+misc/pixel_generator/cheatsheets*

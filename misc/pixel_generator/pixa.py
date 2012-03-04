@@ -293,9 +293,10 @@ def make_cheatsheet(image, output_path, origin=None):
                 draw.rectangle([(pen_x,pen_y),(pen_x+(block_size), pen_y+(block_size))], fill=224)
                 draw.rectangle([(pen_x+3,pen_y+3),(pen_x+(block_size-4), pen_y+(block_size-4))], fill=colour)
             bg_size = draw.textsize(str(colour))
-            text_pos = (pen_x+(block_size/4), pen_y+(block_size/3))
-            draw.rectangle([(text_pos[0]-1,text_pos[1]+1), (text_pos[0]+bg_size[0],text_pos[1]+bg_size[1]-2)], fill=255)
-            draw.text((pen_x+(block_size/4), pen_y+(block_size/3)), str(colour),fill=1)
+            text_pos_x = (pen_x + (0.75 * block_size)) - bg_size[0]
+            text_pos_y = pen_y+(block_size/3)
+            draw.rectangle([(text_pos_x - 1, text_pos_y + 1), (text_pos_x + bg_size[0], text_pos_y + bg_size[1] -2)], fill=255)
+            draw.text((text_pos_x, text_pos_y), str(colour), fill=1)
 
                 
     result.save(output_path, optimize=True)

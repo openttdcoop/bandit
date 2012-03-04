@@ -211,7 +211,7 @@ class PixaImageLoader:
         self.crop_box = crop_box # an optional 4-tuple defining the left, upper, right, and lower pixel coordinate for crop  
         self.mask = mask # a tuple of colour indexes that should be ignored when parsing this image
             
-    def image_file_to_points(self, image_file_path, crop_box=None, mask=None, origin=None):
+    def make_points(self, image_file_path, crop_box=None, mask=None, origin=None):
         """ 
         Turns an image into a list of points (dx, dy, colour index) suitable for use with PixaSequence 
         @param image_file_path: path to an image file to load
@@ -239,6 +239,8 @@ class PixaImageLoader:
                 dy = y - origin[1]
                 points.append((dx, dy, colour))
         return points
+        
+    #def make_    
 
 def pixarender(image, sequence_collection, colourset=None):
     colours = set() #used for debug

@@ -1,9 +1,7 @@
 Pixa Todo
 
 - image file loader
-	- make a class, instantiate with crops, mask, local_origin
-	- make points: called with image, [crops, mask, local_origin]
-	- utility to print out values: called with image, [crops, mask, local_origin]
+	- utility to print out values: called with image, [crops, mask, local_origin] - save to a file at 8x zoom?
 
 
 

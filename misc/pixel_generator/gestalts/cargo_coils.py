@@ -50,7 +50,7 @@ coil_path = os.path.join(currentdir, 'input', file_name)
 coil_load = cargo_loader.make_points(coil_path, origin=(2,4))
 
 coil_sprite = cargo_loader.get_image(coil_path)
-make_cheatsheet(coil_sprite, os.path.join(currentdir, 'cheatsheets', file_name))
+make_cheatsheet(coil_sprite, os.path.join(currentdir, 'cheatsheets', file_name), origin=(2,4))
 
 # sequence collections
 sc_pass_1 = PixaSequenceCollection(

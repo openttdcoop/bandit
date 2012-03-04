@@ -273,7 +273,7 @@ class PixaImageLoader:
                 points.append((dx, dy, colour))
         return points
         
-def make_cheatsheet(image, output_path):
+def make_cheatsheet(image, output_path, origin=None):
     block_size = 30
     palette = deepcopy(image.palette)
     raw = image
@@ -288,10 +288,16 @@ def make_cheatsheet(image, output_path):
             pen_y = y * block_size
             colour = rawpx[x,y]
             draw.rectangle([(pen_x,pen_y),(pen_x+block_size, pen_y+block_size)], fill=colour)
+            if (x,y) == origin:
+                # indicate origin; hacky, can't be bothered to learn to draw lines, so just draw more rects :P
+                draw.rectangle([(pen_x,pen_y),(pen_x+(block_size), pen_y+(block_size))], fill=224)
+                draw.rectangle([(pen_x+3,pen_y+3),(pen_x+(block_size-4), pen_y+(block_size-4))], fill=colour)
             bg_size = draw.textsize(str(colour))
             text_pos = (pen_x+(block_size/4), pen_y+(block_size/3))
             draw.rectangle([(text_pos[0]-1,text_pos[1]+1), (text_pos[0]+bg_size[0],text_pos[1]+bg_size[1]-2)], fill=255)
-            draw.text((pen_x+(block_size/4), pen_y+(block_size/3)), str(colour),fill=1)            
+            draw.text((pen_x+(block_size/4), pen_y+(block_size/3)), str(colour),fill=1)
+
+                
     result.save(output_path, optimize=True)
 
 

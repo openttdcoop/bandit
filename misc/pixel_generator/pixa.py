@@ -1,5 +1,6 @@
 import Image
 import ImageDraw
+import ImagePalette
 from copy import deepcopy
 import os.path
 currentdir = os.curdir
@@ -217,10 +218,11 @@ class PixaImageLoader:
     def __init__(self, crop_box=None, mask=(), origin=(0,0)):
         self.crop_box = crop_box # an optional 4-tuple defining the left, upper, right, and lower pixel coordinate for crop  
         self.mask = mask # a tuple of colour indexes that should be ignored when parsing this image
+        self.origin = origin # a tuple of x,y to set origin when outputting sequnces of points
             
     class _Options:
         """ utility class to handle processing optional arguments """
-        def __init__(self, parent, crop_box, mask, origin):
+        def __init__(self, parent, crop_box=None, mask=None, origin=None):
             # mask can't be None, use value from class instance (parent)
             if mask == None:
                 self.mask = parent.mask
@@ -241,10 +243,16 @@ class PixaImageLoader:
             else:
                 self.origin = origin
 
+    def get_image(self, image_file_path, crop_box=None):
+        options = self._Options(self, crop_box)        
+        raw = Image.open(image_file_path)
+        if options.crop_box != None:  # only crop if needed
+            raw = raw.crop(options.crop_box) 
+        return raw
     
     def make_points(self, image_file_path, crop_box=None, mask=None, origin=None):
         """ 
-        Turns an image into a list of points (dx, dy, colour index) suitable for use with PixaSequence 
+        Turns an image file into a list of points (dx, dy, colour index) suitable for use with PixaSequence 
         @param image_file_path: path to an image file to load
         
         @param origin: tuple (x,y), relative to top-left of file; dx, dy for points will be calculated relative to this origin
@@ -265,26 +273,26 @@ class PixaImageLoader:
                 points.append((dx, dy, colour))
         return points
         
-    def make_cheat_sheat(self, image_file_path, output_path):
-        block_size = 30
-        raw = Image.open(image_file_path)
-        rawpx = raw.load()
-        result = Image.new('P',(raw.size[0] * block_size, raw.size[1] * block_size))
-        draw = ImageDraw.Draw(result)
-                
-        result.putpalette(Image.open(image_file_path).palette)
-        
-        for x in range(raw.size[0]):
-            for y in range(raw.size[1]):
-                pen_x = x * block_size
-                pen_y = y * block_size
-                colour = rawpx[x,y]
-                draw.rectangle([(pen_x,pen_y),(pen_x+block_size, pen_y+block_size)], fill=colour)
-                bg_size = draw.textsize(str(colour))
-                text_pos = (pen_x+(block_size/4), pen_y+(block_size/3))
-                draw.rectangle([(text_pos[0]-1,text_pos[1]+1), (text_pos[0]+bg_size[0],text_pos[1]+bg_size[1]-2)], fill=255)
-                draw.text((pen_x+(block_size/4), pen_y+(block_size/3)), str(colour),fill=1)
-        result.save(output_path, optimize=True)
+def make_cheatsheet(image, image2, output_path):
+    block_size = 30
+    palette = deepcopy(image.palette)
+    raw = image
+    rawpx = raw.load()
+    result = Image.new('P',(raw.size[0] * block_size, raw.size[1] * block_size))
+    result.putpalette(palette)
+    draw = ImageDraw.Draw(result)
+    
+    for x in range(raw.size[0]):
+        for y in range(raw.size[1]):
+            pen_x = x * block_size
+            pen_y = y * block_size
+            colour = rawpx[x,y]
+            draw.rectangle([(pen_x,pen_y),(pen_x+block_size, pen_y+block_size)], fill=colour)
+            bg_size = draw.textsize(str(colour))
+            text_pos = (pen_x+(block_size/4), pen_y+(block_size/3))
+            draw.rectangle([(text_pos[0]-1,text_pos[1]+1), (text_pos[0]+bg_size[0],text_pos[1]+bg_size[1]-2)], fill=255)
+            draw.text((pen_x+(block_size/4), pen_y+(block_size/3)), str(colour),fill=1)            
+    result.save(output_path, optimize=True)
 
 
 def pixarender(image, sequence_collection, colourset=None):

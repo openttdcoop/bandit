@@ -1,4 +1,5 @@
-from pixa import PixaColour, PixaSequence, PixaSequenceCollection, PixaShiftColour, PixaShiftDY, PixaMaskColour, Spritesheet, PixaImageLoader
+from pixa import PixaColour, PixaSequence, PixaSequenceCollection, PixaShiftColour, PixaShiftDY, PixaMaskColour, Spritesheet, PixaImageLoader 
+from pixa import make_cheatsheet as make_cheatsheet
 import Image
 import common
 import os.path
@@ -46,8 +47,11 @@ stakes = [
 cargo_loader = PixaImageLoader(mask=(0,255))
 file_name = 'test_coil.png'
 coil_path = os.path.join(currentdir, 'input', file_name)
-cargo_loader.make_cheat_sheat(coil_path, os.path.join(currentdir, 'cheatsheets', file_name))
 coil_load = cargo_loader.make_points(coil_path, origin=(2,4))
+
+coil_sprite = cargo_loader.get_image(coil_path)
+coil_sprite2 = cargo_loader.get_image(coil_path)
+make_cheatsheet(coil_sprite, coil_sprite2, os.path.join(currentdir, 'cheatsheets', file_name))
 
 # sequence collections
 sc_pass_1 = PixaSequenceCollection(

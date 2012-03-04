@@ -1,6 +1,10 @@
 Pixa Todo
 
-- bitmap loader
+- image file loader
+	- make a class, instantiate with crops, mask, local_origin
+	- make points: called with image, [crops, mask, local_origin]
+	- utility to print out values: called with image, [crops, mask, local_origin]
+
 
 
 Cargo gestalts
@@ -36,6 +40,8 @@ All cargos
 	- bounding boxes, positioning etc to map exactly to equivalent vehicle sprites for that length
 	- drawing guide to use horizontal planes, not cuboids; plane represents load surface of vehicle, and to be at equivalent height of same above wheels
 - colourset mappings, input indexes -> vars (1 dict); vars -> new indexes (1 dict per colourset).  Create utility to help generate first dict (consider using relative indexes to base colours, using the built-in shift capability)
+
+- render might need to chain spritesheets
 
 Homogeneous cargos
 - component png for each cargo

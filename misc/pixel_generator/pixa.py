@@ -201,6 +201,45 @@ class Spritesheet(object):
     def save(self, output_path):        
         self.sprites.save(output_path, optimize=True)
 
+class PixaImageLoader:
+    """ 
+    Loads images from disk and does various useful things with them.
+    An instance of this class can store defaults for crops, masks etc, useful for working with imported spritesheets.
+    Defaults can in certain cases be over-ridden when calling a method on this class.
+    """
+    def __init__(self, crop_box=None, mask=(), origin=(0,0)):
+        self.crop_box = crop_box # an optional 4-tuple defining the left, upper, right, and lower pixel coordinate for crop  
+        self.mask = mask # a tuple of colour indexes that should be ignored when parsing this image
+            
+    def image_file_to_points(self, image_file_path, crop_box=None, mask=None, origin=None):
+        """ 
+        Turns an image into a list of points (dx, dy, colour index) suitable for use with PixaSequence 
+        @param image_file_path: path to an image file to load
+        
+        @param origin: tuple (x,y), relative to top-left of file; dx, dy for points will be calculated relative to this origin
+        """
+        if mask == None:
+            mask = self.mask
+        if crop_box == None:
+            if self.crop_box != None:
+                crop_box = self.crop_box
+        if origin == None:
+            origin = self.origin
+
+        raw = Image.open(image_file_path)
+        if crop_box != None:  # only crop if needed
+            raw = raw.crop(crop_box) 
+        rawpx = raw.load()
+        points = []
+        for x in range(raw.size[0]):
+          for y in range(raw.size[1]):
+            colour = rawpx[x,y]
+            if colour not in mask:  # don't include blue white (assumes dependency on DOS palette)
+                dx = x - origin[0]
+                dy = y - origin[1]
+                points.append((dx, dy, colour))
+        return points
+
 def pixarender(image, sequence_collection, colourset=None):
     colours = set() #used for debug
     imagepx = image.load()

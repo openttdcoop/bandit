@@ -1,6 +1,8 @@
 import Image
 import ImageDraw
 from copy import deepcopy
+import os.path
+currentdir = os.curdir
 
 
 class Point:
@@ -263,7 +265,7 @@ class PixaImageLoader:
                 points.append((dx, dy, colour))
         return points
         
-    def make_cheat_sheat(self, image_file_path):
+    def make_cheat_sheat(self, image_file_path, output_path):
         block_size = 30
         raw = Image.open(image_file_path)
         rawpx = raw.load()
@@ -282,7 +284,7 @@ class PixaImageLoader:
                 text_pos = (pen_x+(block_size/4), pen_y+(block_size/3))
                 draw.rectangle([(text_pos[0]-1,text_pos[1]+1), (text_pos[0]+bg_size[0],text_pos[1]+bg_size[1]-2)], fill=255)
                 draw.text((pen_x+(block_size/4), pen_y+(block_size/3)), str(colour),fill=1)
-        result.save('foo.png')
+        result.save(output_path, optimize=True)
 
 
 def pixarender(image, sequence_collection, colourset=None):

@@ -95,7 +95,7 @@ class PixaSequence:
                     temp_points = t.convert(temp_points)                    
 
         for p in temp_points:
-            yield (x + p.dx, y - p.dy, p.colour())
+            yield (x + p.dx, y + p.dy, p.colour())
 
 
 class PixaSequenceCollection:

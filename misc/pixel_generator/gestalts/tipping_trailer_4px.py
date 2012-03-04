@@ -19,8 +19,8 @@ class LoadState:
 load_states = [
     LoadState('empty', 0),
     LoadState('load_1', 0),
-    LoadState('load_2', 2),
-    LoadState('load_3', 4),
+    LoadState('load_2', -2),
+    LoadState('load_3', -4),
 ]
 
 # constants
@@ -44,24 +44,24 @@ bulk_load = [
 ]
 body_outer = [
     (0, 0, pc_body()),
-    (0, 1, pc_stripe()), 
-    (0, 2, pc_body()), 
-    (0, 3, pc_body()), 
-    (0, 4, 13),
+    (0, -1, pc_stripe()), 
+    (0, -2, pc_body()), 
+    (0, -3, pc_body()), 
+    (0, -4, 13),
 ]
 body_end = [
     (0, 0, pc_body()), 
-    (0, 1, pc_stripe()), 
-    (0, 2, pc_body()), 
-    (0, 3, pc_body()), 
-    (0, 4, 13),
+    (0, -1, pc_stripe()), 
+    (0, -2, pc_body()), 
+    (0, -3, pc_body()), 
+    (0, -4, 13),
 ]
 body_inner = [
     (0, 0, 16), 
-    (0, 1, 17), 
-    (0, 2, 18),
-    (0, 3, 19), 
-    (0, 4, 14),
+    (0, -1, 17), 
+    (0, -2, 18),
+    (0, -3, 19), 
+    (0, -4, 14),
 ]
 
 # sequence collections

@@ -1,5 +1,6 @@
 # constants, classes, methods etc common to all gestalts in this project
 from pixa import PixaSequence, PixaSequenceCollection, PixaShiftColour, PixaMaskColour, Spritesheet
+import Image
 import os.path
 currentdir = os.curdir
 
@@ -40,6 +41,7 @@ def get_output_path(filename):
     
 # constants
 SPRITEROW_HEIGHT = 40
+DOS_PALETTE = Image.open('palette_key.png').palette
 
 # colour defaults
 CC1 = 202

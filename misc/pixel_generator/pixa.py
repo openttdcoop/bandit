@@ -273,7 +273,7 @@ class PixaImageLoader:
                 points.append((dx, dy, colour))
         return points
         
-def make_cheatsheet(image, image2, output_path):
+def make_cheatsheet(image, output_path):
     block_size = 30
     palette = deepcopy(image.palette)
     raw = image

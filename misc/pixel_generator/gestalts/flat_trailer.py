@@ -102,8 +102,6 @@ def generate(input_image_path):
     floorplan = Image.open(input_image_path)
     # slice out the floorplan needed for this gestalt
     floorplan = floorplan.crop((0, FLOORPLAN_START_Y, floorplan.size[0], FLOORPLAN_START_Y + common.SPRITEROW_HEIGHT))
-    # get a palette
-    palette = Image.open('palette_key.png').palette
     # create variations containing empty spritesheets
     variations = []
     for set_name, colourset in coloursets:
@@ -113,7 +111,7 @@ def generate(input_image_path):
                 spritesheet = Spritesheet(
                     width=floorplan.size[0],
                     height=common.SPRITEROW_HEIGHT * (len(load_states)),
-                    palette=palette
+                    palette=common.DOS_PALETTE
                 )
                 variation.spritesheets.append(spritesheet)
                 variations.append(variation)

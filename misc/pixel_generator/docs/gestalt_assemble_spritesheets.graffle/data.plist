@@ -212,7 +212,7 @@
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{211, 250}, {32, 32}}</string>
+			<string>{{219.25, 252}, {32, 32}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>ID</key>
@@ -242,7 +242,7 @@
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{211, 317}, {32, 32}}</string>
+			<string>{{219.25, 317}, {32, 32}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>ID</key>
@@ -1167,7 +1167,7 @@
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{462, 225}, {32, 32}}</string>
+			<string>{{441, 226}, {32, 32}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>ID</key>
@@ -1895,7 +1895,7 @@
 	<key>MasterSheets</key>
 	<array/>
 	<key>ModificationDate</key>
-	<string>2012-03-05 06:54:04 +0000</string>
+	<string>2012-03-05 07:00:16 +0000</string>
 	<key>Modifier</key>
 	<string>Andy</string>
 	<key>NotesVisible</key>

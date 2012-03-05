@@ -100,6 +100,13 @@
 					<string>{{366, 140.529}, {90, 36}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
+					<key>FontInfo</key>
+					<dict>
+						<key>Font</key>
+						<string>Helvetica</string>
+						<key>Size</key>
+						<real>9</real>
+					</dict>
 					<key>ID</key>
 					<integer>124</integer>
 					<key>Magnets</key>
@@ -127,7 +134,7 @@
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\qc
 
-\f0\fs18 \cf0 Render passes}</string>
+\f0\fs20 \cf0 Render passes}</string>
 						<key>VerticalPad</key>
 						<integer>0</integer>
 					</dict>
@@ -137,6 +144,13 @@
 					<string>{{358, 131.409}, {90, 36}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
+					<key>FontInfo</key>
+					<dict>
+						<key>Font</key>
+						<string>Helvetica</string>
+						<key>Size</key>
+						<real>9</real>
+					</dict>
 					<key>ID</key>
 					<integer>125</integer>
 					<key>Magnets</key>
@@ -380,6 +394,13 @@
 			<string>{{551, 369.12}, {90, 36}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
+			<key>FontInfo</key>
+			<dict>
+				<key>Font</key>
+				<string>Helvetica</string>
+				<key>Size</key>
+				<real>10</real>
+			</dict>
 			<key>ID</key>
 			<integer>105</integer>
 			<key>Magnets</key>
@@ -504,6 +525,13 @@
 					<string>{{37, 460.12}, {90, 36}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
+					<key>FontInfo</key>
+					<dict>
+						<key>Font</key>
+						<string>Helvetica</string>
+						<key>Size</key>
+						<real>10</real>
+					</dict>
 					<key>ID</key>
 					<integer>93</integer>
 					<key>Magnets</key>
@@ -531,7 +559,7 @@
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\qc
 
-\f0\fs18 \cf0 Call render method on each Vatriation}</string>
+\f0\fs20 \cf0 Call render method on each Variation}</string>
 						<key>VerticalPad</key>
 						<integer>0</integer>
 					</dict>
@@ -541,6 +569,13 @@
 					<string>{{29, 451}, {90, 36}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
+					<key>FontInfo</key>
+					<dict>
+						<key>Font</key>
+						<string>Helvetica</string>
+						<key>Size</key>
+						<real>10</real>
+					</dict>
 					<key>ID</key>
 					<integer>94</integer>
 					<key>Magnets</key>
@@ -580,6 +615,13 @@
 					<string>{{37, 393.12}, {90, 36}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
+					<key>FontInfo</key>
+					<dict>
+						<key>Font</key>
+						<string>Helvetica</string>
+						<key>Size</key>
+						<real>10</real>
+					</dict>
 					<key>ID</key>
 					<integer>89</integer>
 					<key>Magnets</key>
@@ -607,7 +649,7 @@
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\qc
 
-\f0\fs18 \cf0 Define render passes for each Variation}</string>
+\f0\fs20 \cf0 Define render passes for each Variation}</string>
 						<key>VerticalPad</key>
 						<integer>0</integer>
 					</dict>
@@ -617,6 +659,13 @@
 					<string>{{29, 384}, {90, 36}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
+					<key>FontInfo</key>
+					<dict>
+						<key>Font</key>
+						<string>Helvetica</string>
+						<key>Size</key>
+						<real>10</real>
+					</dict>
 					<key>ID</key>
 					<integer>90</integer>
 					<key>Magnets</key>
@@ -781,7 +830,7 @@
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\qc
 
-\f0\fs18 \cf0 Create Variation objects}</string>
+\f0\fs20 \cf0 Create Variation objects}</string>
 						<key>VerticalPad</key>
 						<integer>0</integer>
 					</dict>
@@ -912,7 +961,7 @@
 				<string>{\rtf1\ansi\ansicpg1252\cocoartf1038\cocoasubrtf360
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
 
 \f0\b\fs22 \cf0 Pixa: using a Gestalt to assemble spritesheets\
 
@@ -1183,6 +1232,13 @@
 			<string>{{358, 275.243}, {90, 36}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
+			<key>FontInfo</key>
+			<dict>
+				<key>Font</key>
+				<string>Helvetica</string>
+				<key>Size</key>
+				<real>10</real>
+			</dict>
 			<key>ID</key>
 			<integer>65</integer>
 			<key>Magnets</key>
@@ -1330,7 +1386,7 @@
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\qc
 
-\f0\fs18 \cf0 Get palette}</string>
+\f0\fs20 \cf0 Get palette}</string>
 				<key>VerticalPad</key>
 				<integer>0</integer>
 			</dict>
@@ -1374,14 +1430,14 @@
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\qc
 
-\f0\fs18 \cf0 Create empty spritesheet in each variation}</string>
+\f0\fs20 \cf0 Create empty spritesheet in each variation}</string>
 				<key>VerticalPad</key>
 				<integer>0</integer>
 			</dict>
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{14.5, 106.92}, {119, 10}}</string>
+			<string>{{14.5, 109.489}, {119, 10}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FontInfo</key>
@@ -1430,7 +1486,7 @@
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{35.5, 130.52}, {77, 70}}</string>
+			<string>{{35.5, 131.838}, {77, 70}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FontInfo</key>
@@ -1533,7 +1589,7 @@
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\qc
 
-\f0\fs18 \cf0 Crop to required floorplan}</string>
+\f0\fs20 \cf0 Crop to required floorplan}</string>
 				<key>VerticalPad</key>
 				<integer>0</integer>
 			</dict>
@@ -1556,7 +1612,7 @@
 			<real>-1</real>
 			<key>Points</key>
 			<array>
-				<string>{74, 96}</string>
+				<string>{74, 98.9403}</string>
 				<string>{74, 222}</string>
 			</array>
 			<key>Style</key>
@@ -1581,7 +1637,7 @@
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{29, 60}, {90, 36}}</string>
+			<string>{{13.125, 53.8203}, {121.75, 45.12}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FontInfo</key>
@@ -1618,7 +1674,7 @@
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\qc
 
-\f0\fs18 \cf0 Render called (by build script or cmd line)}</string>
+\f0\fs20 \cf0 Render called on Gestalt (by build script or cmd line)}</string>
 				<key>VerticalPad</key>
 				<integer>0</integer>
 			</dict>
@@ -1839,7 +1895,7 @@
 	<key>MasterSheets</key>
 	<array/>
 	<key>ModificationDate</key>
-	<string>2012-03-05 06:41:59 +0000</string>
+	<string>2012-03-05 06:54:04 +0000</string>
 	<key>Modifier</key>
 	<string>Andy</string>
 	<key>NotesVisible</key>

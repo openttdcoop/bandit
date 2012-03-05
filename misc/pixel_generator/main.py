@@ -14,9 +14,9 @@ input_image_path = os.path.join(currentdir, 'input','test_input.png')
 
 cargo_coils.generate(input_image_path)
 
-#tipping_trailer_4px.generate(input_image_path)
-#flat_trailer.generate(input_image_path)
-#tank_trailer.generate(input_image_path)
+tipping_trailer_4px.generate(input_image_path)
+flat_trailer.generate(input_image_path)
+tank_trailer.generate(input_image_path)
 
 
 print "done"

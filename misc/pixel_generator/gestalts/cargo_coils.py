@@ -13,17 +13,18 @@ cargos = {
 
 
 class LoadState:
-    def __init__(self, name, foo):
+    def __init__(self, name, show):
+         # reminder that arbitrary attributes can be added to hold load state props        
         self.name = name
-        self.foo = foo # reminder that arbitrary attributes can be added to hold load state props
+        self.show = show
         
 # load states - values define drawing parameters for the cargo to represent loading / loaded states
 # order needs to be predictable, so a dict won't do here
 load_states = [
-    LoadState('load_1', 0),
-    LoadState('load_2', 0),
-    LoadState('load_3', 0),
-    LoadState('load_4', 0),
+    LoadState('load_1', show=[190]),
+    LoadState('load_2', show=[190]),
+    LoadState('load_3', show=[190, 191]),
+    LoadState('load_4', show=[190, 191]),
 ]
 
 # constants
@@ -39,21 +40,28 @@ coil_load = cargo_loader.make_points(coil_path, origin=(2,4))
 # sequence collections
 sc_mask_out_template_guides = PixaSequenceCollection(
     sequences = {
-         66 : PixaSequence(points = [(0, 0, common.COL_MASK)]),
-         85 : PixaSequence(points = [(0, 0, common.COL_MASK)]),
-        140 : PixaSequence(points = [(0, 0, common.COL_MASK)]),
-        151 : PixaSequence(points = [(0, 0, common.COL_MASK)]),
-        182 : PixaSequence(points = [(0, 0, common.COL_MASK)]),    
+         66: PixaSequence(points=[(0, 0, common.COL_MASK)]),
+         85: PixaSequence(points=[(0, 0, common.COL_MASK)]),
+        140: PixaSequence(points=[(0, 0, common.COL_MASK)]),
+        151: PixaSequence(points=[(0, 0, common.COL_MASK)]),
+        182: PixaSequence(points=[(0, 0, common.COL_MASK)]),    
     }
 )
 
-
 def get_load_sequence(cargo, load_state):
     colour_shift_amount = cargos[cargo]
-    return PixaSequenceCollection(
-        sequences = {
-            190 : PixaSequence(points = coil_load, transforms = [PixaShiftColour(0, 255, colour_shift_amount)]),
-        }
+
+    magic_colours = [190, 191]
+
+    sequences = {}
+    for i in magic_colours:
+        if i in load_state.show:
+            sequences[i] = PixaSequence(points=coil_load, transforms=[PixaShiftColour(0, 255, colour_shift_amount)])
+        else:
+            sequences[i] = PixaSequence(points=[(0, 0, common.COL_MASK)])
+
+    return PixaSequenceCollection(    
+        sequences = sequences
     )
 
 
@@ -89,9 +97,6 @@ def generate(input_image_path):
                 # add n render passes to the spriterow (list controls render order, index 0 = first pass)
                 spriterow['render_passes'] = [
                     {'seq' : sc_mask_out_template_guides, 'colourset' : None},
-                    {'seq' : get_load_sequence(variation.cargo, load_state), 'colourset' : None},
-                    {'seq' : get_load_sequence(variation.cargo, load_state), 'colourset' : None},
-                    {'seq' : get_load_sequence(variation.cargo, load_state), 'colourset' : None},
                     {'seq' : get_load_sequence(variation.cargo, load_state), 'colourset' : None},
                 ]
                 spriterows.append(spriterow)

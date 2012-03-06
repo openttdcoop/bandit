@@ -191,7 +191,7 @@ class Spritesheet(object):
         @param palette: Palette of the sprite sheet.
         @type  palette: C{list} of (256*3) C{int}
         """
-        self.sprites = Image.new('P', (width, height))
+        self.sprites = Image.new('P', (width, height), 255)
         self.sprites.putpalette(palette)
 
     def render(self, spriterows):

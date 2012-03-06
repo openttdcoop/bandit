@@ -66,8 +66,8 @@ class PixaSequence:
     def add_points(self, points):
         """ pass in a list containing tuples of (x, y, colour) """
         # ? could check here and print a warning if more than one point has same x,y ?
-        for i in points:
-            self.points.append(Point(dx = i[0], dy = i[1], colour = i[2]))
+        for dx, dy, col in points:
+            self.points.append(Point(dx = dx, dy = dy, colour = col))
 
     def add_transforms(self, transforms):
         """ pass in an object for the transform """
@@ -76,8 +76,7 @@ class PixaSequence:
         that would let authors add transforms using variables which might not be in scope earlier in the pipeline
         however...order of transforms matter.  How would they control order when adding a transform?
         """
-        for transform in transforms:
-            self.transforms.append(transform)
+        self.transforms.extend(transforms)
 
     def get_recolouring(self, x, y, colourset=None):
         """
@@ -94,10 +93,9 @@ class PixaSequence:
         for p in self.points:
             temp_points.append(Point(dx=p.dx, dy=p.dy, colour=p.colour(colourset)))
 
-        if self.transforms is not None:
-            for t in self.transforms:
-                if t is not None:
-                    temp_points = t.convert(temp_points)
+        for t in self.transforms:
+            if t is not None:
+                temp_points = t.convert(temp_points)
 
         for p in temp_points:
             yield (x + p.dx, y + p.dy, p.colour())

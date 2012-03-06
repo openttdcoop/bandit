@@ -70,8 +70,8 @@ def generate(input_image_path):
     # create variations containing empty spritesheets
     variations = []
     for cargo in cargos:
-        for i in range(0,8):
-            length = 8 - i
+        for i in range(7):
+            length = 8 - i # don't bother generating 1/8 long cargo sprites
             # coloursets for these cargos are derived from the cargo and don't need storing on the Variation
             variation = common.Variation(set_name=None, colourset=None, cargo=cargo, length=length, connection_type='')
             # slice out the floorplan needed for this variation

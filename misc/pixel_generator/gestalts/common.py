@@ -31,7 +31,7 @@ class Variation:
         self.connection_type = connection_type
         self.length = length
         self.body_subtype = body_subtype # optional, use for e.g. flatbeds with and w/o stakes
-    
+
     def attach_floorplan(self, floorplan):
         self.floorplan = floorplan
 
@@ -47,7 +47,7 @@ def construct_filename(gestalt_id, variation):
 def get_output_path(filename):
     """ Simple path maker, to deal with OS path. Expects a filename.  Currently hard coded to use 'output' dir. """
     return os.path.join(currentdir, 'output', filename)
-    
+
 # constants
 SPRITEROW_HEIGHT = 40
 DOS_PALETTE = Image.open('palette_key.png').palette

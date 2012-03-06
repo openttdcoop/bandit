@@ -54,17 +54,17 @@ switch (FEAT_ROADVEHS, SELF, ${trailer.id}_cargo_switch, cargo_type_in_veh) {
 // [cargo subtype in consist is 0-indexed]
 switch (FEAT_ROADVEHS, SELF, ${trailer.id}_visibility_switch_drawbar_truck_trailer_1, cargo_subtype) {
     0: return ${trailer.id}_sg_invisible; // trailer isn't in use so show invisible sprites
-    1..255: return ${trailer.id}_cargo_switch; // merges back to cargo switches - same for all positions / subtypes 
+    1..255: return ${trailer.id}_cargo_switch; // merges back to cargo switches - same for all positions / subtypes
     return ${trailer.id}_sg_error; // result shouldn't be reached
 }
 switch (FEAT_ROADVEHS, SELF, ${trailer.id}_visibility_switch_drawbar_truck_trailer_2, cargo_subtype) {
     0..1: return ${trailer.id}_sg_invisible; // trailer isn't in use so show invisible sprites
-    2..255: return ${trailer.id}_cargo_switch; // merges back to cargo switches - same for all positions / subtypes 
+    2..255: return ${trailer.id}_cargo_switch; // merges back to cargo switches - same for all positions / subtypes
     return ${trailer.id}_sg_error; // result shouldn't be reached
 }
 switch (FEAT_ROADVEHS, SELF, ${trailer.id}_visibility_switch_drawbar_truck_trailer_3, cargo_subtype) {
     0..2: return ${trailer.id}_sg_invisible; // trailer isn't in use so show invisible sprites
-    3..255: return ${trailer.id}_cargo_switch; // merges back to cargo switches - same for all positions / subtypes 
+    3..255: return ${trailer.id}_cargo_switch; // merges back to cargo switches - same for all positions / subtypes
     return ${trailer.id}_sg_error; // result shouldn't be reached
 }
 
@@ -80,12 +80,12 @@ switch (FEAT_ROADVEHS, SELF, ${trailer.id}_consist_position_drawbar_truck, posit
 // [cargo subtype in consist is 0-indexed]
 switch (FEAT_ROADVEHS, SELF, ${trailer.id}_visibility_switch_fifth_wheel_truck_trailer_2, cargo_subtype) {
     0: return ${trailer.id}_sg_invisible; // trailer isn't in use so show invisible sprites
-    1..255: return ${trailer.id}_cargo_switch; // merges back to cargo switches - same for all positions / subtypes 
+    1..255: return ${trailer.id}_cargo_switch; // merges back to cargo switches - same for all positions / subtypes
     return ${trailer.id}_sg_error; // result shouldn't be reached
 }
 switch (FEAT_ROADVEHS, SELF, ${trailer.id}_visibility_switch_fifth_wheel_truck_trailer_3, cargo_subtype) {
     0..1: return ${trailer.id}_sg_invisible; // trailer isn't in use so show invisible sprites
-    2..255: return ${trailer.id}_cargo_switch; // merges back to cargo switches - same for all positions / subtypes 
+    2..255: return ${trailer.id}_cargo_switch; // merges back to cargo switches - same for all positions / subtypes
     return ${trailer.id}_sg_error; // result shouldn't be reached
 }
 

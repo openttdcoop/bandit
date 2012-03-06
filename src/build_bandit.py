@@ -15,7 +15,7 @@ lang_templates = PageTemplateLoader(os.path.join(currentdir, 'lang'), format='te
 docs_templates = PageTemplateLoader(os.path.join(currentdir,'docs'), format='text')
 
 
-# the parser handles config file formats; provides a custom utility function for parsing to a list 
+# the parser handles config file formats; provides a custom utility function for parsing to a list
 import ConfigParser
 
 import re
@@ -32,7 +32,7 @@ config = ConfigParser.RawConfigParser()
 config.read(os.path.join(currentdir, 'src', 'BANDIT.cfg'))
 
 
-# get the globals - however for using globals in templates, it's better for the template to use global_template.pt as a macro   
+# get the globals - however for using globals in templates, it's better for the template to use global_template.pt as a macro
 import global_constants # expose all constants for easy passing to templates
 
 # get args passed by makefile
@@ -40,7 +40,7 @@ if len(sys.argv) > 1:
     repo_vars = {'repo_title' : sys.argv[1], 'repo_version' : sys.argv[2]}
 else: # provide some defaults so templates don't explode when testing python script without command line args
     repo_vars = {'repo_title' : 'BANDIT - compiled without makefile', 'repo_version' : 1}
-    
+
 class Trailer(object):
     """Base class for trailers"""
     def __init__(self, i, truck):
@@ -48,7 +48,7 @@ class Trailer(object):
         self.trailer_capacity = int(truck.trailer_capacities[i])
         self.numeric_id = truck.numeric_id + i + 1
         #self.graphics_file = global_constants.graphics_path + truck.trailer_graphics_files[i]
-  
+
     def render(self, truck):
         template = templates['trailer_template.pynml']
         return template(trailer = self, truck = truck)
@@ -57,7 +57,7 @@ class Truck(object):
     """Base class for all types of trucks"""
     def __init__(self, id):
         self.id = id
-        
+
         #setup properties for this vehicle
         self.title = config.get(id, 'title')
         self.numeric_id = config.getint(id, 'numeric_id')
@@ -75,7 +75,7 @@ class Truck(object):
         self.power = config.getint(id, 'power')
         self.smoke_offset = config.getint(id, 'smoke_offset')
         self.num_trailers = config.getint(id, 'num_trailers')
-        self.truck_capacity = config.getint(id, 'truck_capacity')  
+        self.truck_capacity = config.getint(id, 'truck_capacity')
         self.truck_length = config.getint(id, 'truck_length')
         self.trailer_capacities = config_option_to_list_of_ints(config.get(id, 'trailer_capacities'))
         self.trailer_lengths = config_option_to_list_of_ints(config.get(id, 'trailer_lengths'))
@@ -84,35 +84,35 @@ class Truck(object):
         self.run_cost_override = config.getfloat(id, 'run_cost_override')
         self.graphics_file = global_constants.graphics_path + self.get_graphics_filename()
 
-        # fifth wheel trucks need capacities modifying 
+        # fifth wheel trucks need capacities modifying
         if self.truck_type == 'fifth_wheel_truck':
             self.modify_capacities_fifth_wheel_trucks()
-      
+
         # add trailer objects - will only be added if needed
         # order of trailers here doesn't matter as we'll finally build them based on the vehicle id
         self.trailers = []
         for i in range(0, self.num_trailers):
             self.trailers.append(Trailer(i = i, truck = self))
-      
+
     def get_buy_cost(self):
         # if buy cost override is 0 (i.e. not defined), calculate the buy cost, otherwise use the value of cost override
         buy_cost_override = config.getint(self.id, 'buy_cost_override')
         if buy_cost_override == 0:
             max_power = 900 # a plausible upper limit for hp in this set
-            # costs matched approximately to HEQS; 12 seems to be an appropriate min value, rest of cost is from calculated from hp 
+            # costs matched approximately to HEQS; 12 seems to be an appropriate min value, rest of cost is from calculated from hp
             return 12 + int((float(self.power) / float(max_power)) * 243)
         else:
             return buy_cost_override
 
     def get_graphics_filename(self):
-        # graphics file names for trucks are automatic from id, or can be overridden 
+        # graphics file names for trucks are automatic from id, or can be overridden
         self.truck_graphics_file_override = config.get(self.id, 'truck_graphics_file_override')
-        if self.truck_graphics_file_override == '': 
+        if self.truck_graphics_file_override == '':
             return self.id + '.png'
         else:
             return self.truck_graphics_file_override
 
-            
+
     def modify_capacities_fifth_wheel_trucks(self):
         # fifth wheel trucks split part of the capacity of first trailer onto the truck, for TE reasons
         # the ratio is controlled by a decimal fraction defined as a property of the truck
@@ -127,12 +127,12 @@ class Truck(object):
             return int(0.5 * self.power)
         else:
             return self.run_cost_override
-    
+
     def get_consist_weight(self, num_trailers=0):
         # get the sum of unladen weight of truck and trailers; use num_trailers to exclude invisible trailers according to refit option
         weight = self.truck_length * global_constants.weight_factors[self.extra_type_info]
         for i in range(num_trailers):
-            weight = weight + (self.trailer_lengths[i] * global_constants.weight_factors[self.extra_type_info])     
+            weight = weight + (self.trailer_lengths[i] * global_constants.weight_factors[self.extra_type_info])
         return int(round(weight * 4)) # RV weight property dimension is 1/4 tons - NML can't handle absolute weights in cb at time of writing
 
     def get_total_consist_capacity(self):
@@ -140,7 +140,7 @@ class Truck(object):
         capacity = self.truck_capacity
         capacity = capacity + sum([i.trailer_capacity for i in self.trailers])
         return capacity
-        
+
     def get_te_coefficient(self, num_trailers=0):
         # if default RV te_coefficient is used, TE may be too high as total consist weight is stored on first vehicle
         # this adjusts te_coefficient to reflect that weight of lead vehicle only should be used to calculate TE
@@ -149,21 +149,21 @@ class Truck(object):
         truck_weight = self.get_consist_weight(num_trailers=0)
         adjusted_te_coefficient = default_te_coefficient / (float(total_weight) / float(truck_weight))
         return int(adjusted_te_coefficient)
-        
+
     @classmethod
     def make_buy_menu_trailer_tree(cls,items):
-        # this is a tree to recurse over an arbitrary number of trailers - used to set buy menu strings; thanks to Eddi for this   
+        # this is a tree to recurse over an arbitrary number of trailers - used to set buy menu strings; thanks to Eddi for this
         if len(items) == 0: # guard against zero length items which cause recursion to fail
             return "string(STR_EMPTY)"
-        if len(items) == 1: 
+        if len(items) == 1:
             return "string(STR_BUY_MENU_TRAILER,%d,%d)"%items[0]
         return "string(STR_ONE_MORE_LINE,%s,%s)"%(cls.make_buy_menu_trailer_tree(items[:len(items)/2]), cls.make_buy_menu_trailer_tree(items[len(items)/2:]))
-  
+
     def get_buy_menu_string(self):
         # this is an intricate function to set buy menu texts according to various truck properties :P
         from string import Template
         extra_type_info = 'STR_' + self.extra_type_info
-    
+
         if self.truck_type == 'solo_truck':
             # for solo trucks, no need to calculate trailer capacites
             buy_menu_template = Template(
@@ -175,7 +175,7 @@ class Truck(object):
             buy_menu_template = Template(
                 "string(STR_BUY_MENU_TEXT, string(${extra_type_info}), string(STR_BUY_MENU_TRAILER_NO_REFIT))"
             )
-            return buy_menu_template.substitute(extra_type_info=extra_type_info)           
+            return buy_menu_template.substitute(extra_type_info=extra_type_info)
         else:
             # for articulated trucks, we'll want the capacities
             trailer_details = []
@@ -184,13 +184,13 @@ class Truck(object):
             for i, x in enumerate (config_option_to_list_of_ints(config.get(self.id, 'trailer_capacities'))):
                 cumulative_capacity = cumulative_capacity + x
                 trailer_details.append((cumulative_capacity, i+1))
-              
+
             # for drawbar trucks we also show truck capacity with no trailers
             if self.truck_type == 'drawbar_truck':
                 optional_truck_cap_info = 'string(STR_BUY_MENU_CAP_DRAWBAR_TRUCK,' + str(self.truck_capacity) + ')'
             else:
                 optional_truck_cap_info = 'string(STR_EMPTY)'
-          
+
             trailer_info = self.make_buy_menu_trailer_tree(trailer_details)
             buy_menu_template = Template(
                 "string(STR_BUY_MENU_TEXT, string(${extra_type_info}), string(STR_BUY_MENU_CONSIST_INFO,${optional_truck_cap_info},${trailer_info}))"
@@ -200,18 +200,18 @@ class Truck(object):
                 optional_truck_cap_info = optional_truck_cap_info,
                 trailer_info=trailer_info
             )
-    
+
 
     def render(self):
         template = templates['truck_template.pynml']
         return template(vehicle = self)
 
 
-#compose vehicle objects into a list; order is not significant as numeric identifiers are used to build vehicles 
+#compose vehicle objects into a list; order is not significant as numeric identifiers are used to build vehicles
 vehicles = [Truck(id=i) for i in config.sections()]
 
 
-#compile a single final nml file for the grf 
+#compile a single final nml file for the grf
 master_template = templates['bandit.pynml']
 
 bandit_nml = codecs.open(os.path.join('bandit.nml'),'w','utf8')

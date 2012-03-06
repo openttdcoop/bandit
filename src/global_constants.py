@@ -71,13 +71,13 @@ weight_factors = dict (
 graphics_path = 'src/graphics/' # this is for nml, don't need to use python path module here
 
 # provide mapping of truck_type strings to numbers for use in range checks etc
-# constants like this are one case where c pre-processor was a little more elegant than python 
+# constants like this are one case where c pre-processor was a little more elegant than python
 truck_type_nums = {
-    'solo_truck'         : 0, 
+    'solo_truck'         : 0,
     'drawbar_truck'      : 1,
     'fifth_wheel_truck'  : 2,
 }
-# expose these identifiers as a convenience 
+# expose these identifiers as a convenience
 solo_truck_type_num        = truck_type_nums['solo_truck']
 fifth_wheel_truck_type_num = truck_type_nums['fifth_wheel_truck']
 drawbar_truck_type_num     = truck_type_nums['drawbar_truck']

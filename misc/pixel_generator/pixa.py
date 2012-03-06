@@ -12,44 +12,44 @@ class Point:
         self.dx = dx
         self.dy = dy
         self._colour = colour # private storage of colour value or object
-    
+
     def colour(self, colourset=None):
-        """ 
-        for any given Point instance, colour value might be stored as a numeric value, or calculated by an object (and returned on demand)  
-        therefore get the actual colour via a method to hide implementation details from end user 
         """
-        if hasattr(self._colour, 'get_colour'):                
+        for any given Point instance, colour value might be stored as a numeric value, or calculated by an object (and returned on demand)
+        therefore get the actual colour via a method to hide implementation details from end user
+        """
+        if hasattr(self._colour, 'get_colour'):
             # assume we have an object implementing a get_colour() method (ducktyped for ease of authors who want to provide their own colour object)
             return self._colour.get_colour(colourset)
         else:
-            # assume we have a valid int, if it isn't render stage will likely fail anyway, which imo is good enough in this case 
+            # assume we have a valid int, if it isn't render stage will likely fail anyway, which imo is good enough in this case
             return self._colour
 
 
 class PixaColour:
-    """ 
+    """
     small factory-like class
     holds a variable for a colour index, for use in sequences
-    creates instances of spot colour classes which optionally shift up or down the colour index from the parent class 
+    creates instances of spot colour classes which optionally shift up or down the colour index from the parent class
     """
-    
-    class PixaSpotColour: 
+
+    class PixaSpotColour:
         def __init__(self, shift, parent):
             self.shift = shift
             self.parent = parent
-            
+
         def get_colour(self, colourset):
             result = colourset.get(self.parent.name, self.parent.default)
             return result + self.shift
-        
+
     def __init__(self, name, default):
         self.name = name
         self.default = default
 
     def __call__(self, shift=0):
         return self.PixaSpotColour(shift, self)
-            
-    
+
+
 class PixaSequence:
     def __init__(self, points=None, transforms=None):
         """
@@ -92,12 +92,12 @@ class PixaSequence:
         # we also apply a colourset at this point if available; if None, then default values will be used (if colour is provided by an object not int)
         temp_points = []
         for p in self.points:
-            temp_points.append(Point(dx=p.dx, dy=p.dy, colour=p.colour(colourset)))            
+            temp_points.append(Point(dx=p.dx, dy=p.dy, colour=p.colour(colourset)))
 
         if self.transforms is not None:
             for t in self.transforms:
                 if t is not None:
-                    temp_points = t.convert(temp_points)                    
+                    temp_points = t.convert(temp_points)
 
         for p in temp_points:
             yield (x + p.dx, y + p.dy, p.colour())
@@ -205,21 +205,21 @@ class Spritesheet(object):
             crop_end_y = crop_start_y + spriterow['height']
             self.sprites.paste(result,(0, crop_start_y, result.size[0], crop_end_y))
 
-    def save(self, output_path):        
+    def save(self, output_path):
         self.sprites.save(output_path, optimize=True)
 
 
 class PixaImageLoader:
-    """ 
+    """
     Loads images from disk and does various useful things with them.
     An instance of this class can store defaults for crops, masks etc, useful for working with imported spritesheets.
     Defaults can in certain cases be over-ridden when calling a method on this class.
     """
     def __init__(self, crop_box=None, mask=(), origin=(0,0)):
-        self.crop_box = crop_box # an optional 4-tuple defining the left, upper, right, and lower pixel coordinate for crop  
+        self.crop_box = crop_box # an optional 4-tuple defining the left, upper, right, and lower pixel coordinate for crop
         self.mask = mask # a tuple of colour indexes that should be ignored when parsing this image
         self.origin = origin # a tuple of x,y to set origin when outputting sequnces of points
-            
+
     class _Options:
         """ utility class to handle processing optional arguments """
         def __init__(self, parent, crop_box=None, mask=None, origin=None):
@@ -228,7 +228,7 @@ class PixaImageLoader:
                 self.mask = parent.mask
             else:
                 self.mask = mask
-                            
+
             # crop_box can validly be None on call and class instance
             if crop_box != None:
                 self.crop_box = crop_box
@@ -236,7 +236,7 @@ class PixaImageLoader:
                 self.crop_box = parent.crop_box
             else:
                 self.crop_box = None
-            
+
             # origin can't be None, use value from class instance (parent)
             if origin == None:
                 self.origin = parent.origin
@@ -244,24 +244,24 @@ class PixaImageLoader:
                 self.origin = origin
 
     def get_image(self, image_file_path, crop_box=None):
-        options = self._Options(self, crop_box)        
+        options = self._Options(self, crop_box)
         raw = Image.open(image_file_path)
         if options.crop_box != None:  # only crop if needed
-            raw = raw.crop(options.crop_box) 
+            raw = raw.crop(options.crop_box)
         return raw
-    
+
     def make_points(self, image_file_path, crop_box=None, mask=None, origin=None):
-        """ 
-        Turns an image file into a list of points (dx, dy, colour index) suitable for use with PixaSequence 
+        """
+        Turns an image file into a list of points (dx, dy, colour index) suitable for use with PixaSequence
         @param image_file_path: path to an image file to load
-        
+
         @param origin: tuple (x,y), relative to top-left of file; dx, dy for points will be calculated relative to this origin
         """
-        options = self._Options(self, crop_box, mask, origin)        
+        options = self._Options(self, crop_box, mask, origin)
 
         raw = Image.open(image_file_path)
         if options.crop_box != None:  # only crop if needed
-            raw = raw.crop(options.crop_box) 
+            raw = raw.crop(options.crop_box)
         rawpx = raw.load()
         points = []
         for x in range(raw.size[0]):
@@ -272,7 +272,7 @@ class PixaImageLoader:
                 dy = y - options.origin[1]
                 points.append((dx, dy, colour))
         return points
-        
+
 def make_cheatsheet(image, output_path, origin=None):
     block_size = 30
     palette = deepcopy(image.palette)
@@ -281,7 +281,7 @@ def make_cheatsheet(image, output_path, origin=None):
     result = Image.new('P',(raw.size[0] * block_size, raw.size[1] * block_size))
     result.putpalette(palette)
     draw = ImageDraw.Draw(result)
-    
+
     for x in range(raw.size[0]):
         for y in range(raw.size[1]):
             pen_x = x * block_size
@@ -298,7 +298,7 @@ def make_cheatsheet(image, output_path, origin=None):
             draw.rectangle([(text_pos_x - 1, text_pos_y + 1), (text_pos_x + bg_size[0], text_pos_y + bg_size[1] -2)], fill=255)
             draw.text((text_pos_x, text_pos_y), str(colour), fill=1)
 
-                
+
     result.save(output_path, optimize=True)
 
 

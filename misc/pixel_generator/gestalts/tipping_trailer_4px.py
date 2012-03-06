@@ -2,14 +2,14 @@ from pixa import PixaColour, PixaSequence, PixaSequenceCollection, PixaShiftColo
 import Image
 import common
 
-# set palette index for lightest colour of cargo; range for rest will be calculated automatically 
+# set palette index for lightest colour of cargo; range for rest will be calculated automatically
 # when defining a new cargo, worth looking at resulting sprites in case range overflowed into wrong colours
 cargos = {
     'COAL' : 4,
     'IORE' : 77,
     'GRAI' : 67,
     'CLAY' : 117,
-}  
+}
 
 class LoadState:
     def __init__(self, name, yoffs):
@@ -27,7 +27,7 @@ load_states = [
 FLOORPLAN_START_Y = 10
 
 # colour sets
-coloursets = [   
+coloursets = [
     ('light_grey', dict (body_colour = 10, stripe_colour = common.CC1)),
     ('cc_1', dict (body_colour = common.CC1, stripe_colour = 10)),
     ('cc_2', dict (body_colour = common.CC2, stripe_colour = 10)),
@@ -44,23 +44,23 @@ bulk_load = [
 ]
 body_outer = [
     (0, 0, pc_body()),
-    (0, -1, pc_stripe()), 
-    (0, -2, pc_body()), 
-    (0, -3, pc_body()), 
+    (0, -1, pc_stripe()),
+    (0, -2, pc_body()),
+    (0, -3, pc_body()),
     (0, -4, 13),
 ]
 body_end = [
-    (0, 0, pc_body()), 
-    (0, -1, pc_stripe()), 
-    (0, -2, pc_body()), 
-    (0, -3, pc_body()), 
+    (0, 0, pc_body()),
+    (0, -1, pc_stripe()),
+    (0, -2, pc_body()),
+    (0, -3, pc_body()),
     (0, -4, 13),
 ]
 body_inner = [
-    (0, 0, 16), 
-    (0, -1, 17), 
+    (0, 0, 16),
+    (0, -1, 17),
     (0, -2, 18),
-    (0, -3, 19), 
+    (0, -3, 19),
     (0, -4, 14),
 ]
 
@@ -126,7 +126,7 @@ def generate(input_image_path):
                 spriterows.append(spriterow)
             spritesheet.render(spriterows=spriterows)
             length = '7_8' # !! hard coded var until this is figured out
-            gestalt_id = 'tipping_trailer' 
+            gestalt_id = 'tipping_trailer'
             output_path = common.get_output_path(common.construct_filename(gestalt_id, length, variation))
             print output_path
             spritesheet.save(output_path)

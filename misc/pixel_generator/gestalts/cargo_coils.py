@@ -1,4 +1,4 @@
-from pixa import PixaColour, PixaSequence, PixaSequenceCollection, PixaShiftColour, PixaShiftDY, PixaMaskColour, Spritesheet, PixaImageLoader 
+from pixa import PixaColour, PixaSequence, PixaSequenceCollection, PixaShiftColour, PixaShiftDY, PixaMaskColour, Spritesheet, PixaImageLoader
 from pixa import make_cheatsheet as make_cheatsheet
 import Image
 import common
@@ -6,7 +6,7 @@ import os.path
 currentdir = os.curdir
 
 cargos = {
-    'STEL': 0, 
+    'STEL': 0,
     'PAPR': 5,
     'COPR': 111,
 }
@@ -14,10 +14,10 @@ cargos = {
 
 class LoadState:
     def __init__(self, name, show):
-         # reminder that arbitrary attributes can be added to hold load state props        
+         # reminder that arbitrary attributes can be added to hold load state props
         self.name = name
         self.show = show
-        
+
 # load states - values define drawing parameters for the cargo to represent loading / loaded states
 # order needs to be predictable, so a dict won't do here
 load_states = [
@@ -44,15 +44,13 @@ sc_mask_out_template_guides = PixaSequenceCollection(
          85: PixaSequence(points=[(0, 0, common.COL_MASK)]),
         140: PixaSequence(points=[(0, 0, common.COL_MASK)]),
         151: PixaSequence(points=[(0, 0, common.COL_MASK)]),
-        182: PixaSequence(points=[(0, 0, common.COL_MASK)]),    
+        182: PixaSequence(points=[(0, 0, common.COL_MASK)]),
     }
 )
 
 def get_load_sequence(cargo, load_state):
     colour_shift_amount = cargos[cargo]
-
     magic_colours = [190, 191]
-
     sequences = {}
     for i in magic_colours:
         if i in load_state.show:
@@ -60,7 +58,7 @@ def get_load_sequence(cargo, load_state):
         else:
             sequences[i] = PixaSequence(points=[(0, 0, common.COL_MASK)])
 
-    return PixaSequenceCollection(    
+    return PixaSequenceCollection(
         sequences = sequences
     )
 
@@ -101,7 +99,7 @@ def generate(input_image_path):
                 ]
                 spriterows.append(spriterow)
             spritesheet.render(spriterows=spriterows)
-            gestalt_id = 'cargo_coils' 
+            gestalt_id = 'cargo_coils'
             output_path = common.get_output_path(common.construct_filename(gestalt_id, variation))
             print output_path
             spritesheet.save(output_path)

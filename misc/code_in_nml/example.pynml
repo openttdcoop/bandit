@@ -67,9 +67,14 @@ spritegroup sg_truck_super_speedy {
     loading: ss_truck_super_speedy;
 }
 
-<?python foo = 10 ?>
+<?python foo = {
+        'truck_1': {'weight':10, 'power':100},
+        'truck_2': {'weight':14, 'power':150},
+    }
+?>
 
-item(FEAT_ROADVEHS, truck_super_speedy) {
+<tal:build_trucks repeat="truck foo">
+item(FEAT_ROADVEHS, ${truck}) {
     property {
         name: string(str_name_truck_super_speedy);
         climates_available: ALL_CLIMATES; // nml constant
@@ -79,8 +84,8 @@ item(FEAT_ROADVEHS, truck_super_speedy) {
         cargo_capacity: 0;
         sprite_id: SPRITE_ID_NEW_ROADVEH; //enable new graphics - nml constant
         speed: 30mph;
-        power: 100hp;
-        weight: ${foo};
+        power: ${foo[truck]['power']}hp;
+        weight: ${foo[truck]['weight']};
         tractive_effort_coefficient: 0.3; // just use default value until evidence arises for need to vary this per truck
         cost_factor: 100;
         running_cost_factor: 10;
@@ -96,5 +101,6 @@ item(FEAT_ROADVEHS, truck_super_speedy) {
         default: sg_truck_super_speedy;
     }
 }
+</tal:build_trucks>
 
 // -- end truck --/

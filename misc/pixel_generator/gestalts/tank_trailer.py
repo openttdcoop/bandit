@@ -176,7 +176,7 @@ sc_pass_1 = PixaSequenceCollection(
 )
 
 def generate(input_image_path):
-    length = '7_8' # !! hard coded var until this is figured out
+    length = '7' # !! hard coded var until this is figured out
     floorplan = Image.open(input_image_path)
     # slice out the floorplan needed for this gestalt
     floorplan = floorplan.crop((0, FLOORPLAN_START_Y, floorplan.size[0], FLOORPLAN_START_Y + common.SPRITEROW_HEIGHT))

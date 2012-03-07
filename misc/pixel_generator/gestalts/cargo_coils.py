@@ -94,7 +94,7 @@ def generate(input_image_path):
                 spriterow = {'height' : common.SPRITEROW_HEIGHT, 'floorplan' : variation.floorplan}
                 # add n render passes to the spriterow (list controls render order, index 0 = first pass)
                 spriterow['render_passes'] = [
-                    {'seq' : sc_mask_out_template_guides, 'colourset' : None},
+                    #{'seq' : sc_mask_out_template_guides, 'colourset' : None},
                     {'seq' : get_load_sequence(variation.cargo, load_state), 'colourset' : None},
                 ]
                 spriterows.append(spriterow)

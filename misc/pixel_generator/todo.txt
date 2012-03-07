@@ -1,7 +1,8 @@
 Pixa Todo
 
-- image file loader
-	- utility to print out values: called with image, [crops, mask, local_origin] - save to a file at 8x zoom?
+- paste the arrows onto every spritesheet
+- adjust existing gestalts for missing params etc
+
 
 
 

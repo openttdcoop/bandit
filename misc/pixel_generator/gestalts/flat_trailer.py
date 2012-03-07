@@ -99,6 +99,7 @@ sc_pass_4 = PixaSequenceCollection(
 )
 
 def generate(input_image_path):
+    length = '7_8' # !! hard coded var until this is figured out
     floorplan = Image.open(input_image_path)
     # slice out the floorplan needed for this gestalt
     floorplan = floorplan.crop((0, FLOORPLAN_START_Y, floorplan.size[0], FLOORPLAN_START_Y + common.SPRITEROW_HEIGHT))
@@ -107,7 +108,7 @@ def generate(input_image_path):
     for set_name, colourset in coloursets:
         for cargo in cargos:
             for connection_type in ('fifth_wheel','drawbar'):
-                variation = common.Variation(set_name=set_name, colourset=colourset, cargo=cargo, connection_type=connection_type)
+                variation = common.Variation(set_name=set_name, colourset=colourset, cargo=cargo, length=length, connection_type=connection_type)
                 spritesheet = Spritesheet(
                     width=floorplan.size[0],
                     height=common.SPRITEROW_HEIGHT * (len(load_states)),
@@ -133,8 +134,7 @@ def generate(input_image_path):
                 ]
                 spriterows.append(spriterow)
             spritesheet.render(spriterows=spriterows)
-            length = '7_8' # !! hard coded var until this is figured out
             gestalt_id = 'flat_trailer'
-            output_path = common.get_output_path(common.construct_filename(gestalt_id, length, variation))
+            output_path = common.get_output_path(common.construct_filename(gestalt_id, variation))
             print output_path
             spritesheet.save(output_path)

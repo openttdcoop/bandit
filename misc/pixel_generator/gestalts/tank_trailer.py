@@ -2,6 +2,8 @@ from pixa import PixaColour, PixaSequence, PixaSequenceCollection, PixaShiftColo
 import Image
 import common
 
+gestalt_id = 'tank_trailer'
+
 cargos = {
     'OIL_' : 4,
 }
@@ -206,7 +208,6 @@ def generate(input_image_path):
                 ]
                 spriterows.append(spriterow)
             spritesheet.render(spriterows=spriterows)
-            gestalt_id = 'tank_trailer'
             output_path = common.get_output_path(common.construct_filename(gestalt_id, variation))
             print output_path
             spritesheet.save(output_path)

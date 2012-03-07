@@ -2,6 +2,8 @@ from pixa import PixaColour, PixaSequence, PixaSequenceCollection, PixaShiftColo
 import Image
 import common
 
+gestalt_id = 'tipping_trailer'
+
 # set palette index for lightest colour of cargo; range for rest will be calculated automatically
 # when defining a new cargo, worth looking at resulting sprites in case range overflowed into wrong colours
 cargos = {
@@ -126,7 +128,6 @@ def generate(input_image_path):
                 ]
                 spriterows.append(spriterow)
             spritesheet.render(spriterows=spriterows)
-            gestalt_id = 'tipping_trailer'
             output_path = common.get_output_path(common.construct_filename(gestalt_id, variation))
             print output_path
             spritesheet.save(output_path)

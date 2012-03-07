@@ -1,7 +1,9 @@
 Pixa Todo
 
 - paste the arrows onto every spritesheet
-- adjust existing gestalts for missing params etc
+- put the coil loads in the right place
+- test comping loads onto vehicles
+- fix classes-in-classes
 
 
 

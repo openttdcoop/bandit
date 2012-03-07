@@ -5,6 +5,8 @@ import common
 import os.path
 currentdir = os.curdir
 
+gestalt_id = 'cargo_coils'
+
 cargos = {
     'STEL': 0,
     'PAPR': 5,
@@ -99,7 +101,6 @@ def generate(input_image_path):
                 ]
                 spriterows.append(spriterow)
             spritesheet.render(spriterows=spriterows)
-            gestalt_id = 'cargo_coils'
             output_path = common.get_output_path(common.construct_filename(gestalt_id, variation))
             print output_path
             spritesheet.save(output_path)

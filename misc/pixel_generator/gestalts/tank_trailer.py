@@ -4,16 +4,6 @@ import common
 
 gestalt_id = 'tank_trailer'
 
-cargos = {
-    'OIL_' : 4,
-}
-
-# load states are N/A for tank trailers, I left this in place to avoid modifying generator code
-# order needs to be predictable, so a dict won't do here
-load_states = (
-    ('default'),
-)
-
 # constants
 FLOORPLAN_START_Y = 50
 
@@ -183,30 +173,28 @@ def generate(input_image_path):
     # create variations containing empty spritesheets
     variations = []
     for set_name, colourset in coloursets:
-        for cargo in cargos:
-            for connection_type in ('fifth_wheel','drawbar'):
-                variation = common.Variation(set_name=set_name, colourset=colourset, cargo=cargo, length=length, connection_type=connection_type)
-                spritesheet = Spritesheet(
-                    width=floorplan.size[0],
-                    height=common.SPRITEROW_HEIGHT * (len(load_states)),
-                    palette=common.DOS_PALETTE
-                )
-                variation.spritesheets.append(spritesheet)
-                variations.append(variation)
+        for connection_type in ('fifth_wheel','drawbar'):
+            variation = common.Variation(set_name=set_name, colourset=colourset, cargo=None, length=length, connection_type=connection_type)
+            spritesheet = Spritesheet(
+                width=floorplan.size[0],
+                height=common.SPRITEROW_HEIGHT,
+                palette=common.DOS_PALETTE
+            )
+            variation.spritesheets.append(spritesheet)
+            variations.append(variation)
 
     # render stage
     for variation in variations:
         for spritesheet in variation.spritesheets:
             spriterows = []
-            for load_state in load_states:
-                # spriterow holds data needed to render the row
-                spriterow = {'height' : common.SPRITEROW_HEIGHT, 'floorplan' : floorplan}
-                # add n render passes to the spriterow (list controls render order, index 0 = first pass)
-                spriterow['render_passes'] = [
-                    {'seq' : common.hide_or_show_drawbar_dolly_wheels(variation.connection_type), 'colourset' : variation.colourset},
-                    {'seq' : sc_pass_1, 'colourset' : variation.colourset},
-                ]
-                spriterows.append(spriterow)
+            # spriterow holds data needed to render the row
+            spriterow = {'height' : common.SPRITEROW_HEIGHT, 'floorplan' : floorplan}
+            # add n render passes to the spriterow (list controls render order, index 0 = first pass)
+            spriterow['render_passes'] = [
+                {'seq' : common.hide_or_show_drawbar_dolly_wheels(variation.connection_type), 'colourset' : variation.colourset},
+                {'seq' : sc_pass_1, 'colourset' : variation.colourset},
+            ]
+            spriterows.append(spriterow)
             spritesheet.render(spriterows=spriterows)
             output_path = common.get_output_path(common.construct_filename(gestalt_id, variation))
             print output_path

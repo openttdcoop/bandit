@@ -7,7 +7,7 @@ cd `dirname $0`
 #Try to find a language that matches the parameter.
 if [ -n "$1" ]
 then
-	translation_file="`find ../lang/ -iname "*$1*" | grep '.lng$'`" 
+	translation_file="`find ../lang/ -iname "*$1*" | grep '.pylng$'`"
 fi
 
 #If not found, exit 
@@ -19,7 +19,7 @@ fi
 
 echo "Missing strings at file $translation_file:
 "
-for string_id in `grep -v "^##" ../lang/english.lng | cut -f1 -s -d " "`; do
+for string_id in `grep -v "^##" ../lang/english.pylng | cut -f1 -s -d " "`; do
 	translated_string_id=`grep "$string_id" $translation_file`
 	if [ -z "$translated_string_id" ]
 	then
@@ -35,7 +35,7 @@ echo "
 Strings modified since last update at file $translation_file:
 "
 `hg blame $translation_file | grep -v "^##" > /tmp/lang_blame.txt`
-for original_line in `hg blame ../lang/english.lng | grep -v "##"`; do
+for original_line in `hg blame ../lang/english.pylng | grep -v "##"`; do
 	original_string_id=`echo $original_line | cut -f2 -s -d " "`
 	if [ -n "$original_string_id" ]
 	then
@@ -58,7 +58,7 @@ echo "
 Not required strings at file $translation_file:
 "
 for string_id in `grep -v "^##" $translation_file | cut -f1 -s -d " "`; do
-	translated_string_id=`grep "$string_id" ../lang/english.lng`
+	translated_string_id=`grep "$string_id" ../lang/english.pylng`
 	if [ -z "$translated_string_id" ]
 	then
 		echo "$string_id"

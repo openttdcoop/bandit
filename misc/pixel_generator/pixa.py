@@ -56,6 +56,8 @@ class PixaSequence:
         pass an optional sequence, in format [(dx, dy, colour)...]
         pass an optional list of transforms to use
         """
+        self.colourset_cache = None
+        self.temp_points_cache = None
         self.points = []
         self.transforms = []
         if points is not None:
@@ -85,19 +87,24 @@ class PixaSequence:
         If transforms are defined in this sequence, they willl be applied after the colourset and before returning points.
         """
 
-        # create a copy of points, just used when returning to the caller
-        # don't want to modify the actual point values stored in the sequence definition
-        # n.b. we need to copy the objects in the list, not just the list
-        # we also apply a colourset at this point if available; if None, then default values will be used (if colour is provided by an object not int)
-        temp_points = []
-        for p in self.points:
-            temp_points.append(Point(dx=p.dx, dy=p.dy, colour=p.colour(colourset)))
+        if self.temp_points_cache is None or self.colourset_cache is None or self.colourset_cache != colourset:
 
-        for t in self.transforms:
-            if t is not None:
-                temp_points = t.convert(temp_points)
+            # create a copy of points, just used when returning to the caller
+            # don't want to modify the actual point values stored in the sequence definition
+            # n.b. we need to copy the objects in the list, not just the list
+            # we also apply a colourset at this point if available; if None, then default values will be used (if colour is provided by an object not int)
+            temp_points = []
+            for p in self.points:
+                temp_points.append(Point(dx=p.dx, dy=p.dy, colour=p.colour(colourset)))
 
-        for p in temp_points:
+            for t in self.transforms:
+                if t is not None:
+                    temp_points = t.convert(temp_points)
+
+            self.temp_points_cache = temp_points
+            self.colourset_cache = colourset
+
+        for p in self.temp_points_cache:
             yield (x + p.dx, y + p.dy, p.colour())
 
 

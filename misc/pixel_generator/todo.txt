@@ -4,6 +4,8 @@ Pixa Todo
 - put the coil loads in the right place
 - test comping loads onto vehicles
 - fix classes-in-classes
+- scan, then draw, rather than drawing whilst scanning (!! tested, not faster)
+- avoid scanning more than necessary, e.g. merge sequence collections together unless strictly needed for layering
 
 
 

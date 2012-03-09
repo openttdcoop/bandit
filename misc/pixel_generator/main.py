@@ -6,18 +6,24 @@ import sys
 sys.path.append(os.path.join('gestalts')) # add to the module search path
 
 from gestalts import cargo_coils
+from gestalts import cargo_tarps
 
 from gestalts import tipping_trailer_4px
 from gestalts import flat_trailer
 from gestalts import tank_trailer
 
+
+input_image_path = os.path.join(currentdir, 'input','cargo_tarps_floorplan.png')
+cargo_tarps.generate(input_image_path)
+
+
 input_image_path = os.path.join(currentdir, 'input','cargo_coils_floorplan.png')
 cargo_coils.generate(input_image_path)
 
 input_image_path = os.path.join(currentdir, 'input','test_input.png')
-tipping_trailer_4px.generate(input_image_path)
-flat_trailer.generate(input_image_path)
-tank_trailer.generate(input_image_path)
+#tipping_trailer_4px.generate(input_image_path)
+#flat_trailer.generate(input_image_path)
+#tank_trailer.generate(input_image_path)
 
 
 print "done"

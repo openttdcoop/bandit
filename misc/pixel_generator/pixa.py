@@ -197,8 +197,9 @@ class Spritesheet(object):
     def render(self, spriterows):
         for i, spriterow in enumerate(spriterows):
             result = spriterow['floorplan'].copy() # need to copy the floorplan image to draw into (to avoid modifying the original image object)
+            significant_pixels = pixascan(result)
             for render_pass in spriterow['render_passes']:
-                result = pixarender(result, render_pass['seq'], render_pass['colourset'])
+                result = pixarender(result, significant_pixels, render_pass['seq'], render_pass['colourset'])
             crop_start_y = i * spriterow['height']
             crop_end_y = crop_start_y + spriterow['height']
             self.sprites.paste(result,(0, crop_start_y, result.size[0], crop_end_y))
@@ -296,24 +297,33 @@ def make_cheatsheet(image, output_path, origin=None):
             draw.rectangle([(text_pos_x - 1, text_pos_y + 1), (text_pos_x + bg_size[0], text_pos_y + bg_size[1] -2)], fill=255)
             draw.text((text_pos_x, text_pos_y), str(colour), fill=1)
 
-
     result.save(output_path, optimize=True)
 
 
-def pixarender(image, sequence_collection, colourset=None):
-    colours = set() #used for debug
+def pixascan(image):
+    """ Optimisation method: scans an image from top left, rows first, and caches it into a list for reuse in multiple render passes """
+    significant_pixels = []
     imagepx = image.load()
-    draw = ImageDraw.Draw(image)
     for x in range(image.size[0]):
       for y in range(image.size[1]):
         colour = imagepx[x,y]
-        if colour not in (0, 15, 255):
-          colours.add(colour) #used for debug only
-        sequence = sequence_collection.get_sequence_by_colour_index(imagepx[x,y])
+        if colour not in (0, 255): # don't store white, blue; assumes DOS palette
+          significant_pixels.append((x,y,colour))
+    return significant_pixels
+
+
+def pixarender(image, significant_pixels, sequence_collection, colourset=None):
+    """
+    Draw pixels into an image from sequences.
+    Expects a pre-assembled list of (x, y, colour) points to start drawing sequences at.
+    """
+    colours = set() #used for debug
+    draw = ImageDraw.Draw(image)
+    for x, y, colour in significant_pixels:
+        sequence = sequence_collection.get_sequence_by_colour_index(colour)
         if sequence is not None:
             for sx, sy, scol in sequence.get_recolouring(x, y, colourset):
                 draw.point([(sx, sy)], fill=scol)
-    #print colours # debug: what colours did we find in this spritesheet?
     return image
 
 

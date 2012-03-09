@@ -37,13 +37,9 @@ coloursets = [
 # colours
 pc_body = PixaColour(name='body_colour', default=10)
 pc_stripe = PixaColour(name='stripe_colour', default=common.CC1)
-pc_cargo = PixaColour(name='cargo_colour', default=common.COL_COAL)
 
 # pixel sequences
 # x,y,colour (or colour object with optional shift)
-bulk_load = [
-    (0, 0, pc_cargo())
-]
 body_outer = [
     (0, 0, pc_body()),
     (0, -1, pc_stripe()),
@@ -73,8 +69,11 @@ sc_pass_1 = PixaSequenceCollection(
          93 : PixaSequence(points = body_inner, transforms = [PixaShiftColour(0, 255, 1)]),
     }
 )
-def get_sc_cargo(load_state):
+def get_sc_cargo(cargo, load_state):
     # returns sequences with correct y offset for current load state
+    bulk_load = [
+        (0, 0, cargos[cargo])
+    ]
     return  PixaSequenceCollection(
         sequences = {
             141 : PixaSequence(points = bulk_load, transforms = [ PixaShiftDY(load_state.yoffs)]),
@@ -123,7 +122,7 @@ def generate(input_image_path):
                 spriterow['render_passes'] = [
                     {'seq' : common.hide_or_show_drawbar_dolly_wheels(variation.connection_type), 'colourset' : variation.colourset},
                     {'seq' : sc_pass_1, 'colourset' : variation.colourset},
-                    {'seq' : get_sc_cargo(load_state), 'colourset' : variation.colourset},
+                    {'seq' : get_sc_cargo(variation.cargo, load_state), 'colourset' : variation.colourset},
                     {'seq' : sc_pass_3, 'colourset' : variation.colourset},
                 ]
                 spriterows.append(spriterow)

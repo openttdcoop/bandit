@@ -1,4 +1,4 @@
-from pixa import PixaColour, PixaSequence, PixaSequenceCollection, PixaShiftColour, PixaShiftDY, PixaMaskColour, Spritesheet
+from pixa import PixaColour, PixaSequence, PixaSequenceCollection, PixaShiftColour, PixaShiftDY, PixaMaskColour, Spritesheet, pixamakeanifest
 import Image
 import common
 
@@ -97,8 +97,8 @@ def generate(input_image_path):
     floorplan = Image.open(input_image_path)
     # slice out the floorplan needed for this gestalt
     floorplan = floorplan.crop((0, FLOORPLAN_START_Y, floorplan.size[0], FLOORPLAN_START_Y + common.SPRITEROW_HEIGHT))
-    # create variations containing empty spritesheets
     variations = []
+    manifest_payload = []
     for set_name, colourset in coloursets:
         for cargo in cargos:
             for connection_type in ('fifth_wheel','drawbar'):
@@ -130,3 +130,6 @@ def generate(input_image_path):
             output_path = common.get_output_path(common.construct_filename(gestalt_id, variation))
             print output_path
             spritesheet.save(output_path)
+            manifest_payload.append(output_path)
+
+    pixamakeanifest(gestalt_id, manifest_payload)

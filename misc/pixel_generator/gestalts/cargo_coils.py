@@ -1,4 +1,4 @@
-from pixa import PixaColour, PixaSequence, PixaSequenceCollection, PixaShiftColour, PixaShiftDY, PixaMaskColour, Spritesheet, PixaImageLoader
+from pixa import PixaColour, PixaSequence, PixaSequenceCollection, PixaShiftColour, PixaShiftDY, PixaMaskColour, Spritesheet, PixaImageLoader, pixamakeanifest
 from pixa import make_cheatsheet as make_cheatsheet
 import Image
 import common
@@ -71,6 +71,7 @@ def generate(input_image_path):
     palette = Image.open('palette_key.png').palette
     # create variations containing empty spritesheets
     variations = []
+    manifest_payload = []
     for cargo in cargos:
         for i in range(7):
             length = 8 - i # don't bother generating 1/8 long cargo sprites
@@ -104,3 +105,6 @@ def generate(input_image_path):
             output_path = common.get_output_path(common.construct_filename(gestalt_id, variation))
             print output_path
             spritesheet.save(output_path)
+            manifest_payload.append(output_path)
+
+    pixamakeanifest(gestalt_id, manifest_payload)

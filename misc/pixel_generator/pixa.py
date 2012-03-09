@@ -1,6 +1,7 @@
 import Image
 import ImageDraw
 import ImagePalette
+import codecs #used for writing files - more unicode friendly than standard open() module
 from copy import deepcopy
 import os.path
 currentdir = os.curdir
@@ -332,6 +333,12 @@ def pixarender(image, significant_pixels, sequence_collection, colourset=None):
             for sx, sy, scol in sequence.get_recolouring(x, y, colourset):
                 draw.point([(sx, sy)], fill=scol)
     return image
+
+def pixamakeanifest(gestalt_id, manifest_payload=[]):
+    manifest = codecs.open(os.path.join(currentdir, 'output', 'manifest_' + gestalt_id + '.txt'), 'w', 'utf8')
+    manifest.write(gestalt_id + '\n')
+    manifest.write('\n'.join(manifest_payload))
+    manifest.close()
 
 
 def generate(input_image_path, key_colour_mapping, output_image_path):

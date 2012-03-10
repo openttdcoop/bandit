@@ -40,6 +40,7 @@ for filename in filenames:
     print filename
     Process(target=dispatcher.dispatch, args=(filename,)).start()
 
+# wait until all processes are complete before moving on
 while True:
     if len(active_children()) == 0:
         break

@@ -43,6 +43,10 @@ filenames = [
     'tank_trailer-fifth_wheel-black-7_8.png',
     'tank_trailer-drawbar-silver-7_8.png',
     'tank_trailer-fifth_wheel-silver-7_8.png',
+    'flat_trailer-drawbar-cc1-7_8_STEL.png',
+    'flat_trailer-fifth_wheel-cc1-7_8_STEL.png',
+    'flat_trailer-drawbar-cc2-7_8_STEL.png',
+    'flat_trailer-fifth_wheel-cc2-7_8_STEL.png',
 ]
 
 # check for __main__ because fork bombs are bad

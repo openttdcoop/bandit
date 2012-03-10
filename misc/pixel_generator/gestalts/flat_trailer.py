@@ -27,10 +27,10 @@ load_states = [
 FLOORPLAN_START_Y = 90
 
 # colour sets
-coloursets = [
-    ('cc1', dict(deck_colour = 115, company_colour_1 = common.CC1)),
-    ('cc2', dict(deck_colour = 75,  company_colour_1 = common.CC2 )),
-]
+coloursets = {
+    'cc1': dict(deck_colour = 115, company_colour_1 = common.CC1),
+    'cc2': dict(deck_colour = 75,  company_colour_1 = common.CC2),
+}
 # colours
 pc_deck = PixaColour(name='deck_colour', default=115)
 pc_cc1 = PixaColour(name='company_colour_1', default=common.CC1)
@@ -102,6 +102,31 @@ sc_pass_4 = PixaSequenceCollection(
 )
 
 def generate(filename):
+    gv = common.GestaltVariation(filename)
+    floorplan = common.get_floorplan(gv, FLOORPLAN_START_Y)
+    spritesheet = common.make_spritesheet(floorplan, row_count=(len(load_states)))
+
+    spriterows = []
+    for load_state in load_states:
+        # spriterow holds data needed to render the row
+        spriterow = {'height' : common.SPRITEROW_HEIGHT, 'floorplan' : floorplan}
+        # add n render passes to the spriterow (list controls render order, index 0 = first pass)
+        colourset = coloursets[gv.colourset_id]
+        spriterow['render_passes'] = [
+            {'seq': common.hide_or_show_drawbar_dolly_wheels(gv.connection_type), 'colourset': colourset},
+            {'seq': sc_pass_1, 'colourset': colourset},
+            {'seq': sc_pass_2, 'colourset': colourset},
+            {'seq': sc_pass_3, 'colourset': colourset},
+            {'seq': sc_pass_4, 'colourset': colourset},
+        ]
+        spriterows.append(spriterow)
+
+    spritesheet.render(spriterows=spriterows)
+    output_path = common.get_output_path(gv.filename + '.png')
+    spritesheet.save(output_path)
+
+"""
+def create_all_filenames(filename):
     length = '7' # !! hard coded var until this is figured out
     floorplan = Image.open(input_image_path)
     # slice out the floorplan needed for this gestalt
@@ -142,3 +167,4 @@ def generate(filename):
             print output_path
             spritesheet.save(output_path)
             manifest_payload.append(output_path)
+"""

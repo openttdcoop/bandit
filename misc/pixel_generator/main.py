@@ -38,7 +38,6 @@ filenames = [
 ]
 
 for filename in filenames:
-    print filename
     Process(target=dispatcher.dispatch, args=(filename,)).start()
 
 # dirty way to wait until all processes are complete before moving on

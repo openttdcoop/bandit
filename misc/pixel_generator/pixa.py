@@ -326,12 +326,13 @@ def pixarender(image, significant_pixels, sequence_collection, colourset=None):
     Expects a pre-assembled list of (x, y, colour) points to start drawing sequences at.
     """
     colours = set() #used for debug
-    draw = ImageDraw.Draw(image)
+    imagepx = image.load()
     for x, y, colour in significant_pixels:
         sequence = sequence_collection.get_sequence_by_colour_index(colour)
         if sequence is not None:
             for sx, sy, scol in sequence.get_recolouring(x, y, colourset):
-                draw.point([(sx, sy)], fill=scol)
+                #draw.point([(sx, sy)], fill=scol)
+                imagepx[sx,sy] = scol
     return image
 
 

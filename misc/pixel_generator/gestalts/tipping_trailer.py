@@ -95,14 +95,8 @@ sc_pass_3 = PixaSequenceCollection(
 
 def generate(filename):
     gv = common.GestaltVariation(filename)
-    floorplan = Image.open(common.INPUT_IMAGE_PATH)
-    # slice out the floorplan needed for this gestalt
-    floorplan = floorplan.crop((0, FLOORPLAN_START_Y, floorplan.size[0], FLOORPLAN_START_Y + common.SPRITEROW_HEIGHT))
-    spritesheet = Spritesheet(
-                    width=floorplan.size[0],
-                    height=common.SPRITEROW_HEIGHT * (len(load_states)),
-                    palette=common.DOS_PALETTE
-                )
+    floorplan = common.get_floorplan(gv, FLOORPLAN_START_Y)
+    spritesheet = common.make_spritesheet(floorplan, row_count=(len(load_states)))
 
     spriterows = []
     for load_state in load_states:

@@ -49,6 +49,17 @@ class Variation:
     def attach_floorplan(self, floorplan):
         self.floorplan = floorplan
 
+
+def get_floorplan(gv, FLOORPLAN_START_Y):
+    floorplan = Image.open(INPUT_IMAGE_PATH)
+    # slice out the floorplan needed for this gestalt
+    return floorplan.crop((0, FLOORPLAN_START_Y, floorplan.size[0], FLOORPLAN_START_Y + SPRITEROW_HEIGHT))
+
+
+def make_spritesheet(floorplan, row_count):
+    return Spritesheet(width=floorplan.size[0], height=SPRITEROW_HEIGHT * row_count, palette=DOS_PALETTE)
+
+
 def construct_filename(gestalt_id, variation):
     """ Simple filename maker; will filter out attributes that have no meaningful value. """
     raw = [str(variation.length) + '_8', gestalt_id, variation.connection_type, variation.set_name, variation.cargo]
@@ -57,6 +68,7 @@ def construct_filename(gestalt_id, variation):
         if i is not None and i != '':
             clean.append(i)
     return '_'.join(clean) + '.png'
+
 
 def get_output_path(filename):
     """ Simple path maker, to deal with OS path. Expects a filename.  Currently hard coded to use 'output' dir. """

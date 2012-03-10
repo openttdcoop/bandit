@@ -167,8 +167,8 @@ sc_pass_1 = PixaSequenceCollection(
 )
 
 def generate(filename):
-    gv = common.GestaltVariation(filename)
-    floorplan = common.get_floorplan(gv, FLOORPLAN_START_Y)
+    gv = common.GestaltTrailerVariation(filename)
+    floorplan = common.get_trailer_floorplan(gv, FLOORPLAN_START_Y)
     spritesheet = common.make_spritesheet(floorplan, row_count=1)
 
     spriterows = []

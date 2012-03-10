@@ -4,6 +4,16 @@ import dispatcher
 import time
 from multiprocessing import Process, active_children
 
+cargo_filenames = [
+    'cargo_coils-grey_metal-2_8.png',
+    'cargo_coils-grey_metal-3_8.png',
+    'cargo_coils-grey_metal-4_8.png',
+    'cargo_coils-grey_metal-5_8.png',
+    'cargo_coils-grey_metal-6_8.png',
+    'cargo_coils-grey_metal-7_8.png',
+    'cargo_coils-grey_metal-8_8.png',
+]
+
 trailer_filenames = [
     'tipping_trailer_4px-fifth_wheel-cc1-7_8-GRAI.png',
     'tipping_trailer_4px-fifth_wheel-cc2-7_8-GRAI.png',
@@ -49,7 +59,8 @@ trailer_filenames = [
     'flat_trailer-fifth_wheel-cc2-7_8_STEL.png',
 ]
 
-filenames = trailer_filenames
+#filenames = trailer_filenames
+filenames = cargo_filenames
 
 # check for __main__ because fork bombs are bad
 if __name__ == '__main__':

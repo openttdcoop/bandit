@@ -22,7 +22,16 @@ def hide_or_show_drawbar_dolly_wheels(connection_type):
         }
     )
 
-class GestaltVariation:
+class GestaltCargoVariation:
+    def __init__(self, filename):
+        self.filename = filename.split('.png')[0]
+        self._parts = self.filename.split('-')
+        self.gestalt_full_id = self._parts[0]
+        self.colourset_id = self._parts[1]
+        self.length = self._parts[2]
+
+
+class GestaltTrailerVariation:
     def __init__(self, filename):
         self.filename = filename.split('.png')[0]
         self._parts = self.filename.split('-')
@@ -50,10 +59,18 @@ class Variation:
         self.floorplan = floorplan
 
 
-def get_floorplan(gv, FLOORPLAN_START_Y):
+def get_trailer_floorplan(gv, FLOORPLAN_START_Y):
     floorplan = Image.open(INPUT_IMAGE_PATH)
     # slice out the floorplan needed for this gestalt
     return floorplan.crop((0, FLOORPLAN_START_Y, floorplan.size[0], FLOORPLAN_START_Y + SPRITEROW_HEIGHT))
+
+
+def get_cargo_floorplan(gv, floorplan_filename, floorplan_start_y):
+    floorplan_image_path = os.path.join(currentdir, 'input', floorplan_filename)
+    floorplan = Image.open(floorplan_image_path)
+
+    start_y = floorplan_start_y + ((8 - int(gv.length.split('_')[0])) * SPRITEROW_HEIGHT)
+    return floorplan.crop((0, start_y, floorplan.size[0], start_y + SPRITEROW_HEIGHT))
 
 
 def make_spritesheet(floorplan, row_count):

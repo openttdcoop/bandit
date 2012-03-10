@@ -331,7 +331,6 @@ def pixarender(image, significant_pixels, sequence_collection, colourset=None):
         sequence = sequence_collection.get_sequence_by_colour_index(colour)
         if sequence is not None:
             for sx, sy, scol in sequence.get_recolouring(x, y, colourset):
-                #draw.point([(sx, sy)], fill=scol)
                 imagepx[sx,sy] = scol
     return image
 

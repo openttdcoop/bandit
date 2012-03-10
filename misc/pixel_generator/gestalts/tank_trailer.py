@@ -3,6 +3,7 @@ import Image
 import common
 
 gestalt_id = 'tank_trailer'
+input_image_path = common.INPUT_IMAGE_PATH
 
 # constants
 FLOORPLAN_START_Y = 50
@@ -165,7 +166,7 @@ sc_pass_1 = PixaSequenceCollection(
     }
 )
 
-def generate(input_image_path):
+def generate(filename):
     length = '7' # !! hard coded var until this is figured out
     floorplan = Image.open(input_image_path)
     # slice out the floorplan needed for this gestalt

@@ -51,6 +51,7 @@ def get_output_path(filename):
 # constants
 SPRITEROW_HEIGHT = 40
 DOS_PALETTE = Image.open('palette_key.png').palette
+INPUT_IMAGE_PATH = os.path.join(currentdir, 'input','test_input.png')
 
 # colour defaults
 CC1 = 202

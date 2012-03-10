@@ -3,6 +3,7 @@ import Image
 import common
 
 gestalt_id = 'flat_trailer'
+input_image_path = common.INPUT_IMAGE_PATH
 
 # set palette index for lightest colour of cargo; range for rest will be calculated automatically
 # when defining a new cargo, worth looking at resulting sprites in case range overflowed into wrong colours
@@ -100,7 +101,7 @@ sc_pass_4 = PixaSequenceCollection(
     }
 )
 
-def generate(input_image_path):
+def generate(filename):
     length = '7' # !! hard coded var until this is figured out
     floorplan = Image.open(input_image_path)
     # slice out the floorplan needed for this gestalt

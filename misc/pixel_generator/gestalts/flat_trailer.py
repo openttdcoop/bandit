@@ -28,8 +28,8 @@ FLOORPLAN_START_Y = 90
 
 # colour sets
 coloursets = [
-    ('cc_1', dict(deck_colour = 115, company_colour_1 = common.CC1)),
-    ('cc_2', dict(deck_colour = 75,  company_colour_1 = common.CC2 )),
+    ('cc1', dict(deck_colour = 115, company_colour_1 = common.CC1)),
+    ('cc2', dict(deck_colour = 75,  company_colour_1 = common.CC2 )),
 ]
 # colours
 pc_deck = PixaColour(name='deck_colour', default=115)

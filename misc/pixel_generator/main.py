@@ -35,6 +35,14 @@ filenames = [
     'tipping_trailer_4px-drawbar-cc1-7_8-GRVL.png',
     'tipping_trailer_4px-drawbar-cc2-7_8-GRVL.png',
     'tipping_trailer_4px-drawbar-light_grey-7_8-GRVL.png',
+    'tank_trailer-drawbar-cc1-7_8.png',
+    'tank_trailer-fifth_wheel-cc1-7_8.png',
+    'tank_trailer-drawbar-cc2-7_8.png',
+    'tank_trailer-fifth_wheel-cc2-7_8.png',
+    'tank_trailer-drawbar-black-7_8.png',
+    'tank_trailer-fifth_wheel-black-7_8.png',
+    'tank_trailer-drawbar-silver-7_8.png',
+    'tank_trailer-fifth_wheel-silver-7_8.png',
 ]
 
 # check for __main__ because fork bombs are bad

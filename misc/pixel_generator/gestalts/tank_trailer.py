@@ -9,12 +9,12 @@ input_image_path = common.INPUT_IMAGE_PATH
 FLOORPLAN_START_Y = 50
 
 # colour sets
-coloursets = [
-    ('cc_1', dict (tank_colour = common.CC1, stripe_colour = 21)),
-    ('cc_2', dict (tank_colour = common.CC2, stripe_colour = 21)),
-    ('silver', dict (tank_colour = 20, stripe_colour = common.CC1)),
-    ('black', dict (tank_colour = 4, stripe_colour = common.CC2)),
-]
+coloursets = {
+    'cc1': dict (tank_colour = common.CC1, stripe_colour = 21),
+    'cc2': dict (tank_colour = common.CC2, stripe_colour = 21),
+    'silver': dict (tank_colour = 20, stripe_colour = common.CC1),
+    'black': dict (tank_colour = 4, stripe_colour = common.CC2),
+}
 # colours
 pc_tank = PixaColour(name='tank_colour', default=common.CC1)
 pc_stripe = PixaColour(name='stripe_colour', default=21)
@@ -167,6 +167,29 @@ sc_pass_1 = PixaSequenceCollection(
 )
 
 def generate(filename):
+    gv = common.GestaltVariation(filename)
+    floorplan = common.get_floorplan(gv, FLOORPLAN_START_Y)
+    spritesheet = common.make_spritesheet(floorplan, row_count=1)
+
+    spriterows = []
+    # spriterow holds data needed to render the row
+    # only one spriterow for tank trailers; only one load state needed
+    spriterow = {'height' : common.SPRITEROW_HEIGHT, 'floorplan' : floorplan}
+    # add n render passes to the spriterow (list controls render order, index 0 = first pass)
+    colourset = coloursets[gv.colourset_id]
+    spriterow['render_passes'] = [
+        {'seq' : common.hide_or_show_drawbar_dolly_wheels(gv.connection_type), 'colourset' : colourset},
+        {'seq' : sc_pass_1, 'colourset' : colourset},
+    ]
+    spriterows.append(spriterow)
+
+    spritesheet.render(spriterows=spriterows)
+    output_path = common.get_output_path(gv.filename + '.png')
+    spritesheet.save(output_path)
+
+
+"""
+def create_all_filenames(filename):
     length = '7' # !! hard coded var until this is figured out
     floorplan = Image.open(input_image_path)
     # slice out the floorplan needed for this gestalt
@@ -202,3 +225,4 @@ def generate(filename):
             print output_path
             spritesheet.save(output_path)
             manifest_payload.append(output_path)
+"""

@@ -70,6 +70,7 @@ sc_pass_1 = PixaSequenceCollection(
          93 : PixaSequence(points = body_inner, transforms = [PixaShiftColour(0, 255, 1)]),
     }
 )
+
 def get_sc_cargo(cargo, load_state):
     # returns sequences with correct y offset for current load state
     bulk_load = [
@@ -83,6 +84,7 @@ def get_sc_cargo(cargo, load_state):
             138 : PixaSequence(points = bulk_load, transforms = [PixaShiftColour(0, 255, -3), PixaShiftDY(load_state.yoffs)]),
         }
     )
+
 sc_pass_3 = PixaSequenceCollection(
     sequences = {
         197 : PixaSequence(points = body_outer, transforms = [PixaShiftColour(0, 255, 2)]),

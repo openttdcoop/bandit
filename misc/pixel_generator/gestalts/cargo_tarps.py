@@ -77,8 +77,28 @@ def get_load_sequence(set_name, load_state):
         sequences = sequences
     )
 
+def generate(filename):
+    gv = common.GestaltCargoVariation(filename)
+    floorplan = common.get_cargo_floorplan(gv, 'cargo_tarps_floorplan.png', FLOORPLAN_START_Y)
+    spritesheet = common.make_spritesheet(floorplan, row_count=(len(load_states)))
 
-def generate(input_image_path):
+    spriterows = []
+    for load_state in load_states:
+        # spriterow holds data needed to render the row
+        spriterow = {'height' : common.SPRITEROW_HEIGHT, 'floorplan' : floorplan}
+        # add n render passes to the spriterow (list controls render order, index 0 = first pass)
+        spriterow['render_passes'] = [
+            {'seq' : sc_mask_out_template_guides, 'colourset' : None},
+            {'seq' : get_load_sequence(gv.colourset_id, load_state), 'colourset' : None},
+        ]
+        spriterows.append(spriterow)
+
+    spritesheet.render(spriterows=spriterows)
+    output_path = common.get_output_path(gv.filename + '.png')
+    spritesheet.save(output_path)
+
+"""
+def create_all_filenames(input_image_path):
     floorplan = Image.open(input_image_path)
     # get a palette
     palette = Image.open('palette_key.png').palette
@@ -120,3 +140,4 @@ def generate(input_image_path):
             manifest_payload.append(output_path)
 
     (gestalt_id, manifest_payload)
+"""

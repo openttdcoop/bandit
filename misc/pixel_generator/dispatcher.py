@@ -15,6 +15,7 @@ gestalt_patterns = {
     'tank_trailer': tank_trailer,
     'flat_trailer': flat_trailer,
     'cargo_coils': cargo_coils,
+    'cargo_tarps': cargo_tarps,
 }
 
 def dispatch(filename):

@@ -28,7 +28,7 @@ class GestaltVariation:
         self._parts = self.filename.split('-')
         self.gestalt_full_id = self._parts[0]
         self.connection_type = self._parts[1]
-        self.colourset = self._parts[2]
+        self.colourset_id = self._parts[2]
         self.length = self._parts[3]
         if len(self._parts) > 4:
             self.cargo = self._parts[4]

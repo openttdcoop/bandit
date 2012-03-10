@@ -103,7 +103,7 @@ def generate(filename):
         # spriterow holds data needed to render the row
         spriterow = {'height' : common.SPRITEROW_HEIGHT, 'floorplan' : floorplan}
         # add n render passes to the spriterow (list controls render order, index 0 = first pass)
-        colourset = coloursets[gv.colourset]
+        colourset = coloursets[gv.colourset_id]
         spriterow['render_passes'] = [
             {'seq': common.hide_or_show_drawbar_dolly_wheels(gv.connection_type), 'colourset': colourset},
             {'seq': sc_pass_1, 'colourset': colourset},

@@ -24,13 +24,3 @@ def dispatch(filename):
     for gestalt, module in gestalt_patterns.iteritems():
         if gestalt_full_id.startswith(gestalt):
             module.generate(filename)
-
-
-"""
-input_image_path = os.path.join(currentdir, 'input','cargo_tarps_floorplan.png')
-cargo_tarps.generate(input_image_path)
-
-
-input_image_path = os.path.join(currentdir, 'input','cargo_coils_floorplan.png')
-cargo_coils.generate(input_image_path)
-"""

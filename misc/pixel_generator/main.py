@@ -108,8 +108,8 @@ trailer_filenames = [
     'flat_trailer-fifth_wheel-cc2-7_8_STEL.png',
 ]
 
-#filenames = trailer_filenames
-filenames = cargo_filenames
+filenames = trailer_filenames
+filenames.extend(cargo_filenames)
 
 # check for __main__ because fork bombs are bad
 if __name__ == '__main__':

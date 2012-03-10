@@ -21,9 +21,10 @@ class LoadState:
 # order needs to be predictable, so a dict won't do here
 load_states = [
     LoadState('empty', 0),
-    LoadState('load_1', 0),
+    LoadState('load_1', -1),
     LoadState('load_2', -2),
-    LoadState('load_3', -4),
+    LoadState('load_3', -3),
+    LoadState('load_4', -4),
 ]
 
 # constants
@@ -73,8 +74,13 @@ sc_pass_1 = PixaSequenceCollection(
 
 def get_sc_cargo(cargo, load_state):
     # returns sequences with correct y offset for current load state
+    if load_state.name == 'empty':
+        cargo_colour = 19
+    else:
+        cargo_colour = cargos[cargo]
+
     bulk_load = [
-        (0, 0, cargos[cargo])
+        (0, 0, cargo_colour)
     ]
     return  PixaSequenceCollection(
         sequences = {

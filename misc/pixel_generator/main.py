@@ -37,8 +37,10 @@ filenames = [
     'tipping_trailer_4px-drawbar-light_grey-7_8-GRVL.png',
 ]
 
-for filename in filenames:
-    Process(target=dispatcher.dispatch, args=(filename,)).start()
+# check for __main__ because fork bombs are bad
+if __name__ == '__main__':
+    for filename in filenames:
+        Process(target=dispatcher.dispatch, args=(filename,)).start()
 
 # dirty way to wait until all processes are complete before moving on
 while True:

@@ -3,7 +3,6 @@ import Image
 import common
 
 gestalt_id = 'tipping_trailer'
-input_image_path = common.INPUT_IMAGE_PATH
 
 # set palette index for lightest colour of cargo; range for rest will be calculated automatically
 # when defining a new cargo, worth looking at resulting sprites in case range overflowed into wrong colours
@@ -95,18 +94,8 @@ sc_pass_3 = PixaSequenceCollection(
 )
 
 def generate(filename):
-    filename = filename.split('.png')[0]
-    parts = filename.split('-')
-    gestalt_full_id = parts[0]
-    connection_type = parts[1]
-    colourset = parts[2]
-    length = parts[3]
-    if len(parts) > 4:
-        cargo = parts[4]
-    else:
-        cargo = None
-
-    floorplan = Image.open(input_image_path)
+    gv = common.GestaltVariation(filename)
+    floorplan = Image.open(common.INPUT_IMAGE_PATH)
     # slice out the floorplan needed for this gestalt
     floorplan = floorplan.crop((0, FLOORPLAN_START_Y, floorplan.size[0], FLOORPLAN_START_Y + common.SPRITEROW_HEIGHT))
     spritesheet = Spritesheet(
@@ -120,16 +109,17 @@ def generate(filename):
         # spriterow holds data needed to render the row
         spriterow = {'height' : common.SPRITEROW_HEIGHT, 'floorplan' : floorplan}
         # add n render passes to the spriterow (list controls render order, index 0 = first pass)
+        colourset = coloursets[gv.colourset]
         spriterow['render_passes'] = [
-            {'seq': common.hide_or_show_drawbar_dolly_wheels(connection_type), 'colourset': coloursets[colourset]},
-            {'seq': sc_pass_1, 'colourset': coloursets[colourset]},
-            {'seq': get_sc_cargo(cargo, load_state), 'colourset': coloursets[colourset]},
-            {'seq': sc_pass_3, 'colourset': coloursets[colourset]},
+            {'seq': common.hide_or_show_drawbar_dolly_wheels(gv.connection_type), 'colourset': colourset},
+            {'seq': sc_pass_1, 'colourset': colourset},
+            {'seq': get_sc_cargo(gv.cargo, load_state), 'colourset': colourset},
+            {'seq': sc_pass_3, 'colourset': colourset},
         ]
         spriterows.append(spriterow)
 
     spritesheet.render(spriterows=spriterows)
-    output_path = common.get_output_path(filename + '.png')
+    output_path = common.get_output_path(gv.filename + '.png')
     spritesheet.save(output_path)
 
 

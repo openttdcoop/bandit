@@ -22,6 +22,20 @@ def hide_or_show_drawbar_dolly_wheels(connection_type):
         }
     )
 
+class GestaltVariation:
+    def __init__(self, filename):
+        self.filename = filename.split('.png')[0]
+        self._parts = self.filename.split('-')
+        self.gestalt_full_id = self._parts[0]
+        self.connection_type = self._parts[1]
+        self.colourset = self._parts[2]
+        self.length = self._parts[3]
+        if len(self._parts) > 4:
+            self.cargo = self._parts[4]
+        else:
+            self.cargo = None
+
+
 class Variation:
     def __init__(self, set_name, colourset, cargo, connection_type, length, body_subtype=''):
         self.spritesheets = []

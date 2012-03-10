@@ -1,6 +1,7 @@
 print "running"
 
 import dispatcher
+import time
 from multiprocessing import Process, active_children
 
 filenames = [
@@ -40,8 +41,9 @@ for filename in filenames:
     print filename
     Process(target=dispatcher.dispatch, args=(filename,)).start()
 
-# wait until all processes are complete before moving on
+# dirty way to wait until all processes are complete before moving on
 while True:
+    time.sleep(0.027) # 0.027 because it's a reference to TTD ticks :P (blame Rubidium)
     if len(active_children()) == 0:
         break
 

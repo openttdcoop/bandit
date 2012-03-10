@@ -131,7 +131,6 @@ def generate(filename):
     spritesheet.render(spriterows=spriterows)
     output_path = common.get_output_path(filename + '.png')
     spritesheet.save(output_path)
-    print output_path
 
 
 def create_all_filenames(filename):

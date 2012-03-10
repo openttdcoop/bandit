@@ -12,6 +12,20 @@ cargo_filenames = [
     'cargo_coils-grey_metal-6_8.png',
     'cargo_coils-grey_metal-7_8.png',
     'cargo_coils-grey_metal-8_8.png',
+    'cargo_coils-white-2_8.png',
+    'cargo_coils-white-3_8.png',
+    'cargo_coils-white-4_8.png',
+    'cargo_coils-white-5_8.png',
+    'cargo_coils-white-6_8.png',
+    'cargo_coils-white-7_8.png',
+    'cargo_coils-white-8_8.png',
+    'cargo_coils-copper_metal-2_8.png',
+    'cargo_coils-copper_metal-3_8.png',
+    'cargo_coils-copper_metal-4_8.png',
+    'cargo_coils-copper_metal-5_8.png',
+    'cargo_coils-copper_metal-6_8.png',
+    'cargo_coils-copper_metal-7_8.png',
+    'cargo_coils-copper_metal-8_8.png',
 ]
 
 trailer_filenames = [

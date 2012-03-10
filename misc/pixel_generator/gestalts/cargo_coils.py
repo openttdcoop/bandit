@@ -9,8 +9,8 @@ gestalt_id = 'cargo_coils'
 
 cargos = {
     'grey_metal': 0,
-    'PAPR': 5,
-    'COPR': 111,
+    'white': 5,
+    'copper_metal': 111,
 }
 
 
@@ -83,6 +83,7 @@ def generate(filename):
     spritesheet.render(spriterows=spriterows)
     output_path = common.get_output_path(gv.filename + '.png')
     spritesheet.save(output_path)
+
 
 """
 def create_all_filenames(input_image_path):

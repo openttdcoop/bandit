@@ -1,4 +1,4 @@
-from pixa import PixaColour, PixaSequence, PixaSequenceCollection, PixaShiftColour, PixaShiftDY, PixaMaskColour, Spritesheet, pixamakeanifest
+from pixa import PixaColour, PixaSequence, PixaSequenceCollection, PixaShiftColour, PixaShiftDY, PixaMaskColour, Spritesheet
 import Image
 import common
 
@@ -142,5 +142,3 @@ def generate(filename):
             print output_path
             spritesheet.save(output_path)
             manifest_payload.append(output_path)
-
-    pixamakeanifest(gestalt_id, manifest_payload)

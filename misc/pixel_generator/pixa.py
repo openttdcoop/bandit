@@ -334,12 +334,6 @@ def pixarender(image, significant_pixels, sequence_collection, colourset=None):
                 draw.point([(sx, sy)], fill=scol)
     return image
 
-def pixamakeanifest(gestalt_id, manifest_payload=[]):
-    manifest = codecs.open(os.path.join(currentdir, 'output', 'manifest_' + gestalt_id + '.txt'), 'w', 'utf8')
-    manifest.write(gestalt_id + '\n')
-    manifest.write('\n'.join(manifest_payload))
-    manifest.close()
-
 
 def generate(input_image_path, key_colour_mapping, output_image_path):
     spritesheet = Image.open(input_image_path)

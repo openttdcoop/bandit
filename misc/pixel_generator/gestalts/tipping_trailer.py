@@ -1,4 +1,4 @@
-from pixa import PixaColour, PixaSequence, PixaSequenceCollection, PixaShiftColour, PixaShiftDY, PixaMaskColour, Spritesheet, pixamakeanifest
+from pixa import PixaColour, PixaSequence, PixaSequenceCollection, PixaShiftColour, PixaShiftDY, PixaMaskColour, Spritesheet
 import Image
 import common
 
@@ -116,7 +116,7 @@ def generate(filename):
     output_path = common.get_output_path(gv.filename + '.png')
     spritesheet.save(output_path)
 
-
+"""
 def create_all_filenames(filename):
     variations = []
     manifest_payload = []
@@ -153,4 +153,5 @@ def create_all_filenames(filename):
             spritesheet.save(output_path)
             manifest_payload.append(output_path)
 
-    pixamakeanifest(gestalt_id, manifest_payload)
+    (gestalt_id, manifest_payload)
+"""

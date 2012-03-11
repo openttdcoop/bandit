@@ -104,9 +104,20 @@ trailer_filenames = [
     'tank_trailer-fifth_wheel-silver-7_8.png',
     'flat_trailer-drawbar-cc1-7_8-cargo_coils-grey_metal.png',
     'flat_trailer-fifth_wheel-cc1-7_8-cargo_coils-grey_metal.png',
+    'flat_trailer-drawbar-cc1-7_8-cargo_coils-grey_metal.png',
+    'flat_trailer-fifth_wheel-cc1-7_8-cargo_coils-white.png',
     'flat_trailer-drawbar-cc2-7_8-cargo_coils-grey_metal.png',
     'flat_trailer-fifth_wheel-cc2-7_8-cargo_coils-grey_metal.png',
     'flat_trailer-fifth_wheel-cc2-7_8-cargo_tarps-pinkish.png',
+    'flat_trailer-drawbar-cc2-7_8-cargo_tarps-pinkish.png',
+    'flat_trailer-fifth_wheel-cc2-7_8-cargo_tarps-greenish.png',
+    'flat_trailer-drawbar-cc2-7_8-cargo_tarps-greenish.png',
+    'flat_trailer-fifth_wheel-cc2-7_8-cargo_tarps-default.png',
+    'flat_trailer-drawbar-cc2-7_8-cargo_tarps-default.png',
+    'flat_trailer-fifth_wheel-cc2-7_8-cargo_tarps-cc1.png',
+    'flat_trailer-drawbar-cc2-7_8-cargo_tarps-cc1.png',
+    'flat_trailer-fifth_wheel-cc2-7_8-cargo_tarps-cc2.png',
+    'flat_trailer-drawbar-cc2-7_8-cargo_tarps-cc2.png',
 ]
 
 filenames = trailer_filenames

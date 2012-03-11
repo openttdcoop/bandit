@@ -102,10 +102,11 @@ trailer_filenames = [
     'tank_trailer-fifth_wheel-black-7_8.png',
     'tank_trailer-drawbar-silver-7_8.png',
     'tank_trailer-fifth_wheel-silver-7_8.png',
-    'flat_trailer-drawbar-cc1-7_8-cargo_coils_grey_metal.png',
-    'flat_trailer-fifth_wheel-cc1-7_8-cargo_coils_grey_metal.png',
-    'flat_trailer-drawbar-cc2-7_8-cargo_coils_grey_metal.png',
-    'flat_trailer-fifth_wheel-cc2-7_8-cargo_coils_grey_metal.png',
+    'flat_trailer-drawbar-cc1-7_8-cargo_coils-grey_metal.png',
+    'flat_trailer-fifth_wheel-cc1-7_8-cargo_coils-grey_metal.png',
+    'flat_trailer-drawbar-cc2-7_8-cargo_coils-grey_metal.png',
+    'flat_trailer-fifth_wheel-cc2-7_8-cargo_coils-grey_metal.png',
+    'flat_trailer-fifth_wheel-cc2-7_8-cargo_tarps-pinkish.png',
 ]
 
 filenames = trailer_filenames

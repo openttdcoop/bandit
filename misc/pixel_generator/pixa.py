@@ -263,6 +263,8 @@ class PixaImageLoader:
         Turns an image file into a list of points (dx, dy, colour index) suitable for use with PixaSequence
         @param image_file_path: path to an image file to load
 
+        @parm crop_box: 4 tuple (x left, y top, x right, y bottom)
+
         @param origin: tuple (x,y), relative to top-left of file; dx, dy for points will be calculated relative to this origin
         """
         options = _PixaImageLoaderOptions(self, crop_box, mask, origin)

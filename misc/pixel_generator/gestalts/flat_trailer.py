@@ -1,6 +1,9 @@
-from pixa import PixaColour, PixaSequence, PixaSequenceCollection, PixaShiftColour, PixaShiftDY, PixaMaskColour, Spritesheet
+from pixa import PixaColour, PixaSequence, PixaSequenceCollection, PixaShiftColour, PixaShiftDY, PixaMaskColour, Spritesheet, PixaImageLoader
 import Image
 import common
+import os.path
+currentdir = os.curdir
+
 
 gestalt_id = 'flat_trailer'
 input_image_path = common.INPUT_IMAGE_PATH
@@ -46,37 +49,9 @@ stakes = [
     (0, 0, 133),
     (0, -1, 21),
 ]
-coil_load = [
-    (-1, 0, 3),
-    ( 0, 0, 4),
-    ( 1, 0, 3),
-    ( 2, 0, 3),
-    (-2, -1, 3),
-    (-1, -1, 4),
-    ( 0, -1, 1),
-    ( 1, -1, 6),
-    ( 2, -1, 5),
-    ( 3, -1, 6),
-    (-2, -2, 5),
-    (-1, -2, 9),
-    ( 0, -2, 6),
-    ( 1, -2, 8),
-    ( 2, -2, 8),
-    ( 3, -2, 10),
-    (-2, -3, 6),
-    (-1, -3, 7),
-    ( 0, -3, 3),
-    ( 1, -3, 1),
-    ( 2, -3, 6),
-    ( 3, -3, 10),
-    (-1, -4, 6),
-    ( 0, -4, 8),
-    ( 1, -4, 10),
-    ( 2, -4, 8),
-]
 
 # sequence collections
-sc_pass_1 = PixaSequenceCollection(
+sc_body_pass_1 = PixaSequenceCollection(
     sequences = {
          94 : PixaSequence(points = flatbed, transforms = [PixaShiftColour(0, 255, -1)]),
          93 : PixaSequence(points = stakes),
@@ -86,40 +61,48 @@ sc_pass_1 = PixaSequenceCollection(
         165 : PixaSequence(points = [(0, 0, pc_cc1(-1))]),
     }
 )
-sc_pass_2 = PixaSequenceCollection(
-    sequences = {
-        190 : PixaSequence(points = coil_load),
-    }
-)
-sc_pass_3 = PixaSequenceCollection(
-    sequences = {
-        191 : PixaSequence(points = coil_load),
-    }
-)
-sc_pass_4 = PixaSequenceCollection(
+sc_body_pass_2 = PixaSequenceCollection(
     sequences = {
         195 : PixaSequence(points = [(0, 0, pc_cc1())]),
         197 : PixaSequence(points = stakes),
     }
 )
 
+def get_cargo_load(cargo_path, load_state, increment):
+    if load_state.name == 'empty':
+        return PixaSequenceCollection(sequences={})
+    else:
+        cargo_loader = PixaImageLoader(mask=(0,255))
+        crop_start_y = (increment - 1) * common.SPRITEROW_HEIGHT
+        crop_end_y = crop_start_y + common.SPRITEROW_HEIGHT
+        crop_box = (0, crop_start_y, common.CARGO_SPRITE_WIDTH, crop_end_y)
+        cargo_load = cargo_loader.make_points(cargo_path, crop_box, origin=(0, 9))
+        return PixaSequenceCollection(
+            sequences = {
+                226 : PixaSequence(points = cargo_load),
+            }
+        )
+
+
 def generate(filename):
     gv = common.GestaltTrailerVariation(filename)
     floorplan = common.get_trailer_floorplan(gv, FLOORPLAN_START_Y)
     spritesheet = common.make_spritesheet(floorplan, row_count=(len(load_states)))
+    cargo_filename = gv.cargo + '-' + gv.cargo_colourset_id + '-' + gv.length + '.png'
+    print cargo_filename
+    cargo_path = os.path.join(common.CARGO_IMAGES_PATH, cargo_filename)
 
     spriterows = []
-    for load_state in load_states:
+    for i, load_state in enumerate(load_states):
         # spriterow holds data needed to render the row
         spriterow = {'height' : common.SPRITEROW_HEIGHT, 'floorplan' : floorplan}
         # add n render passes to the spriterow (list controls render order, index 0 = first pass)
         colourset = coloursets[gv.colourset_id]
         spriterow['render_passes'] = [
             {'seq': common.hide_or_show_drawbar_dolly_wheels(gv.connection_type), 'colourset': colourset},
-            {'seq': sc_pass_1, 'colourset': colourset},
-            {'seq': sc_pass_2, 'colourset': colourset},
-            {'seq': sc_pass_3, 'colourset': colourset},
-            {'seq': sc_pass_4, 'colourset': colourset},
+            {'seq': sc_body_pass_1, 'colourset': colourset},
+            {'seq': get_cargo_load(cargo_path, load_state, i), 'colourset': None},
+            {'seq': sc_body_pass_2, 'colourset': colourset},
         ]
         spriterows.append(spriterow)
 

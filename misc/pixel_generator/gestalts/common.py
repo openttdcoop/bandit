@@ -43,6 +43,10 @@ class GestaltTrailerVariation:
             self.cargo = self._parts[4]
         else:
             self.cargo = None
+        if len(self._parts) > 5:
+            self.cargo_colourset_id = self._parts[5]
+        else:
+            self.cargo_colourset_id = None
 
 
 class Variation:
@@ -95,6 +99,8 @@ def get_output_path(filename):
 SPRITEROW_HEIGHT = 40
 DOS_PALETTE = Image.open('palette_key.png').palette
 INPUT_IMAGE_PATH = os.path.join(currentdir, 'input','test_input.png')
+CARGO_IMAGES_PATH = os.path.join(currentdir, 'cargo_example_output')
+CARGO_SPRITE_WIDTH = 280
 
 # colour defaults
 CC1 = 202

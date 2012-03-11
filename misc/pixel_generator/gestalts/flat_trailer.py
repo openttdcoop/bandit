@@ -21,6 +21,8 @@ load_states = [
     LoadState('empty', 0),
     LoadState('load_1', 0),
     LoadState('load_2', 0),
+    LoadState('load_3', 0),
+    LoadState('load_4', 0),
 ]
 
 # constants

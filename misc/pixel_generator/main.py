@@ -102,14 +102,14 @@ trailer_filenames = [
     'tank_trailer-fifth_wheel-black-7_8.png',
     'tank_trailer-drawbar-silver-7_8.png',
     'tank_trailer-fifth_wheel-silver-7_8.png',
-    'flat_trailer-drawbar-cc1-7_8_STEL.png',
-    'flat_trailer-fifth_wheel-cc1-7_8_STEL.png',
-    'flat_trailer-drawbar-cc2-7_8_STEL.png',
-    'flat_trailer-fifth_wheel-cc2-7_8_STEL.png',
+    'flat_trailer-drawbar-cc1-7_8-cargo_coils_grey_metal.png',
+    'flat_trailer-fifth_wheel-cc1-7_8-cargo_coils_grey_metal.png',
+    'flat_trailer-drawbar-cc2-7_8-cargo_coils_grey_metal.png',
+    'flat_trailer-fifth_wheel-cc2-7_8-cargo_coils_grey_metal.png',
 ]
 
 filenames = trailer_filenames
-filenames.extend(cargo_filenames)
+#filenames.extend(cargo_filenames)
 
 # check for __main__ because fork bombs are bad
 if __name__ == '__main__':

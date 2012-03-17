@@ -43,7 +43,6 @@ class GestaltTrailerVariation:
             self.cargo = self._parts[4]
         else:
             self.cargo = None
-        print self._parts
         if len(self._parts) > 5:
             self.cargo_colourset_id = self._parts[5]
         else:

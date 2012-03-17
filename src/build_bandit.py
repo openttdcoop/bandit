@@ -47,7 +47,7 @@ class Trailer(object):
         self.id = truck.id + '_trailer_' + str(i+1)
         self.trailer_capacity = int(truck.trailer_capacities[i])
         self.numeric_id = truck.numeric_id + i + 1
-        #self.graphics_file = global_constants.graphics_path + truck.trailer_graphics_files[i]
+        #self.trailer_type_code = truck.trailer_type_codes[i]
 
     def render(self, truck):
         template = templates['trailer_template.pynml']
@@ -79,7 +79,7 @@ class Truck(object):
         self.truck_length = config.getint(id, 'truck_length')
         self.trailer_capacities = config_option_to_list_of_ints(config.get(id, 'trailer_capacities'))
         self.trailer_lengths = config_option_to_list_of_ints(config.get(id, 'trailer_lengths'))
-        self.trailer_graphics_files = config.get(id, 'trailer_graphics_files').split('|')
+        self.trailer_type_codes = config.get(id, 'trailer_type_codes').split('|')
         self.buy_cost = self.get_buy_cost()
         self.run_cost_override = config.getfloat(id, 'run_cost_override')
         self.graphics_file = global_constants.graphics_path + self.get_graphics_filename()

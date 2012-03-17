@@ -1,6 +1,7 @@
 import os.path
 currentdir = os.curdir
 import sys
+
 sys.path.append(os.path.join('gestalts')) # add to the module search path
 
 from gestalts import cargo_coils

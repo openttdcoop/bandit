@@ -22,7 +22,7 @@
     // cargo specific graphics for trucks that carry cargo on the lead vehicle
     <tal:build_spritesets_spritegroups repeat="body_type global_constants.body_type_spritesheet_y_offset_mapping">
     spriteset(${vehicle.id}_ss_cargo_${body_type}, "${vehicle.graphics_file}") {
-      spriteset_template_truck_16(0, ${global_constants.body_type_spritesheet_y_offset_mapping[body_type]})
+      spriteset_template_truck_16(0, ${global_constants.body_type_spritesheet_y_offset_mapping['box']})
     }
 
     spritegroup ${vehicle.id}_sg_cargo_${body_type} {
@@ -33,9 +33,7 @@
 
     <tal:build_cargo_to_body_type_switches repeat="cargo global_constants.cargo_body_type_mappings">
     random_switch (FEAT_ROADVEHS, PARENT, ${vehicle.id}_cargo_body_type_switch_${cargo}) {
-        <tal:build_body_type_repeat repeat="body_type python:global_constants.cargo_body_type_mappings[cargo]">
-        1: return ${vehicle.id}_sg_cargo_${body_type};
-        </tal:build_body_type_repeat>
+        1: return ${vehicle.id}_sg_cargo_${'box'};
     }
     </tal:build_cargo_to_body_type_switches>
 

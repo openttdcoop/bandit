@@ -21,31 +21,31 @@ spritegroup ${trailer.id}_sg_error {
 }
 
 
-<tal:build_spritesets_spritegroups repeat="body_type global_constants.body_type_spritesheet_y_offset_mapping">
-spriteset(${trailer.id}_ss_cargo_${body_type}, "${THIS_TRAILER_GRAPHICS_FILE}") {
-  spriteset_template_truck_28(0, ${global_constants.body_type_spritesheet_y_offset_mapping[body_type]})
-}
+<tal:build_graphics repeat="graphic_id trailer.graphics_ids">
+    spriteset(${trailer.id}_ss_${graphic_id}, "src/pixel_generator/output/${trailer.graphics_ids[graphic_id].construct_filename('-')}.png") {
+      spriteset_template_truck_28(0, 10)
+    }
 
-spritegroup ${trailer.id}_sg_cargo_${body_type} {
-    loaded:  [${trailer.id}_ss_cargo_${body_type}];
-    loading: [${trailer.id}_ss_cargo_${body_type}];
-}
-</tal:build_spritesets_spritegroups>
+    spritegroup ${trailer.id}_sg_${graphic_id} {
+        loaded:  [${trailer.id}_ss_${graphic_id}];
+        loading: [${trailer.id}_ss_${graphic_id}];
+    }
+</tal:build_graphics>
 
+<tal:build_random_switches repeat="cargo global_constants.cargo_body_type_mappings">
+    random_switch (FEAT_ROADVEHS, PARENT, ${trailer.id}_cargo_body_type_switch_${cargo}) {
+        <tal:build_graphics repeat="graphic_id trailer.graphics_ids">
+        1: return ${trailer.id}_sg_${graphic_id};
+        </tal:build_graphics>
+    }
+</tal:build_random_switches>
 
-<tal:build_cargo_to_body_type_switches repeat="cargo global_constants.cargo_body_type_mappings">
-random_switch (FEAT_ROADVEHS, PARENT, ${trailer.id}_cargo_body_type_switch_${cargo}) {
-    <tal:build_body_type_repeat repeat="body_type python:global_constants.cargo_body_type_mappings[cargo]">
-    1: return ${trailer.id}_sg_cargo_${body_type};
-    </tal:build_body_type_repeat>
-}
-</tal:build_cargo_to_body_type_switches>
 
 switch (FEAT_ROADVEHS, SELF, ${trailer.id}_cargo_switch, cargo_type_in_veh) {
     <tal:build_cargo_mapping_repeat repeat="cargo global_constants.cargo_body_type_mappings">
     ${cargo}: return ${trailer.id}_cargo_body_type_switch_${cargo};
     </tal:build_cargo_mapping_repeat>
-    return ${trailer.id}_sg_cargo_box;
+    return ${trailer.id}_sg_error;
 }
 
 

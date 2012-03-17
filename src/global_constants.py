@@ -29,37 +29,48 @@ standard_class_refits = {
 }
 
 #body_types
-bt_tanker = namedtuple('colourset')
-bt_tipping = nametuple('colourset','height')
+class TankBT:
+    def __init__(self, colourset_id):
+        self.gestalt_id = 'tank_trailer'
+        self.colourset_id = colourset_id
+        self.cargo = ''
+
+class TippingBT:
+    def __init__(self, height_px, cargo_colourset_id):
+        self.gestalt_id = 'tipping_trailer' + '_' + height_px
+        self.cargo = 'bulk'
+        self.cargo_colourset_id = cargo_colourset_id
+
+class FlatBT:
+    def __init__(self, cargo, cargo_colourset_id):
+        self.gestalt_id = 'flat_trailer'
+        self.cargo = 'cargo_' + cargo
+        self.cargo_colourset_id = cargo_colourset_id
+
 # use the dict constructor here, normally I don't, but it makes adding cargos faster (no string quotes needed).
 # design note: small variations probably better than large ones, e.g. ['flat_large_crates','flat_small_crates'] rather than ['flat','tanker']
 cargo_body_type_mappings = dict(
-    MILK = [bt_tanker('silver')],
-    OIL_ = [bt_tanker('black')],
-    RFPR = [bt_tanker('cc2')],
-    WATR = [bt_tanker('cc1')],
-    PETR = [bt_tanker('silver')],
-    DYES = [bt_tanker('cc2')],
-    COAL = ['dump'],
-    IORE = ['dump'],
-    CLAY = ['dump'],
-    SAND = ['dump'],
-    STEL = ['grey_metals'],
-    VEHI = ['flat'],
-    ENSP = ['flat','box'],
-    BEER = ['flat', bt_tanker('silver'),'dump','logs','livestock','lowbed'], # these values for testing only
+    MILK = [TankBT('silver')],
+    OIL_ = [TankBT('black')],
+    RFPR = [TankBT('cc2')],
+    WATR = [TankBT('cc1')],
+    PETR = [TankBT('silver')],
+    DYES = [TankBT('cc2')],
+    COAL = [TippingBT('4px','black')],
+    IORE = [TippingBT('4px','iron_ore')],
+    CLAY = [TippingBT('4px','clay_pink')],
+    SAND = [TippingBT('4px','black')],
+    STEL = [FlatBT('coils','grey_metal')],
+    VEHI = [FlatBT('coils','white')],
+    ENSP = [FlatBT('coils','white')],
+    BEER = [FlatBT('coils','white'), TankBT('silver')],
 )
 
+# needs to be deprecated; currently required by trucks
 body_type_spritesheet_y_offset_mapping = dict (
     box          =  20,
-    tanker       =  60,
-    flat         = 100,
-    dump         = 140,
-    logs         = 100, # value for testing only
-    grey_metals  = 100, # value for testing only
-    livestock    = 100, # value for testing only
-    lowbed       = 100, # value for testing only
 )
+
 
 #map truck weight factors to extra_type_info
 weight_factors = dict (

@@ -41,17 +41,63 @@ if len(sys.argv) > 1:
 else: # provide some defaults so templates don't explode when testing python script without command line args
     repo_vars = {'repo_title' : 'BANDIT - compiled without makefile', 'repo_version' : 1}
 
+
+class _FilenameElements(object):
+    def __init__(self):
+        self.gestalt_id = ''
+        self.colourset_id = 'cc1'
+        self.length = ''
+        self.trailer_type_code = ''
+        self.cargo = None
+        self.cargo_colourset_id = None
+
+    def construct_filename(self, separator):
+        """
+        Simple filename maker; will filter out attributes that have no meaningful value.
+        Supports separator param because pixel generation uses '-', but nml won't allow '-' as identifier.
+        """
+        raw = [self.gestalt_id, self.trailer_type_code, self.colourset_id, str(self.length) + '_8', self.cargo, self.cargo_colourset_id]
+        clean = []
+        for i in raw:
+            if i is not None and i != '':
+                clean.append(i)
+        return separator.join(clean)
+
+
+def get_graphics_ids(vehicle):
+    """ Returns a set of all the unique body types required, prevents duplication when creating spritesets/groups. """
+    graphics_ids = {}
+    for cargo in global_constants.cargo_body_type_mappings:
+        for body_type in global_constants.cargo_body_type_mappings[cargo]:
+            fe = _FilenameElements()
+            fe.gestalt_id = body_type.gestalt_id
+            if hasattr(body_type, 'cargo'):
+                fe.cargo = body_type.cargo
+            if hasattr(body_type, 'colourset_id'):
+                fe.colourset_id = body_type.colourset_id
+            if hasattr(body_type, 'cargo_colourset_id'):
+                fe.cargo_colourset_id = body_type.cargo_colourset_id
+            fe.length = vehicle.trailer_length
+            fe.trailer_type_code = vehicle.trailer_type_code
+            gid = fe.construct_filename('_')
+            graphics_ids[gid] = fe
+    return graphics_ids
+
+
 class Trailer(object):
     """Base class for trailers"""
     def __init__(self, i, truck):
         self.id = truck.id + '_trailer_' + str(i+1)
         self.trailer_capacity = int(truck.trailer_capacities[i])
+        self.trailer_length = 7 #int(truck.trailer_lengths[i]) # !! commented whilst developing
         self.numeric_id = truck.numeric_id + i + 1
         self.trailer_type_code = truck.trailer_type_codes[i]
+        self.graphics_ids = get_graphics_ids(self)
 
     def render(self, truck):
         template = templates['trailer_template.pynml']
         return template(trailer = self, truck = truck)
+
 
 class Truck(object):
     """Base class for all types of trucks"""

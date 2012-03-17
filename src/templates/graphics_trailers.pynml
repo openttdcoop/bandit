@@ -21,14 +21,28 @@ spritegroup ${trailer.id}_sg_error {
 }
 
 
-<tal:build_graphics repeat="graphic_id trailer.graphics_ids">
-    spriteset(${trailer.id}_ss_${graphic_id}, "src/pixel_generator/output/${trailer.graphics_ids[graphic_id].construct_filename('-')}.png") {
+<tal:build_graphics repeat="graphic_id trailer.graphic_elements">
+    <tal:build_spritesets define="filename 'src/pixel_generator/output/' + trailer.graphic_elements[graphic_id].construct_filename('-') + '.png'">
+    spriteset(${trailer.id}_ss_${graphic_id}_1, "${filename}") {
       spriteset_template_truck_28(0, 10)
     }
+    spriteset(${trailer.id}_ss_${graphic_id}_2, "${filename}") {
+      spriteset_template_truck_28(0, 10)
+    }
+    spriteset(${trailer.id}_ss_${graphic_id}_3, "${filename}") {
+      spriteset_template_truck_28(0, 10)
+    }
+    spriteset(${trailer.id}_ss_${graphic_id}_4, "${filename}") {
+      spriteset_template_truck_28(0, 10)
+    }
+    spriteset(${trailer.id}_ss_${graphic_id}_5, "${filename}") {
+      spriteset_template_truck_28(0, 10)
+    }
+    </tal:build_spritesets>
 
     spritegroup ${trailer.id}_sg_${graphic_id} {
-        loaded:  [${trailer.id}_ss_${graphic_id}];
-        loading: [${trailer.id}_ss_${graphic_id}];
+        loaded:  [${trailer.id}_ss_${graphic_id}_1, ${trailer.id}_ss_${graphic_id}_2, ${trailer.id}_ss_${graphic_id}_3, ${trailer.id}_ss_${graphic_id}_4, ${trailer.id}_ss_${graphic_id}_5];
+        loading: [${trailer.id}_ss_${graphic_id}_1, ${trailer.id}_ss_${graphic_id}_2, ${trailer.id}_ss_${graphic_id}_3, ${trailer.id}_ss_${graphic_id}_4, ${trailer.id}_ss_${graphic_id}_5];
     }
 </tal:build_graphics>
 

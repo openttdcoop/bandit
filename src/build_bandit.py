@@ -42,7 +42,7 @@ else: # provide some defaults so templates don't explode when testing python scr
     repo_vars = {'repo_title' : 'BANDIT - compiled without makefile', 'repo_version' : 1}
 
 
-class _FilenameElements(object):
+class _GraphicsElements(object):
     def __init__(self):
         self.gestalt_id = ''
         self.colourset_id = 'cc1'
@@ -66,25 +66,25 @@ class _FilenameElements(object):
 
 def get_graphics_stuff(vehicle):
     """ Returns a set of all the unique body types required, prevents duplication when creating spritesets/groups. """
-    graphics_ids = {}
+    graphic_elements = {}
     cargo_graphics_mapping = {}
     for cargo in global_constants.cargo_body_type_mappings:
         cargo_graphics_mapping[cargo] = []
         for body_type in global_constants.cargo_body_type_mappings[cargo]:
-            fe = _FilenameElements()
-            fe.gestalt_id = body_type.gestalt_id
+            ge = _GraphicsElements()
+            ge.gestalt_id = body_type.gestalt_id
             if hasattr(body_type, 'cargo'):
-                fe.cargo = body_type.cargo
+                ge.cargo = body_type.cargo
             if hasattr(body_type, 'colourset_id'):
-                fe.colourset_id = body_type.colourset_id
+                ge.colourset_id = body_type.colourset_id
             if hasattr(body_type, 'cargo_colourset_id'):
-                fe.cargo_colourset_id = body_type.cargo_colourset_id
-            fe.length = vehicle.trailer_length
-            fe.trailer_type_code = vehicle.trailer_type_code
-            gid = fe.construct_filename('_')
-            graphics_ids[gid] = fe
-            cargo_graphics_mapping[cargo].append(gid)
-    return (graphics_ids, cargo_graphics_mapping)
+                ge.cargo_colourset_id = body_type.cargo_colourset_id
+            ge.length = vehicle.trailer_length
+            ge.trailer_type_code = vehicle.trailer_type_code
+            ge_id = ge.construct_filename('_')
+            graphic_elements[ge_id] = ge
+            cargo_graphics_mapping[cargo].append(ge_id)
+    return (graphic_elements, cargo_graphics_mapping)
 
 
 class Trailer(object):
@@ -95,7 +95,7 @@ class Trailer(object):
         self.trailer_length = 7 #int(truck.trailer_lengths[i]) # !! commented whilst developing
         self.numeric_id = truck.numeric_id + i + 1
         self.trailer_type_code = truck.trailer_type_codes[i]
-        self.graphics_ids, self.cargo_graphics_mapping = get_graphics_stuff(self)
+        self.graphic_elements, self.cargo_graphics_mapping = get_graphics_stuff(self)
 
 
     def render(self, truck):

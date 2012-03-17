@@ -17,8 +17,9 @@ item(FEAT_ROADVEHS, ${trailer.id}, ${trailer.numeric_id}) {
         running_cost_base:              RUNNING_COST_NONE; //should be 0 for trailers
         refittable_cargo_classes:       bitmask(${truck.refittable_classes});
         non_refittable_cargo_classes:   bitmask(${truck.non_refittable_classes});
-        cargo_allow_refit:              [${truck.allowed_cargos}]; // cpp constant
-        cargo_disallow_refit:           [${truck.allowed_cargos}]; // cpp constant
+        cargo_allow_refit:              [${truck.allowed_cargos}];
+        cargo_disallow_refit:           [${truck.allowed_cargos}];
+        loading_speed:                  5;
     }
     graphics {
         //length:                THIS_TRAILER_LENGTH;

@@ -95,9 +95,8 @@ class Trailer(object):
         self.trailer_length = 7 #int(truck.trailer_lengths[i]) # !! commented whilst developing
         self.numeric_id = truck.numeric_id + i + 1
         self.trailer_type_code = truck.trailer_type_codes[i]
-        graphics_stuff = get_graphics_stuff(self)
-        self.graphics_ids = graphics_stuff[0]
-        self.cargo_graphics_mapping = graphics_stuff[1]
+        self.graphics_ids, self.cargo_graphics_mapping = get_graphics_stuff(self)
+
 
     def render(self, truck):
         template = templates['trailer_template.pynml']

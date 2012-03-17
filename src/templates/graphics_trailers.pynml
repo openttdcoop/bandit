@@ -1,6 +1,3 @@
-<!--! temporary hack - graphics file path should come from object -->
-<tal:temp define="global THIS_TRAILER_GRAPHICS_FILE string:src/graphics/trailer_test.png" />
-
 // handle graphics
 spriteset(${trailer.id}_ss_invisible, "src/graphics/empty_sprites.png") {
   spriteset_template_truck_28(0, 20) // (nml provides a way to add spriteset templates - search the project to find where they are defined)

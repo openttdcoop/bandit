@@ -6,12 +6,12 @@ gestalt_id = 'tipping_trailer'
 
 # set palette index for lightest colour of cargo; range for rest will be calculated automatically
 # when defining a new cargo, worth looking at resulting sprites in case range overflowed into wrong colours
-cargos = {
-    'COAL': 4,
-    'IORE': 77,
-    'GRAI': 67,
-    'CLAY': 117,
-    'GRVL': 22,
+cargo_colours = {
+    'black': 4,
+    'iron_ore': 77,
+    'corn_yellow': 67,
+    'clay_pink': 117,
+    'grey': 22,
 }
 
 class LoadState:
@@ -72,12 +72,12 @@ sc_pass_1 = PixaSequenceCollection(
     }
 )
 
-def get_sc_cargo(cargo, load_state):
+def get_sc_cargo(cargo_colour_id, load_state):
     # returns sequences with correct y offset for current load state
     if load_state.name == 'empty':
         cargo_colour = 19
     else:
-        cargo_colour = cargos[cargo]
+        cargo_colour = cargo_colours[cargo_colour_id]
 
     bulk_load = [
         (0, 0, cargo_colour)
@@ -115,7 +115,7 @@ def generate(filename):
         spriterow['render_passes'] = [
             {'seq': common.hide_or_show_drawbar_dolly_wheels(gv.connection_type), 'colourset': colourset},
             {'seq': sc_pass_1, 'colourset': colourset},
-            {'seq': get_sc_cargo(gv.cargo, load_state), 'colourset': colourset},
+            {'seq': get_sc_cargo(gv.cargo_colourset_id, load_state), 'colourset': colourset},
             {'seq': sc_pass_3, 'colourset': colourset},
         ]
         spriterows.append(spriterow)

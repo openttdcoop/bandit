@@ -28,15 +28,18 @@ standard_class_refits = {
   }
 }
 
+#body_types
+bt_tanker = namedtuple('colourset')
+bt_tipping = nametuple('colourset','height')
 # use the dict constructor here, normally I don't, but it makes adding cargos faster (no string quotes needed).
 # design note: small variations probably better than large ones, e.g. ['flat_large_crates','flat_small_crates'] rather than ['flat','tanker']
 cargo_body_type_mappings = dict(
-    MILK = ['tanker'],
-    OIL_ = ['tanker'],
-    RFPR = ['tanker'],
-    WATR = ['tanker'],
-    PETR = ['tanker'],
-    DYES = ['tanker'],
+    MILK = [bt_tanker('silver')],
+    OIL_ = [bt_tanker('black')],
+    RFPR = [bt_tanker('cc2')],
+    WATR = [bt_tanker('cc1')],
+    PETR = [bt_tanker('silver')],
+    DYES = [bt_tanker('cc2')],
     COAL = ['dump'],
     IORE = ['dump'],
     CLAY = ['dump'],
@@ -44,7 +47,7 @@ cargo_body_type_mappings = dict(
     STEL = ['grey_metals'],
     VEHI = ['flat'],
     ENSP = ['flat','box'],
-    BEER = ['flat','tanker','dump','logs','livestock','lowbed'], # these values for testing only
+    BEER = ['flat', bt_tanker('silver'),'dump','logs','livestock','lowbed'], # these values for testing only
 )
 
 body_type_spritesheet_y_offset_mapping = dict (

@@ -34,18 +34,22 @@ class TankBT:
         self.gestalt_id = 'tank_trailer'
         self.colourset_id = colourset_id
         self.cargo = ''
+        self.num_load_states = 1
 
 class TippingBT:
     def __init__(self, height_px, cargo_colourset_id):
         self.gestalt_id = 'tipping_trailer' + '_' + height_px
         self.cargo = 'bulk'
         self.cargo_colourset_id = cargo_colourset_id
+        self.num_load_states = 5
 
 class FlatBT:
     def __init__(self, cargo, cargo_colourset_id):
         self.gestalt_id = 'flat_trailer'
         self.cargo = 'cargo_' + cargo
         self.cargo_colourset_id = cargo_colourset_id
+        self.num_load_states = 5
+
 
 # use the dict constructor here, normally I don't, but it makes adding cargos faster (no string quotes needed).
 # design note: small variations probably better than large ones, e.g. ['flat_large_crates','flat_small_crates'] rather than ['flat','tanker']

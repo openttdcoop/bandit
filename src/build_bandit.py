@@ -81,6 +81,7 @@ def get_graphics_stuff(vehicle):
                 ge.cargo_colourset_id = body_type.cargo_colourset_id
             ge.length = vehicle.trailer_length
             ge.trailer_type_code = vehicle.trailer_type_code
+            ge.num_load_states = body_type.num_load_states
             ge_id = ge.construct_filename('_')
             graphic_elements[ge_id] = ge
             cargo_graphics_mapping[cargo].append(ge_id)

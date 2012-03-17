@@ -47,7 +47,7 @@ class Trailer(object):
         self.id = truck.id + '_trailer_' + str(i+1)
         self.trailer_capacity = int(truck.trailer_capacities[i])
         self.numeric_id = truck.numeric_id + i + 1
-        #self.trailer_type_code = truck.trailer_type_codes[i]
+        self.trailer_type_code = truck.trailer_type_codes[i]
 
     def render(self, truck):
         template = templates['trailer_template.pynml']
@@ -82,7 +82,7 @@ class Truck(object):
         self.trailer_type_codes = config.get(id, 'trailer_type_codes').split('|')
         self.buy_cost = self.get_buy_cost()
         self.run_cost_override = config.getfloat(id, 'run_cost_override')
-        self.graphics_file = global_constants.graphics_path + self.get_graphics_filename()
+        self.graphics_file = global_constants.graphics_path + self.id + '.png'
 
         # fifth wheel trucks need capacities modifying
         if self.truck_type == 'fifth_wheel_truck':
@@ -103,15 +103,6 @@ class Truck(object):
             return 12 + int((float(self.power) / float(max_power)) * 243)
         else:
             return buy_cost_override
-
-    def get_graphics_filename(self):
-        # graphics file names for trucks are automatic from id, or can be overridden
-        self.truck_graphics_file_override = config.get(self.id, 'truck_graphics_file_override')
-        if self.truck_graphics_file_override == '':
-            return self.id + '.png'
-        else:
-            return self.truck_graphics_file_override
-
 
     def modify_capacities_fifth_wheel_trucks(self):
         # fifth wheel trucks split part of the capacity of first trailer onto the truck, for TE reasons

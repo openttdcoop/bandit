@@ -64,10 +64,12 @@ class _FilenameElements(object):
         return separator.join(clean)
 
 
-def get_graphics_ids(vehicle):
+def get_graphics_stuff(vehicle):
     """ Returns a set of all the unique body types required, prevents duplication when creating spritesets/groups. """
     graphics_ids = {}
+    cargo_graphics_mapping = {}
     for cargo in global_constants.cargo_body_type_mappings:
+        cargo_graphics_mapping[cargo] = []
         for body_type in global_constants.cargo_body_type_mappings[cargo]:
             fe = _FilenameElements()
             fe.gestalt_id = body_type.gestalt_id
@@ -81,7 +83,8 @@ def get_graphics_ids(vehicle):
             fe.trailer_type_code = vehicle.trailer_type_code
             gid = fe.construct_filename('_')
             graphics_ids[gid] = fe
-    return graphics_ids
+            cargo_graphics_mapping[cargo].append(gid)
+    return (graphics_ids, cargo_graphics_mapping)
 
 
 class Trailer(object):
@@ -92,7 +95,9 @@ class Trailer(object):
         self.trailer_length = 7 #int(truck.trailer_lengths[i]) # !! commented whilst developing
         self.numeric_id = truck.numeric_id + i + 1
         self.trailer_type_code = truck.trailer_type_codes[i]
-        self.graphics_ids = get_graphics_ids(self)
+        graphics_stuff = get_graphics_stuff(self)
+        self.graphics_ids = graphics_stuff[0]
+        self.cargo_graphics_mapping = graphics_stuff[1]
 
     def render(self, truck):
         template = templates['trailer_template.pynml']

@@ -34,8 +34,8 @@ spritegroup ${trailer.id}_sg_error {
 
 <tal:build_random_switches repeat="cargo global_constants.cargo_body_type_mappings">
     random_switch (FEAT_ROADVEHS, PARENT, ${trailer.id}_cargo_body_type_switch_${cargo}) {
-        <tal:build_graphics repeat="graphic_id trailer.graphics_ids">
-        1: return ${trailer.id}_sg_${graphic_id};
+        <tal:build_graphics repeat="cargo_graphic trailer.cargo_graphics_mapping[cargo]">
+        1: return ${trailer.id}_sg_${cargo_graphic};
         </tal:build_graphics>
     }
 </tal:build_random_switches>

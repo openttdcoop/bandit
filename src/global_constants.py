@@ -29,6 +29,20 @@ standard_class_refits = {
 }
 
 #body_types
+class BoxBT:
+    def __init__(self, colourset_id):
+        self.gestalt_id = 'box_trailer'
+        self.colourset_id = colourset_id
+        self.cargo = ''
+        self.num_load_states = 1
+
+class FlatBT:
+    def __init__(self, cargo, cargo_colourset_id):
+        self.gestalt_id = 'flat_trailer'
+        self.cargo = 'cargo_' + cargo
+        self.cargo_colourset_id = cargo_colourset_id
+        self.num_load_states = 5
+
 class TankBT:
     def __init__(self, colourset_id):
         self.gestalt_id = 'tank_trailer'
@@ -43,12 +57,6 @@ class TippingBT:
         self.cargo_colourset_id = cargo_colourset_id
         self.num_load_states = 5
 
-class FlatBT:
-    def __init__(self, cargo, cargo_colourset_id):
-        self.gestalt_id = 'flat_trailer'
-        self.cargo = 'cargo_' + cargo
-        self.cargo_colourset_id = cargo_colourset_id
-        self.num_load_states = 5
 
 
 # use the dict constructor here, normally I don't, but it makes adding cargos faster (no string quotes needed).
@@ -66,7 +74,7 @@ cargo_body_type_mappings = dict(
     DYES = [TankBT('cc2')],
     ENSP = [FlatBT('coils','white')],
     FICR = [FlatBT('coils','white')],
-    FISH = [FlatBT('coils','white')],
+    FISH = [BoxBT('cc1')],
     FMSP = [FlatBT('coils','white')],
     FOOD = [FlatBT('coils','white')],
     FRVG = [FlatBT('coils','white')],

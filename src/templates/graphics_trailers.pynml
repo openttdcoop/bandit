@@ -17,9 +17,18 @@ spritegroup ${trailer.id}_sg_error {
     loading: [${trailer.id}_ss_error];
 }
 
+spriteset(${trailer.id}_ss_default_box, "${generated_images_path}box_trailer-0_2-cc1-7_8.png") {
+  spriteset_template_truck_28(0, 10) // (nml provides a way to add spriteset templates - search the project to find where they are defined)
+}
+
+spritegroup ${trailer.id}_sg_default_box {
+    loaded:  [${trailer.id}_ss_default_box];
+    loading: [${trailer.id}_ss_default_box];
+}
+
 
 <tal:build_graphics repeat="graphic_id trailer.graphic_elements">
-    <tal:build_spritesets define="filename 'src/pixel_generator/output/' + trailer.graphic_elements[graphic_id].construct_filename('-') + '.png'"
+    <tal:build_spritesets define="filename generated_images_path + trailer.graphic_elements[graphic_id].construct_filename('-') + '.png'"
                           repeat="load_state range(trailer.graphic_elements[graphic_id].num_load_states)"
     >
     spriteset(${trailer.id}_ss_${graphic_id}_${load_state}, "${filename}") {
@@ -54,7 +63,7 @@ switch (FEAT_ROADVEHS, SELF, ${trailer.id}_cargo_switch, cargo_type_in_veh) {
     <tal:build_cargo_mapping_repeat repeat="cargo global_constants.cargo_body_type_mappings">
     ${cargo}: return ${trailer.id}_cargo_body_type_switch_${cargo};
     </tal:build_cargo_mapping_repeat>
-    return ${trailer.id}_sg_error;
+    return ${trailer.id}_sg_default_box;
 }
 
 

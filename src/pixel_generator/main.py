@@ -64,6 +64,7 @@ cargo_filenames = [
 ]
 
 trailer_filenames = [
+    'box_trailer-0_2-cc1-7_8.png',
     'tipping_trailer_4px-0_2-cc1-7_8-bulk-corn_yellow.png',
     'tipping_trailer_4px-0_2-cc2-7_8-bulk-corn_yellow.png',
     'tipping_trailer_4px-0_2-light_grey-7_8-bulk-corn_yellow.png',

@@ -127,7 +127,7 @@ class Truck(object):
         self.smoke_offset = config.getint(id, 'smoke_offset')
         self.num_trailers = config.getint(id, 'num_trailers')
         self.truck_capacity = config.getint(id, 'truck_capacity')
-        self.truck_length = config.getint(id, 'truck_length')
+        self.truck_cab_length, self.truck_total_length = [int(i) for i in config.get(id, 'truck_length_cab_total').split('|')]
         self.trailer_capacities = config_option_to_list_of_ints(config.get(id, 'trailer_capacities'))
         self.trailer_lengths = config_option_to_list_of_ints(config.get(id, 'trailer_lengths'))
         self.trailer_type_codes = config.get(id, 'trailer_type_codes').split('|')
@@ -169,10 +169,16 @@ class Truck(object):
             return int(0.5 * self.power)
         else:
             return self.run_cost_override
+    def get_length(self):
+        # returns the length to use in game
+        if self.truck_type == 'fifth_wheel_truck':
+            return self.truck_cab_length
+        else:
+            return self.truck_total_length
 
     def get_consist_weight(self, num_trailers=0):
         # get the sum of unladen weight of truck and trailers; use num_trailers to exclude invisible trailers according to refit option
-        weight = self.truck_length * global_constants.weight_factors[self.extra_type_info]
+        weight = self.truck_total_length * global_constants.weight_factors[self.extra_type_info]
         for i in range(num_trailers):
             weight = weight + (self.trailer_lengths[i] * global_constants.weight_factors[self.extra_type_info])
         return int(round(weight * 4)) # RV weight property dimension is 1/4 tons - NML can't handle absolute weights in cb at time of writing
@@ -186,10 +192,11 @@ class Truck(object):
     def get_te_coefficient(self, num_trailers=0):
         # if default RV te_coefficient is used, TE may be too high as total consist weight is stored on first vehicle
         # this adjusts te_coefficient to reflect that weight of lead vehicle only should be used to calculate TE
-        default_te_coefficient = 0.3 * 255
-        total_weight = self.get_consist_weight(num_trailers=num_trailers)
-        truck_weight = self.get_consist_weight(num_trailers=0)
-        adjusted_te_coefficient = default_te_coefficient / (float(total_weight) / float(truck_weight))
+        total_weight = float(self.get_consist_weight(num_trailers=num_trailers)) / 4
+        truck_weight = float(self.get_consist_weight(num_trailers=0)) / 4
+        total_te = 3 * truck_weight
+        adjusted_te_coefficient = 255 * 0.1 * ((1.0 * total_te) / total_weight)
+        print self.title, 'total weight:', total_weight, ' truck_weight: ', truck_weight
         return int(adjusted_te_coefficient)
 
     @classmethod

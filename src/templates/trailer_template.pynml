@@ -22,7 +22,7 @@ item(FEAT_ROADVEHS, ${trailer.id}, ${trailer.numeric_id}) {
         loading_speed:                  5;
     }
     graphics {
-        //length:                THIS_TRAILER_LENGTH;
+        //length:                       THIS_TRAILER_LENGTH;
         cargo_capacity:                 ${trailer.id}_cap_cb_switch;
         purchase_cargo_capacity:        0;
         cargo_subtype_text:             ${truck.id}_switch_cargo_subtype;

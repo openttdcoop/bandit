@@ -68,7 +68,7 @@ item(FEAT_ROADVEHS, ${vehicle.id}, ${vehicle.numeric_id}) {
         vehicle_life:                   ${vehicle.vehicle_life};
     }
     graphics {
-        length:                         ${vehicle.truck_length};
+        length:                         ${vehicle.get_length()};
         weight:                         ${vehicle.id}_switch_consist_weight;
         tractive_effort_coefficient:    ${vehicle.id}_switch_te_coefficient;
         purchase_cargo_capacity:        ${vehicle.get_total_consist_capacity()};

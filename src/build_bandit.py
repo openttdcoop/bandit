@@ -178,9 +178,11 @@ class Truck(object):
 
     def get_consist_weight(self, num_trailers=0):
         # get the sum of unladen weight of truck and trailers; use num_trailers to exclude invisible trailers according to refit option
-        weight = self.truck_total_length * global_constants.weight_factors[self.extra_type_info]
+        cab_weight = self.truck_cab_length * global_constants.cab_weight_factors[self.extra_type_info]
+        body_chassis_weight = (self.truck_total_length - self.truck_cab_length) * global_constants.chassis_body_weight_factors[self.extra_type_info]
+        weight = cab_weight + body_chassis_weight
         for i in range(num_trailers):
-            weight = weight + (self.trailer_lengths[i] * global_constants.weight_factors[self.extra_type_info])
+            weight = weight + (self.trailer_lengths[i] * global_constants.chassis_body_weight_factors[self.extra_type_info])
         return int(round(weight * 4)) # RV weight property dimension is 1/4 tons - NML can't handle absolute weights in cb at time of writing
 
     def get_total_consist_capacity(self):
@@ -194,6 +196,9 @@ class Truck(object):
         # this adjusts te_coefficient to reflect that weight of lead vehicle only should be used to calculate TE
         total_weight = float(self.get_consist_weight(num_trailers=num_trailers)) / 4
         truck_weight = float(self.get_consist_weight(num_trailers=0)) / 4
+        if self.truck_type == 'fifth_wheel':
+            first_trailer_nominal_weight = self.trailer_lengths[0] * global_constants.weight_factors[self.extra_type_info]
+            truck_weight = truck_weight + (first_trailer_nominal_weight * global_constants.fifth_wheel_truck_quota)
         total_te = 3 * truck_weight
         adjusted_te_coefficient = 255 * 0.1 * ((1.0 * total_te) / total_weight)
         print self.title, 'total weight:', total_weight, ' truck_weight: ', truck_weight

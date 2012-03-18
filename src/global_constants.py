@@ -113,13 +113,21 @@ body_type_spritesheet_y_offset_mapping = dict (
 
 
 #map truck weight factors to extra_type_info
-weight_factors = dict (
+cab_weight_factors = dict (
     EXPRESS_TRUCK              = 0.8,
-    EXPRESS_TRUCK_LONG_HAUL    = 1,
+    EXPRESS_TRUCK_LONG_HAUL    = 1.1,
     GENERAL_PURPOSE            = 1,
     GENERAL_PURPOSE_LONG_HAUL  = 1.2,
+    HEAVY_DUTY                 = 1.3,
+    HEAVY_DUTY_LONG_HAUL       = 1.5,
+)
+chassis_body_weight_factors = dict (
+    EXPRESS_TRUCK              = 0.8,
+    EXPRESS_TRUCK_LONG_HAUL    = 0.8,
+    GENERAL_PURPOSE            = 1,
+    GENERAL_PURPOSE_LONG_HAUL  = 1,
     HEAVY_DUTY                 = 1.4,
-    HEAVY_DUTY_LONG_HAUL       = 1.6,
+    HEAVY_DUTY_LONG_HAUL       = 1.4,
 )
 
 graphics_path = 'src/graphics/' # this is for nml, don't need to use python path module here

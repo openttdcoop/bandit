@@ -17,14 +17,6 @@ standard_class_refits = {
   'default' : {
         'allow'    : 'CC_MAIL, CC_EXPRESS, CC_ARMOURED, CC_BULK, CC_PIECE_GOODS,CC_LIQUID, CC_REFRIGERATED, CC_COVERED,',
         'disallow' : 'CC_PASSENGERS',
-  },
-  'express' : {
-        'allow'    : 'CC_EXPRESS',
-        'disallow' : 'CC_PASSENGERS',
-  },
-  'heavy_duty' : {
-        'allow'    : 'CC_BULK',
-        'disallow' : 'CC_PASSENGERS',
   }
 }
 
@@ -114,20 +106,14 @@ body_type_spritesheet_y_offset_mapping = dict (
 
 #map truck weight factors to extra_type_info
 cab_weight_factors = dict (
-    EXPRESS_TRUCK              = 0.8,
-    EXPRESS_TRUCK_LONG_HAUL    = 1.1,
-    GENERAL_PURPOSE            = 1,
-    GENERAL_PURPOSE_LONG_HAUL  = 1.2,
-    HEAVY_DUTY                 = 1.3,
-    HEAVY_DUTY_LONG_HAUL       = 1.5,
+    local         = 0.8,
+    line_haul     = 1,
+    special_duty  = 0.8,
 )
 chassis_body_weight_factors = dict (
-    EXPRESS_TRUCK              = 0.8,
-    EXPRESS_TRUCK_LONG_HAUL    = 0.8,
-    GENERAL_PURPOSE            = 1,
-    GENERAL_PURPOSE_LONG_HAUL  = 1,
-    HEAVY_DUTY                 = 1.4,
-    HEAVY_DUTY_LONG_HAUL       = 1.4,
+    local         = 0.8,
+    line_haul     = 1,
+    special_duty  = 1.2,
 )
 
 graphics_path = 'src/graphics/' # this is for nml, don't need to use python path module here

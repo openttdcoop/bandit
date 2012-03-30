@@ -11,12 +11,9 @@ STR_CARGO_REFIT_1_TRAILER                                       :(1 trailer)
 STR_CARGO_REFIT_2_TRAILERS                                      :(2 trailers)
 STR_CARGO_REFIT_3_TRAILERS                                      :(3 trailers)
 
-STR_EXPRESS_TRUCK                                               :Truck type: {GOLD}Express{}
-STR_EXPRESS_TRUCK_LONG_HAUL                                     :Truck type: {GOLD}Express (Long Haul){}
-STR_GENERAL_PURPOSE                                             :Truck type: {GOLD}General Purpose{}
-STR_GENERAL_PURPOSE_LONG_HAUL                                   :Truck type: {GOLD}General Purpose (Long Haul){}
-STR_HEAVY_DUTY                                                  :Truck type: {GOLD}Heavy Duty{}
-STR_HEAVY_DUTY_LONG_HAUL                                        :Truck type: {GOLD}Heavy Duty (Long Haul){}
+STR_local                                                       :Truck type: {GOLD}Local{}
+STR_line_haul                                                   :Truck type: {GOLD}Line-haul{}
+STR_special_duty                                                :Truck type: {GOLD}Special Duty{}
 
 STR_BUY_MENU_TEXT                                               :{STRING}{STRING}
 STR_BUY_MENU_CONSIST_INFO                                       :{BLACK}Can be refitted to haul:{}{GOLD}{STRING}{STRING}

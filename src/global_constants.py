@@ -71,6 +71,7 @@ cargo_body_type_mappings = dict(
     FOOD = [FlatBT('coils','white')],
     FRVG = [FlatBT('coils','white')],
     FRUT = [FlatBT('coils','white')],
+    GOOD = [BoxBT('cc1')],
     GRAI = [TippingBT('4px','corn_yellow')],
     GRVL = [TippingBT('4px','grey')],
     IORE = [TippingBT('4px','iron_ore')],

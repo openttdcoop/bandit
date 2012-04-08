@@ -121,18 +121,19 @@ trailer_filenames = [
     'flat_trailer-2_2-cc2-7_8-cargo_tarps-cc2.png',
 ]
 
-filenames = trailer_filenames
-#filenames.extend(cargo_filenames)
+def make_sprites(filenames):
+    # check for __main__ because fork bombs are bad
+    if __name__ == '__main__':
+        for filename in filenames:
+            Process(target=dispatcher.dispatch, args=(filename,)).start()
 
-# check for __main__ because fork bombs are bad
-if __name__ == '__main__':
-    for filename in filenames:
-        Process(target=dispatcher.dispatch, args=(filename,)).start()
+    # dirty way to wait until all processes are complete before moving on
+    while True:
+        time.sleep(0.027) # 0.027 because it's a reference to TTD ticks :P (blame Rubidium)
+        if len(active_children()) == 0:
+            break
 
-# dirty way to wait until all processes are complete before moving on
-while True:
-    time.sleep(0.027) # 0.027 because it's a reference to TTD ticks :P (blame Rubidium)
-    if len(active_children()) == 0:
-        break
+make_sprites(cargo_filenames)
+make_sprites(trailer_filenames)
 
 print "done"

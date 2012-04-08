@@ -92,14 +92,16 @@ def construct_filename(gestalt_id, variation):
     return '_'.join(clean) + '.png'
 
 
-def get_output_path(filename):
-    """ Simple path maker, to deal with OS path. Expects a filename.  Currently hard coded to use 'output' dir. """
-    return os.path.join(currentdir, 'output', filename)
+def get_output_path(filename, destination_dir='output'):
+    """ Simple path maker, to deal with OS path. Expects a filename.
+        Destination dir is optional, default will be used if not specified.
+    """
+    return os.path.join(currentdir, destination_dir, filename)
 
 # constants
 SPRITEROW_HEIGHT = 40
 DOS_PALETTE = Image.open('palette_key.png').palette
-CARGO_IMAGES_PATH = os.path.join(currentdir, 'cargo_example_output')
+INTERMEDIATES_PATH = os.path.join(currentdir, 'intermediates')
 CARGO_SPRITE_WIDTH = 280
 
 # colour defaults

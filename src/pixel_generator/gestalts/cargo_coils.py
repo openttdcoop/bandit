@@ -81,52 +81,5 @@ def generate(filename):
         spriterows.append(spriterow)
 
     spritesheet.render(spriterows=spriterows)
-    output_path = common.get_output_path(gv.filename + '.png')
+    output_path = common.get_output_path(gv.filename + '.png', common.INTERMEDIATES_PATH)
     spritesheet.save(output_path)
-
-
-"""
-def create_all_filenames(input_image_path):
-    floorplan = Image.open(input_image_path)
-    # get a palette
-    palette = Image.open('palette_key.png').palette
-    # create variations containing empty spritesheets
-    variations = []
-    manifest_payload = []
-    for cargo in cargos:
-        for i in range(7):
-            length = 8 - i # don't bother generating 1/8 long cargo sprites
-            # coloursets for these cargos are derived from the cargo and don't need storing on the Variation
-            variation = common.Variation(set_name=None, colourset=None, cargo=cargo, length=length, connection_type='')
-            # slice out the floorplan needed for this variation
-            start_y = FLOORPLAN_START_Y + (i * common.SPRITEROW_HEIGHT)
-            variation.attach_floorplan(floorplan.copy().crop((0, start_y, floorplan.size[0], start_y + common.SPRITEROW_HEIGHT)))
-            spritesheet = Spritesheet(
-                width=variation.floorplan.size[0],
-                height=common.SPRITEROW_HEIGHT * (len(load_states)),
-                palette=palette
-            )
-            variation.spritesheets.append(spritesheet)
-            variations.append(variation)
-
-    # render stage
-    for variation in variations:
-        for spritesheet in variation.spritesheets:
-            spriterows = []
-            for load_state in load_states:
-                # spriterow holds data needed to render the row
-                spriterow = {'height' : common.SPRITEROW_HEIGHT, 'floorplan' : variation.floorplan}
-                # add n render passes to the spriterow (list controls render order, index 0 = first pass)
-                spriterow['render_passes'] = [
-                    #{'seq' : sc_mask_out_template_guides, 'colourset' : None},
-                    {'seq' : get_load_sequence(variation.cargo, load_state), 'colourset' : None},
-                ]
-                spriterows.append(spriterow)
-            spritesheet.render(spriterows=spriterows)
-            output_path = common.get_output_path(common.construct_filename(gestalt_id, variation))
-            print output_path
-            spritesheet.save(output_path)
-            manifest_payload.append(output_path)
-
-    (gestalt_id, manifest_payload)
-"""

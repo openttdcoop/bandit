@@ -63,28 +63,6 @@ cargo_filenames = [
     'cargo_tarps-greenish-8_8.png',
 ]
 
-body_filenames = [
-    'body_box-cc1-7_8.png',
-    'body_box-cc2-7_8.png',
-    'body_box-light_grey-7_8.png',
-    'body_tipping_4px-cc1-7_8-bulk-corn_yellow.png',
-    'body_tipping_4px-cc2-7_8-bulk-corn_yellow.png',
-    'body_tipping_4px-light_grey-7_8-bulk-corn_yellow.png',
-    'body_tank-cc1-7_8.png',
-    'body_tank-silver-7_8.png',
-    'body_flat-cc1-7_8-cargo_coils-grey_metal.png',
-    'body_flat-cc2-7_8-cargo_coils-white.png',
-    'body_flat-cc2-7_8-cargo_tarps-pinkish.png',
-    'body_flat-cc2-7_8-cargo_tarps-greenish.png',
-]
-
-trailer_filenames_test = [
-    'trailer-0_2-body_box-cc1-7_8.png',
-    'trailer-0_2-body_tipping_4px-cc1-7_8-bulk-corn_yellow.png',
-    'trailer-2_2-body_tank-cc1-7_8.png',
-    'trailer-2_2-body_flat-cc1-7_8-cargo_coils-grey_metal.png',
-]
-
 trailer_filenames = [
     'trailer-0_2-body_box-cc1-7_8.png',
     'trailer-0_2-body_tipping_4px-cc1-7_8-bulk-corn_yellow.png',
@@ -143,6 +121,10 @@ trailer_filenames = [
     'trailer-2_2-body_flat-cc2-7_8-cargo_tarps-cc2.png',
 ]
 
+body_filenames = []
+for i in trailer_filenames:
+    body_filenames.append('body_' + i.split('body_')[1])
+
 def make_sprites(filenames):
     # check for __main__ because fork bombs are bad
     if __name__ == '__main__':
@@ -155,8 +137,8 @@ def make_sprites(filenames):
         if len(active_children()) == 0:
             break
 
-#make_sprites(cargo_filenames)
-#make_sprites(body_filenames)
-make_sprites(trailer_filenames_test)
+make_sprites(cargo_filenames)
+make_sprites(body_filenames)
+make_sprites(trailer_filenames)
 
 print "done"

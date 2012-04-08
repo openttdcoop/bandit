@@ -3,7 +3,7 @@ import Image
 import common
 
 gestalt_id = 'tipping_trailer'
-floorplan_filename = 'tipping_trailer_floorplan.png'
+floorplan_filename = 'tipping_body_floorplan.png'
 
 # set palette index for lightest colour of cargo; range for rest will be calculated automatically
 # when defining a new cargo, worth looking at resulting sprites in case range overflowed into wrong colours

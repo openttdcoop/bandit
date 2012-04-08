@@ -3,7 +3,7 @@ import Image
 import common
 
 gestalt_id = 'box_trailer'
-floorplan_filename = 'box_trailer_floorplan.png'
+floorplan_filename = 'box_body_floorplan.png'
 
 # colour sets
 coloursets = {

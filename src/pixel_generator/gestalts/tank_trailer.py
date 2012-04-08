@@ -3,7 +3,7 @@ import Image
 import common
 
 gestalt_id = 'tank_trailer'
-floorplan_filename = 'tank_trailer_floorplan.png'
+floorplan_filename = 'tank_body_floorplan.png'
 
 # colour sets
 coloursets = {

@@ -1,4 +1,5 @@
-from pixa import PixaColour, PixaSequence, PixaSequenceCollection, PixaShiftColour, PixaShiftDY, PixaMaskColour, Spritesheet
+from pixa import PixaColour, PixaSequence, PixaSequenceCollection, PixaShiftColour, PixaShiftDY, PixaMaskColour
+from pixa import Spritesheet
 import Image
 import common
 
@@ -101,7 +102,7 @@ sc_pass_3 = PixaSequenceCollection(
 
 def generate(filename):
     gv = common.GestaltBodyVariation(filename)
-    floorplan = common.get_trailer_floorplan(gv, floorplan_filename)
+    floorplan = common.get_gestalt_floorplan(gv, floorplan_filename)
     spritesheet = common.make_spritesheet(floorplan, row_count=(len(load_states)))
 
     spriterows = []

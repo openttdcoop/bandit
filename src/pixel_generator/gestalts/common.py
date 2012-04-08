@@ -47,25 +47,18 @@ class GestaltBodyVariation:
         else:
             self.cargo_colourset_id = None
 
+    'trailer-0_2-body_box-cc1-7_8.png',
+
 class GestaltTrailerVariation:
     def __init__(self, filename):
         self.filename = filename.split('.png')[0]
         self._parts = self.filename.split('-')
-        self.connection_type = self._parts[0].split('trailer_')[0]
-        print self.connection_type
-        self.gestalt_full_id = self._parts[1]
-        self.colourset_id = self._parts[2]
-        self.length = self._parts[3]
+        self.chassis_type = self._parts[1]
+        self.body_type = self._parts[2]
+        self.length = self._parts[4]
         self.floorplan_start_y = floorplan_start_y_per_length[self.length]
-        if len(self._parts) > 4:
-            self.cargo = self._parts[4]
-        else:
-            self.cargo = None
-        if len(self._parts) > 5:
-            self.cargo_colourset_id = self._parts[5]
-        else:
-            self.cargo_colourset_id = None
-
+        self.floorplan_filename = os.path.join('chassis', self.chassis_type + '.png')
+        self.body_path = os.path.join(INTERMEDIATES_PATH, 'body_' + filename.split('body_')[1])
 
 class Variation:
     def __init__(self, set_name, colourset, cargo, connection_type, length, body_subtype=''):
@@ -81,7 +74,7 @@ class Variation:
         self.floorplan = floorplan
 
 
-def get_trailer_floorplan(gv, floorplan_filename):
+def get_gestalt_floorplan(gv, floorplan_filename):
     floorplan = Image.open(os.path.join(currentdir, 'input', floorplan_filename))
     # slice out the floorplan needed for this gestalt
     return floorplan.crop((0, gv.floorplan_start_y, floorplan.size[0], gv.floorplan_start_y + SPRITEROW_HEIGHT))
@@ -120,6 +113,7 @@ SPRITEROW_HEIGHT = 40
 DOS_PALETTE = Image.open('palette_key.png').palette
 INTERMEDIATES_PATH = os.path.join(currentdir, 'intermediates')
 CARGO_SPRITE_WIDTH = 280
+BODY_SPRITE_WIDTH = 280
 
 # colour defaults
 CC1 = 202

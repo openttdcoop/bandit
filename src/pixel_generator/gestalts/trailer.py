@@ -1,80 +1,50 @@
-from pixa import PixaColour, PixaSequence, PixaSequenceCollection, PixaShiftColour, PixaShiftDY, PixaMaskColour, Spritesheet
+from pixa import PixaColour, PixaSequence, PixaSequenceCollection, PixaShiftColour, PixaShiftDY, PixaMaskColour
+from pixa import Spritesheet, PixaImageLoader
 import Image
 import common
 
-gestalt_id = 'box_trailer'
-floorplan_filename = 'box_body_floorplan.png'
+gestalt_id = 'trailer'
 
-# colour sets
-coloursets = {
-    'light_grey': dict (body_colour = 10, stripe_colour = common.CC1),
-    'cc1': dict (body_colour = common.CC1, stripe_colour = 10),
-    'cc2': dict (body_colour = common.CC2, stripe_colour = 10),
+load_state_ranges = {
+    'body_tipping':5,
+    'body_flat':5,
+    'body_box':1,
+    'body_tank':1,
 }
-# colours
-pc_body = PixaColour(name='body_colour', default=10)
-pc_stripe = PixaColour(name='stripe_colour', default=common.CC1)
 
-# pixel sequences
-# x,y,colour (or colour object with optional shift)
-body_outer = [
-    (0, 0, pc_body()),
-    (0, -1, pc_stripe()),
-    (0, -2, pc_body()),
-    (0, -3, pc_body()),
-    (0, -4, 13),
-]
-body_end = [
-    (0, 0, pc_body()),
-    (0, -1, pc_stripe()),
-    (0, -2, pc_body()),
-    (0, -3, pc_body()),
-    (0, -4, 13),
-]
-body_inner = [
-    (0, 0, 16),
-    (0, -1, 17),
-    (0, -2, 18),
-    (0, -3, 19),
-    (0, -4, 14),
-]
-roof = [
-    (0, -4, pc_stripe())
-]
+def get_body(body_path, row_num):
+    body_loader = PixaImageLoader(mask=(0,255))
+    crop_start_y = (row_num) * common.SPRITEROW_HEIGHT
+    crop_end_y = crop_start_y + common.SPRITEROW_HEIGHT
+    crop_box = (0, crop_start_y, common.BODY_SPRITE_WIDTH, crop_end_y)
+    body = body_loader.make_points(body_path, crop_box, origin=(0, 9))
+    return PixaSequenceCollection(
+        sequences = {
+            226 : PixaSequence(points = body),
+        }
+    )
 
-# sequence collections
-sc_pass_1 = PixaSequenceCollection(
-    sequences = {
-         94 : PixaSequence(points = body_inner),
-         93 : PixaSequence(points = body_inner, transforms = [PixaShiftColour(0, 255, 1)]),
-        141 : PixaSequence(points = roof, transforms = [PixaShiftColour(0, 255, 2)]),
-        140 : PixaSequence(points = roof, transforms = [PixaShiftColour(0, 255, 2)]),
-        139 : PixaSequence(points = roof, transforms = [PixaShiftColour(0, 255, 2)]),
-        138 : PixaSequence(points = roof, transforms = [PixaShiftColour(0, 255, 2)]),
-        197 : PixaSequence(points = body_outer, transforms = [PixaShiftColour(0, 255, 2)]),
-        195 : PixaSequence(points = body_outer),
-        194 : PixaSequence(points = body_outer, transforms = [PixaShiftColour(0, 255, -1)]),
-        167 : PixaSequence(points = body_end, transforms = [PixaShiftColour(0, 255, 1)]),
-        165 : PixaSequence(points = body_end, transforms = [PixaShiftColour(0, 255, -1)]),
-    }
-)
 
 def generate(filename):
     gv = common.GestaltTrailerVariation(filename)
-    floorplan = common.get_trailer_floorplan(gv, floorplan_filename)
-    spritesheet = common.make_spritesheet(floorplan, row_count=1)
+    floorplan = common.get_gestalt_floorplan(gv, gv.floorplan_filename)
+
+    # use partial matching as body_type strings can include extra gestalt subtype information
+    for i in load_state_ranges:
+        if i in gv.body_type:
+            num_load_states = load_state_ranges[i]
+
+    spritesheet = common.make_spritesheet(floorplan, row_count=num_load_states)
 
     spriterows = []
-    # spriterow holds data needed to render the row
-    # only one spriterow for tank trailers; only one load state needed
-    spriterow = {'height' : common.SPRITEROW_HEIGHT, 'floorplan' : floorplan}
-    # add n render passes to the spriterow (list controls render order, index 0 = first pass)
-    colourset = coloursets[gv.colourset_id]
-    spriterow['render_passes'] = [
-        {'seq' : common.hide_or_show_drawbar_dolly_wheels(gv.connection_type), 'colourset' : colourset},
-        {'seq' : sc_pass_1, 'colourset' : colourset},
-    ]
-    spriterows.append(spriterow)
+    for row_num in range(num_load_states):
+        # spriterow holds data needed to render the row
+        spriterow = {'height': common.SPRITEROW_HEIGHT, 'floorplan': floorplan}
+        # add n render passes to the spriterow (list controls render order, index 0 = first pass)
+        spriterow['render_passes'] = [
+            {'seq': get_body(gv.body_path, row_num), 'colourset': None},
+        ]
+        spriterows.append(spriterow)
 
     spritesheet.render(spriterows=spriterows)
     output_path = common.get_output_path(gv.filename + '.png')

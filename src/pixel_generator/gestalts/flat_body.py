@@ -1,4 +1,5 @@
-from pixa import PixaColour, PixaSequence, PixaSequenceCollection, PixaShiftColour, PixaShiftDY, PixaMaskColour, Spritesheet, PixaImageLoader
+from pixa import PixaColour, PixaSequence, PixaSequenceCollection, PixaShiftColour, PixaShiftDY, PixaMaskColour
+from pixa import Spritesheet, PixaImageLoader
 import Image
 import common
 import os.path
@@ -77,7 +78,7 @@ def get_cargo_load(cargo_path, load_state, increment):
 
 def generate(filename):
     gv = common.GestaltBodyVariation(filename)
-    floorplan = common.get_trailer_floorplan(gv, floorplan_filename)
+    floorplan = common.get_gestalt_floorplan(gv, floorplan_filename)
     spritesheet = common.make_spritesheet(floorplan, row_count=(len(load_states)))
     cargo_filename = gv.cargo + '-' + gv.cargo_colourset_id + '-' + gv.length + '.png'
     print cargo_filename

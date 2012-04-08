@@ -12,6 +12,8 @@ from gestalts import flat_body
 from gestalts import tank_body
 from gestalts import tipping_body
 
+from gestalts import trailer
+
 gestalt_patterns = {
     'cargo_coils': cargo_coils,
     'cargo_tarps': cargo_tarps,
@@ -19,6 +21,7 @@ gestalt_patterns = {
     'body_flat': flat_body,
     'body_tank': tank_body,
     'body_tipping': tipping_body,
+    'trailer': trailer,
 }
 
 def dispatch(filename):

@@ -129,6 +129,7 @@ COL_MASK = 0
 #
 floorplan_start_y_per_length = {
     '7_8': 50,
+    '5_8': 130,
 }
 
 

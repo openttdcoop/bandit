@@ -8,10 +8,12 @@ gestalt_id = 'trailer'
 
 def get_body(body_path, row_num):
     body_loader = PixaImageLoader(mask=(0,255))
+
     crop_start_y = (row_num) * common.SPRITEROW_HEIGHT
     crop_end_y = crop_start_y + common.SPRITEROW_HEIGHT
     crop_box = (0, crop_start_y, common.BODY_SPRITE_WIDTH, crop_end_y)
     body = body_loader.make_points(body_path, crop_box, origin=(0, 9))
+
     return PixaSequenceCollection(
         sequences = {226: PixaSequence(points = body)}
     )

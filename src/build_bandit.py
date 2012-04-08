@@ -72,19 +72,25 @@ class _GraphicsElements(object):
 
 def get_graphics_stuff(vehicle):
     """ Returns a set of all the unique body types required, prevents duplication when creating spritesets/groups. """
+    # !! specific to trailers currently.  Can be made generic to trucks when needed (by passing in the trailer/truck specific stuff)
+
     graphic_elements = {}
     cargo_graphics_mapping = {}
+
     for cargo in global_constants.cargo_body_type_mappings:
         cargo_graphics_mapping[cargo] = []
+
         for body_type in global_constants.cargo_body_type_mappings[cargo]:
             ge = _GraphicsElements()
             ge.gestalt_id = body_type.gestalt_id
+
             if hasattr(body_type, 'cargo'):
                 ge.cargo = body_type.cargo
             if hasattr(body_type, 'colourset_id'):
                 ge.colourset_id = body_type.colourset_id
             if hasattr(body_type, 'cargo_colourset_id'):
                 ge.cargo_colourset_id = body_type.cargo_colourset_id
+
             ge.length = vehicle.trailer_length
             ge.trailer_type_code = vehicle.trailer_type_code
             ge.num_load_states = body_type.num_load_states

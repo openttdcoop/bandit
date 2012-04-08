@@ -65,7 +65,7 @@ cargo_filenames = [
     'cargo_tarps-greenish-8_8.png',
 ]
 
-trailer_filenames = [
+trailer_filenames_old = [
     'trailer-0_2-body_box-cc1-7_8.png',
     'trailer-0_2-body_tipping_4px-cc1-7_8-bulk-corn_yellow.png',
     'trailer-0_2-body_tipping_4px-cc2-7_8-bulk-corn_yellow.png',
@@ -105,6 +105,7 @@ trailer_filenames = [
     'trailer-0_2-body_tank-black-7_8.png',
     'trailer-2_2-body_tank-silver-7_8.png',
     'trailer-0_2-body_tank-silver-7_8.png',
+    'trailer-2_2-body_flat-cc1-5_8-cargo_coils-grey_metal.png',
     'trailer-2_2-body_flat-cc1-7_8-cargo_coils-grey_metal.png',
     'trailer-0_2-body_flat-cc1-7_8-cargo_coils-grey_metal.png',
     'trailer-2_2-body_flat-cc1-7_8-cargo_coils-grey_metal.png',
@@ -121,6 +122,13 @@ trailer_filenames = [
     'trailer-2_2-body_flat-cc2-7_8-cargo_tarps-cc1.png',
     'trailer-0_2-body_flat-cc2-7_8-cargo_tarps-cc2.png',
     'trailer-2_2-body_flat-cc2-7_8-cargo_tarps-cc2.png',
+]
+
+trailer_filenames = [
+    'trailer-0_2-body_tank-silver-5_8.png',
+    'trailer-0_2-body_flat-cc1-5_8-cargo_coils-grey_metal.png',
+    'trailer-0_2-body_tipping_4px-light_grey-5_8-bulk-grey.png',
+    'trailer-0_2-body_box-cc1-5_8.png',
 ]
 
 # generate body filenames as dependencies from trailer filenames

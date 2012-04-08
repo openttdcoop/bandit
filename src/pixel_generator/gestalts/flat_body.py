@@ -76,7 +76,7 @@ def get_cargo_load(cargo_path, load_state, increment):
 
 
 def generate(filename):
-    gv = common.GestaltTrailerVariation(filename)
+    gv = common.GestaltBodyVariation(filename)
     floorplan = common.get_trailer_floorplan(gv, floorplan_filename)
     spritesheet = common.make_spritesheet(floorplan, row_count=(len(load_states)))
     cargo_filename = gv.cargo + '-' + gv.cargo_colourset_id + '-' + gv.length + '.png'
@@ -90,7 +90,6 @@ def generate(filename):
         # add n render passes to the spriterow (list controls render order, index 0 = first pass)
         colourset = coloursets[gv.colourset_id]
         spriterow['render_passes'] = [
-            {'seq': common.hide_or_show_drawbar_dolly_wheels(gv.connection_type), 'colourset': colourset},
             {'seq': sc_body_pass_1, 'colourset': colourset},
             {'seq': get_cargo_load(cargo_path, load_state, i), 'colourset': None},
             {'seq': sc_body_pass_2, 'colourset': colourset},
@@ -98,5 +97,5 @@ def generate(filename):
         spriterows.append(spriterow)
 
     spritesheet.render(spriterows=spriterows)
-    output_path = common.get_output_path(gv.filename + '.png')
+    output_path = common.get_output_path(gv.filename + '.png', common.INTERMEDIATES_PATH)
     spritesheet.save(output_path)

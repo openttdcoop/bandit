@@ -30,13 +30,30 @@ class GestaltCargoVariation:
         self.colourset_id = self._parts[1]
         self.length = self._parts[2]
 
+class GestaltBodyVariation:
+    def __init__(self, filename):
+        self.filename = filename.split('.png')[0]
+        self._parts = self.filename.split('-')
+        self.gestalt_full_id = self._parts[0]
+        self.colourset_id = self._parts[1]
+        self.length = self._parts[2]
+        self.floorplan_start_y = floorplan_start_y_per_length[self.length]
+        if len(self._parts) > 3:
+            self.cargo = self._parts[3]
+        else:
+            self.cargo = None
+        if len(self._parts) > 4:
+            self.cargo_colourset_id = self._parts[4]
+        else:
+            self.cargo_colourset_id = None
 
 class GestaltTrailerVariation:
     def __init__(self, filename):
         self.filename = filename.split('.png')[0]
         self._parts = self.filename.split('-')
-        self.gestalt_full_id = self._parts[0]
-        self.connection_type = self._parts[1]
+        self.connection_type = self._parts[0].split('trailer_')[0]
+        print self.connection_type
+        self.gestalt_full_id = self._parts[1]
         self.colourset_id = self._parts[2]
         self.length = self._parts[3]
         self.floorplan_start_y = floorplan_start_y_per_length[self.length]

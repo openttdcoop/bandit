@@ -7,18 +7,18 @@ sys.path.append(os.path.join('gestalts')) # add to the module search path
 from gestalts import cargo_coils
 from gestalts import cargo_tarps
 
-from gestalts import box_trailer
-from gestalts import flat_trailer
-from gestalts import tank_trailer
-from gestalts import tipping_trailer
+from gestalts import box_body
+from gestalts import flat_body
+from gestalts import tank_body
+from gestalts import tipping_body
 
 gestalt_patterns = {
     'cargo_coils': cargo_coils,
     'cargo_tarps': cargo_tarps,
-    'box_trailer': box_trailer,
-    'flat_trailer': flat_trailer,
-    'tank_trailer': tank_trailer,
-    'tipping_trailer': tipping_trailer,
+    'body_box': box_body,
+    'body_flat': flat_body,
+    'body_tank': tank_body,
+    'body_tipping': tipping_body,
 }
 
 def dispatch(filename):

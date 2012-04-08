@@ -4,6 +4,8 @@ import Image
 import common
 
 gestalt_id = 'trailer'
+
+
 def get_body(body_path, row_num):
     body_loader = PixaImageLoader(mask=(0,255))
     crop_start_y = (row_num) * common.SPRITEROW_HEIGHT
@@ -18,7 +20,6 @@ def get_body(body_path, row_num):
 def generate(filename):
     gv = common.GestaltTrailerVariation(filename)
     floorplan = common.get_gestalt_floorplan(gv, gv.floorplan_filename)
-
     spritesheet = common.make_spritesheet(floorplan, row_count=gv.num_load_states)
 
     spriterows = []

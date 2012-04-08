@@ -39,6 +39,7 @@ class GestaltTrailerVariation:
         self.connection_type = self._parts[1]
         self.colourset_id = self._parts[2]
         self.length = self._parts[3]
+        self.floorplan_start_y = floorplan_start_y_per_length[self.length]
         if len(self._parts) > 4:
             self.cargo = self._parts[4]
         else:
@@ -63,10 +64,10 @@ class Variation:
         self.floorplan = floorplan
 
 
-def get_trailer_floorplan(gv, FLOORPLAN_START_Y):
-    floorplan = Image.open(INPUT_IMAGE_PATH)
+def get_trailer_floorplan(gv, floorplan_filename):
+    floorplan = Image.open(os.path.join(currentdir, 'input', floorplan_filename))
     # slice out the floorplan needed for this gestalt
-    return floorplan.crop((0, FLOORPLAN_START_Y, floorplan.size[0], FLOORPLAN_START_Y + SPRITEROW_HEIGHT))
+    return floorplan.crop((0, gv.floorplan_start_y, floorplan.size[0], gv.floorplan_start_y + SPRITEROW_HEIGHT))
 
 
 def get_cargo_floorplan(gv, floorplan_filename, floorplan_start_y):
@@ -98,7 +99,6 @@ def get_output_path(filename):
 # constants
 SPRITEROW_HEIGHT = 40
 DOS_PALETTE = Image.open('palette_key.png').palette
-INPUT_IMAGE_PATH = os.path.join(currentdir, 'input','test_input.png')
 CARGO_IMAGES_PATH = os.path.join(currentdir, 'cargo_example_output')
 CARGO_SPRITE_WIDTH = 280
 
@@ -107,3 +107,8 @@ CC1 = 202
 CC2 = 84
 COL_COAL = 4
 COL_MASK = 0
+
+#
+floorplan_start_y_per_length = {
+    '7_8': 50,
+}

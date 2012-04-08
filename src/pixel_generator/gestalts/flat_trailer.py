@@ -6,7 +6,7 @@ currentdir = os.curdir
 
 
 gestalt_id = 'flat_trailer'
-input_image_path = common.INPUT_IMAGE_PATH
+floorplan_filename = 'flat_trailer_floorplan.png'
 
 # set palette index for lightest colour of cargo; range for rest will be calculated automatically
 # when defining a new cargo, worth looking at resulting sprites in case range overflowed into wrong colours
@@ -27,9 +27,6 @@ load_states = [
     LoadState('load_3', 0),
     LoadState('load_4', 0),
 ]
-
-# constants
-FLOORPLAN_START_Y = 90
 
 # colour sets
 coloursets = {
@@ -86,7 +83,7 @@ def get_cargo_load(cargo_path, load_state, increment):
 
 def generate(filename):
     gv = common.GestaltTrailerVariation(filename)
-    floorplan = common.get_trailer_floorplan(gv, FLOORPLAN_START_Y)
+    floorplan = common.get_trailer_floorplan(gv, floorplan_filename)
     spritesheet = common.make_spritesheet(floorplan, row_count=(len(load_states)))
     cargo_filename = gv.cargo + '-' + gv.cargo_colourset_id + '-' + gv.length + '.png'
     print cargo_filename
@@ -109,47 +106,3 @@ def generate(filename):
     spritesheet.render(spriterows=spriterows)
     output_path = common.get_output_path(gv.filename + '.png')
     spritesheet.save(output_path)
-
-"""
-def create_all_filenames(filename):
-    length = '7' # !! hard coded var until this is figured out
-    floorplan = Image.open(input_image_path)
-    # slice out the floorplan needed for this gestalt
-    floorplan = floorplan.crop((0, FLOORPLAN_START_Y, floorplan.size[0], FLOORPLAN_START_Y + common.SPRITEROW_HEIGHT))
-    # create variations containing empty spritesheets
-    variations = []
-    manifest_payload = []
-    for set_name, colourset in coloursets:
-        for cargo in cargos:
-            for connection_type in ('fifth_wheel','drawbar'):
-                variation = common.Variation(set_name=set_name, colourset=colourset, cargo=cargo, length=length, connection_type=connection_type)
-                spritesheet = Spritesheet(
-                    width=floorplan.size[0],
-                    height=common.SPRITEROW_HEIGHT * (len(load_states)),
-                    palette=common.DOS_PALETTE
-                )
-                variation.spritesheets.append(spritesheet)
-                variations.append(variation)
-
-    # render stage
-    for variation in variations:
-        for spritesheet in variation.spritesheets:
-            spriterows = []
-            for load_state in load_states:
-                # spriterow holds data needed to render the row
-                spriterow = {'height' : common.SPRITEROW_HEIGHT, 'floorplan' : floorplan}
-                # add n render passes to the spriterow (list controls render order, index 0 = first pass)
-                spriterow['render_passes'] = [
-                    {'seq' : common.hide_or_show_drawbar_dolly_wheels(variation.connection_type), 'colourset' : variation.colourset},
-                    {'seq' : sc_pass_1, 'colourset' : variation.colourset},
-                    {'seq' : sc_pass_2, 'colourset' : variation.colourset},
-                    {'seq' : sc_pass_3, 'colourset' : variation.colourset},
-                    {'seq' : sc_pass_4, 'colourset' : variation.colourset},
-                ]
-                spriterows.append(spriterow)
-            spritesheet.render(spriterows=spriterows)
-            output_path = common.get_output_path(common.construct_filename(gestalt_id, variation))
-            print output_path
-            spritesheet.save(output_path)
-            manifest_payload.append(output_path)
-"""

@@ -8,12 +8,6 @@ currentdir = os.curdir
 gestalt_id = 'flat_trailer'
 floorplan_filename = 'flat_body_floorplan.png'
 
-# set palette index for lightest colour of cargo; range for rest will be calculated automatically
-# when defining a new cargo, worth looking at resulting sprites in case range overflowed into wrong colours
-cargos = {
-    'STEL' : 4,
-}
-
 class LoadState:
     def __init__(self, name, foo):
         self.name = name

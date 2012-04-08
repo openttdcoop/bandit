@@ -56,7 +56,13 @@ class _GraphicsElements(object):
         Simple filename maker; will filter out attributes that have no meaningful value.
         Supports separator param because pixel generation uses '-', but nml won't allow '-' as identifier.
         """
-        raw = [self.gestalt_id, self.trailer_type_code, self.colourset_id, str(self.length) + '_8', self.cargo, self.cargo_colourset_id]
+        raw = ['trailer',
+               self.trailer_type_code,
+               self.gestalt_id,
+               self.colourset_id,
+               str(self.length) + '_8',
+               self.cargo,
+               self.cargo_colourset_id]
         clean = []
         for i in raw:
             if i is not None and i != '':
@@ -97,6 +103,7 @@ class Trailer(object):
         self.numeric_id = truck.numeric_id + i + 1
         self.trailer_type_code = truck.trailer_type_codes[i]
         self.graphic_elements, self.cargo_graphics_mapping = get_graphics_stuff(self)
+        self.default_graphics = global_constants.generated_images_path + 'trailer-0_2-body_box-cc1-7_8.png'
 
 
     def render(self, truck):

@@ -17,7 +17,7 @@ spritegroup ${trailer.id}_sg_error {
     loading: [${trailer.id}_ss_error];
 }
 
-spriteset(${trailer.id}_ss_default_box, "${generated_images_path}box_trailer-0_2-cc1-7_8.png") {
+spriteset(${trailer.id}_ss_default_box, "${trailer.default_graphics}") {
   spriteset_template_truck_28(0, 10) // (nml provides a way to add spriteset templates - search the project to find where they are defined)
 }
 

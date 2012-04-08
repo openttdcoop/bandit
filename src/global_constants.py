@@ -23,28 +23,28 @@ standard_class_refits = {
 #body_types
 class BoxBT:
     def __init__(self, colourset_id):
-        self.gestalt_id = 'box_trailer'
+        self.gestalt_id = 'body_box'
         self.colourset_id = colourset_id
         self.cargo = ''
         self.num_load_states = 1
 
 class FlatBT:
     def __init__(self, cargo, cargo_colourset_id):
-        self.gestalt_id = 'flat_trailer'
+        self.gestalt_id = 'body_flat'
         self.cargo = 'cargo_' + cargo
         self.cargo_colourset_id = cargo_colourset_id
         self.num_load_states = 5
 
 class TankBT:
     def __init__(self, colourset_id):
-        self.gestalt_id = 'tank_trailer'
+        self.gestalt_id = 'body_tank'
         self.colourset_id = colourset_id
         self.cargo = ''
         self.num_load_states = 1
 
 class TippingBT:
     def __init__(self, height_px, cargo_colourset_id):
-        self.gestalt_id = 'tipping_trailer' + '_' + height_px
+        self.gestalt_id = 'body_tipping_' + height_px
         self.cargo = 'bulk'
         self.cargo_colourset_id = cargo_colourset_id
         self.num_load_states = 5
@@ -118,6 +118,7 @@ chassis_body_weight_factors = dict (
 )
 
 graphics_path = 'src/graphics/' # this is for nml, don't need to use python path module here
+generated_images_path = 'src/pixel_generator/output/' # for nml, os.path not needed
 
 # provide mapping of truck_type strings to numbers for use in range checks etc
 # constants like this are one case where c pre-processor was a little more elegant than python

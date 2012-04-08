@@ -23,21 +23,21 @@ body_outer = [
     (0, -1, pc_stripe()),
     (0, -2, pc_body()),
     (0, -3, pc_body()),
-    (0, -4, 13),
+    (0, -4, pc_body(1)),
 ]
 body_end = [
     (0, 0, pc_body()),
     (0, -1, pc_stripe()),
     (0, -2, pc_body()),
     (0, -3, pc_body()),
-    (0, -4, 13),
+    (0, -4, pc_body(1)),
 ]
 body_inner = [
     (0, 0, 16),
     (0, -1, 17),
     (0, -2, 18),
     (0, -3, 19),
-    (0, -4, 14),
+    (0, -4, pc_body(1)),
 ]
 roof = [
     (0, -4, pc_stripe())

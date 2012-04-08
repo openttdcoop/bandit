@@ -140,7 +140,7 @@ def make_sprites(filenames):
         if len(active_children()) == 0:
             break
 
-make_sprites(cargo_filenames)
+#make_sprites(cargo_filenames)
 make_sprites(body_filenames)
 make_sprites(trailer_filenames)
 

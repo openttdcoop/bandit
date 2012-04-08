@@ -4,6 +4,8 @@ import dispatcher
 import time
 from multiprocessing import Process, active_children
 
+# I tried auto-detecting required cargos from vehicle filenames.
+# That's's possible, but it's probably easier and low-cost to simply generate from a manual list for now.
 cargo_filenames = [
     'cargo_coils-grey_metal-2_8.png',
     'cargo_coils-grey_metal-3_8.png',
@@ -121,6 +123,7 @@ trailer_filenames = [
     'trailer-2_2-body_flat-cc2-7_8-cargo_tarps-cc2.png',
 ]
 
+# generate body filenames as dependencies from trailer filenames
 body_filenames = []
 for i in trailer_filenames:
     body_filenames.append('body_' + i.split('body_')[1])

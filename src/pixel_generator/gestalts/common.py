@@ -60,6 +60,11 @@ class GestaltTrailerVariation:
         self.floorplan_filename = os.path.join('chassis', self.chassis_type + '.png')
         self.body_path = os.path.join(INTERMEDIATES_PATH, 'body_' + filename.split('body_')[1])
 
+        # use partial matching as body_type strings can include extra gestalt subtype information
+        for i in load_state_ranges:
+            if i in self.body_type:
+                self.num_load_states = load_state_ranges[i]
+
 class Variation:
     def __init__(self, set_name, colourset, cargo, connection_type, length, body_subtype=''):
         self.spritesheets = []
@@ -125,3 +130,13 @@ COL_MASK = 0
 floorplan_start_y_per_length = {
     '7_8': 50,
 }
+
+
+load_state_ranges = {
+    'body_tipping':5,
+    'body_flat':5,
+    'body_box':1,
+    'body_tank':1,
+}
+
+

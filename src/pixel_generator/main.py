@@ -126,9 +126,21 @@ trailer_filenames_old = [
 
 trailer_filenames = [
     'trailer-0_2-body_tank-silver-5_8.png',
+    'trailer-0_2-body_tank-cc1-4_8.png',
+    'trailer-0_2-body_tank-cc1-3_8.png',
+    'trailer-0_2-body_tank-cc2-4_8.png',
+    'trailer-0_2-body_tank-cc2-3_8.png',
+    'trailer-0_2-body_tank-black-4_8.png',
+    'trailer-0_2-body_tank-black-3_8.png',
+    'trailer-0_2-body_tank-silver-4_8.png',
+    'trailer-0_2-body_tank-silver-3_8.png',
+    'trailer-0_2-body_tank-white-4_8.png',
+    'trailer-0_2-body_tank-white-3_8.png',
     'trailer-0_2-body_flat-cc1-5_8-cargo_coils-grey_metal.png',
     'trailer-0_2-body_tipping_4px-light_grey-5_8-bulk-grey.png',
     'trailer-0_2-body_box-cc1-5_8.png',
+    'trailer-0_2-body_box-cc1-3_8.png',
+    'trailer-0_2-body_tipping_4px-light_grey-3_8-bulk-corn_yellow.png',
 ]
 
 # generate body filenames as dependencies from trailer filenames

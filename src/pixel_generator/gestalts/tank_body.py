@@ -12,6 +12,7 @@ coloursets = {
     'cc2': dict (tank_colour = common.CC2, stripe_colour = 21),
     'silver': dict (tank_colour = 20, stripe_colour = common.CC1),
     'black': dict (tank_colour = 4, stripe_colour = common.CC2),
+    'white': dict (tank_colour = 12, stripe_colour = 66),
 }
 # colours
 pc_tank = PixaColour(name='tank_colour', default=common.CC1)

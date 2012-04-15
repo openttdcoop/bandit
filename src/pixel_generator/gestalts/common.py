@@ -126,10 +126,12 @@ CC2 = 84
 COL_COAL = 4
 COL_MASK = 0
 
-#
+# could be calculated from sprite row height but 'meh', this is easy and obvious
 floorplan_start_y_per_length = {
     '7_8': 50,
     '5_8': 130,
+    '4_8': 170,
+    '3_8': 210,
 }
 
 

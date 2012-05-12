@@ -201,7 +201,9 @@ class Truck(object):
     def get_total_consist_capacity(self):
         # used for the purchase menu
         capacity = self.truck_capacity
-        capacity = capacity + sum([i.trailer_capacity for i in self.trailers])
+        # if trailers, we want capacity with just the first trailer, this should match with the capacity when built (first subtype should be one trailer)
+        if len(self.trailers) > 0:
+            capacity = capacity + self.trailers[0].trailer_capacity
         return capacity
 
     def get_te_coefficient(self, num_trailers=0):

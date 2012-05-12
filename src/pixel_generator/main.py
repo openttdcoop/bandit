@@ -65,7 +65,7 @@ cargo_filenames = [
     'cargo_tarps-greenish-8_8.png',
 ]
 
-trailer_filenames_old = [
+trailer_filenames = [
     'trailer-0_2-body_box-cc1-7_8.png',
     'trailer-0_2-body_tipping_4px-cc1-7_8-bulk-corn_yellow.png',
     'trailer-0_2-body_tipping_4px-cc2-7_8-bulk-corn_yellow.png',
@@ -124,7 +124,7 @@ trailer_filenames_old = [
     'trailer-2_2-body_flat-cc2-7_8-cargo_tarps-cc2.png',
 ]
 
-trailer_filenames = [
+trailer_filenames_test = [
     'trailer-0_2-body_tank-silver-5_8.png',
     'trailer-0_2-body_tank-cc1-4_8.png',
     'trailer-0_2-body_tank-cc1-3_8.png',

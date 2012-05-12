@@ -19,6 +19,7 @@ item(FEAT_ROADVEHS, ${trailer.id}, ${trailer.numeric_id}) {
         non_refittable_cargo_classes:   bitmask(${truck.non_refittable_classes});
         cargo_allow_refit:              [${truck.allowed_cargos}];
         cargo_disallow_refit:           [${truck.allowed_cargos}];
+        default_cargo_type:             GOOD;
         loading_speed:                  5;
     }
     graphics {

@@ -6,9 +6,11 @@ from multiprocessing import Process, active_children
 import codecs
 from subprocess import call
 
+# Have nmlc generate the deps file from the .nml file. Will fail if the .nml file is missing (but .nml should have been built by a script and/or makefile).
+# N.B. we have to provide nmlc with the correct path to the lang files etc, relative to where it's called from.
 call(["nmlc", "-M", "--lang-dir=../../lang", "../../bandit.nml"])
-dep_file = codecs.open('../../bandit.dep')
 
+dep_file = codecs.open('../../bandit.dep')
 trailer_filenames = set()
 
 for line in dep_file:

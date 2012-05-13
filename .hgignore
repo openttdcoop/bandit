@@ -48,4 +48,3 @@ misc/test_pixel_generator/results*
 src/pixel_generator/intermediates*
 src/pixel_generator/output*
 src/pixel_generator/cheatsheets*
-src/pixel_generator/deps*

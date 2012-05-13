@@ -4,7 +4,9 @@ import dispatcher
 import time
 from multiprocessing import Process, active_children
 import codecs
+from subprocess import call
 
+call(["nmlc", "-M", "--lang-dir=../../lang", "../../bandit.nml"])
 dep_file = codecs.open('../../bandit.dep')
 
 trailer_filenames = set()

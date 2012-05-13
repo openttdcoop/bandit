@@ -5,9 +5,9 @@ bandit.src.dep: bandit.nml
 GENERATE=src/build_bandit.py
 
 bandit.nml: src/BANDIT.cfg $(GENERATE)
-	make -C src/pixel_generator/
 	$(_E) [GENERATE] from BANDIT.cfg
 	$(_V) python src/build_bandit.py '${REPO_TITLE}' '${REPO_REVISION}'
+	make -C src/pixel_generator/
 
 %.lng: %.lng.in src/BANDIT.cfg $(GENERATE)
 	$(_E) [GENERATE] from BANDIT.cfg

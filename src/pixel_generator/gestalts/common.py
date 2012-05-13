@@ -47,8 +47,6 @@ class GestaltBodyVariation:
         else:
             self.cargo_colourset_id = None
 
-    'trailer-0_2-body_box-cc1-7_8.png',
-
 class GestaltTrailerVariation:
     def __init__(self, filename):
         self.filename = filename.split('.png')[0]

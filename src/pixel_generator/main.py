@@ -3,6 +3,17 @@ print "running"
 import dispatcher
 import time
 from multiprocessing import Process, active_children
+import codecs
+
+dep_file = codecs.open('../../bandit.dep')
+
+trailer_filenames = set()
+
+for line in dep_file:
+    if "pixel_generator/output/" in line:
+        filename = line.split("pixel_generator/output/")[1]
+        filename = filename.strip()
+        trailer_filenames.add(filename)
 
 # I tried auto-detecting required cargos from vehicle filenames.
 # That's's possible, but it's probably easier and low-cost to simply generate from a manual list for now.
@@ -63,84 +74,6 @@ cargo_filenames = [
     'cargo_tarps-greenish-6_8.png',
     'cargo_tarps-greenish-7_8.png',
     'cargo_tarps-greenish-8_8.png',
-]
-
-trailer_filenames = [
-    'trailer-0_2-body_box-cc1-7_8.png',
-    'trailer-0_2-body_tipping_4px-cc1-7_8-bulk-corn_yellow.png',
-    'trailer-0_2-body_tipping_4px-cc2-7_8-bulk-corn_yellow.png',
-    'trailer-0_2-body_tipping_4px-light_grey-7_8-bulk-corn_yellow.png',
-    'trailer-2_2-body_tipping_4px-cc1-7_8-bulk-corn_yellow.png',
-    'trailer-2_2-body_tipping_4px-cc2-7_8-bulk-corn_yellow.png',
-    'trailer-2_2-body_tipping_4px-light_grey-7_8-bulk-corn_yellow.png',
-    'trailer-0_2-body_tipping_4px-cc1-7_8-bulk-black.png',
-    'trailer-0_2-body_tipping_4px-cc2-7_8-bulk-black.png',
-    'trailer-0_2-body_tipping_4px-light_grey-7_8-bulk-black.png',
-    'trailer-2_2-body_tipping_4px-cc1-7_8-bulk-black.png',
-    'trailer-2_2-body_tipping_4px-cc2-7_8-bulk-black.png',
-    'trailer-2_2-body_tipping_4px-light_grey-7_8-bulk-black.png',
-    'trailer-0_2-body_tipping_4px-cc1-7_8-bulk-iron_ore.png',
-    'trailer-0_2-body_tipping_4px-cc2-7_8-bulk-iron_ore.png',
-    'trailer-0_2-body_tipping_4px-light_grey-7_8-bulk-iron_ore.png',
-    'trailer-2_2-body_tipping_4px-cc1-7_8-bulk-iron_ore.png',
-    'trailer-2_2-body_tipping_4px-cc2-7_8-bulk-iron_ore.png',
-    'trailer-2_2-body_tipping_4px-light_grey-7_8-bulk-iron_ore.png',
-    'trailer-0_2-body_tipping_4px-cc1-7_8-bulk-clay_pink.png',
-    'trailer-0_2-body_tipping_4px-cc2-7_8-bulk-clay_pink.png',
-    'trailer-0_2-body_tipping_4px-light_grey-7_8-bulk-clay_pink.png',
-    'trailer-2_2-body_tipping_4px-cc1-7_8-bulk-clay_pink.png',
-    'trailer-2_2-body_tipping_4px-cc2-7_8-bulk-clay_pink.png',
-    'trailer-2_2-body_tipping_4px-light_grey-7_8-bulk-clay_pink.png',
-    'trailer-0_2-body_tipping_4px-cc1-7_8-bulk-grey.png',
-    'trailer-0_2-body_tipping_4px-cc2-7_8-bulk-grey.png',
-    'trailer-0_2-body_tipping_4px-light_grey-7_8-bulk-grey.png',
-    'trailer-2_2-body_tipping_4px-cc1-7_8-bulk-grey.png',
-    'trailer-2_2-body_tipping_4px-cc2-7_8-bulk-grey.png',
-    'trailer-2_2-body_tipping_4px-light_grey-7_8-bulk-grey.png',
-    'trailer-2_2-body_tank-cc1-7_8.png',
-    'trailer-0_2-body_tank-cc1-7_8.png',
-    'trailer-2_2-body_tank-cc2-7_8.png',
-    'trailer-0_2-body_tank-cc2-7_8.png',
-    'trailer-2_2-body_tank-black-7_8.png',
-    'trailer-0_2-body_tank-black-7_8.png',
-    'trailer-2_2-body_tank-silver-7_8.png',
-    'trailer-0_2-body_tank-silver-7_8.png',
-    'trailer-2_2-body_flat-cc1-5_8-cargo_coils-grey_metal.png',
-    'trailer-2_2-body_flat-cc1-7_8-cargo_coils-grey_metal.png',
-    'trailer-0_2-body_flat-cc1-7_8-cargo_coils-grey_metal.png',
-    'trailer-2_2-body_flat-cc1-7_8-cargo_coils-grey_metal.png',
-    'trailer-0_2-body_flat-cc1-7_8-cargo_coils-white.png',
-    'trailer-2_2-body_flat-cc2-7_8-cargo_coils-grey_metal.png',
-    'trailer-0_2-body_flat-cc2-7_8-cargo_coils-grey_metal.png',
-    'trailer-0_2-body_flat-cc2-7_8-cargo_tarps-pinkish.png',
-    'trailer-2_2-body_flat-cc2-7_8-cargo_tarps-pinkish.png',
-    'trailer-0_2-body_flat-cc2-7_8-cargo_tarps-greenish.png',
-    'trailer-2_2-body_flat-cc2-7_8-cargo_tarps-greenish.png',
-    'trailer-0_2-body_flat-cc2-7_8-cargo_tarps-default.png',
-    'trailer-2_2-body_flat-cc2-7_8-cargo_tarps-default.png',
-    'trailer-0_2-body_flat-cc2-7_8-cargo_tarps-cc1.png',
-    'trailer-2_2-body_flat-cc2-7_8-cargo_tarps-cc1.png',
-    'trailer-0_2-body_flat-cc2-7_8-cargo_tarps-cc2.png',
-    'trailer-2_2-body_flat-cc2-7_8-cargo_tarps-cc2.png',
-]
-
-trailer_filenames_test = [
-    'trailer-0_2-body_tank-silver-5_8.png',
-    'trailer-0_2-body_tank-cc1-4_8.png',
-    'trailer-0_2-body_tank-cc1-3_8.png',
-    'trailer-0_2-body_tank-cc2-4_8.png',
-    'trailer-0_2-body_tank-cc2-3_8.png',
-    'trailer-0_2-body_tank-black-4_8.png',
-    'trailer-0_2-body_tank-black-3_8.png',
-    'trailer-0_2-body_tank-silver-4_8.png',
-    'trailer-0_2-body_tank-silver-3_8.png',
-    'trailer-0_2-body_tank-white-4_8.png',
-    'trailer-0_2-body_tank-white-3_8.png',
-    'trailer-0_2-body_flat-cc1-5_8-cargo_coils-grey_metal.png',
-    'trailer-0_2-body_tipping_4px-light_grey-5_8-bulk-grey.png',
-    'trailer-0_2-body_box-cc1-5_8.png',
-    'trailer-0_2-body_box-cc1-3_8.png',
-    'trailer-0_2-body_tipping_4px-light_grey-3_8-bulk-corn_yellow.png',
 ]
 
 # generate body filenames as dependencies from trailer filenames

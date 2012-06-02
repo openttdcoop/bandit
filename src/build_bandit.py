@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+print "build_bandit.py"
+
 import os.path
 currentdir = os.curdir
 
@@ -216,7 +218,6 @@ class Truck(object):
             truck_weight = truck_weight + (first_trailer_nominal_weight * global_constants.fifth_wheel_truck_quota)
         total_te = 3 * truck_weight
         adjusted_te_coefficient = 255 * 0.1 * ((1.0 * total_te) / total_weight)
-        print self.title, 'total weight:', total_weight, ' truck_weight: ', truck_weight
         return int(adjusted_te_coefficient)
 
     @classmethod

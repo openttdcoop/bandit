@@ -25,7 +25,7 @@ gestalt_patterns = {
 }
 
 def dispatch(filename):
-    print "dispatching", filename
+    #print "dispatching", filename
     gestalt_full_id = filename.split('-',1)[0]
     for gestalt, module in gestalt_patterns.iteritems():
         if gestalt_full_id.startswith(gestalt):

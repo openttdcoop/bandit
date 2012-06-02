@@ -82,7 +82,6 @@ def generate(filename):
     spritesheet = common.make_spritesheet(floorplan, row_count=(len(load_states)))
 
     cargo_filename = gv.cargo + '-' + gv.cargo_colourset_id + '-' + gv.length + '.png'
-    print cargo_filename
     cargo_path = os.path.join(common.INTERMEDIATES_PATH, cargo_filename)
 
     spriterows = []
@@ -98,7 +97,6 @@ def generate(filename):
         ]
         spriterows.append(spriterow)
 
-    print 'render'
     spritesheet.render(spriterows=spriterows)
     output_path = common.get_output_path(gv.filename + '.png', common.INTERMEDIATES_PATH)
     spritesheet.save(output_path)

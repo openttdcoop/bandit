@@ -84,7 +84,7 @@ def get_gestalt_floorplan(gv, floorplan_filename):
 
 
 def get_cargo_floorplan(gv, floorplan_filename, floorplan_start_y):
-    floorplan_image_path = os.path.join(currentdir, 'input', floorplan_filename)
+    floorplan_image_path = os.path.join(currentdir, 'input','cargos', floorplan_filename)
     floorplan = Image.open(floorplan_image_path)
 
     start_y = floorplan_start_y + ((8 - int(gv.length.split('_')[0])) * SPRITEROW_HEIGHT)

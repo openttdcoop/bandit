@@ -34,7 +34,7 @@ FLOORPLAN_START_Y = 10
 
 # points
 cargo_loader = PixaImageLoader(mask=(0,255))
-coil_path = os.path.join(currentdir, 'input', 'cargo_coil.png')
+coil_path = os.path.join(currentdir, 'input', 'cargos', 'coil.png')
 coil_load = cargo_loader.make_points(coil_path, origin=(2,4))
 #coil_sprite = cargo_loader.get_image(coil_path)
 #make_cheatsheet(coil_sprite, os.path.join(currentdir, 'cheatsheets', file_name), origin=(2,4))
@@ -66,7 +66,7 @@ def get_load_sequence(cargo, load_state):
 
 def generate(filename):
     gv = common.GestaltCargoVariation(filename)
-    floorplan = common.get_cargo_floorplan(gv, 'cargo_coils_floorplan.png', FLOORPLAN_START_Y)
+    floorplan = common.get_cargo_floorplan(gv, 'coils_floorplan.png', FLOORPLAN_START_Y)
     spritesheet = common.make_spritesheet(floorplan, row_count=(len(load_states)))
 
     spriterows = []

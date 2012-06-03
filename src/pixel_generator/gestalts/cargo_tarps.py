@@ -38,7 +38,7 @@ cargo_loader = PixaImageLoader(mask=(0,255))
 load_sprites = {}
 for spritename in ('large_tarp_1','large_tarp_2','large_tarp_3','large_tarp_4', 'small_tarp_1','small_tarp_2','small_tarp_3','small_tarp_4'):
     filename = spritename + '.png'
-    tarp_path = os.path.join(currentdir, 'input', 'cargo_tarps', filename)
+    tarp_path = os.path.join(currentdir, 'input','cargos', 'tarps', filename)
     load_sprites[spritename] = cargo_loader.make_points(tarp_path, origin=(2,4))
 #tarp_sprite = cargo_loader.get_image(tarp_path)
 #make_cheatsheet(tarp_sprite, os.path.join(currentdir, 'cheatsheets', filename), origin=(2,4))
@@ -79,7 +79,7 @@ def get_load_sequence(set_name, load_state):
 
 def generate(filename):
     gv = common.GestaltCargoVariation(filename)
-    floorplan = common.get_cargo_floorplan(gv, 'cargo_tarps_floorplan.png', FLOORPLAN_START_Y)
+    floorplan = common.get_cargo_floorplan(gv, 'tarps_floorplan.png', FLOORPLAN_START_Y)
     spritesheet = common.make_spritesheet(floorplan, row_count=(len(load_states)))
 
     spriterows = []

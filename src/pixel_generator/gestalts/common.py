@@ -168,7 +168,6 @@ load_state_ranges = {
 
 # x, y tuples of offsets for each cab angle; origin for each angle is top left corner of spritesheet blue box for that angle.
 cab_offsets = {
-    '8_8': ((0, -8), (0, -8), (0, -8), (0, -8), (0, -8), (0, -8), (0, -8), (0, -8)),
-    '7_8': ((0, -8), (0, -8), (0, -8), (0, -8), (0, -8), (0, -8), (0, -8), (0, -8)),
+    '7_8': ((1, -23), (13, -18), (25, -13), (13, -13), (1, -13), (2, -13), (3, -13), (2, -18)), # currently setup for 4_8 during dev, needs fix
 }
 

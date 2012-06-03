@@ -40,20 +40,6 @@ def sc_pass_1(truck_length):
         }
     )
 
-# location points for cabs may be left behind due to transparent pixels in cab sequence; remove them if found
-sc_mask_remnant_location_points = PixaSequenceCollection(
-    sequences = {
-        191: PixaSequence(points=[(0, 0, common.COL_MASK)]),
-        190: PixaSequence(points=[(0, 0, common.COL_MASK)]),
-        189: PixaSequence(points=[(0, 0, common.COL_MASK)]),
-        188: PixaSequence(points=[(0, 0, common.COL_MASK)]),
-        187: PixaSequence(points=[(0, 0, common.COL_MASK)]),
-        186: PixaSequence(points=[(0, 0, common.COL_MASK)]),
-        185: PixaSequence(points=[(0, 0, common.COL_MASK)]),
-        184: PixaSequence(points=[(0, 0, common.COL_MASK)]),
-    }
-)
-
 
 def get_body(body_path, row_num):
     body_loader = PixaImageLoader(mask=(0,255))
@@ -82,7 +68,6 @@ def generate(filename):
     spriterow['render_passes'] = [
         {'seq' : sc_mask_out_template_guides, 'colourset' : None},
         {'seq' : sc_pass_1(gv.length), 'colourset' : None},
-        {'seq' : sc_mask_remnant_location_points, 'colourset' : None},
         #{'seq': get_body(gv.body_path, row_num), 'colourset': None},
     ]
     spriterows.append(spriterow)

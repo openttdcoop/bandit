@@ -73,8 +73,8 @@ class GestaltTruckVariation:
         #self.body_type = self._parts[2]
         #self.body_type = 'body_box-cc1-5_8'
         self.body_type = 'body_tipping_4px-cc1-5_8-bulk-corn_yellow'
-        self.body_type = 'body_tank-silver-5_8'
         self.body_type = 'body_flat-cc1-5_8-cargo_coils-grey_metal'
+        self.body_type = 'body_tank-silver-5_8'
         #self.length = self._parts[4]
         self.length = '7_8'
         self.floorplan_start_y = floorplan_start_y_per_length[self.length]
@@ -200,6 +200,6 @@ cab_offsets = {
 }
 # x, y tuples of offsets for each body angle when compositing to trucks (unlikely to be used for trailers).
 truck_body_offsets = {
-    '7_8': ((0, -22), (-3, -27), (-8, -28), (-4, -31), (0, -31), (4, -31), (8, -28), (4, -27)),
+    '7_8': ((0, -22), (-4, -27), (-8, -28), (-4, -31), (0, -31), (4, -31), (8, -28), (4, -27)),
 }
 

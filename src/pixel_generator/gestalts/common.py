@@ -55,7 +55,7 @@ class GestaltTrailerVariation:
         self.body_type = self._parts[2]
         self.length = self._parts[4]
         self.floorplan_start_y = floorplan_start_y_per_length[self.length]
-        self.floorplan_filename = os.path.join('chassis_trailers', self.chassis_type + '.png')
+        self.floorplan_filename = os.path.join('trailers_chassis', self.chassis_type + '.png')
         self.body_path = os.path.join(INTERMEDIATES_PATH, 'body_' + filename.split('body_')[1])
 
         # use partial matching as body_type strings can include extra gestalt subtype information
@@ -161,4 +161,9 @@ load_state_ranges = {
     'body_tank':1,
 }
 
+# x, y tuples of offsets for each cab angle; origin for each angle is top left corner of spritesheet blue box for that angle.
+cab_offsets = {
+    '8_8': ((0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0)),
+    '7_8': ((0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0)),
+}
 

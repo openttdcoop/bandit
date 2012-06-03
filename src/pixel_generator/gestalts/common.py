@@ -55,7 +55,7 @@ class GestaltTrailerVariation:
         self.body_type = self._parts[2]
         self.length = self._parts[4]
         self.floorplan_start_y = floorplan_start_y_per_length[self.length]
-        self.floorplan_filename = os.path.join('chassis', self.chassis_type + '.png')
+        self.floorplan_filename = os.path.join('chassis_trailers', self.chassis_type + '.png')
         self.body_path = os.path.join(INTERMEDIATES_PATH, 'body_' + filename.split('body_')[1])
 
         # use partial matching as body_type strings can include extra gestalt subtype information

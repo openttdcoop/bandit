@@ -80,6 +80,9 @@ cargo_filenames = [
     'cargo_tarps-greenish-8_8.png',
 ]
 
+temp_body_filenames = [
+    'body_box-cc1-5_8.png'
+]
 # generate body filenames as dependencies from trailer filenames
 body_filenames = []
 for i in trailer_filenames:
@@ -98,6 +101,7 @@ def make_sprites(filenames):
             break
 
 make_sprites(cargo_filenames)
+make_sprites(temp_body_filenames) # used to generate bodies for trucks during development only
 make_sprites(body_filenames)
 make_sprites(trailer_filenames)
 

@@ -12,12 +12,12 @@ floorplan_filename = 'truck_2_8_cab_floorplan.png'
 FLOORPLAN_START_Y = 10
 
 # points
-cargo_loader = PixaImageLoader(mask=(0,255))
-load_sprites = {}
-for spritename in ('1','2','3','4', '5','6','7','8'):
-    filename = spritename + '.png'
+cab_loader = PixaImageLoader(mask=(0,255))
+cab_sprites = {}
+for spritenum in ('1', '2', '3', '4', '5', '6', '7', '8'):
+    filename = spritenum + '.png'
     cab_path = os.path.join(currentdir, 'input','cabs', 'hackler_R', filename)
-    load_sprites[spritename] = cargo_loader.make_points(cab_path, origin=(0,0))
+    cab_sprites[spritenum] = cab_loader.make_points(cab_path, origin=(0,0))
 
 # sequence collections
 sc_mask_out_template_guides = PixaSequenceCollection(
@@ -26,31 +26,52 @@ sc_mask_out_template_guides = PixaSequenceCollection(
     }
 )
 
-def sc_pass_1(truck_length):
+def sc_pass_cab_farside(truck_length):
     return PixaSequenceCollection(
         sequences = {
-            191: PixaSequence(points = load_sprites['1'], transforms = [PixaShiftXY(*common.get_cab_offsets(1, truck_length))]),
-            190: PixaSequence(points = load_sprites['2'], transforms = [PixaShiftXY(*common.get_cab_offsets(2, truck_length))]),
-            189: PixaSequence(points = load_sprites['3'], transforms = [PixaShiftXY(*common.get_cab_offsets(3, truck_length))]),
-            188: PixaSequence(points = load_sprites['4'], transforms = [PixaShiftXY(*common.get_cab_offsets(4, truck_length))]),
-            187: PixaSequence(points = load_sprites['5'], transforms = [PixaShiftXY(*common.get_cab_offsets(5, truck_length))]),
-            186: PixaSequence(points = load_sprites['6'], transforms = [PixaShiftXY(*common.get_cab_offsets(6, truck_length))]),
-            185: PixaSequence(points = load_sprites['7'], transforms = [PixaShiftXY(*common.get_cab_offsets(7, truck_length))]),
-            184: PixaSequence(points = load_sprites['8'], transforms = [PixaShiftXY(*common.get_cab_offsets(8, truck_length))]),
+            191: PixaSequence(points = cab_sprites['1'], transforms = [PixaShiftXY(*common.get_cab_offsets(1, truck_length))]),
+            190: PixaSequence(points = cab_sprites['2'], transforms = [PixaShiftXY(*common.get_cab_offsets(2, truck_length))]),
+            189: PixaSequence(points = cab_sprites['3'], transforms = [PixaShiftXY(*common.get_cab_offsets(3, truck_length))]),
+            185: PixaSequence(points = cab_sprites['7'], transforms = [PixaShiftXY(*common.get_cab_offsets(7, truck_length))]),
+            184: PixaSequence(points = cab_sprites['8'], transforms = [PixaShiftXY(*common.get_cab_offsets(8, truck_length))]),
         }
     )
 
+def sc_pass_cab_nearside(truck_length):
+    return PixaSequenceCollection(
+        sequences = {
+            188: PixaSequence(points = cab_sprites['4'], transforms = [PixaShiftXY(*common.get_cab_offsets(4, truck_length))]),
+            187: PixaSequence(points = cab_sprites['5'], transforms = [PixaShiftXY(*common.get_cab_offsets(5, truck_length))]),
+            186: PixaSequence(points = cab_sprites['6'], transforms = [PixaShiftXY(*common.get_cab_offsets(6, truck_length))]),
+        }
+    )
 
-def get_body(body_path, row_num):
+def get_body(body_path, row_num, truck_length):
     body_loader = PixaImageLoader(mask=(0,255))
 
-    crop_start_y = (row_num) * common.SPRITEROW_HEIGHT
-    crop_end_y = crop_start_y + common.SPRITEROW_HEIGHT
-    crop_box = (0, crop_start_y, common.BODY_SPRITE_WIDTH, crop_end_y)
-    body = body_loader.make_points(body_path, crop_box, origin=(0, 9))
+    body_sprites = {}
+    for spritenum in ('1', '2', '3', '4', '5', '6', '7', '8'):
+        # this will need more thought to handle getting the correct row for load sprites
+        crop_start_x = common.get_standard_crop(spritenum)[0][0]
+        crop_end_x = common.get_standard_crop(spritenum)[1][0]
+        #crop_start_y = (row_num) * common.SPRITEROW_HEIGHT
+        crop_start_y = FLOORPLAN_START_Y + common.get_standard_crop(spritenum)[0][1]
+        #crop_end_y = crop_start_y + common.SPRITEROW_HEIGHT
+        crop_end_y = FLOORPLAN_START_Y + common.get_standard_crop(spritenum)[1][1]
+        crop_box = (crop_start_x, crop_start_y, crop_end_x, crop_end_y)
+        body_sprites[spritenum] = body_loader.make_points(body_path, crop_box, origin=(0, 0))
 
     return PixaSequenceCollection(
-        sequences = {226: PixaSequence(points = body)}
+        sequences = {
+            191: PixaSequence(points = body_sprites['1'], transforms = [PixaShiftXY(*common.get_truck_body_offsets(1, truck_length))]),
+            190: PixaSequence(points = body_sprites['2'], transforms = [PixaShiftXY(*common.get_truck_body_offsets(2, truck_length))]),
+            189: PixaSequence(points = body_sprites['3'], transforms = [PixaShiftXY(*common.get_truck_body_offsets(3, truck_length))]),
+            188: PixaSequence(points = body_sprites['4'], transforms = [PixaShiftXY(*common.get_truck_body_offsets(4, truck_length))]),
+            187: PixaSequence(points = body_sprites['5'], transforms = [PixaShiftXY(*common.get_truck_body_offsets(5, truck_length))]),
+            186: PixaSequence(points = body_sprites['6'], transforms = [PixaShiftXY(*common.get_truck_body_offsets(6, truck_length))]),
+            185: PixaSequence(points = body_sprites['7'], transforms = [PixaShiftXY(*common.get_truck_body_offsets(7, truck_length))]),
+            184: PixaSequence(points = body_sprites['8'], transforms = [PixaShiftXY(*common.get_truck_body_offsets(8, truck_length))]),
+        }
     )
 
 
@@ -65,10 +86,12 @@ def generate(filename):
     spriterow = {'height' : common.SPRITEROW_HEIGHT, 'floorplan' : floorplan}
     # add n render passes to the spriterow (list controls render order, index 0 = first pass)
     #colourset = coloursets[gv.colourset_id]
+    row_num = 0 #hack
     spriterow['render_passes'] = [
-        {'seq' : sc_mask_out_template_guides, 'colourset' : None},
-        {'seq' : sc_pass_1(gv.length), 'colourset' : None},
-        #{'seq': get_body(gv.body_path, row_num), 'colourset': None},
+        {'seq': sc_mask_out_template_guides, 'colourset' : None},
+        {'seq': sc_pass_cab_farside(gv.length), 'colourset' : None},
+        {'seq': get_body(gv.body_path, row_num, gv.length), 'colourset': None},
+        {'seq': sc_pass_cab_nearside(gv.length), 'colourset' : None},
     ]
     spriterows.append(spriterow)
 

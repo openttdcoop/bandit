@@ -76,8 +76,10 @@ class GestaltTruckVariation:
         self.floorplan_start_y = floorplan_start_y_per_length[self.length]
         """
         self.floorplan_filename = os.path.join('chassis_trailers', self.chassis_type + '.png')
-        self.body_path = os.path.join(INTERMEDIATES_PATH, 'body_' + filename.split('body_')[1])
-
+        """
+        #self.body_path = os.path.join(INTERMEDIATES_PATH, 'body_' + filename.split('body_')[1])
+        self.body_path = os.path.join(INTERMEDIATES_PATH, 'body_box-cc1-5_8.png')
+        """
         # use partial matching as body_type strings can include extra gestalt subtype information
         for i in load_state_ranges:
             if i in self.body_type:
@@ -132,9 +134,19 @@ def get_output_path(filename, destination_dir='output'):
     return os.path.join(currentdir, destination_dir, filename)
 
 
+def get_standard_crop(angle):
+    """ Get the origin offsets for drawing truck cabs. """
+    return standard_sprite_crops[angle]
+
+
 def get_cab_offsets(angle, truck_length):
     """ Get the origin offsets for drawing truck cabs. """
     return cab_offsets[truck_length][angle - 1] # angles start counting at 1, so convert to zero base
+
+
+def get_truck_body_offsets(angle, truck_length):
+    """ Get the origin offsets for drawing truck bodies. """
+    return truck_body_offsets[truck_length][angle - 1] # angles start counting at 1, so convert to zero base
 
 # constants
 SPRITEROW_HEIGHT = 40
@@ -160,15 +172,30 @@ floorplan_start_y_per_length = {
 
 
 load_state_ranges = {
-    'body_tipping':5,
-    'body_flat':5,
-    'body_box':1,
-    'body_tank':1,
+    'body_tipping': 5,
+    'body_flat': 5,
+    'body_box': 1,
+    'body_tank': 1,
 }
 
-# x, y tuples of offsets for each cab angle; origin for each angle is top left corner of spritesheet blue box for that angle.
+# standard crops to get individual angles from a sprite sheet
+standard_sprite_crops = {
+    '1': ((0, 0), (9, 28)),
+    '2': ((20, 0), (46, 28)),
+    '3': ((50, 0), (86, 28)),
+    '4': ((90, 0), (116, 28)),
+    '5': ((120, 0), (130, 28)),
+    '6': ((140, 0), (166, 28)),
+    '7': ((170, 0), (206, 28)),
+    '8': ((210, 0), (236, 28)),
+}
 
+# x, y tuples of offsets for each cab angle; origin for each angle is bottom left corner of spritesheet blue box for that angle.
 cab_offsets = {
-    '7_8': ((1, -27), (13, -22), (25, -16), (13, -16), (1, -16), (2, -16), (3, -16), (2, -22)), # currently setup for 4_8 during dev, needs fix
+    '7_8': ((1, -25), (13, -22), (25, -16), (13, -16), (1, -16), (2, -16), (3, -16), (2, -22)), # currently setup for 4_8 during dev, needs fix
+}
+# x, y tuples of offsets for each body angle when compositing to trucks (unlikely to be used for trailers).
+truck_body_offsets = {
+    '7_8': ((0, -22), (-6, -25), (-8, -28), (-5, -30), (0, -29), (5, -30), (8, -28), (6, -25)), # currently setup for 4_8 during dev, needs fix
 }
 

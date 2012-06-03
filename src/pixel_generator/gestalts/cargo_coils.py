@@ -34,7 +34,7 @@ FLOORPLAN_START_Y = 10
 
 # points
 cargo_loader = PixaImageLoader(mask=(0,255))
-coil_path = os.path.join(currentdir, 'input', 'test_coil.png')
+coil_path = os.path.join(currentdir, 'input', 'cargo_coil.png')
 coil_load = cargo_loader.make_points(coil_path, origin=(2,4))
 #coil_sprite = cargo_loader.get_image(coil_path)
 #make_cheatsheet(coil_sprite, os.path.join(currentdir, 'cheatsheets', file_name), origin=(2,4))

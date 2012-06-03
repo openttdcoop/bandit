@@ -1,4 +1,4 @@
-from pixa import PixaColour, PixaSequence, PixaSequenceCollection, PixaShiftColour, PixaShiftDY, PixaMaskColour, Spritesheet, PixaImageLoader
+from pixa import PixaColour, PixaSequence, PixaSequenceCollection, PixaShiftColour, PixaShiftXY, PixaShiftDY, PixaMaskColour, Spritesheet, PixaImageLoader
 from pixa import make_cheatsheet as make_cheatsheet
 import Image
 import common
@@ -17,7 +17,7 @@ load_sprites = {}
 for spritename in ('1','2','3','4', '5','6','7','8'):
     filename = spritename + '.png'
     cab_path = os.path.join(currentdir, 'input','cabs', 'hackler_R', filename)
-    load_sprites[spritename] = cargo_loader.make_points(cab_path, origin=(0,8))
+    load_sprites[spritename] = cargo_loader.make_points(cab_path, origin=(0,0))
 
 # sequence collections
 sc_mask_out_template_guides = PixaSequenceCollection(
@@ -26,18 +26,19 @@ sc_mask_out_template_guides = PixaSequenceCollection(
     }
 )
 
-sc_pass_1 = PixaSequenceCollection(
-    sequences = {
-        191: PixaSequence(points = load_sprites['1']),
-        190: PixaSequence(points = load_sprites['2']),
-        189: PixaSequence(points = load_sprites['3']),
-        188: PixaSequence(points = load_sprites['4']),
-        187: PixaSequence(points = load_sprites['5']),
-        186: PixaSequence(points = load_sprites['6']),
-        185: PixaSequence(points = load_sprites['7']),
-        184: PixaSequence(points = load_sprites['8']),
-    }
-)
+def sc_pass_1(truck_length):
+    return PixaSequenceCollection(
+        sequences = {
+            191: PixaSequence(points = load_sprites['1'], transforms = [PixaShiftXY(*common.get_cab_offsets(1, truck_length))]),
+            190: PixaSequence(points = load_sprites['2'], transforms = [PixaShiftXY(*common.get_cab_offsets(2, truck_length))]),
+            189: PixaSequence(points = load_sprites['3'], transforms = [PixaShiftXY(*common.get_cab_offsets(3, truck_length))]),
+            188: PixaSequence(points = load_sprites['4'], transforms = [PixaShiftXY(*common.get_cab_offsets(4, truck_length))]),
+            187: PixaSequence(points = load_sprites['5'], transforms = [PixaShiftXY(*common.get_cab_offsets(5, truck_length))]),
+            186: PixaSequence(points = load_sprites['6'], transforms = [PixaShiftXY(*common.get_cab_offsets(6, truck_length))]),
+            185: PixaSequence(points = load_sprites['7'], transforms = [PixaShiftXY(*common.get_cab_offsets(7, truck_length))]),
+            184: PixaSequence(points = load_sprites['8'], transforms = [PixaShiftXY(*common.get_cab_offsets(8, truck_length))]),
+        }
+    )
 
 # location points for cabs may be left behind due to transparent pixels in cab sequence; remove them if found
 sc_mask_remnant_location_points = PixaSequenceCollection(
@@ -80,7 +81,7 @@ def generate(filename):
     #colourset = coloursets[gv.colourset_id]
     spriterow['render_passes'] = [
         {'seq' : sc_mask_out_template_guides, 'colourset' : None},
-        {'seq' : sc_pass_1, 'colourset' : None},
+        {'seq' : sc_pass_1(gv.length), 'colourset' : None},
         {'seq' : sc_mask_remnant_location_points, 'colourset' : None},
         #{'seq': get_body(gv.body_path, row_num), 'colourset': None},
     ]

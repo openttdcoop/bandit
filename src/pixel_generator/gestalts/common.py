@@ -72,8 +72,8 @@ class GestaltTruckVariation:
         self.body_type = self._parts[2]
         self.length = self._parts[4]
         """
-        #self.floorplan_start_y = floorplan_start_y_per_length[self.length]
-        self.floorplan_start_y = floorplan_start_y_per_length['7_8']
+        self.length = '7_8'
+        self.floorplan_start_y = floorplan_start_y_per_length[self.length]
         """
         self.floorplan_filename = os.path.join('chassis_trailers', self.chassis_type + '.png')
         self.body_path = os.path.join(INTERMEDIATES_PATH, 'body_' + filename.split('body_')[1])
@@ -131,6 +131,11 @@ def get_output_path(filename, destination_dir='output'):
     """
     return os.path.join(currentdir, destination_dir, filename)
 
+
+def get_cab_offsets(angle, truck_length):
+    """ Get the origin offsets for drawing truck cabs. """
+    return cab_offsets[truck_length][angle - 1] # angles start counting at 1, so convert to zero base
+
 # constants
 SPRITEROW_HEIGHT = 40
 DOS_PALETTE = Image.open('palette_key.png').palette
@@ -163,7 +168,7 @@ load_state_ranges = {
 
 # x, y tuples of offsets for each cab angle; origin for each angle is top left corner of spritesheet blue box for that angle.
 cab_offsets = {
-    '8_8': ((0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0)),
-    '7_8': ((0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0)),
+    '8_8': ((0, -8), (0, -8), (0, -8), (0, -8), (0, -8), (0, -8), (0, -8), (0, -8)),
+    '7_8': ((0, -8), (0, -8), (0, -8), (0, -8), (0, -8), (0, -8), (0, -8), (0, -8)),
 }
 

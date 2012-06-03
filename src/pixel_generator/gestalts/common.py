@@ -69,22 +69,26 @@ class GestaltTruckVariation:
         """
         self._parts = self.filename.split('-')
         self.chassis_type = self._parts[1]
-        self.body_type = self._parts[2]
-        self.length = self._parts[4]
         """
+        #self.body_type = self._parts[2]
+        #self.body_type = 'body_box-cc1-5_8'
+        self.body_type = 'body_tipping_4px-cc1-5_8-bulk-corn_yellow'
+        self.body_type = 'body_tank-silver-5_8'
+        self.body_type = 'body_flat-cc1-5_8-cargo_coils-grey_metal'
+        #self.length = self._parts[4]
         self.length = '7_8'
         self.floorplan_start_y = floorplan_start_y_per_length[self.length]
         """
         self.floorplan_filename = os.path.join('chassis_trailers', self.chassis_type + '.png')
         """
         #self.body_path = os.path.join(INTERMEDIATES_PATH, 'body_' + filename.split('body_')[1])
-        self.body_path = os.path.join(INTERMEDIATES_PATH, 'body_box-cc1-5_8.png')
-        """
+        self.body_path = os.path.join(INTERMEDIATES_PATH, self.body_type + '.png')
+
         # use partial matching as body_type strings can include extra gestalt subtype information
         for i in load_state_ranges:
             if i in self.body_type:
                 self.num_load_states = load_state_ranges[i]
-        """
+
 class Variation:
     def __init__(self, set_name, colourset, cargo, connection_type, length, body_subtype=''):
         self.spritesheets = []
@@ -192,10 +196,10 @@ standard_sprite_crops = {
 
 # x, y tuples of offsets for each cab angle; origin for each angle is bottom left corner of spritesheet blue box for that angle.
 cab_offsets = {
-    '7_8': ((1, -25), (13, -22), (25, -16), (13, -16), (1, -16), (2, -16), (3, -16), (2, -22)), # currently setup for 4_8 during dev, needs fix
+    '7_8': ((1, -25), (13, -22), (26, -16), (13, -16), (1, -16), (2, -16), (2, -16), (2, -22)), # currently setup for 4_8 during dev, needs fix
 }
 # x, y tuples of offsets for each body angle when compositing to trucks (unlikely to be used for trailers).
 truck_body_offsets = {
-    '7_8': ((0, -22), (-6, -25), (-8, -28), (-5, -30), (0, -29), (5, -30), (8, -28), (6, -25)),
+    '7_8': ((0, -22), (-6, -26), (-8, -28), (-4, -31), (0, -31), (4, -31), (8, -28), (6, -26)),
 }
 

@@ -26,7 +26,20 @@ sc_mask_out_template_guides = PixaSequenceCollection(
     }
 )
 
-def sc_pass_cab_farside(truck_length):
+def sc_chassis(chassis_floorplan_start_y):
+    chassis_loader = PixaImageLoader(mask=(0, 226, 255))
+    chassis_path = os.path.join(currentdir, 'input','trucks_chassis', 'tandem.png')
+
+    crop_start_y = chassis_floorplan_start_y
+    crop_end_y = chassis_floorplan_start_y + common.SPRITEROW_HEIGHT
+    crop_box = (0, crop_start_y, common.BODY_SPRITE_WIDTH, crop_end_y)
+
+    chassis = chassis_loader.make_points(chassis_path, crop_box, origin=(0, 0))
+    return PixaSequenceCollection(
+        sequences = {226: PixaSequence(points = chassis, transforms = [PixaShiftXY(0, -9)])}
+    )
+
+def sc_cab_farside(truck_length):
     return PixaSequenceCollection(
         sequences = {
             191: PixaSequence(points = cab_sprites['1'], transforms = [PixaShiftXY(*common.get_cab_offsets(1, truck_length))]),
@@ -37,7 +50,7 @@ def sc_pass_cab_farside(truck_length):
         }
     )
 
-def sc_pass_cab_nearside(truck_length):
+def sc_cab_nearside(truck_length):
     return PixaSequenceCollection(
         sequences = {
             188: PixaSequence(points = cab_sprites['4'], transforms = [PixaShiftXY(*common.get_cab_offsets(4, truck_length))]),
@@ -46,18 +59,18 @@ def sc_pass_cab_nearside(truck_length):
         }
     )
 
-def get_body(body_path, row_num, truck_length):
+def sc_body(body_path, row_num, truck_length):
     body_loader = PixaImageLoader(mask=(0,255))
 
     body_sprites = {}
     for spritenum in ('1', '2', '3', '4', '5', '6', '7', '8'):
-        # this will need more thought to handle getting the correct row for load sprites
+        # crops out the body sprite for each angle, appropriate to the required load state
         crop_start_x = common.get_standard_crop(spritenum)[0][0]
         crop_end_x = common.get_standard_crop(spritenum)[1][0]
-        #crop_start_y = (row_num) * common.SPRITEROW_HEIGHT
-        crop_start_y = FLOORPLAN_START_Y + common.get_standard_crop(spritenum)[0][1]
-        #crop_end_y = crop_start_y + common.SPRITEROW_HEIGHT
-        crop_end_y = FLOORPLAN_START_Y + common.get_standard_crop(spritenum)[1][1]
+        row_offset_y = (row_num) * common.SPRITEROW_HEIGHT
+        crop_start_y = row_offset_y + FLOORPLAN_START_Y + common.get_standard_crop(spritenum)[0][1]
+        crop_end_y = row_offset_y + FLOORPLAN_START_Y + common.get_standard_crop(spritenum)[1][1]
+
         crop_box = (crop_start_x, crop_start_y, crop_end_x, crop_end_y)
         body_sprites[spritenum] = body_loader.make_points(body_path, crop_box, origin=(0, 0))
 
@@ -78,22 +91,22 @@ def get_body(body_path, row_num, truck_length):
 def generate(filename):
     gv = common.GestaltTruckVariation(filename)
     floorplan = common.get_gestalt_floorplan(gv, floorplan_filename)
-    spritesheet = common.make_spritesheet(floorplan, row_count=1)
+    spritesheet = common.make_spritesheet(floorplan, row_count=gv.num_load_states)
 
     spriterows = []
-    # spriterow holds data needed to render the row
-    # only one spriterow for tank trailers; only one load state needed
-    spriterow = {'height' : common.SPRITEROW_HEIGHT, 'floorplan' : floorplan}
-    # add n render passes to the spriterow (list controls render order, index 0 = first pass)
     #colourset = coloursets[gv.colourset_id]
-    row_num = 0 #hack
-    spriterow['render_passes'] = [
-        {'seq': sc_mask_out_template_guides, 'colourset' : None},
-        {'seq': sc_pass_cab_farside(gv.length), 'colourset' : None},
-        {'seq': get_body(gv.body_path, row_num, gv.length), 'colourset': None},
-        {'seq': sc_pass_cab_nearside(gv.length), 'colourset' : None},
-    ]
-    spriterows.append(spriterow)
+    # spriterow holds data needed to render the row
+    for row_num in range(gv.num_load_states):
+        spriterow = {'height' : common.SPRITEROW_HEIGHT, 'floorplan' : floorplan}
+        # add n render passes to the spriterow (list controls render order, index 0 = first pass)
+        spriterow['render_passes'] = [
+            {'seq': sc_mask_out_template_guides, 'colourset' : None},
+            {'seq': sc_chassis(gv.floorplan_start_y), 'colourset' : None},
+            {'seq': sc_cab_farside(gv.length), 'colourset' : None},
+            {'seq': sc_body(gv.body_path, row_num, gv.length), 'colourset': None},
+            {'seq': sc_cab_nearside(gv.length), 'colourset' : None},
+        ]
+        spriterows.append(spriterow)
 
     spritesheet.render(spriterows=spriterows)
     output_path = common.get_output_path(gv.filename + '.png')

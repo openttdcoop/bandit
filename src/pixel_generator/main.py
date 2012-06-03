@@ -81,7 +81,10 @@ cargo_filenames = [
 ]
 
 temp_body_filenames = [
-    'body_box-cc1-5_8.png'
+    'body_box-cc1-5_8.png',
+    'body_tipping_4px-cc1-5_8-bulk-corn_yellow',
+    'body_tank-silver-5_8.png',
+    'body_flat-cc1-5_8-cargo_coils-grey_metal',
 ]
 # generate body filenames as dependencies from trailer filenames
 body_filenames = []

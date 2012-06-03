@@ -196,6 +196,6 @@ cab_offsets = {
 }
 # x, y tuples of offsets for each body angle when compositing to trucks (unlikely to be used for trailers).
 truck_body_offsets = {
-    '7_8': ((0, -22), (-6, -25), (-8, -28), (-5, -30), (0, -29), (5, -30), (8, -28), (6, -25)), # currently setup for 4_8 during dev, needs fix
+    '7_8': ((0, -22), (-6, -25), (-8, -28), (-5, -30), (0, -29), (5, -30), (8, -28), (6, -25)),
 }
 

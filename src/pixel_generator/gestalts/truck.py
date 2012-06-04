@@ -68,16 +68,20 @@ def sc_body(body_path, row_num, truck_length):
         crop_box = (crop_start_x, crop_start_y, crop_end_x, crop_end_y)
         body_sprites[spritenum] = body_loader.make_points(body_path, crop_box, origin=(0, 0))
 
+    if 'body_fifth_wheel_mask' in body_path:
+        colour_shift = PixaShiftColour(244, 244, -244) # for masking out chassis on fifth wheel trucks
+    else:
+        colour_shift = None
     return PixaSequenceCollection(
         sequences = {
-            191: PixaSequence(points = body_sprites['1'], transforms = [PixaShiftXY(*common.get_truck_body_offsets(1, truck_length))]),
-            190: PixaSequence(points = body_sprites['2'], transforms = [PixaShiftXY(*common.get_truck_body_offsets(2, truck_length))]),
-            189: PixaSequence(points = body_sprites['3'], transforms = [PixaShiftXY(*common.get_truck_body_offsets(3, truck_length))]),
-            188: PixaSequence(points = body_sprites['4'], transforms = [PixaShiftXY(*common.get_truck_body_offsets(4, truck_length))]),
-            187: PixaSequence(points = body_sprites['5'], transforms = [PixaShiftXY(*common.get_truck_body_offsets(5, truck_length))]),
-            186: PixaSequence(points = body_sprites['6'], transforms = [PixaShiftXY(*common.get_truck_body_offsets(6, truck_length))]),
-            185: PixaSequence(points = body_sprites['7'], transforms = [PixaShiftXY(*common.get_truck_body_offsets(7, truck_length))]),
-            184: PixaSequence(points = body_sprites['8'], transforms = [PixaShiftXY(*common.get_truck_body_offsets(8, truck_length))]),
+            191: PixaSequence(points = body_sprites['1'], transforms = [colour_shift, PixaShiftXY(*common.get_truck_body_offsets(1, truck_length))]),
+            190: PixaSequence(points = body_sprites['2'], transforms = [colour_shift, PixaShiftXY(*common.get_truck_body_offsets(2, truck_length))]),
+            189: PixaSequence(points = body_sprites['3'], transforms = [colour_shift, PixaShiftXY(*common.get_truck_body_offsets(3, truck_length))]),
+            188: PixaSequence(points = body_sprites['4'], transforms = [colour_shift, PixaShiftXY(*common.get_truck_body_offsets(4, truck_length))]),
+            187: PixaSequence(points = body_sprites['5'], transforms = [colour_shift, PixaShiftXY(*common.get_truck_body_offsets(5, truck_length))]),
+            186: PixaSequence(points = body_sprites['6'], transforms = [colour_shift, PixaShiftXY(*common.get_truck_body_offsets(6, truck_length))]),
+            185: PixaSequence(points = body_sprites['7'], transforms = [colour_shift, PixaShiftXY(*common.get_truck_body_offsets(7, truck_length))]),
+            184: PixaSequence(points = body_sprites['8'], transforms = [colour_shift, PixaShiftXY(*common.get_truck_body_offsets(8, truck_length))]),
         }
     )
 

@@ -19,12 +19,6 @@ for spritenum in ('1', '2', '3', '4', '5', '6', '7', '8'):
     cab_sprites[spritenum] = cab_loader.make_points(cab_path, origin=(0,0))
 
 # sequence collections
-sc_mask_out_template_guides = PixaSequenceCollection(
-    sequences = {
-         85: PixaSequence(points=[(0, 0, common.COL_MASK)]),
-    }
-)
-
 def sc_chassis(chassis_floorplan_start_y):
     chassis_loader = PixaImageLoader(mask=(0, 226, 255))
     chassis_path = os.path.join(currentdir, 'input','trucks_chassis', 'tandem.png')

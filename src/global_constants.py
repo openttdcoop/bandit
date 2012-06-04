@@ -20,7 +20,7 @@ standard_class_refits = {
   }
 }
 
-#body_types
+# body_types
 class BoxBT:
     def __init__(self, colourset_id):
         self.gestalt_id = 'body_box'
@@ -105,7 +105,7 @@ body_type_spritesheet_y_offset_mapping = dict (
 )
 
 
-#map truck weight factors to extra_type_info
+# map truck weight factors to extra_type_info
 cab_weight_factors = dict (
     local         = 0.8,
     line_haul     = 1,
@@ -133,3 +133,29 @@ fifth_wheel_truck_type_num = truck_type_nums['fifth_wheel_truck']
 drawbar_truck_type_num     = truck_type_nums['drawbar_truck']
 
 fifth_wheel_truck_quota = 0.5 # constant representing proportion of capacity etc transferred to fifth wheel trucks from first trailer
+
+# provide a list of vehicles for which graphics should not be generated, but instead loaded from a file with same name as ID, in graphics dir
+# this can be useful when: graphics generation is not setup yet; graphics for a vehicle cannot be generated for reasons xyz
+vehicles_without_generated_graphics = (
+    'dragon_run_turnpike_special',
+    'fayette_speedwagon',
+    'hackler_AB',
+    'hackler_BB',
+    'hackler_CD',
+    'hackler_CJ',
+    'latour_LT86',
+    'latour_clipper',
+    'pocomoke_wallman',
+    'red_lake_cannonball',
+    'red_lake_general',
+    'red_lake_grizzly',
+    'reifsnider_281',
+    'reifsnider_352',
+    'rothrock_CBE',
+    'rothrock_R102',
+    'rothrock_R123',
+    'rothrock_rock_six',
+    'rothrock_super',
+    'wicomico_linkwood',
+    'wicomico_northlander',
+)

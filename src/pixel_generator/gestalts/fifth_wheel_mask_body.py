@@ -6,6 +6,7 @@ import common
 gestalt_id = 'fifth_wheel_mask_body'
 floorplan_filename = 'fifth_wheel_mask_body_floorplan.png'
 
+# for this case we just redraw the mask shape pixels in the same colour
 sc_passthrough = PixaSequenceCollection(
     sequences = {
         244 : PixaSequence(points = [(0, 0, 244),])
@@ -14,8 +15,7 @@ sc_passthrough = PixaSequenceCollection(
 
 
 def generate(filename):
-    gv = common.GestaltBodyVariation('body_fifth_wheel_mask-blue_mask-2_8.png')
-    #gv = common.GestaltBodyVariation(filename)
+    gv = common.GestaltBodyVariation(filename)
     floorplan = common.get_gestalt_floorplan(gv, floorplan_filename)
     spritesheet = common.make_spritesheet(floorplan, row_count=1)
 

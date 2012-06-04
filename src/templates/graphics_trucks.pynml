@@ -38,34 +38,3 @@ switch (FEAT_ROADVEHS, SELF, ${vehicle.id}_cargo_switch, cargo_type_in_veh) {
     </tal:build_cargo_mapping_repeat>
     return ${vehicle.id}_cargo_body_type_switch_${'DFLT'}; // handle the default case with a special cargo label
 }
-
-
-<!--! possibly deprecated
-<tal:graphics_for_trucks_with_cargo_bodies condition="vehicle.truck_type != 'fifth_wheel_truck'">
-    // cargo specific graphics for trucks that carry cargo on the lead vehicle
-    <tal:build_spritesets_spritegroups repeat="body_type global_constants.body_type_spritesheet_y_offset_mapping">
-    spriteset(${vehicle.id}_ss_cargo_${body_type}, "${vehicle.graphics_file}") {
-      spriteset_template_truck_16(0, ${global_constants.body_type_spritesheet_y_offset_mapping['box']})
-    }
-
-    spritegroup ${vehicle.id}_sg_cargo_${body_type} {
-        loaded:  [${vehicle.id}_ss_cargo_${body_type}];
-        loading: [${vehicle.id}_ss_cargo_${body_type}];
-    }
-    </tal:build_spritesets_spritegroups>
-
-    <tal:build_cargo_to_body_type_switches repeat="cargo vehicle.get_cargo_body_type_mappings()">
-    random_switch (FEAT_ROADVEHS, PARENT, ${vehicle.id}_cargo_body_type_switch_${cargo}) {
-        1: return ${vehicle.id}_sg_cargo_${'box'};
-    }
-    </tal:build_cargo_to_body_type_switches>
-
-    switch (FEAT_ROADVEHS, SELF, ${vehicle.id}_cargo_switch, cargo_type_in_veh) {
-        <tal:build_cargo_mapping_repeat repeat="cargo vehicle.get_cargo_body_type_mappings()">
-        ${cargo}: return ${vehicle.id}_cargo_body_type_switch_${cargo};
-        </tal:build_cargo_mapping_repeat>
-        return ${vehicle.id}_sg_cargo_box;
-    }
-
-</tal:graphics_for_trucks_with_cargo_bodies>
--->

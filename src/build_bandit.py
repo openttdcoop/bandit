@@ -74,7 +74,7 @@ class _GraphicsElements(object):
                     self.chassis,
                     str(self.length) + '_8',
                     'cab',
-                    'cc1', # ! hard-coded hack, no coloursets for cabs yet; colourset in use as 'mask-blue for body currently (could change).
+                    'cc1', # ! hard-coded hack, no coloursets for cabs yet (could change).
                     str(self.truck_cab_length) + '_8',
                     self.trailer_type_code,
                     self.body_gestalt_id,
@@ -115,8 +115,9 @@ def get_graphics_stuff(vehicle):
                 ge.trailer_type_code = vehicle.trailer_type_code
             if hasattr(vehicle, 'truck_cab_length'):
                 ge.truck_cab_length = vehicle.truck_cab_length
+            if hasattr(vehicle, 'chassis'):
+                ge.chassis = vehicle.chassis
 
-            ge.chassis = 'tandem' # ! specific to trucks only, needs limiting; should not be a hard-coded string, add to config file.
             ge.vehicle_id = vehicle.id
             ge.length = vehicle.length
             ge.num_load_states = body_type.num_load_states
@@ -173,6 +174,7 @@ class Truck(object):
         self.trailer_capacities = config_option_to_list_of_ints(config.get(id, 'trailer_capacities'))
         self.trailer_lengths = config_option_to_list_of_ints(config.get(id, 'trailer_lengths'))
         self.trailer_type_codes = config.get(id, 'trailer_type_codes').split('|')
+        self.chassis = 'tandem' # ! hard-coded; needs adding to config file
         self.buy_cost = self.get_buy_cost()
         self.run_cost_override = config.getfloat(id, 'run_cost_override')
         self.graphic_elements, self.cargo_graphics_mapping = get_graphics_stuff(self)

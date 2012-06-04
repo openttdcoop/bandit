@@ -1,12 +1,7 @@
 Pixa Todo
-- generate fifth wheel trucks (check the truck generator is capable of doing this before extending use elsewhere)  DONE
-- setup 1 truck to use the existing Hackler R comp sprites DONE
-- devise a set of over-rides to provide fallback (default) sprites for a subset of known trucks that don't have generated graphics yet
-- remove the hack to use Hackler R comp sprites (build_bandit.py)
-- remove the hack to hard code generation of 5_8 body sprites
 - extend use of truck sprites to account for different body types
 - fix the box and tipping bodies to the revised ~6px width
-
+- no coloursets for cabs - probably ok?
 
 
 

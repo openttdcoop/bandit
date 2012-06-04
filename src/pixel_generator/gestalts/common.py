@@ -66,23 +66,18 @@ class GestaltTrailerVariation:
 class GestaltTruckVariation:
     def __init__(self, filename):
         self.filename = filename.split('.png')[0]
-        """
         self._parts = self.filename.split('-')
-        self.chassis_type = self._parts[1]
-        """
-        #self.body_type = self._parts[2]
-        #self.body_type = 'body_box-cc1-5_8'
-        self.body_type = 'body_tipping_4px-cc1-5_8-bulk-corn_yellow'
-        self.body_type = 'body_flat-cc1-5_8-cargo_coils-grey_metal'
-        self.body_type = 'body_tank-silver-5_8'
-        #self.length = self._parts[4]
-        self.length = '7_8'
+        print self._parts
+        self.truck_model = self._parts[1]
+        self.chassis_type = self._parts[3]
+        self.length = self._parts[4]
+        self.cab_colour = self._parts[6]
+        self.cab_length = self._parts[7]
+        self.body_type = self._parts[8]
         self.floorplan_start_y = floorplan_start_y_per_length[self.length]
-        """
-        self.floorplan_filename = os.path.join('chassis_trailers', self.chassis_type + '.png')
-        """
-        #self.body_path = os.path.join(INTERMEDIATES_PATH, 'body_' + filename.split('body_')[1])
-        self.body_path = os.path.join(INTERMEDIATES_PATH, self.body_type + '.png')
+
+        self.floorplan_filename = os.path.join('trucks_chassis', self.chassis_type + '.png')
+        self.body_path = os.path.join(INTERMEDIATES_PATH, 'body_' + filename.split('body_')[1])
 
         # use partial matching as body_type strings can include extra gestalt subtype information
         for i in load_state_ranges:

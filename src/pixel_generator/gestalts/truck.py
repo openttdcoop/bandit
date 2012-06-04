@@ -10,13 +10,14 @@ gestalt_id = 'truck'
 # constants
 FLOORPLAN_START_Y = 10
 
-# points
-cab_loader = PixaImageLoader(mask=(0,255))
-cab_sprites = {}
-for spritenum in ('1', '2', '3', '4', '5', '6', '7', '8'):
-    filename = spritenum + '.png'
-    cab_path = os.path.join(currentdir, 'input','cabs', 'hackler_R', filename)
-    cab_sprites[spritenum] = cab_loader.make_points(cab_path, origin=(0,0))
+def make_cab_points(gv):
+    cab_loader = PixaImageLoader(mask=(0,255))
+    cab_sprites = {}
+    for spritenum in ('1', '2', '3', '4', '5', '6', '7', '8'):
+        filename = spritenum + '.png'
+        cab_path = os.path.join(currentdir, 'input','cabs', gv.truck_model, filename)
+        cab_sprites[spritenum] = cab_loader.make_points(cab_path, origin=(0,0))
+    return cab_sprites
 
 # sequence collections
 def sc_chassis(chassis_floorplan_start_y):
@@ -32,7 +33,7 @@ def sc_chassis(chassis_floorplan_start_y):
         sequences = {226: PixaSequence(points = chassis, transforms = [PixaShiftXY(0, -9)])}
     )
 
-def sc_cab_farside(truck_length):
+def sc_cab_farside(cab_sprites, truck_length):
     return PixaSequenceCollection(
         sequences = {
             191: PixaSequence(points = cab_sprites['1'], transforms = [PixaShiftXY(*common.get_cab_offsets(1, truck_length))]),
@@ -43,7 +44,7 @@ def sc_cab_farside(truck_length):
         }
     )
 
-def sc_cab_nearside(truck_length):
+def sc_cab_nearside(cab_sprites, truck_length):
     return PixaSequenceCollection(
         sequences = {
             188: PixaSequence(points = cab_sprites['4'], transforms = [PixaShiftXY(*common.get_cab_offsets(4, truck_length))]),
@@ -85,6 +86,7 @@ def generate(filename):
     gv = common.GestaltTruckVariation(filename)
     floorplan = common.get_gestalt_floorplan(gv, gv.floorplan_filename)
     spritesheet = common.make_spritesheet(floorplan, row_count=gv.num_load_states)
+    cab_sprites = make_cab_points(gv)
 
     spriterows = []
     #colourset = coloursets[gv.colourset_id] # coloursets not used; transforming cab colour would require additional render pass selectively replacing 1cc
@@ -93,9 +95,9 @@ def generate(filename):
         spriterow = {'height' : common.SPRITEROW_HEIGHT, 'floorplan' : floorplan}
         # add n render passes to the spriterow (list controls render order, index 0 = first pass)
         spriterow['render_passes'] = [
-            {'seq': sc_cab_farside(gv.length), 'colourset' : None},
+            {'seq': sc_cab_farside(cab_sprites, gv.length), 'colourset' : None},
             {'seq': sc_body(gv.body_path, row_num, gv.length), 'colourset': None},
-            {'seq': sc_cab_nearside(gv.length), 'colourset' : None},
+            {'seq': sc_cab_nearside(cab_sprites, gv.length), 'colourset' : None},
         ]
         spriterows.append(spriterow)
 

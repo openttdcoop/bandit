@@ -67,7 +67,6 @@ class GestaltTruckVariation:
     def __init__(self, filename):
         self.filename = filename.split('.png')[0]
         self._parts = self.filename.split('-')
-        print self._parts
         self.truck_model = self._parts[1]
         self.chassis_type = self._parts[3]
         self.length = self._parts[4]
@@ -75,7 +74,6 @@ class GestaltTruckVariation:
         self.cab_length = self._parts[7]
         self.body_type = self._parts[8]
         self.floorplan_start_y = floorplan_start_y_per_length[self.length]
-
         self.floorplan_filename = os.path.join('trucks_chassis', self.chassis_type + '.png')
         self.body_path = os.path.join(INTERMEDIATES_PATH, 'body_' + filename.split('body_')[1])
 

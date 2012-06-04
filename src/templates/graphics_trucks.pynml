@@ -1,23 +1,46 @@
 // handle graphics
 
-<tal:graphics_for_trucks_without_cargo_bodies condition="vehicle.truck_type == 'fifth_wheel_truck'">
-    // some truck types don't carry cargo on lead vehicle (e.g. fifth wheel trucks), so don't need cargo specific graphics
-    spriteset(${vehicle.id}_ss, "${vehicle.graphics_file}") {
-      spriteset_template_truck_16(0, 10) // (nml provides a way to add spriteset templates - search the project to find where they are defined)
+<tal:build_graphics repeat="graphic_id vehicle.graphic_elements">
+    <tal:build_spritesets define="filename generated_images_path + vehicle.graphic_elements[graphic_id].construct_filename('-', 'truck') + '.png'"
+                          repeat="load_state range(vehicle.graphic_elements[graphic_id].num_load_states)"
+    >
+    spriteset(${vehicle.id}_ss_${graphic_id}_${load_state}, "${filename}") {
+      spriteset_template_truck_28(0, ${10 + (40 * load_state)})
     }
+    </tal:build_spritesets>
 
-    spritegroup ${vehicle.id}_sg {
-        loaded:  ${vehicle.id}_ss;
-        loading: ${vehicle.id}_ss;
+    spritegroup ${vehicle.id}_sg_${graphic_id} {
+        loaded:  [
+            <tal:build_load_states repeat="load_state range(vehicle.graphic_elements[graphic_id].num_load_states)">
+            ${vehicle.id}_ss_${graphic_id}_${load_state},
+            </tal:build_load_states>
+        ];
+        loading: [
+            <tal:build_load_states repeat="load_state range(vehicle.graphic_elements[graphic_id].num_load_states)">
+            ${vehicle.id}_ss_${graphic_id}_${load_state},
+            </tal:build_load_states>
+        ];
     }
-    // this switch just a stub in this case - graphics chain needs to go to a switch for other more complex cases
-    switch (FEAT_ROADVEHS, SELF, ${vehicle.id}_cargo_switch, 0) {
-        return ${vehicle.id}_sg;
+</tal:build_graphics>
+
+<tal:build_random_switches repeat="cargo vehicle.get_cargo_body_type_mappings()">
+    random_switch (FEAT_ROADVEHS, PARENT, ${vehicle.id}_cargo_body_type_switch_${cargo}) {
+        <tal:build_graphics repeat="cargo_graphic vehicle.cargo_graphics_mapping[cargo]">
+        1: return ${vehicle.id}_sg_${cargo_graphic};
+        </tal:build_graphics>
     }
+</tal:build_random_switches>
 
-</tal:graphics_for_trucks_without_cargo_bodies>
+
+switch (FEAT_ROADVEHS, SELF, ${vehicle.id}_cargo_switch, cargo_type_in_veh) {
+    <tal:build_cargo_mapping_repeat repeat="cargo vehicle.get_cargo_body_type_mappings()">
+    ${cargo}: return ${vehicle.id}_cargo_body_type_switch_${cargo};
+    </tal:build_cargo_mapping_repeat>
+    return ${vehicle.id}_cargo_body_type_switch_${'DFLT'}; // handle the default case with a special cargo label
+}
 
 
+<!--! possibly deprecated
 <tal:graphics_for_trucks_with_cargo_bodies condition="vehicle.truck_type != 'fifth_wheel_truck'">
     // cargo specific graphics for trucks that carry cargo on the lead vehicle
     <tal:build_spritesets_spritegroups repeat="body_type global_constants.body_type_spritesheet_y_offset_mapping">
@@ -31,17 +54,18 @@
     }
     </tal:build_spritesets_spritegroups>
 
-    <tal:build_cargo_to_body_type_switches repeat="cargo global_constants.cargo_body_type_mappings">
+    <tal:build_cargo_to_body_type_switches repeat="cargo vehicle.get_cargo_body_type_mappings()">
     random_switch (FEAT_ROADVEHS, PARENT, ${vehicle.id}_cargo_body_type_switch_${cargo}) {
         1: return ${vehicle.id}_sg_cargo_${'box'};
     }
     </tal:build_cargo_to_body_type_switches>
 
     switch (FEAT_ROADVEHS, SELF, ${vehicle.id}_cargo_switch, cargo_type_in_veh) {
-        <tal:build_cargo_mapping_repeat repeat="cargo global_constants.cargo_body_type_mappings">
+        <tal:build_cargo_mapping_repeat repeat="cargo vehicle.get_cargo_body_type_mappings()">
         ${cargo}: return ${vehicle.id}_cargo_body_type_switch_${cargo};
         </tal:build_cargo_mapping_repeat>
         return ${vehicle.id}_sg_cargo_box;
     }
 
 </tal:graphics_for_trucks_with_cargo_bodies>
+-->

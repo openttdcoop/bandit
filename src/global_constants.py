@@ -21,6 +21,13 @@ standard_class_refits = {
 }
 
 # body_types
+class FifthWheelBT:
+    def __init__(self, colourset_id):
+        self.gestalt_id = 'body_fifth_wheel'
+        self.colourset_id = colourset_id
+        self.cargo = ''
+        self.num_load_states = 1
+
 class BoxBT:
     def __init__(self, colourset_id):
         self.gestalt_id = 'body_box'
@@ -52,8 +59,11 @@ class TippingBT:
 
 
 # use the dict constructor here, normally I don't, but it makes adding cargos faster (no string quotes needed).
-# design note: small variations probably better than large ones, e.g. ['flat_large_crates','flat_small_crates'] rather than ['flat','tanker']
+# design note: small variations probably better than large ones, e.g. ['flat_large_crates','flat_small_crates'] rather than ['flat','tanker'].
 # !! FlatBT('coils','white') indicates unfinished cargo support (except for paper)
+fifth_wheel_body_type_mapping = dict(
+    DFLT = [FifthWheelBT('blue_mask')], # special cases smell bad, but this is how I could think of to do it.
+)
 cargo_body_type_mappings = dict(
     AORE = [FlatBT('coils','white')],
     BDMT = [FlatBT('coils','white')],
@@ -63,6 +73,7 @@ cargo_body_type_mappings = dict(
     COAL = [TippingBT('4px','black')],
     COPR = [FlatBT('coils','white')],
     CORE = [FlatBT('coils','white')],
+    DFLT = [BoxBT('cc1')],
     DYES = [TankBT('cc2')],
     ENSP = [FlatBT('coils','white')],
     FICR = [FlatBT('coils','white')],
@@ -134,9 +145,8 @@ drawbar_truck_type_num     = truck_type_nums['drawbar_truck']
 
 fifth_wheel_truck_quota = 0.5 # constant representing proportion of capacity etc transferred to fifth wheel trucks from first trailer
 
-# provide a list of vehicles for which graphics should not be generated, but instead loaded from a file with same name as ID, in graphics dir
-# this can be useful when: graphics generation is not setup yet; graphics for a vehicle cannot be generated for reasons xyz
-vehicles_without_generated_graphics = (
+# provide a private method for turning vehicles off during development without modifying the config file. Bound to go wrong. :P
+vehicles_turned_off = (
     'dragon_run_turnpike_special',
     'fayette_speedwagon',
     'hackler_AB',

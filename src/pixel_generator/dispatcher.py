@@ -11,6 +11,7 @@ from gestalts import box_body
 from gestalts import flat_body
 from gestalts import tank_body
 from gestalts import tipping_body
+from gestalts import fifth_wheel_mask_body
 
 from gestalts import trailer
 
@@ -21,6 +22,7 @@ gestalt_patterns = {
     'body_flat': flat_body,
     'body_tank': tank_body,
     'body_tipping': tipping_body,
+    'body_fifth_wheel': fifth_wheel_mask_body,
     'trailer': trailer,
 }
 

@@ -60,22 +60,28 @@ class _GraphicsElements(object):
         """
         if vehicle_type == 'trailer':
             raw = ['trailer',
-                   self.trailer_type_code,
-                   self.body_gestalt_id,
-                   self.colourset_id,
-                   str(self.length) + '_8',
-                   self.cargo,
-                   self.cargo_colourset_id]
+                    self.trailer_type_code,
+                    self.body_gestalt_id,
+                    self.colourset_id,
+                    str(self.length) + '_8',
+                    self.cargo,
+                    self.cargo_colourset_id]
 
-#truck-hackler_R-chassis-tandem-4_8-cab-cc1-2_8-body_fifth_wheel_mask-blue_mask-2_8
         if vehicle_type == 'truck':
             raw = ['truck',
-                   self.trailer_type_code,
-                   self.body_gestalt_id,
-                   self.colourset_id,
-                   str(self.length) + '_8',
-                   self.cargo,
-                   self.cargo_colourset_id]
+                    self.vehicle_id,
+                    'chassis',
+                    self.chassis,
+                    str(self.length) + '_8',
+                    'cab',
+                    'cc1', # ! hard-coded hack, no coloursets for cabs yet; colourset in use as 'mask-blue for body currently (could change).
+                    str(self.truck_cab_length) + '_8',
+                    self.trailer_type_code,
+                    self.body_gestalt_id,
+                    self.colourset_id,
+                    str(self.length - self.truck_cab_length) + '_8',
+                    self.cargo,
+                    self.cargo_colourset_id]
         # if no valid vehicle type provided, let's just run into an error and raise it, don't bother guarding for that here
 
         clean = []
@@ -90,12 +96,12 @@ def get_graphics_stuff(vehicle):
 
     graphic_elements = {}
     cargo_graphics_mapping = {}
-    vehicle_type = vehicle.__class__.__name__.lower() # might be overkill; could probably safely have hard-coded as str on obj.
+    cargo_body_type_mappings = vehicle.get_cargo_body_type_mappings()
 
-    for cargo in global_constants.cargo_body_type_mappings:
+    for cargo in cargo_body_type_mappings:
         cargo_graphics_mapping[cargo] = []
 
-        for body_type in global_constants.cargo_body_type_mappings[cargo]:
+        for body_type in cargo_body_type_mappings[cargo]:
             ge = _GraphicsElements()
             ge.body_gestalt_id = body_type.gestalt_id
 
@@ -107,10 +113,14 @@ def get_graphics_stuff(vehicle):
                 ge.cargo_colourset_id = body_type.cargo_colourset_id
             if hasattr(vehicle, 'trailer_type_code'):
                 ge.trailer_type_code = vehicle.trailer_type_code
+            if hasattr(vehicle, 'truck_cab_length'):
+                ge.truck_cab_length = vehicle.truck_cab_length
 
+            ge.chassis = 'tandem' # ! specific to trucks only, needs limiting; should not be a hard-coded string, add to config file.
+            ge.vehicle_id = vehicle.id
             ge.length = vehicle.length
             ge.num_load_states = body_type.num_load_states
-            ge_id = ge.construct_filename('_', vehicle_type)
+            ge_id = ge.construct_filename('_', vehicle.vehicle_type)
             graphic_elements[ge_id] = ge
             cargo_graphics_mapping[cargo].append(ge_id)
     return (graphic_elements, cargo_graphics_mapping)
@@ -119,14 +129,16 @@ def get_graphics_stuff(vehicle):
 class Trailer(object):
     """Base class for trailers"""
     def __init__(self, i, truck):
+        self.vehicle_type = 'trailer'
         self.id = truck.id + '_trailer_' + str(i+1)
         self.trailer_capacity = int(truck.trailer_capacities[i])
         self.length = 7 #int(truck.trailer_lengths[i]) # !! commented whilst developing
         self.numeric_id = truck.numeric_id + i + 1
         self.trailer_type_code = truck.trailer_type_codes[i]
         self.graphic_elements, self.cargo_graphics_mapping = get_graphics_stuff(self)
-        self.default_graphics = global_constants.generated_images_path + 'trailer-0_2-body_box-cc1-7_8.png'
 
+    def get_cargo_body_type_mappings(self):
+        return global_constants.cargo_body_type_mappings
 
     def render(self, truck):
         template = templates['trailer_template.pynml']
@@ -136,6 +148,7 @@ class Trailer(object):
 class Truck(object):
     """Base class for all types of trucks"""
     def __init__(self, id):
+        self.vehicle_type = 'truck'
         self.id = id
 
         #setup properties for this vehicle
@@ -156,19 +169,13 @@ class Truck(object):
         self.smoke_offset = config.getint(id, 'smoke_offset')
         self.num_trailers = config.getint(id, 'num_trailers')
         self.truck_capacity = config.getint(id, 'truck_capacity')
-        self.truck_cab_length, self.truck_total_length = [int(i) for i in config.get(id, 'truck_length_cab_total').split('|')]
+        self.truck_cab_length, self.length = [int(i) for i in config.get(id, 'truck_length_cab_total').split('|')]
         self.trailer_capacities = config_option_to_list_of_ints(config.get(id, 'trailer_capacities'))
         self.trailer_lengths = config_option_to_list_of_ints(config.get(id, 'trailer_lengths'))
         self.trailer_type_codes = config.get(id, 'trailer_type_codes').split('|')
         self.buy_cost = self.get_buy_cost()
         self.run_cost_override = config.getfloat(id, 'run_cost_override')
-        if self.id in global_constants.vehicles_without_generated_graphics:
-            self.graphics_file = global_constants.graphics_path + self.id + '.png'
-        else:
-            #self.graphic_elements, self.cargo_graphics_mapping = get_graphics_stuff(self) # haven't figured out how to use this for trucks yet
-            #self.graphics_file = global_constants.generated_images_path + 'truck-hackler_R-chassis-tandem-7_8-cab-cc1-2_8-body_flat-cc1-5_8-cargo_coils-grey_metal.png'
-            self.graphics_file = global_constants.generated_images_path + 'truck-hackler_R-chassis-tandem-4_8-cab-cc1-2_8-body_fifth_wheel_mask-blue_mask-2_8.png'
-
+        self.graphic_elements, self.cargo_graphics_mapping = get_graphics_stuff(self)
 
         # fifth wheel trucks need capacities modifying
         if self.truck_type == 'fifth_wheel_truck':
@@ -209,12 +216,12 @@ class Truck(object):
         if self.truck_type == 'fifth_wheel_truck':
             return self.truck_cab_length
         else:
-            return self.truck_total_length
+            return self.length
 
     def get_consist_weight(self, num_trailers=0):
         # get the sum of unladen weight of truck and trailers; use num_trailers to exclude invisible trailers according to refit option
         cab_weight = self.truck_cab_length * global_constants.cab_weight_factors[self.extra_type_info]
-        body_chassis_weight = (self.truck_total_length - self.truck_cab_length) * global_constants.chassis_body_weight_factors[self.extra_type_info]
+        body_chassis_weight = (self.length - self.truck_cab_length) * global_constants.chassis_body_weight_factors[self.extra_type_info]
         weight = cab_weight + body_chassis_weight
         for i in range(num_trailers):
             weight = weight + (self.trailer_lengths[i] * global_constants.chassis_body_weight_factors[self.extra_type_info])
@@ -239,6 +246,12 @@ class Truck(object):
         total_te = 3 * truck_weight
         adjusted_te_coefficient = 255 * 0.1 * ((1.0 * total_te) / total_weight)
         return int(adjusted_te_coefficient)
+
+    def get_cargo_body_type_mappings(self):
+        if self.truck_type == 'fifth_wheel_truck':
+            return global_constants.fifth_wheel_body_type_mapping
+        else:
+            return global_constants.cargo_body_type_mappings
 
     @classmethod
     def make_buy_menu_trailer_tree(cls,items):
@@ -298,8 +311,10 @@ class Truck(object):
 
 
 #compose vehicle objects into a list; order is not significant as numeric identifiers are used to build vehicles
-vehicles = [Truck(id=i) for i in config.sections()]
-
+vehicles = []
+for i in config.sections():
+    if i not in global_constants.vehicles_turned_off:
+        vehicles.append(Truck(id=i))
 
 #compile a single final nml file for the grf
 master_template = templates['bandit.pynml']

@@ -6,7 +6,6 @@ import os.path
 currentdir = os.curdir
 
 gestalt_id = 'truck'
-floorplan_filename = 'truck_2_8_cab_floorplan.png'
 
 # constants
 FLOORPLAN_START_Y = 10
@@ -90,7 +89,7 @@ def sc_body(body_path, row_num, truck_length):
 
 def generate(filename):
     gv = common.GestaltTruckVariation(filename)
-    floorplan = common.get_gestalt_floorplan(gv, floorplan_filename)
+    floorplan = common.get_gestalt_floorplan(gv, gv.floorplan_filename)
     spritesheet = common.make_spritesheet(floorplan, row_count=gv.num_load_states)
 
     spriterows = []
@@ -100,8 +99,6 @@ def generate(filename):
         spriterow = {'height' : common.SPRITEROW_HEIGHT, 'floorplan' : floorplan}
         # add n render passes to the spriterow (list controls render order, index 0 = first pass)
         spriterow['render_passes'] = [
-            {'seq': sc_mask_out_template_guides, 'colourset' : None},
-            {'seq': sc_chassis(gv.floorplan_start_y), 'colourset' : None},
             {'seq': sc_cab_farside(gv.length), 'colourset' : None},
             {'seq': sc_body(gv.body_path, row_num, gv.length), 'colourset': None},
             {'seq': sc_cab_nearside(gv.length), 'colourset' : None},

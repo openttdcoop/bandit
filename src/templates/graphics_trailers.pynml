@@ -28,7 +28,7 @@ spritegroup ${trailer.id}_sg_default_box {
 
 
 <tal:build_graphics repeat="graphic_id trailer.graphic_elements">
-    <tal:build_spritesets define="filename generated_images_path + trailer.graphic_elements[graphic_id].construct_filename('-') + '.png'"
+    <tal:build_spritesets define="filename generated_images_path + trailer.graphic_elements[graphic_id].construct_filename('-', 'trailer') + '.png'"
                           repeat="load_state range(trailer.graphic_elements[graphic_id].num_load_states)"
     >
     spriteset(${trailer.id}_ss_${graphic_id}_${load_state}, "${filename}") {

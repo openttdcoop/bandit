@@ -46,25 +46,38 @@ else: # provide some defaults so templates don't explode when testing python scr
 
 class _GraphicsElements(object):
     def __init__(self):
-        self.gestalt_id = ''
+        self.body_gestalt_id = ''
         self.colourset_id = 'cc1'
         self.length = ''
         self.trailer_type_code = ''
         self.cargo = None
         self.cargo_colourset_id = None
 
-    def construct_filename(self, separator):
+    def construct_filename(self, separator, vehicle_type):
         """
         Simple filename maker; will filter out attributes that have no meaningful value.
         Supports separator param because pixel generation uses '-', but nml won't allow '-' as identifier.
         """
-        raw = ['trailer',
-               self.trailer_type_code,
-               self.gestalt_id,
-               self.colourset_id,
-               str(self.length) + '_8',
-               self.cargo,
-               self.cargo_colourset_id]
+        if vehicle_type == 'trailer':
+            raw = ['trailer',
+                   self.trailer_type_code,
+                   self.body_gestalt_id,
+                   self.colourset_id,
+                   str(self.length) + '_8',
+                   self.cargo,
+                   self.cargo_colourset_id]
+
+#truck-hackler_R-chassis-tandem-4_8-cab-cc1-2_8-body_fifth_wheel_mask-blue_mask-2_8
+        if vehicle_type == 'truck':
+            raw = ['truck',
+                   self.trailer_type_code,
+                   self.body_gestalt_id,
+                   self.colourset_id,
+                   str(self.length) + '_8',
+                   self.cargo,
+                   self.cargo_colourset_id]
+        # if no valid vehicle type provided, let's just run into an error and raise it, don't bother guarding for that here
+
         clean = []
         for i in raw:
             if i is not None and i != '':
@@ -74,17 +87,17 @@ class _GraphicsElements(object):
 
 def get_graphics_stuff(vehicle):
     """ Returns a set of all the unique body types required, prevents duplication when creating spritesets/groups. """
-    # !! specific to trailers currently.  Can be made generic to trucks when needed (by passing in the trailer/truck specific stuff)
 
     graphic_elements = {}
     cargo_graphics_mapping = {}
+    vehicle_type = vehicle.__class__.__name__.lower() # might be overkill; could probably safely have hard-coded as str on obj.
 
     for cargo in global_constants.cargo_body_type_mappings:
         cargo_graphics_mapping[cargo] = []
 
         for body_type in global_constants.cargo_body_type_mappings[cargo]:
             ge = _GraphicsElements()
-            ge.gestalt_id = body_type.gestalt_id
+            ge.body_gestalt_id = body_type.gestalt_id
 
             if hasattr(body_type, 'cargo'):
                 ge.cargo = body_type.cargo
@@ -92,11 +105,12 @@ def get_graphics_stuff(vehicle):
                 ge.colourset_id = body_type.colourset_id
             if hasattr(body_type, 'cargo_colourset_id'):
                 ge.cargo_colourset_id = body_type.cargo_colourset_id
+            if hasattr(vehicle, 'trailer_type_code'):
+                ge.trailer_type_code = vehicle.trailer_type_code
 
-            ge.length = vehicle.trailer_length
-            ge.trailer_type_code = vehicle.trailer_type_code
+            ge.length = vehicle.length
             ge.num_load_states = body_type.num_load_states
-            ge_id = ge.construct_filename('_')
+            ge_id = ge.construct_filename('_', vehicle_type)
             graphic_elements[ge_id] = ge
             cargo_graphics_mapping[cargo].append(ge_id)
     return (graphic_elements, cargo_graphics_mapping)
@@ -107,7 +121,7 @@ class Trailer(object):
     def __init__(self, i, truck):
         self.id = truck.id + '_trailer_' + str(i+1)
         self.trailer_capacity = int(truck.trailer_capacities[i])
-        self.trailer_length = 7 #int(truck.trailer_lengths[i]) # !! commented whilst developing
+        self.length = 7 #int(truck.trailer_lengths[i]) # !! commented whilst developing
         self.numeric_id = truck.numeric_id + i + 1
         self.trailer_type_code = truck.trailer_type_codes[i]
         self.graphic_elements, self.cargo_graphics_mapping = get_graphics_stuff(self)
@@ -151,6 +165,7 @@ class Truck(object):
         if self.id in global_constants.vehicles_without_generated_graphics:
             self.graphics_file = global_constants.graphics_path + self.id + '.png'
         else:
+            #self.graphic_elements, self.cargo_graphics_mapping = get_graphics_stuff(self) # haven't figured out how to use this for trucks yet
             #self.graphics_file = global_constants.generated_images_path + 'truck-hackler_R-chassis-tandem-7_8-cab-cc1-2_8-body_flat-cc1-5_8-cargo_coils-grey_metal.png'
             self.graphics_file = global_constants.generated_images_path + 'truck-hackler_R-chassis-tandem-4_8-cab-cc1-2_8-body_fifth_wheel_mask-blue_mask-2_8.png'
 

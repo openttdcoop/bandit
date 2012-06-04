@@ -193,12 +193,14 @@ standard_sprite_crops = {
 # x, y tuples of offsets for each cab angle; origin for each angle is bottom left corner of spritesheet blue box for that angle.
 # length is truck total length, not cab length
 cab_offsets = {
+    '8_8': ((1, -25), (13, -22), (26, -16), (13, -16), (1, -16), (2, -16), (2, -16), (2, -22)), # unchecked, may be wrong
     '7_8': ((1, -25), (13, -22), (26, -16), (13, -16), (1, -16), (2, -16), (2, -16), (2, -22)),
     '4_8': ((1, -25), (13, -22), (26, -16), (13, -16), (1, -16), (2, -16), (2, -16), (2, -22)), # unchecked, may be wrong
 }
 # x, y tuples of offsets for each body angle when compositing to trucks (unlikely to be used for trailers).
 # length is truck total length, not body length
 truck_body_offsets = {
+    '8_8': ((0, -22), (-4, -27), (-8, -28), (-4, -31), (0, -31), (4, -31), (8, -28), (4, -27)), # unchecked, may be wrong
     '7_8': ((0, -22), (-4, -27), (-8, -28), (-4, -31), (0, -31), (4, -31), (8, -28), (4, -27)),
     '4_8': ((0, -22), (-4, -27), (-8, -28), (-4, -31), (0, -31), (4, -31), (8, -28), (4, -27)), # unchecked, may be wrong
 }

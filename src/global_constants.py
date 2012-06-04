@@ -160,7 +160,6 @@ vehicles_turned_off = (
     'red_lake_general',
     'red_lake_grizzly',
     'reifsnider_281',
-    'reifsnider_352',
     'rothrock_CBE',
     'rothrock_R102',
     'rothrock_R123',

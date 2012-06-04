@@ -2,6 +2,7 @@ Pixa Todo
 - extend use of truck sprites to account for different body types
 - fix the box and tipping bodies to the revised ~6px width
 - no coloursets for cabs - probably ok?
+- set correct length on Reifsnider 352
 
 
 

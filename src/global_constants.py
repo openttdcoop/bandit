@@ -147,7 +147,6 @@ fifth_wheel_truck_quota = 0.5 # constant representing proportion of capacity etc
 
 # provide a private method for turning vehicles off during development without modifying the config file. Bound to go wrong. :P
 vehicles_turned_off = (
-    'dragon_run_turnpike_special',
     'fayette_speedwagon',
     'hackler_AB',
     'hackler_BB',

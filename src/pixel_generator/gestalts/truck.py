@@ -68,7 +68,7 @@ def sc_body(body_path, row_num, truck_length):
         crop_box = (crop_start_x, crop_start_y, crop_end_x, crop_end_y)
         body_sprites[spritenum] = body_loader.make_points(body_path, crop_box, origin=(0, 0))
 
-    if 'body_fifth_wheel_mask' in body_path:
+    if 'body_fifth_wheel' in body_path:
         colour_shift = PixaShiftColour(244, 244, -244) # for masking out chassis on fifth wheel trucks
     else:
         colour_shift = None

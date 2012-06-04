@@ -149,6 +149,8 @@ class Truck(object):
         self.buy_cost = self.get_buy_cost()
         self.run_cost_override = config.getfloat(id, 'run_cost_override')
         self.graphics_file = global_constants.graphics_path + self.id + '.png'
+        if self.id == 'hackler_R':
+            self.graphics_file = global_constants.generated_images_path + 'truck-hackler_R-chassis-tandem-7_8-cab-cc1-2_8-body_flat-cc1-5_8-cargo_coils-grey_metal.png'
 
         # fifth wheel trucks need capacities modifying
         if self.truck_type == 'fifth_wheel_truck':

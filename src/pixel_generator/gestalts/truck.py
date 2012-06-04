@@ -93,7 +93,7 @@ def generate(filename):
     spritesheet = common.make_spritesheet(floorplan, row_count=gv.num_load_states)
 
     spriterows = []
-    #colourset = coloursets[gv.colourset_id]
+    #colourset = coloursets[gv.colourset_id] # coloursets not used; transforming cab colour would require additional render pass selectively replacing 1cc
     # spriterow holds data needed to render the row
     for row_num in range(gv.num_load_states):
         spriterow = {'height' : common.SPRITEROW_HEIGHT, 'floorplan' : floorplan}

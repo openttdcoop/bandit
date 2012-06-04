@@ -151,7 +151,7 @@ class Truck(object):
         self.graphics_file = global_constants.graphics_path + self.id + '.png'
         if self.id == 'hackler_R':
             #self.graphics_file = global_constants.generated_images_path + 'truck-hackler_R-chassis-tandem-7_8-cab-cc1-2_8-body_flat-cc1-5_8-cargo_coils-grey_metal.png'
-            self.graphics_file = global_constants.generated_images_path + 'truck-hackler_R-chassis-tandem-7_8-cab-cc1-2_8-body_fifth_wheel_mask-blue_mask-5_8.png'
+            self.graphics_file = global_constants.generated_images_path + 'truck-hackler_R-chassis-tandem-4_8-cab-cc1-2_8-body_fifth_wheel_mask-blue_mask-2_8.png'
 
         # fifth wheel trucks need capacities modifying
         if self.truck_type == 'fifth_wheel_truck':

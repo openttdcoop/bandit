@@ -14,7 +14,7 @@ sc_passthrough = PixaSequenceCollection(
 
 
 def generate(filename):
-    gv = common.GestaltBodyVariation('body_fifth_wheel_mask-blue_mask-5_8.png')
+    gv = common.GestaltBodyVariation('body_fifth_wheel_mask-blue_mask-2_8.png')
     #gv = common.GestaltBodyVariation(filename)
     floorplan = common.get_gestalt_floorplan(gv, floorplan_filename)
     spritesheet = common.make_spritesheet(floorplan, row_count=1)

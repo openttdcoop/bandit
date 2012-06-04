@@ -13,6 +13,7 @@ from gestalts import tank_body
 from gestalts import tipping_body
 from gestalts import fifth_wheel_mask_body
 
+from gestalts import truck
 from gestalts import trailer
 
 gestalt_patterns = {
@@ -24,6 +25,7 @@ gestalt_patterns = {
     'body_tipping': tipping_body,
     'body_fifth_wheel': fifth_wheel_mask_body,
     'trailer': trailer,
+    'truck': truck,
 }
 
 def dispatch(filename):

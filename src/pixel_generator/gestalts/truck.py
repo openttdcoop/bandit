@@ -87,6 +87,7 @@ def sc_body(body_path, row_num, truck_length):
 
 
 def generate(filename):
+    print filename
     gv = common.GestaltTruckVariation(filename)
     floorplan = common.get_gestalt_floorplan(gv, gv.floorplan_filename)
     spritesheet = common.make_spritesheet(floorplan, row_count=gv.num_load_states)

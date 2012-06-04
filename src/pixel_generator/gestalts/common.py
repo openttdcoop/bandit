@@ -175,7 +175,7 @@ load_state_ranges = {
     'body_flat': 5,
     'body_box': 1,
     'body_tank': 1,
-    'body_fifth_wheel_mask': 1,
+    'body_fifth_wheel': 1,
 }
 
 # standard crops to get individual angles from a sprite sheet

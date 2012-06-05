@@ -174,7 +174,7 @@ class Truck(object):
         self.trailer_capacities = config_option_to_list_of_ints(config.get(id, 'trailer_capacities'))
         self.trailer_lengths = config_option_to_list_of_ints(config.get(id, 'trailer_lengths'))
         self.trailer_type_codes = config.get(id, 'trailer_type_codes').split('|')
-        self.chassis = 'tandem' # ! hard-coded; needs adding to config file
+        self.chassis = config.get(id, 'chassis')
         self.buy_cost = self.get_buy_cost()
         self.run_cost_override = config.getfloat(id, 'run_cost_override')
         self.graphic_elements, self.cargo_graphics_mapping = get_graphics_stuff(self)

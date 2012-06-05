@@ -1,10 +1,12 @@
 Pixa Todo
 - extend use of truck sprites to account for different body types  DONE
 - fix the box and tipping bodies to the revised ~6px width  DONE for 5_8
-- no coloursets for cabs - probably ok?
-- set correct length on Reifsnider 352
-- extend CMS to handle truck chassis type
+- extend CMS to handle truck chassis type  DONE
+- no coloursets for cabs - probably ok?  YES
 - try a short 2 axle truck using the Hackler cab
+- \ / views of cabs may not be right length
+
+- set correct length on Reifsnider 352
 
 
 

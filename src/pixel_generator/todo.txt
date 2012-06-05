@@ -1,13 +1,7 @@
 Pixa Todo
-- extend use of truck sprites to account for different body types  DONE
-- fix the box and tipping bodies to the revised ~6px width  DONE for 5_8
-- extend CMS to handle truck chassis type  DONE
-- no coloursets for cabs - probably ok?  YES
-- try a short 2 axle truck using the Hackler cab
 - \ / views of cabs may not be right length
-
 - set correct length on Reifsnider 352
-
+- tipping body at sizes other than 4px (needs some kind of abstraction in the gestalt for the points; slice the points list shorter?  Multiple points lists?)
 
 
 

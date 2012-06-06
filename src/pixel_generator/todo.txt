@@ -1,5 +1,8 @@
 Pixa Todo
+- composite tarpaulin loads 
 - \ / views of cabs may not be right length
+- convert other drawn cabs to compositing, setup trucks to use them
+- draw a 1/8 cabover
 - set correct length on Reifsnider 352
 - tipping body at sizes other than 4px (needs some kind of abstraction in the gestalt for the points; slice the points list shorter?  Multiple points lists?)
 

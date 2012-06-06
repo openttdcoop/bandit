@@ -216,7 +216,11 @@ class Truck(object):
     def get_length(self):
         # returns the length to use in game
         if self.truck_type == 'fifth_wheel_truck':
-            return self.truck_cab_length
+            # truck length, cab length, length to use in game
+            truck_length_mapping = {
+                4: {2:4}
+            }
+            return truck_length_mapping[self.length][self.truck_cab_length]
         else:
             return self.length
 

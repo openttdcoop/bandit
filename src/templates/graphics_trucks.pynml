@@ -5,7 +5,7 @@
                           repeat="load_state range(vehicle.graphic_elements[graphic_id].num_load_states)"
     >
     spriteset(${vehicle.id}_ss_${graphic_id}_${load_state}, "${filename}") {
-      spriteset_template_truck_28(0, ${10 + (40 * load_state)})
+      spriteset_template_truck_${vehicle.length}(0, ${10 + (40 * load_state)})
     }
     </tal:build_spritesets>
 
@@ -22,6 +22,7 @@
         ];
     }
 </tal:build_graphics>
+
 
 <tal:build_random_switches repeat="cargo vehicle.get_cargo_body_type_mappings()">
     random_switch (FEAT_ROADVEHS, PARENT, ${vehicle.id}_cargo_body_type_switch_${cargo}) {

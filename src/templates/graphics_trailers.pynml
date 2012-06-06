@@ -1,6 +1,6 @@
 // handle graphics
 spriteset(${trailer.id}_ss_invisible, "src/graphics/empty_sprites.png") {
-  spriteset_template_truck_28(0, 20) // (nml provides a way to add spriteset templates - search the project to find where they are defined)
+  spriteset_template_truck_${trailer.length}(0, 20) // (nml provides a way to add spriteset templates - search the project to find where they are defined)
 }
 
 spritegroup ${trailer.id}_sg_invisible {
@@ -9,7 +9,7 @@ spritegroup ${trailer.id}_sg_invisible {
 }
 
 spriteset(${trailer.id}_ss_error, "src/graphics/empty_sprites.png") {
-  spriteset_template_truck_28(0, 20) // (nml provides a way to add spriteset templates - search the project to find where they are defined)
+  spriteset_template_truck_${trailer.length}(0, 20) // (nml provides a way to add spriteset templates - search the project to find where they are defined)
 }
 
 spritegroup ${trailer.id}_sg_error {
@@ -22,7 +22,7 @@ spritegroup ${trailer.id}_sg_error {
                           repeat="load_state range(trailer.graphic_elements[graphic_id].num_load_states)"
     >
     spriteset(${trailer.id}_ss_${graphic_id}_${load_state}, "${filename}") {
-      spriteset_template_truck_28(0, ${10 + (40 * load_state)})
+      spriteset_template_truck_${trailer.length}(0, ${10 + (40 * load_state)})
     }
     </tal:build_spritesets>
 

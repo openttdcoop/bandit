@@ -151,7 +151,6 @@ vehicles_turned_off = (
     'hackler_AB',
     'hackler_BB',
     'hackler_CD',
-    'hackler_CJ',
     'latour_LT86',
     'latour_clipper',
     'pocomoke_wallman',

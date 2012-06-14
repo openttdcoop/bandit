@@ -133,7 +133,7 @@ class Trailer(object):
         self.vehicle_type = 'trailer'
         self.id = truck.id + '_trailer_' + str(i+1)
         self.trailer_capacity = int(truck.trailer_capacities[i])
-        self.length = 7 #int(truck.trailer_lengths[i]) # !! commented whilst developing
+        self.length = int(truck.trailer_lengths[i])
         self.numeric_id = truck.numeric_id + i + 1
         self.trailer_type_code = truck.trailer_type_codes[i]
         self.graphic_elements, self.cargo_graphics_mapping = get_graphics_stuff(self)
@@ -213,8 +213,9 @@ class Truck(object):
             return int(0.5 * self.power)
         else:
             return self.run_cost_override
+
     def get_length(self):
-        # returns the length to use in game
+        # returns the length to use in game; may differ from length of graphics for some articulated trucks
         if self.truck_type == 'fifth_wheel_truck':
             return self.truck_cab_length
         else:
